@@ -1,4 +1,4 @@
-name: CI
+name: Yarn
 on: [push]
 jobs:
   build:
