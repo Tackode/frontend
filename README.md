@@ -1,4 +1,4 @@
-# CovidJournal ![CI](https://github.com/CovidJournal/frontend/workflows/CI/badge.svg)
+# CovidJournal ![CI](https://github.com/CovidJournal/frontend/workflows/Yarn/badge.svg)
 
 > CovidJournal frontend
 
