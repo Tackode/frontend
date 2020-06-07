@@ -1,10 +1,17 @@
+import dotenv from 'dotenv'
+
+// Prepare env variables
+dotenv.config()
+
+console.log('BACK_URL:', process.env.BACK_URL)
+
 export default {
   mode: 'universal',
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Covid Journal',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -52,7 +59,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.BASE_URL
+  },
   /*
    ** Build configuration
    */
