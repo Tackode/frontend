@@ -10,6 +10,10 @@ export default {
   /*
    ** Headers of the page
    */
+  server: {
+    host: process.env.HOST,
+    port: 4000
+  },
   head: {
     title: 'Covid Journal',
     meta: [
