@@ -32,8 +32,9 @@ export default class Login extends Vue {
   async handleSubmit(e: Event) {
     e.preventDefault()
 
+    let result: any
     try {
-      await this.$axios.$post('/login', {
+      result = await this.$axios.$post('/login', {
         email: this.email,
         providedDeviceId: null,
         role: 'Public',
@@ -49,6 +50,8 @@ export default class Login extends Vue {
       )
       return
     }
+
+    this.$store.dispatch('session/setSessionId', result.sessionId)
 
     this.$router.replace('/guest/check-ins')
   }
