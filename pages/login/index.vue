@@ -47,7 +47,10 @@ export default class Login extends Vue {
           "Une erreur réseau s'est produite pendant la connexion. Veuillez réessayer."
         )
       )
+      return
     }
+
+    this.$router.replace('/guest/check-ins')
   }
 }
 </script>
