@@ -9,6 +9,13 @@ const state = (): State => ({
 })
 
 const actions = {
+  init({ commit }: any) {
+    if (process.browser && window && window.localStorage) {
+      commit('SET_LOGIN', localStorage.getItem('login'))
+      commit('SET_TOKEN', localStorage.getItem('token'))
+    }
+  },
+
   setSession({ commit }: any, session: any) {
     commit('SET_LOGIN', session.login)
     commit('SET_TOKEN', session.token)

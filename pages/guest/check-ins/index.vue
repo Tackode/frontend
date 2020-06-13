@@ -3,7 +3,13 @@
     <h1 class="sr-only">All Check-ins</h1>
 
     <h2>My Check-ins</h2>
-    <b-table striped hover :fields="fields" :items="checkins">
+    <b-table
+      v-if="checkins.length > 0"
+      striped
+      hover
+      :fields="fields"
+      :items="checkins"
+    >
       <template v-slot:cell(organization)="data">
         {{ data.item.place.organization.name }}
       </template>
@@ -20,6 +26,10 @@
         {{ data.item.duration }}m
       </template>
     </b-table>
+    <p v-else>
+      You don't have any check-in for now. Scan a QR code in a public location
+      to start.
+    </p>
   </div>
 </template>
 
@@ -39,8 +49,8 @@ export default class GuestCheckIns extends Vue {
     try {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {
-          username: 'foo',
-          password: 'bar'
+          username: this.$store.getters['session/login'],
+          password: this.$store.getters['session/token']
         }
       })
     } catch (error) {

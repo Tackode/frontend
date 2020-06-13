@@ -26,6 +26,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    // Init store
+    this.$store.dispatch('session/init')
+  }
+}
+</script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',

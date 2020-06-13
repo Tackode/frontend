@@ -45,9 +45,8 @@ export default class Login extends Vue {
   async handleSubmit(e: Event) {
     e.preventDefault()
 
-    let result: any
     try {
-      result = await this.$axios.$post('/login', {
+      await this.$axios.$post('/login', {
         email: this.email,
         providedDeviceId: null,
         role: 'Public',
@@ -63,8 +62,6 @@ export default class Login extends Vue {
       )
       return
     }
-
-    this.$store.dispatch('session/setSessionId', result.sessionId)
 
     this.state = LoginState.CHECK_EMAIL
   }
