@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
-      <b-form>
+      <b-form v-if="profile">
         <b-form-group
           id="form-email"
           label="Email address:"
@@ -9,6 +9,7 @@
         >
           <b-form-input
             id="form-email"
+            v-model="profile.email"
             type="email"
             required
             placeholder="Your email:"
@@ -16,12 +17,13 @@
         </b-form-group>
 
         <b-form-group>
-          <b-form-checkbox-group id="form-save-email">
-            <b-form-checkbox value="save-email"
-              >Store my email address to be warned whenever a contact was
-              infected by the Covid-19.</b-form-checkbox
-            >
-          </b-form-checkbox-group>
+          <b-form-checkbox
+            v-model="saveEmail"
+            :value="true"
+            :unchecked-value="false"
+            >Store my email address to be warned whenever a contact was infected
+            by the Covid-19.</b-form-checkbox
+          >
         </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
@@ -33,9 +35,35 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { showError } from '../../../helpers/alerts'
+import { Profile } from '../../../types/Profile'
 
 @Component({})
-export default class GuestProfile extends Vue {}
+export default class GuestProfile extends Vue {
+  profile: Profile | null = null
+  saveEmail = false
+
+  async mounted() {
+    try {
+      this.profile = await this.$axios.$get('/profile', {
+        auth: {
+          username: this.$store.getters['session/login'],
+          password: this.$store.getters['session/token']
+        }
+      })
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Profil',
+        new Error(
+          "Une erreur réseau s'est produite pendant le chargement du profil. Veuillez réessayer."
+        )
+      )
+    }
+
+    this.saveEmail = this.profile?.email !== null
+  }
+}
 </script>
 
 <style></style>
