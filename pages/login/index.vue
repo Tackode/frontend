@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <b-form @submit="handleSubmit">
+    <b-form v-if="state === LoginState.IDLE" @submit="handleSubmit">
       <b-form-group
         label="Email address:"
         label-for="login-email"
@@ -17,6 +17,10 @@
 
       <b-button type="submit" variant="primary">Login</b-button>
     </b-form>
+    <p v-else-if="state === LoginState.CHECK_EMAIL">
+      Un email a été envoyé sur votre boîte. Veuillez cliquer sur le lien de
+      connexion dans le mail.
+    </p>
   </div>
 </template>
 
@@ -25,9 +29,18 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 
+enum LoginState {
+  IDLE,
+  CHECK_EMAIL
+}
+
 @Component
 export default class Login extends Vue {
+  state: LoginState = LoginState.IDLE
   email: string = ''
+
+  // Bind enum for Vue
+  LoginState = LoginState
 
   async handleSubmit(e: Event) {
     e.preventDefault()
@@ -53,7 +66,7 @@ export default class Login extends Vue {
 
     this.$store.dispatch('session/setSessionId', result.sessionId)
 
-    this.$router.replace('/guest/check-ins')
+    this.state = LoginState.CHECK_EMAIL
   }
 }
 </script>

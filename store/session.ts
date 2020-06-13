@@ -1,27 +1,37 @@
 interface State {
-  sessionId: string | null
+  login: string | null
+  token: string | null
 }
 
 const state = (): State => ({
-  sessionId: null
+  login: null,
+  token: null
 })
 
 const actions = {
-  setSessionId({ commit }: any, sessionId: string | null) {
-    commit('SET_SESSION_ID', sessionId)
+  setSession({ commit }: any, session: any) {
+    commit('SET_LOGIN', session.login)
+    commit('SET_TOKEN', session.token)
   }
 }
 
 const mutations = {
-  SET_SESSION_ID(state: State, sessionId: string | null) {
-    localStorage.setItem('sessionId', sessionId ?? '')
-    state.sessionId = sessionId
+  SET_LOGIN(state: State, login: string | null) {
+    localStorage.setItem('login', login ?? '')
+    state.login = login
+  },
+  SET_TOKEN(state: State, token: string | null) {
+    localStorage.setItem('token', token ?? '')
+    state.token = token
   }
 }
 
 const getters = {
-  sessionId(state: State): string | null {
-    return state.sessionId
+  login(state: State): string | null {
+    return state.login
+  },
+  token(state: State): string | null {
+    return state.token
   }
 }
 
