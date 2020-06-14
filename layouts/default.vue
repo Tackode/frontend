@@ -15,7 +15,7 @@
           <b-nav-text>Login as:</b-nav-text>
 
           <b-nav-item to="/login">User</b-nav-item>
-          <b-nav-item to="/login-professionnal">Professionnal</b-nav-item>
+          <b-nav-item to="/login-professional">Professional</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

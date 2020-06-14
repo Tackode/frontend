@@ -1,6 +1,6 @@
 <template>
   <div>
-    Professionnal Check ins
+    Professional Places
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component({})
-export default class ProfessionnalCheckIns extends Vue {}
+export default class ProfessionalPlaces extends Vue {}
 </script>
 
 <style></style>

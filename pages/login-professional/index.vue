@@ -11,7 +11,19 @@
           v-model="email"
           type="email"
           required
-          placeholder="Enter email"
+          placeholder="Enter your email"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        label="Organization name:"
+        label-for="login-organization-name"
+      >
+        <b-form-input
+          id="login-organization-name"
+          v-model="organizationName"
+          required
+          placeholder="Enter your organization name"
         ></b-form-input>
       </b-form-group>
 
@@ -35,9 +47,10 @@ enum LoginState {
 }
 
 @Component
-export default class Login extends Vue {
+export default class LoginProfessional extends Vue {
   state: LoginState = LoginState.IDLE
   email: string = ''
+  organizationName: string = ''
 
   // Bind enum for Vue
   LoginState = LoginState
@@ -48,8 +61,8 @@ export default class Login extends Vue {
     try {
       await this.$axios.$post('/login', {
         email: this.email,
-        role: 'Public',
-        organizationName: null
+        role: 'Professional',
+        organizationName: this.organizationName
       })
     } catch (error) {
       showError(
