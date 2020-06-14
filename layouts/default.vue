@@ -9,6 +9,10 @@
         <b-navbar-nav>
           <b-nav-item to="/guest/check-ins">My Check-ins</b-nav-item>
           <b-nav-item to="/guest/profile">My Profile</b-nav-item>
+          <b-nav-item to="/professional/places">Places</b-nav-item>
+          <b-nav-item to="/professional/infections">Infections</b-nav-item>
+          <b-nav-item to="/professional/check-ins">Check-Ins</b-nav-item>
+          <b-nav-item to="/professional/profile">Profile</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
