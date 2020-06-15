@@ -7,19 +7,28 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/guest/check-ins">My Check-ins</b-nav-item>
-          <b-nav-item to="/guest/profile">My Profile</b-nav-item>
-          <b-nav-item to="/professional/places">Places</b-nav-item>
-          <b-nav-item to="/professional/infections">Infections</b-nav-item>
-          <b-nav-item to="/professional/check-ins">Check-Ins</b-nav-item>
-          <b-nav-item to="/professional/profile">Profile</b-nav-item>
+          <template v-if="role === 'Public'">
+            <b-nav-item to="/guest/check-ins">My Check-ins</b-nav-item>
+            <b-nav-item to="/guest/profile">My Profile</b-nav-item>
+          </template>
+          <template v-if="role === 'Professional'">
+            <b-nav-item to="/professional/places">Places</b-nav-item>
+            <b-nav-item to="/professional/infections">Infections</b-nav-item>
+            <b-nav-item to="/professional/check-ins">Check-Ins</b-nav-item>
+            <b-nav-item to="/professional/profile">Profile</b-nav-item>
+          </template>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-text>Login as:</b-nav-text>
+          <template v-if="role">
+            <b-nav-item @click="logout">Logout</b-nav-item>
+          </template>
+          <template v-else>
+            <b-nav-text>Login as:</b-nav-text>
 
-          <b-nav-item to="/login">User</b-nav-item>
-          <b-nav-item to="/login-professional">Professional</b-nav-item>
+            <b-nav-item to="/login">User</b-nav-item>
+            <b-nav-item to="/login-professional">Professional</b-nav-item>
+          </template>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -30,11 +39,37 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class DefaultLayout extends Vue {
+  role: string | null = null
+
   created() {
     // Init store
     this.$store.dispatch('session/init')
+  }
+
+  mounted() {
+    this.role = this.$store.getters['session/role']
+
+    this.$store.watch(
+      (store) => store.session.role,
+      (role) => {
+        console.log('init role')
+        this.role = role
+      }
+    )
+  }
+
+  logout(e: Event) {
+    e.preventDefault()
+
+    this.$store.dispatch('session/logout')
+
+    this.$router.replace('/')
   }
 }
 </script>
