@@ -35,8 +35,6 @@
       <b-form-group label="Check-In Time:" label-for="check-in-time">
         <b-form-input
           id="check-in-time"
-          v-model="time"
-          required
           placeholder="Enter Check-In Time"
         ></b-form-input>
       </b-form-group>
@@ -45,7 +43,7 @@
         <b-form-input
           id="spent-in-place"
           type="number"
-          v-model="place.averageDuration"
+          v-model="duration"
           required
           placeholder="Enter Time Spent in Place"
         ></b-form-input>
@@ -87,16 +85,18 @@ import { showError } from '../../helpers/alerts'
 enum CheckinState {
   LOADING,
   LOADED,
-  ERROR
+  ERROR,
+  FINISH
 }
 
 @Component({})
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
+  duration: string = ''
   email: string = ''
-  organizationName: string = ''
-  time: string = ''
+  storeEmail = true
+
   CheckinState = CheckinState
 
   async mounted() {
@@ -121,11 +121,35 @@ export default class CheckIn extends Vue {
       )
       return
     }
+    this.duration = `${this.place?.averageDuration}`
     this.state = CheckinState.LOADED
   }
 
-  //
-  //
+  async handleSubmit(e: Event) {
+    e.preventDefault()
+
+    if (!this.place) {
+      return
+    }
+
+    try {
+      await this.$axios.$post('/checkin', {
+        placeId: this.place.id,
+        email: this.email,
+        storeEmail: this.storeEmail,
+        duration: parseInt(this.duration)
+      })
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Checkin',
+        new Error('A network error occured. Please, try again.')
+      )
+      return
+    }
+
+    this.state = CheckinState.FINISH
+  }
 }
 </script>
 
