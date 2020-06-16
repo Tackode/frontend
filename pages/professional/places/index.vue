@@ -20,6 +20,12 @@
       <template v-slot:cell(average_duration)="data">
         {{ data.item.averageDuration }}m
       </template>
+
+      <template v-slot:cell(action)="data">
+        <nuxt-link :to="'/professional/places/' + data.item.id"
+          >Show QRCode</nuxt-link
+        >
+      </template>
     </b-table>
     <p v-else>
       You don't have any places for now. Please, create a place to begin.

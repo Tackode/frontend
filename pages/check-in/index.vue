@@ -9,7 +9,7 @@
           id="organization-name"
           v-model="place.organization.name"
           readonly
-          :placeholder="this.info"
+          placeholder="Organization name"
         ></b-form-input>
       </b-form-group>
 

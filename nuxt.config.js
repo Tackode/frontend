@@ -38,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/formatters'],
+  plugins: ['~plugins/formatters', '~plugins/qrcode'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -57,7 +57,13 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    [
+      'nuxt-env',
+      {
+        keys: ['FRONT_URL']
+      }
+    ]
   ],
   /*
    ** Axios module configuration
