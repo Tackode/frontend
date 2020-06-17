@@ -55,9 +55,7 @@ export default class GuestProfile extends Vue {
       showError(
         this.$bvToast,
         'Profil',
-        new Error(
-          "Une erreur réseau s'est produite pendant le chargement du profil. Veuillez réessayer."
-        )
+        new Error('A network error has occurred. Please, try again.')
       )
     }
 

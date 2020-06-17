@@ -139,7 +139,7 @@ export default class ProfessionalPlaces extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error("Une erreur réseau s'est produite. Veuillez réessayer.")
+        new Error('A network error has occurred. Please, try again.')
       )
       return
     }

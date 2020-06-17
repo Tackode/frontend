@@ -45,7 +45,7 @@ export default class ProfessionalCheckIns extends Vue {
   checkins: Checkin[] = []
 
   async mounted() {
-    // Load checkins
+    //  Load checkins
     try {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {
@@ -57,9 +57,7 @@ export default class ProfessionalCheckIns extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(
-          "Une erreur réseau s'est produite pendant la connexion. Veuillez réessayer."
-        )
+        new Error('A network error has occurred. Please, try again.')
       )
     }
   }

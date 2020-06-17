@@ -21,7 +21,7 @@ export default class ValidateDevice extends Vue {
         this.$bvToast,
         'Connexion',
         new Error(
-          'Des paramètres sont manquant pour vous connecter. Veuillez cliquer sur le lien qui a été reçu dans le mail de connexion.'
+          'Parameters are missing to connect. Please, click on the link that was received in the login email.'
         )
       )
       return
@@ -36,9 +36,7 @@ export default class ValidateDevice extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(
-          "Une erreur réseau s'est produite pendant la connexion. Veuillez réessayer."
-        )
+        new Error('A network error has occurred. Please, try again.')
       )
       return
     }

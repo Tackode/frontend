@@ -57,9 +57,7 @@ export default class GuestCheckIns extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(
-          "Une erreur réseau s'est produite pendant la connexion. Veuillez réessayer."
-        )
+        new Error('A network error has occurred. Please, try again.')
       )
     }
   }
