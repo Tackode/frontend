@@ -13,12 +13,15 @@
       :fields="fields"
       :items="infections"
     >
-      <template v-slot:cell(infection_name)="data">
-        {{ data.item.name }}
+      <template v-slot:cell(infected_places)="data">
+        {{ getPlacesNameWithIds(data.item.placesIds) }}
       </template>
 
-      <template v-slot:cell(average_duration)="data">
-        {{ data.item.averageDuration }}m
+      <template v-slot:cell(start_date)="data">
+        {{ data.item.startTimestamp }}
+      </template>
+      <template v-slot:cell(end_date)="data">
+        {{ data.item.endTimestamp }}
       </template>
     </b-table>
 
@@ -81,24 +84,31 @@ import { Place } from '../../../types/Place'
 
 interface Infectionreation {
   placesIds: String[]
+  name: String[]
+  organization: string
   startDate: string
   startDateTime: string
+  startTimestamp: string
   endDate: string
   endDateTime: string
+  endTimestamp: string
 }
 
 @Component
 export default class ProfessionalInfections extends Vue {
   fields = ['infected_places', 'start_date', 'end_date']
   places: Place[] = []
-  infections: Place[] = []
-
+  infections: Infectionreation[] = []
   infectionCreation: Infectionreation = {
     placesIds: [],
+    name: [],
+    organization: '',
     startDate: '',
     startDateTime: '',
+    startTimestamp: '',
     endDate: '',
-    endDateTime: ''
+    endDateTime: '',
+    endTimestamp: ''
   }
 
   mounted() {
@@ -137,14 +147,13 @@ export default class ProfessionalInfections extends Vue {
 
   async handleInfectionCreationSubmit(e: Event) {
     e.preventDefault()
-
     try {
       await this.$axios.$post(
         '/infection',
         {
           placesIds: this.infectionCreation.placesIds,
-          startTimestamp: `${this.infectionCreation.startDate} ${this.infectionCreation.startDateTime}`,
-          endTimestamp: `${this.infectionCreation.endDate} ${this.infectionCreation.endDateTime}`
+          startTimestamp: `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`,
+          endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`
         },
         {
           auth: {
@@ -165,6 +174,25 @@ export default class ProfessionalInfections extends Vue {
     this.$bvModal.hide('infection-creation-modal')
 
     this.loadData()
+  }
+
+  getPlacesNameWithIds(ids: string[]): string {
+    let result = ''
+
+    const placesWithIds: any = {}
+    this.places.forEach((place) => {
+      placesWithIds[place.id] = place
+    })
+
+    ids.forEach((id) => {
+      result += placesWithIds[id].name + ', '
+    })
+
+    if (result.length > 0) {
+      result = result.substring(0, result.length - 2)
+    }
+
+    return result
   }
 }
 </script>
