@@ -41,9 +41,9 @@
 
       <b-form-group label="Time Spent in Place:" label-for="spent-in-place">
         <b-form-input
+          v-model="duration"
           id="spent-in-place"
           type="number"
-          v-model="duration"
           required
           placeholder="Enter Time Spent in Place"
         ></b-form-input>

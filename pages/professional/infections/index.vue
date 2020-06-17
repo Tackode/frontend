@@ -147,28 +147,70 @@ export default class ProfessionalInfections extends Vue {
 
   async handleInfectionCreationSubmit(e: Event) {
     e.preventDefault()
-    try {
-      await this.$axios.$post(
-        '/infection',
-        {
-          placesIds: this.infectionCreation.placesIds,
-          startTimestamp: `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`,
-          endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token']
+    if (this.infectionCreation.placesIds.length > 0) {
+      if (
+        this.infectionCreation.startDateTime !== '' &&
+        this.infectionCreation.startDate !== ''
+      ) {
+        if (
+          this.infectionCreation.endDateTime !== '' &&
+          this.infectionCreation.endDate !== ''
+        ) {
+          if (
+            this.infectionCreation.startDate <= this.infectionCreation.endDate
+          ) {
+            try {
+              await this.$axios.$post(
+                '/infection',
+                {
+                  placesIds: this.infectionCreation.placesIds,
+                  startTimestamp: `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`,
+                  endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`
+                },
+                {
+                  auth: {
+                    username: this.$store.getters['session/login'],
+                    password: this.$store.getters['session/token']
+                  }
+                }
+              )
+            } catch (error) {
+              showError(
+                this.$bvToast,
+                'Infections',
+                new Error('A network error occured. Please, try again.')
+              )
+              return
+            }
+          } else {
+            showError(
+              this.$bvToast,
+              'Infections',
+              new Error(
+                'The end date of the infection is before the start date of the infection.'
+              )
+            )
           }
+        } else {
+          showError(
+            this.$bvToast,
+            'Infections',
+            new Error('The end of the infection is not defined.')
+          )
         }
-      )
-    } catch (error) {
+      } else {
+        showError(
+          this.$bvToast,
+          'Infections',
+          new Error('The start of the infection is not defined.')
+        )
+      }
+    } else {
       showError(
         this.$bvToast,
         'Infections',
-        new Error('A network error occured. Please, try again.')
+        new Error('No affected place has been chosen.')
       )
-      return
     }
 
     this.$bvModal.hide('infection-creation-modal')
