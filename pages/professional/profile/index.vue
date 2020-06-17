@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
-      <b-form v-if="profile">
+      <b-form v-if="profile" @submit="handleAddEmail">
         <b-form-group
           id="form-email"
           label="Email address:"
@@ -56,12 +56,40 @@ export default class ProfessionalProfile extends Vue {
         this.$bvToast,
         'Profil',
         new Error(
-          "Une erreur réseau s'est produite pendant le chargement du profil. Veuillez réessayer."
+          'A network error occurred while loading the profile. Please, try Again.'
         )
       )
     }
 
     this.saveEmail = this.profile?.email !== null
+  }
+
+  async handleAddEmail(e: Event) {
+    e.preventDefault()
+    if (this.saveEmail) {
+      try {
+        await this.$axios.$put(
+          '/profile',
+          {
+            email: this.profile?.email
+          },
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token']
+            }
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Profil',
+          new Error(
+            'A network error has occurred in posting. Please, try again.'
+          )
+        )
+      }
+    }
   }
 }
 </script>
