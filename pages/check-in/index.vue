@@ -41,8 +41,8 @@
 
       <b-form-group label="Time Spent in Place:" label-for="spent-in-place">
         <b-form-input
-          v-model="duration"
           id="spent-in-place"
+          v-model="duration"
           type="number"
           required
           placeholder="Enter Time Spent in Place"
@@ -64,7 +64,7 @@
       </b-form-group>
 
       <div>
-        <input type="checkbox" id="storeemail" name="scales" checked />
+        <input id="storeemail" type="checkbox" name="scales" checked />
         <label for="storeemail"
           >Store my email adress to be warned whenever a contact was infected by
           the Covid-19.</label
