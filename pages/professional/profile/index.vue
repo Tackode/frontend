@@ -16,6 +16,20 @@
           ></b-form-input>
         </b-form-group>
 
+		<b-form-group
+          id="form-organization"
+          label="Organization:"
+          label-for="form-organization"
+        >
+          <b-form-input
+            id="form-organization"
+            v-model="profile.organization.name"
+            type="text"
+            required
+            placeholder="Your orgnaization:"
+          ></b-form-input>
+        </b-form-group>
+		
         <b-form-group>
           <b-form-checkbox
             v-model="saveEmail"
@@ -66,6 +80,30 @@ export default class ProfessionalProfile extends Vue {
 
   async handleAddEmail(e: Event) {
     e.preventDefault()
+	
+	try {
+        await this.$axios.$put(
+          '/organization',
+          {
+            name: this.profile?.organization?.name
+          },
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token']
+            }
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Profil',
+          new Error(
+            'A network error has occurred in posting. Please, try again.'
+          )
+        )
+      }
+	
     if (this.saveEmail) {
       try {
         await this.$axios.$put(
