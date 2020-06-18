@@ -149,6 +149,7 @@ export default class CheckIn extends Vue {
     }
 
     this.state = CheckinState.FINISH
+    this.$router.push({ path: '/' })
   }
 }
 </script>
