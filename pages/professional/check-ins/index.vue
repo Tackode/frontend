@@ -1,15 +1,11 @@
 <template>
-  <div>
+  <div v-if="checkins.length > 0">
     <h1 class="sr-only">All Check-ins</h1>
 
-    <h2>My Check-ins</h2>
-    <b-table
-      v-if="checkins.length > 0"
-      striped
-      hover
-      :fields="fields"
-      :items="checkins"
-    >
+
+    <div v-if="infectedcheckins.length > 0">
+    <h2>Infected Check-ins</h2>
+    <b-table striped hover :fields="fields" :items="infectedcheckins">
       <template v-slot:cell(organization)="data">
         {{ data.item.place.organization.name }}
       </template>
@@ -26,7 +22,33 @@
         {{ data.item.duration }}m
       </template>
     </b-table>
-    <p v-else>
+    </br>
+    </div>
+
+    <h2>My Check-ins</h2>
+    <b-table striped hover :fields="fields" :items="checkins">
+      <template v-slot:cell(organization)="data">
+        {{ data.item.place.organization.name }}
+      </template>
+
+      <template v-slot:cell(place_name)="data">
+        {{ data.item.place.name }}
+      </template>
+
+      <template v-slot:cell(time)="data">
+        {{ data.item.timestamp | formatDateTime }}
+      </template>
+
+      <template v-slot:cell(duration)="data">
+        {{ data.item.duration }}m
+      </template>
+    </b-table>
+  </div>
+  
+  <div v-else>
+    <h1 class="sr-only">All Check-ins</h1>
+    <h2>My Check-ins</h2>
+    <p>
       You don't have any check-in for now. Scan a QR code in a public location
       to start.
     </p>
@@ -43,6 +65,7 @@ import { Checkin } from '../../../types/Checkin'
 export default class ProfessionalCheckIns extends Vue {
   fields = ['organization', 'place_name', 'time', 'duration']
   checkins: Checkin[] = []
+  infectedcheckins: Checkin[] = []
 
   async mounted() {
     //  Load checkins
