@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 // Prepare env variables
 dotenv.config()
 
-console.log('BACK_URL:', process.env.BACK_URL)
+console.log('API_URL:', process.env.API_URL)
 
 export default {
   mode: 'universal',
@@ -63,17 +63,10 @@ export default {
     [
       'nuxt-env',
       {
-        keys: ['FRONT_URL', 'BACK_URL'],
+        keys: ['FRONT_URL'],
       },
     ],
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {
-    baseURL: process.env.BACK_URL,
-  },
   /*
    ** Build configuration
    */
