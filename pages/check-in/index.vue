@@ -1,5 +1,10 @@
 <template>
-  <p v-if="state === CheckinState.LOADING">
+  <div v-if="state === CheckinState.SCANNING">
+    <h2> Scan a QR Code </h2>
+    </br>
+    Scanning
+  </div>
+  <p v-else-if="state === CheckinState.LOADING">
     Loading. Please wait...
   </p>
   <b-form v-else-if="state === CheckinState.LOADED" @submit="handleSubmit">
@@ -36,6 +41,9 @@
         <b-form-input
           id="check-in-time"
           placeholder="Enter Check-In Time"
+          type="Date"
+          :value="new Date()"
+          readonly
         ></b-form-input>
       </b-form-group>
 
@@ -83,6 +91,7 @@ import { Place } from '../../types/Place'
 import { showError } from '../../helpers/alerts'
 
 enum CheckinState {
+  SCANNING,
   LOADING,
   LOADED,
   ERROR,
@@ -103,11 +112,12 @@ export default class CheckIn extends Vue {
     const placeId = this.$route.query.placeId
 
     if (!placeId) {
-      showError(
-        this.$bvToast,
-        'Checkin',
-        new Error('A parameter is missing. Please, flash a valid qr-code.')
-      )
+      this.state = CheckinState.SCANNING
+      // showError(
+      //  this.$bvToast,
+      //  'Checkin',
+      //  new Error('A parameter is missing. Please, flash a valid qr-code.')
+      //)
       return
     }
 
