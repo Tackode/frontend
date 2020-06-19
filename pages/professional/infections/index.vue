@@ -18,10 +18,10 @@
       </template>
 
       <template v-slot:cell(start_date)="data">
-        {{ data.item.startTimestamp }}
+        {{ data.item.startTimestamp | formatDateTime }}
       </template>
       <template v-slot:cell(end_date)="data">
-        {{ data.item.endTimestamp }}
+        {{ data.item.endTimestamp | formatDateTime }}
       </template>
     </b-table>
 

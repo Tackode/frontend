@@ -15,7 +15,7 @@
       </template>
 
       <template v-slot:cell(time)="data">
-       <p style="color:#FF0000";> {{ data.item.timestamp | formatDateTime }} </p>
+       <p style="color:#FF0000";> {{ data.item.start_timestamp | formatDateTime }} </p>
       </template>
 
       <template v-slot:cell(duration)="data">
@@ -36,7 +36,7 @@
       </template>
 
       <template v-slot:cell(time)="data">
-        {{ data.item.timestamp | formatDateTime }}
+        {{ data.item.start_timestamp | formatDateTime }}
       </template>
 
       <template v-slot:cell(duration)="data">
