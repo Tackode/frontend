@@ -34,6 +34,7 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
+          API_URL: ${{ secrets.API_URL }}
         run: yarn run build
 
       - name: Get version
