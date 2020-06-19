@@ -82,9 +82,6 @@
       <b-button type="submit" variant="primary">Do a Check-In</b-button>
     </b-card>
   </b-form>
-  <p v-else-if="state === CheckinState.FINISH">
-    An email has been sent to your mailbox. Please, click on the connection link in the mail.
-  </p>
 </template>
 
 <script lang="ts">
@@ -150,7 +147,12 @@ export default class CheckIn extends Vue {
         placeId: this.place.id,
         email: this.email,
         storeEmail: this.storeEmail,
-        duration: parseInt(this.duration)
+        duration: parseInt(this.duration)}, 
+        {
+        auth: {
+          username: this.$store.getters['session/login'],
+          password: this.$store.getters['session/token']
+        }
       })
     } catch (error) {
       showError(
@@ -162,7 +164,7 @@ export default class CheckIn extends Vue {
     }
 
     this.state = CheckinState.FINISH
-    
+    this.$router.push({ path: '/' })
   }
 }
 </script>
