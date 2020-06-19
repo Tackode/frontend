@@ -2,12 +2,12 @@
   <div>
     <h1 class="sr-only">Infections</h1>
     <h2>Declaration of Infection</h2>
-    </br>
+    <br />
     <b-button v-b-modal.infection-creation-modal variant="primary" class="mb-2">
       Declare a potential infection
     </b-button>
-    </br>
-    </br>
+    <br />
+    <br />
     <b-table
       v-if="infections.length > 0"
       striped
