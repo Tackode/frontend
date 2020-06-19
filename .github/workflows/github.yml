@@ -40,12 +40,23 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
 
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
+
       - name: Docker build
         env:
           IMAGE_NAME: covid-journal-frontend
           VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
-          docker build --tag $IMAGE_NAME:$VERSION "."
+          docker build \
+            --tag $IMAGE_NAME:$VERSION \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            --cache-from docker.pkg.github.com/covidjournal/frontend/$IMAGE_NAME \
+            .
 
       - name: Docker publish
         env:
