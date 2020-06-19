@@ -82,6 +82,10 @@
       <b-button type="submit" variant="primary">Do a Check-In</b-button>
     </b-card>
   </b-form>
+  <p v-else-if="state === CheckinState.CHECKMAIL">
+    An email has been sent to your mailbox. Please, click on the connection
+    link in the mail.
+  </p>
 </template>
 
 <script lang="ts">
@@ -95,6 +99,7 @@ enum CheckinState {
   LOADING,
   LOADED,
   ERROR,
+  CHECKMAIL,
   FINISH
 }
 
@@ -103,7 +108,7 @@ export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   duration: string = ''
-  email: string = ''
+  email: string = this.$store.getters['session/email']
   storeEmail = true
 
   CheckinState = CheckinState
@@ -142,6 +147,7 @@ export default class CheckIn extends Vue {
       return
     }
 
+    if (this.$store.getters['session/login']!==null) {
     try {
       await this.$axios.$post('/checkin', {
         placeId: this.place.id,
@@ -165,6 +171,26 @@ export default class CheckIn extends Vue {
 
     this.state = CheckinState.FINISH
     this.$router.push({ path: '/' })
+    }
+    else {
+      try {
+      await this.$axios.$post('/checkin', {
+        placeId: this.place.id,
+        email: this.email,
+        storeEmail: this.storeEmail,
+        duration: parseInt(this.duration)
+        })
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Checkin',
+        new Error('A network error occured. Please, try again.')
+      )
+      return
+    }
+
+    this.state = CheckinState.CHECKMAIL
+    }
   }
 }
 </script>
