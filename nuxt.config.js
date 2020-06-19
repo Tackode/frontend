@@ -7,6 +7,7 @@ console.log('BACK_URL:', process.env.BACK_URL)
 
 export default {
   mode: 'universal',
+  dev: process.env.NODE_ENV !== 'production',
   /*
    ** Headers of the page
    */
@@ -81,5 +82,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(_config, _ctx) {},
+  },
+  render: {
+    csp: true,
   },
 }

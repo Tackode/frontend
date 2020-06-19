@@ -32,6 +32,8 @@ jobs:
         run: yarn install
 
       - name: Build
+        env:
+          NODE_ENV: production
         run: yarn run build
 
       - name: Get version
