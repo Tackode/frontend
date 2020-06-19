@@ -63,10 +63,13 @@ export default {
     [
       'nuxt-env',
       {
-        keys: ['FRONT_URL'],
+        keys: ['FRONT_URL', 'API_URL'],
       },
     ],
   ],
+  axios: {
+    baseURL: process.env.API_URL,
+  },
   /*
    ** Build configuration
    */
