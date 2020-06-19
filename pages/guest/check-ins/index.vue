@@ -7,19 +7,19 @@
     <h2>Infected Check-ins</h2>
     <b-table striped hover :fields="fields" :items="infectedcheckins">
       <template v-slot:cell(organization)="data">
-        <p style="color:#FF0000";> {{ data.item.place.organization.name }} </p>
+       <div class="red"><strong> {{ data.item.place.organization.name }} </strong></div>
       </template>
 
       <template v-slot:cell(place_name)="data">
-        <p style="color:#FF0000";> {{ data.item.place.name }} </p>
+       <div class="red"><strong> {{ data.item.place.name }} </strong></div>
       </template>
 
       <template v-slot:cell(time)="data">
-        <p style="color:#FF0000";> {{ data.item.timestamp | formatDateTime }} </p>
+       <div class="red"><strong> {{ data.item.start_timestamp | formatDateTime }} </strong></div>
       </template>
 
       <template v-slot:cell(duration)="data">
-        <p style="color:#FF0000";> {{ data.item.duration }}m </p>
+       <div class="red"><strong> {{ data.item.duration }}m </strong></div>
       </template>
     </b-table>
     </br>
@@ -91,4 +91,8 @@ export default class GuestCheckIns extends Vue {
 }
 </script>
 
-<style></style>
+<style>
+.red{
+  color: red;
+}
+</style>
