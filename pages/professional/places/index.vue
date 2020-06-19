@@ -1,11 +1,13 @@
 <template>
   <div>
     <h1 class="sr-only">Places</h1>
-
+      <h2>Your Places</h2>
+    </br>
     <b-button v-b-modal.place-creation-modal variant="primary" class="mb-2">
       Create a place
     </b-button>
-
+    </br>
+    </br>
     <b-table
       v-if="places.length > 0"
       striped

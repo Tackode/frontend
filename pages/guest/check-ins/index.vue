@@ -5,6 +5,7 @@
 
     <div v-if="infectedcheckins.length > 0">
     <h2>Infected Check-ins</h2>
+    </br>
     <b-table striped hover :fields="fields" :items="infectedcheckins">
       <template v-slot:cell(organization)="data">
        <div class="red"> {{ data.item.place.organization.name }} </div>
@@ -26,6 +27,7 @@
     </div>
 
     <h2>My Check-ins</h2>
+    </br>
     <b-table striped hover :fields="fields" :items="checkins">
       <template v-slot:cell(organization)="data">
         {{ data.item.place.organization.name }}
@@ -48,6 +50,7 @@
   <div v-else>
     <h1 class="sr-only">All Check-ins</h1>
     <h2>My Check-ins</h2>
+    </br>
     <p>
       You don't have any check-in for now. Scan a QR code in a public location
       to start.

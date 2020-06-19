@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h2>Your Profile</h2>
+    </br>
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
       <b-form v-if="profile" @submit="handleAddEmail">
         <b-form-group
