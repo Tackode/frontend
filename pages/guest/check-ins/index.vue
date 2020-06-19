@@ -7,19 +7,19 @@
     <h2>Infected Check-ins</h2>
     <b-table striped hover :fields="fields" :items="infectedcheckins">
       <template v-slot:cell(organization)="data">
-       <div class="red"><strong> {{ data.item.place.organization.name }} </strong></div>
+       <div class="red"> {{ data.item.place.organization.name }} </div>
       </template>
 
       <template v-slot:cell(place_name)="data">
-       <div class="red"><strong> {{ data.item.place.name }} </strong></div>
+       <div class="red"> {{ data.item.place.name }} </div>
       </template>
 
       <template v-slot:cell(time)="data">
-       <div class="red"><strong> {{ data.item.start_timestamp | formatDateTime }} </strong></div>
+       <div class="red"> {{ data.item.start_timestamp | formatDateTime }} </div>
       </template>
 
       <template v-slot:cell(duration)="data">
-       <div class="red"><strong> {{ data.item.duration }}m </strong></div>
+       <div class="red"> {{ data.item.duration }}m </div>
       </template>
     </b-table>
     </br>
