@@ -30,7 +30,7 @@ export default class ValidateDevice extends Vue {
     let result: any
     try {
       result = await this.$axios.$post(`/session/${sessionId}/validate`, {
-        confirmationToken: token
+        confirmationToken: token,
       })
     } catch (error) {
       showError(

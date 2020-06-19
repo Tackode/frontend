@@ -1,12 +1,9 @@
 <template>
   <div v-if="state === CheckinState.SCANNING">
-    <h2> Scan a QR Code </h2>
-    </br>
-    Scanning
+    <h2>Scan a QR Code</h2>
+    <br />Scanning
   </div>
-  <p v-else-if="state === CheckinState.LOADING">
-    Loading. Please wait...
-  </p>
+  <p v-else-if="state === CheckinState.LOADING">Loading. Please wait...</p>
   <b-form v-else-if="state === CheckinState.LOADED" @submit="handleSubmit">
     <b-card v-if="place" title="Place" class="mb-4">
       <b-form-group label="Organization:" label-for="organization-name">
@@ -73,18 +70,18 @@
 
       <div>
         <input id="storeemail" type="checkbox" name="scales" checked />
-        <label for="storeemail"
-          >Store my email adress to be warned whenever a contact was infected by
-          the Covid-19.</label
-        >
+        <label for="storeemail">
+          Store my email adress to be warned whenever a contact was infected by
+          the Covid-19.
+        </label>
       </div>
 
       <b-button type="submit" variant="primary">Do a Check-In</b-button>
     </b-card>
   </b-form>
   <p v-else-if="state === CheckinState.CHECKMAIL">
-    An email has been sent to your mailbox. Please, click on the connection
-    link in the mail.
+    An email has been sent to your mailbox. Please, click on the connection link
+    in the mail.
   </p>
 </template>
 
@@ -100,7 +97,7 @@ enum CheckinState {
   LOADED,
   ERROR,
   CHECKMAIL,
-  FINISH
+  FINISH,
 }
 
 @Component({})
@@ -122,7 +119,7 @@ export default class CheckIn extends Vue {
       //  this.$bvToast,
       //  'Checkin',
       //  new Error('A parameter is missing. Please, flash a valid qr-code.')
-      //)
+      // )
       return
     }
 
@@ -147,49 +144,52 @@ export default class CheckIn extends Vue {
       return
     }
 
-    if (this.$store.getters['session/login']!==null) {
-    try {
-      await this.$axios.$post('/checkin', {
-        placeId: this.place.id,
-        email: this.email,
-        storeEmail: this.storeEmail,
-        duration: parseInt(this.duration)}, 
-        {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
-      })
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Checkin',
-        new Error('A network error occured. Please, try again.')
-      )
-      return
-    }
-
-    this.state = CheckinState.FINISH
-    this.$router.push({ path: '/' })
-    }
-    else {
+    if (this.$store.getters['session/login'] !== null) {
       try {
-      await this.$axios.$post('/checkin', {
-        placeId: this.place.id,
-        email: this.email,
-        storeEmail: this.storeEmail,
-        duration: parseInt(this.duration)
-        })
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Checkin',
-        new Error('A network error occured. Please, try again.')
-      )
-      return
-    }
+        await this.$axios.$post(
+          '/checkin',
+          {
+            placeId: this.place.id,
+            email: this.email,
+            storeEmail: this.storeEmail,
+            duration: parseInt(this.duration),
+          },
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token'],
+            },
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Checkin',
+          new Error('A network error occured. Please, try again.')
+        )
+        return
+      }
 
-    this.state = CheckinState.CHECKMAIL
+      this.state = CheckinState.FINISH
+      this.$router.push({ path: '/' })
+    } else {
+      try {
+        await this.$axios.$post('/checkin', {
+          placeId: this.place.id,
+          email: this.email,
+          storeEmail: this.storeEmail,
+          duration: parseInt(this.duration),
+        })
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Checkin',
+          new Error('A network error occured. Please, try again.')
+        )
+        return
+      }
+
+      this.state = CheckinState.CHECKMAIL
     }
   }
 }

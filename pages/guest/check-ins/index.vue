@@ -2,55 +2,56 @@
   <div v-if="checkins.length > 0">
     <h1 class="sr-only">All Check-ins</h1>
 
-
     <div v-if="infectedcheckins.length > 0">
-    <h2>Infected Check-ins</h2>
-    </br>
-    <b-table striped hover :fields="fields" :items="infectedcheckins">
-      <template v-slot:cell(organization)="data">
-       <div class="red"> {{ data.item.place.organization.name }} </div>
-      </template>
+      <h2>Infected Check-ins</h2>
+      <br />
+      <b-table striped hover :fields="fields" :items="infectedcheckins">
+        <template v-slot:cell(organization)="data">
+          <div class="red">{{ data.item.place.organization.name }}</div>
+        </template>
 
-      <template v-slot:cell(place_name)="data">
-       <div class="red"> {{ data.item.place.name }} </div>
-      </template>
+        <template v-slot:cell(place_name)="data">
+          <div class="red">{{ data.item.place.name }}</div>
+        </template>
 
-      <template v-slot:cell(time)="data">
-       <div class="red"> {{ data.item.start_timestamp | formatDateTime }} </div>
-      </template>
+        <template v-slot:cell(time)="data">
+          <div class="red">
+            {{ data.item.start_timestamp | formatDateTime }}
+          </div>
+        </template>
 
-      <template v-slot:cell(duration)="data">
-       <div class="red"> {{ data.item.duration }}m </div>
-      </template>
-    </b-table>
-    </br>
+        <template v-slot:cell(duration)="data">
+          <div class="red">{{ data.item.duration }}m</div>
+        </template>
+      </b-table>
+      <br />
     </div>
 
     <h2>My Check-ins</h2>
-    </br>
+    <br />
     <b-table striped hover :fields="fields" :items="checkins">
-      <template v-slot:cell(organization)="data">
-        {{ data.item.place.organization.name }}
-      </template>
+      <template v-slot:cell(organization)="data">{{
+        data.item.place.organization.name
+      }}</template>
 
-      <template v-slot:cell(place_name)="data">
-        {{ data.item.place.name }}
-      </template>
+      <template v-slot:cell(place_name)="data">{{
+        data.item.place.name
+      }}</template>
 
-      <template v-slot:cell(time)="data">
-        {{ data.item.timestamp | formatDateTime }}
-      </template>
+      <template v-slot:cell(time)="data">{{
+        data.item.timestamp | formatDateTime
+      }}</template>
 
-      <template v-slot:cell(duration)="data">
-        {{ data.item.duration }}m
-      </template>
+      <template v-slot:cell(duration)="data"
+        >{{ data.item.duration }}m</template
+      >
     </b-table>
   </div>
-  
+
   <div v-else>
     <h1 class="sr-only">All Check-ins</h1>
     <h2>My Check-ins</h2>
-    </br>
+    <br />
     <p>
       You don't have any check-in for now. Scan a QR code in a public location
       to start.
@@ -76,8 +77,8 @@ export default class GuestCheckIns extends Vue {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {
           username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
+          password: this.$store.getters['session/token'],
+        },
       })
     } catch (error) {
       showError(
@@ -86,16 +87,18 @@ export default class GuestCheckIns extends Vue {
         new Error('A network error has occurred. Please, try again.')
       )
     }
-    
-    this.checkins.forEach((checkin) => { 
-      if (checkin.potential_infection) {this.infectedcheckins.push(checkin)}
-      })
+
+    this.checkins.forEach((checkin) => {
+      if (checkin.potential_infection) {
+        this.infectedcheckins.push(checkin)
+      }
+    })
   }
 }
 </script>
 
 <style>
-.red{
+.red {
   color: red;
 }
 </style>

@@ -31,7 +31,7 @@ import { showError } from '../../helpers/alerts'
 
 enum LoginState {
   IDLE,
-  CHECK_EMAIL
+  CHECK_EMAIL,
 }
 
 @Component
@@ -49,7 +49,7 @@ export default class Login extends Vue {
       await this.$axios.$post('/login', {
         email: this.email,
         role: 'Public',
-        organizationName: null
+        organizationName: null,
       })
     } catch (error) {
       showError(

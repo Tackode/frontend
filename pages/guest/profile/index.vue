@@ -50,8 +50,8 @@ export default class GuestProfile extends Vue {
       this.profile = await this.$axios.$get('/profile', {
         auth: {
           username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
+          password: this.$store.getters['session/token'],
+        },
       })
     } catch (error) {
       showError(
@@ -71,13 +71,13 @@ export default class GuestProfile extends Vue {
         await this.$axios.$put(
           '/profile',
           {
-            email: this.profile?.email
+            email: this.profile?.email,
           },
           {
             auth: {
               username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token']
-            }
+              password: this.$store.getters['session/token'],
+            },
           }
         )
       } catch (error) {

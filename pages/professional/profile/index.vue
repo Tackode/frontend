@@ -18,7 +18,7 @@
           ></b-form-input>
         </b-form-group>
 
-		<b-form-group
+        <b-form-group
           id="form-organization"
           label="Organization:"
           label-for="form-organization"
@@ -31,7 +31,7 @@
             placeholder="Your orgnaization:"
           ></b-form-input>
         </b-form-group>
-		
+
         <b-form-group>
           <b-form-checkbox
             v-model="saveEmail"
@@ -64,8 +64,8 @@ export default class ProfessionalProfile extends Vue {
       this.profile = await this.$axios.$get('/profile', {
         auth: {
           username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
+          password: this.$store.getters['session/token'],
+        },
       })
     } catch (error) {
       showError(
@@ -82,42 +82,40 @@ export default class ProfessionalProfile extends Vue {
 
   async handleAddEmail(e: Event) {
     e.preventDefault()
-	
-	try {
-        await this.$axios.$put(
-          '/organization',
-          {
-            name: this.profile?.organization?.name
+
+    try {
+      await this.$axios.$put(
+        '/organization',
+        {
+          name: this.profile?.organization?.name,
+        },
+        {
+          auth: {
+            username: this.$store.getters['session/login'],
+            password: this.$store.getters['session/token'],
           },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token']
-            }
-          }
-        )
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Profil',
-          new Error(
-            'A network error has occurred in posting. Please, try again.'
-          )
-        )
-      }
-	
+        }
+      )
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Profil',
+        new Error('A network error has occurred in posting. Please, try again.')
+      )
+    }
+
     if (this.saveEmail) {
       try {
         await this.$axios.$put(
           '/profile',
           {
-            email: this.profile?.email
+            email: this.profile?.email,
           },
           {
             auth: {
               username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token']
-            }
+              password: this.$store.getters['session/token'],
+            },
           }
         )
       } catch (error) {

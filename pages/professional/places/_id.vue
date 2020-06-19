@@ -48,8 +48,8 @@ export default class PlaceDetail extends Vue {
       this.place = await this.$axios.$get('/place/' + this.placeId, {
         auth: {
           username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
+          password: this.$store.getters['session/token'],
+        },
       })
     } catch (error) {
       showError(

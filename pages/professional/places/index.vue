@@ -95,7 +95,7 @@ export default class ProfessionalPlaces extends Vue {
   placeCreation: PlaceCreation = {
     name: '',
     description: null,
-    averageDuration: ''
+    averageDuration: '',
   }
 
   mounted() {
@@ -107,8 +107,8 @@ export default class ProfessionalPlaces extends Vue {
       this.places = await this.$axios.$get('/places', {
         auth: {
           username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token']
-        }
+          password: this.$store.getters['session/token'],
+        },
       })
     } catch (error) {
       showError(
@@ -128,13 +128,13 @@ export default class ProfessionalPlaces extends Vue {
         {
           name: this.placeCreation.name,
           description: this.placeCreation.description,
-          averageDuration: parseInt(this.placeCreation.averageDuration)
+          averageDuration: parseInt(this.placeCreation.averageDuration),
         },
         {
           auth: {
             username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token']
-          }
+            password: this.$store.getters['session/token'],
+          },
         }
       )
     } catch (error) {

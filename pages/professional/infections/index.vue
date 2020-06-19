@@ -110,7 +110,7 @@ export default class ProfessionalInfections extends Vue {
     startTimestamp: '',
     endDate: '',
     endDateTime: '',
-    endTimestamp: ''
+    endTimestamp: '',
   }
 
   mounted() {
@@ -121,8 +121,8 @@ export default class ProfessionalInfections extends Vue {
     const axiosConfig = {
       auth: {
         username: this.$store.getters['session/login'],
-        password: this.$store.getters['session/token']
-      }
+        password: this.$store.getters['session/token'],
+      },
     }
 
     try {
@@ -167,13 +167,13 @@ export default class ProfessionalInfections extends Vue {
                 {
                   placesIds: this.infectionCreation.placesIds,
                   startTimestamp: `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`,
-                  endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`
+                  endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`,
                 },
                 {
                   auth: {
                     username: this.$store.getters['session/login'],
-                    password: this.$store.getters['session/token']
-                  }
+                    password: this.$store.getters['session/token'],
+                  },
                 }
               )
             } catch (error) {
