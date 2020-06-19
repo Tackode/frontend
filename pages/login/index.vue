@@ -18,8 +18,8 @@
       <b-button type="submit" variant="primary">Login</b-button>
     </b-form>
     <p v-else-if="state === LoginState.CHECK_EMAIL">
-      Un email a été envoyé sur votre boîte. Veuillez cliquer sur le lien de
-      connexion dans le mail.
+      An email has been sent to your mailbox. Please, click on the connection
+      link in the mail.
     </p>
   </div>
 </template>
