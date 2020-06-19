@@ -11,7 +11,7 @@
             id="form-email"
             v-model="profile.email"
             type="email"
-            required
+            readonly
             placeholder="Your email:"
           ></b-form-input>
         </b-form-group>
