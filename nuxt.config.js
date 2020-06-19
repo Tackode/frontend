@@ -63,7 +63,7 @@ export default {
     [
       'nuxt-env',
       {
-        keys: ['FRONT_URL'],
+        keys: ['FRONT_URL', 'BACK_URL'],
       },
     ],
   ],
