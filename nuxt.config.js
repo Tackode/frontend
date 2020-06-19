@@ -58,8 +58,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
     [
       'nuxt-env',
       {
@@ -68,7 +66,7 @@ export default {
     ],
   ],
   axios: {
-    baseURL: process.env.API_URL,
+    baseURL: process.env.API_URL || 'http://localhost:3000',
   },
   /*
    ** Build configuration
