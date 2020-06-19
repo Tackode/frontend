@@ -5,4 +5,5 @@ export interface Checkin {
   timestamp: string
   duration: number
   place: Place
+  potential_infection: boolean
 }

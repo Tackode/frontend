@@ -7,19 +7,19 @@
     <h2>Infected Check-ins</h2>
     <b-table striped hover :fields="fields" :items="infectedcheckins">
       <template v-slot:cell(organization)="data">
-        {{ data.item.place.organization.name }}
+        <p style="color:#FF0000";> {{ data.item.place.organization.name }} </p>
       </template>
 
       <template v-slot:cell(place_name)="data">
-        {{ data.item.place.name }}
+        <p style="color:#FF0000";> {{ data.item.place.name }} </p>
       </template>
 
       <template v-slot:cell(time)="data">
-        {{ data.item.timestamp | formatDateTime }}
+        <p style="color:#FF0000";> {{ data.item.timestamp | formatDateTime }} </p>
       </template>
 
       <template v-slot:cell(duration)="data">
-        {{ data.item.duration }}m
+        <p style="color:#FF0000";> {{ data.item.duration }}m </p>
       </template>
     </b-table>
     </br>
@@ -83,6 +83,10 @@ export default class GuestCheckIns extends Vue {
         new Error('A network error has occurred. Please, try again.')
       )
     }
+    
+    this.checkins.forEach((checkin) => { 
+      if (checkin.potential_infection) {this.infectedcheckins.push(checkin)}
+      })
   }
 }
 </script>
