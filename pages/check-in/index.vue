@@ -1,7 +1,14 @@
 <template>
   <div v-if="state === CheckinState.SCANNING">
     <h2>Scan a QR Code</h2>
-    <br />Scanning
+    <br />
+    <qrcode-stream @decode="onDecode" @init="onInit" />
+    <p>
+      <b> {{ error }}</b>
+    </p>
+
+    <br />
+    Scanning QR Code
   </div>
   <p v-else-if="state === CheckinState.LOADING">Loading. Please wait...</p>
   <b-form v-else-if="state === CheckinState.LOADED" @submit="handleSubmit">
@@ -106,6 +113,7 @@ export default class CheckIn extends Vue {
   place: Place | null = null
   duration: string = ''
   email: string = this.$store.getters['session/email']
+  error: string = ''
   storeEmail = true
 
   CheckinState = CheckinState
@@ -115,11 +123,7 @@ export default class CheckIn extends Vue {
 
     if (!placeId) {
       this.state = CheckinState.SCANNING
-      // showError(
-      //  this.$bvToast,
-      //  'Checkin',
-      //  new Error('A parameter is missing. Please, flash a valid qr-code.')
-      // )
+
       return
     }
 
@@ -190,6 +194,30 @@ export default class CheckIn extends Vue {
       }
 
       this.state = CheckinState.CHECKMAIL
+    }
+  }
+
+  onDecode(scan: any) {
+    document.location.href = scan
+  }
+
+  async onInit(promise: any) {
+    try {
+      await promise
+    } catch (error) {
+      if (error.name === 'NotAllowedError') {
+        this.error = 'ERROR: you need to grant camera access permisson'
+      } else if (error.name === 'NotFoundError') {
+        this.error = 'ERROR: no camera on this device'
+      } else if (error.name === 'NotSupportedError') {
+        this.error = 'ERROR: secure context required (HTTPS, localhost)'
+      } else if (error.name === 'NotReadableError') {
+        this.error = 'ERROR: is the camera already in use?'
+      } else if (error.name === 'OverconstrainedError') {
+        this.error = 'ERROR: installed cameras are not suitable'
+      } else if (error.name === 'StreamApiNotSupportedError') {
+        this.error = 'ERROR: Stream API is not supported in this browser'
+      }
     }
   }
 }

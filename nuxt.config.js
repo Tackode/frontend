@@ -40,7 +40,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/formatters', '~plugins/qrcode'],
+  plugins: [
+    '~plugins/formatters',
+    '~plugins/qrcode',
+    { src: '~plugins/qrcodereader', mode: 'client' },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
