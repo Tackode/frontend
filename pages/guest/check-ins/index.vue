@@ -30,21 +30,21 @@
     <h2>My Check-ins</h2>
     <br />
     <b-table striped hover :fields="fields" :items="checkins">
-      <template v-slot:cell(organization)="data">{{
-        data.item.place.organization.name
-      }}</template>
+      <template v-slot:cell(organization)="data">
+        {{ data.item.place.organization.name }}
+      </template>
 
-      <template v-slot:cell(place_name)="data">{{
-        data.item.place.name
-      }}</template>
+      <template v-slot:cell(place_name)="data">
+        {{ data.item.place.name }}
+      </template>
 
-      <template v-slot:cell(time)="data">{{
-        data.item.timestamp | formatDateTime
-      }}</template>
+      <template v-slot:cell(time)="data">
+        {{ data.item.start_timestamp | formatDateTime }}
+      </template>
 
-      <template v-slot:cell(duration)="data"
-        >{{ data.item.duration }}m</template
-      >
+      <template v-slot:cell(duration)="data">
+        {{ data.item.duration }}m
+      </template>
     </b-table>
   </div>
 
