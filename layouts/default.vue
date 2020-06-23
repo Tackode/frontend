@@ -1,7 +1,15 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand to="/">Covid Journal</b-navbar-brand>
+    <b-navbar toggleable="lg" type="dark" variant="dark">
+      <b-navbar-brand to="/">
+        <img
+          src="./Logo.jpg"
+          height="30"
+          width="30"
+          class="d-inline-block align-top"
+        />
+        Covid Journal</b-navbar-brand
+      >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

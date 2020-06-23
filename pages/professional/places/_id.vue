@@ -18,9 +18,7 @@
       Flash this QR Code to be informed of an infection
     </p>
     <br />
-    <a href="javascript:window.print()"
-      ><b-button class="no-print">Print the page</b-button></a
-    >
+    <b-button class="no-print" @click="PrintPage"> Print the page</b-button>
   </div>
 </template>
 
@@ -63,6 +61,10 @@ export default class PlaceDetail extends Vue {
     this.description = `${this.place?.description}`
   }
 
+  PrintPage() {
+    window.print()
+  }
+
   get qrCodeUrl() {
     return (this as any).$env.FRONT_URL + '/check-in?placeId=' + this.placeId
   }
@@ -79,8 +81,8 @@ export default class PlaceDetail extends Vue {
     display: none !important;
   }
   canvas {
-    width: 800px !important;
-    height: 800px !important;
+    width: 560px !important;
+    height: 560px !important;
   }
   .printOnly {
     display: block;
