@@ -6,21 +6,21 @@
       <b-form v-if="profile" @submit="handleAddEmail">
         <b-form-group
           id="form-email"
-          label="Email address:"
+          label="Email address*"
           label-for="form-email"
         >
           <b-form-input
             id="form-email"
-            v-model="profile.email"
+            v-model="email"
             type="email"
             readonly
-            placeholder="Your email:"
+            placeholder="Your email"
           ></b-form-input>
         </b-form-group>
 
         <b-form-group
           id="form-organization"
-          label="Organization:"
+          label="Organization*"
           label-for="form-organization"
         >
           <b-form-input
@@ -28,7 +28,7 @@
             v-model="profile.organization.name"
             type="text"
             required
-            placeholder="Your orgnaization:"
+            placeholder="Your orgnaization"
           ></b-form-input>
         </b-form-group>
 
@@ -71,13 +71,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError } from '../../../helpers/alerts'
+import { showError, showSuccess } from '../../../helpers/alerts'
 import { Profile } from '../../../types/Profile'
 
 @Component({})
 export default class ProfessionalProfile extends Vue {
   profile: Profile | null = null
   saveEmail = false
+  email: string | undefined | null = null
 
   async mounted() {
     try {
@@ -98,6 +99,7 @@ export default class ProfessionalProfile extends Vue {
     }
 
     this.saveEmail = this.profile?.email !== null
+    this.email = this.$store.getters['session/email']
   }
 
   async handleAddEmail(e: Event) {
@@ -124,51 +126,57 @@ export default class ProfessionalProfile extends Vue {
       )
     }
 
-    if (this.saveEmail) {
-      try {
-        await this.$axios.$put(
-          '/profile',
-          {
-            email: this.profile?.email,
+    if (this.saveEmail === false) {
+      this.email = null
+    }
+
+    try {
+      await this.$axios.$put(
+        '/profile',
+        {
+          email: this.email,
+        },
+        {
+          auth: {
+            username: this.$store.getters['session/login'],
+            password: this.$store.getters['session/token'],
           },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token'],
-            },
-          }
-        )
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Profil',
-          new Error(
-            'A network error has occurred in posting. Please, try again.'
-          )
-        )
-      }
+        }
+      )
+      showSuccess(
+        this.$bvToast,
+        'Profile',
+        'Your profile was successfully updated.'
+      )
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Profile',
+        new Error('A network error has occurred in posting. Please, try again.')
+      )
+    }
+    if (this.saveEmail === false) {
+      this.email = this.$store.getters['session/email']
     }
   }
 
   async deleteProfile(e: Event) {
     e.preventDefault()
-    if (this.saveEmail) {
-      try {
-        await this.$axios.$delete('/profile', {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        })
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Profil',
-          new Error(
-            'A network error has occurred in deleting profile. Please, try again.'
-          )
+    try {
+      await this.$axios.$delete('/profile', {
+        auth: {
+          username: this.$store.getters['session/login'],
+          password: this.$store.getters['session/token'],
+        },
+      })
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Profil',
+        new Error(
+          'A network error has occurred in deleting profile. Please, try again.'
         )
-      }
+      )
     }
   }
 }

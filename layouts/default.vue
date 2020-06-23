@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand to="/">
         <img
           src="./Logo.jpg"

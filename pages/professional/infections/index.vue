@@ -29,7 +29,7 @@
 
     <b-modal id="infection-creation-modal" title="Infection Declaration">
       <b-form @submit="handleInfectionCreationSubmit">
-        Select affected places:
+        Select affected places*
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
             <b-form-checkbox
@@ -42,7 +42,7 @@
           </b-form-checkbox-group>
         </b-form-group>
 
-        <p>Start date of the infection:</p>
+        <p>Start date of the infection*</p>
         <b-calendar
           v-model="infectionCreation.startDate"
           locale="fr-FR"
@@ -55,7 +55,7 @@
         <br />
         <br />
 
-        <p>End date of the infection:</p>
+        <p>End date of the infection*</p>
         <b-calendar
           v-model="infectionCreation.endDate"
           locale="fr-FR"
