@@ -31,6 +31,26 @@
         <b-button type="submit" variant="primary">Submit</b-button>
       </b-form>
     </b-card>
+
+    <b-card tag="article" style="max-width: 40rem;" class="mb-2">
+      <b-button v-b-modal.place-delete-modal variant="danger"
+        >Delete profile</b-button
+      >
+    </b-card>
+    <b-modal id="place-delete-modal" title="Delete Profile">
+      <b-form @submit="deleteProfile">
+        Do you really want to delete the profile?
+        <br />
+        <br />
+        <b-button type="submit" variant="success">Yes</b-button>
+        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
+          >No</b-button
+        >
+      </b-form>
+      <template v-slot:modal-footer>
+        <span></span>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -86,6 +106,28 @@ export default class GuestProfile extends Vue {
           'Profil',
           new Error(
             'A network error has occurred in posting. Please, try again.'
+          )
+        )
+      }
+    }
+  }
+
+  async deleteProfile(e: Event) {
+    e.preventDefault()
+    if (this.saveEmail) {
+      try {
+        await this.$axios.$delete('/profile', {
+          auth: {
+            username: this.$store.getters['session/login'],
+            password: this.$store.getters['session/token'],
+          },
+        })
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Profil',
+          new Error(
+            'A network error has occurred in deleting profile. Please, try again.'
           )
         )
       }
