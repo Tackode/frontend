@@ -33,13 +33,13 @@
     </b-card>
 
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
-      <b-button v-b-modal.place-delete-modal variant="danger"
+      <b-button v-b-modal.place-delete-modal variant="secondary"
         >Delete profile</b-button
       >
     </b-card>
     <b-modal id="place-delete-modal" title="Delete Profile">
       <b-form @submit="deleteProfile">
-        Do you really want to delete the profile?
+        Do you really want to delete your profile?
         <br />
         <br />
         <b-button type="submit" variant="success">Yes</b-button>

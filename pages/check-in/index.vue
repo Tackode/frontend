@@ -197,8 +197,8 @@ export default class CheckIn extends Vue {
     }
   }
 
-  onDecode(scan: any) {
-    document.location.href = scan
+  onDecode(result: any) {
+    document.location.href = result
   }
 
   async onInit(promise: any) {
