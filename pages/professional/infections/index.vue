@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="sr-only">Infections</h1>
-    <h2>Declaration of Infection</h2>
+    <h2>Declaration of Infections</h2>
     <br />
     <b-button v-b-modal.infection-creation-modal variant="primary" class="mb-2">
       Declare a potential infection

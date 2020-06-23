@@ -21,7 +21,7 @@
       </template>
 
       <template v-slot:cell(average_duration)="data">
-        {{ data.item.averageDuration }}m
+        {{ data.item.averageDuration }} minutes
       </template>
 
       <template v-slot:cell(action)="data">

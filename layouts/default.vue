@@ -66,7 +66,6 @@ export default class DefaultLayout extends Vue {
     this.$store.watch(
       (store) => store.session.role,
       (role) => {
-        console.log('init role')
         this.role = role
       }
     )
