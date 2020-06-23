@@ -6,86 +6,55 @@
     <p>
       <b> {{ error }}</b>
     </p>
+    <p class="decode-result">
+      Last result: <b>{{ result }}</b>
+    </p>
 
     <br />
     Scanning QR Code
   </div>
   <p v-else-if="state === CheckinState.LOADING">Loading. Please wait...</p>
-  <b-form v-else-if="state === CheckinState.LOADED" @submit="handleSubmit">
-    <b-card v-if="place" title="Place" class="mb-4">
-      <b-form-group label="Organization:" label-for="organization-name">
-        <b-form-input
-          id="organization-name"
-          v-model="place.organization.name"
-          readonly
-          placeholder="Organization name"
-        ></b-form-input>
-      </b-form-group>
+  <div v-else-if="state === CheckinState.LOADED">
+    <b-form @submit="handleSubmit">
+      <b-card v-if="place" class="mb-4">
+        <h2>{{ place.organization.name }}</h2>
+        <h2>
+          <b>{{ place.name }}</b>
+        </h2>
+        <h3>
+          <em>{{ place.description }}</em>
+        </h3>
+      </b-card>
+      <b-card class="mb-2">
+        <b-form-group
+          label="Your Email:"
+          label-for="login-email"
+          description="We'll never share your email with anyone else."
+        >
+          <b-form-input
+            id="login-email"
+            v-model="email"
+            type="email"
+            required
+            placeholder="Enter your email"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group label="Place name:" label-for="place-name">
-        <b-form-input
-          id="place-name"
-          v-model="place.name"
-          readonly
-          placeholder="Enter your place name"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group label="Description:" label-for="description-name">
-        <b-form-input
-          id="description-name"
-          v-model="place.description"
-          readonly
-          placeholder="Enter description"
-        ></b-form-input>
-      </b-form-group>
-    </b-card>
-    <b-card class="mb-2">
-      <b-form-group label="Check-In Time:" label-for="check-in-time">
-        <b-form-input
-          id="check-in-time"
-          placeholder="Enter Check-In Time"
-          type="Date"
-          :value="new Date()"
-          readonly
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group label="Time Spent in Place:" label-for="spent-in-place">
-        <b-form-input
-          id="spent-in-place"
-          v-model="duration"
-          type="number"
-          required
-          placeholder="Enter Time Spent in Place"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        label="Your Email:"
-        label-for="login-email"
-        description="We'll never share your email with anyone else."
-      >
-        <b-form-input
-          id="login-email"
-          v-model="email"
-          type="email"
-          required
-          placeholder="Enter your email"
-        ></b-form-input>
-      </b-form-group>
-
-      <div>
-        <input id="storeemail" type="checkbox" name="scales" checked />
-        <label for="storeemail">
-          Store my email adress to be warned whenever a contact was infected by
-          the Covid-19.
-        </label>
-      </div>
-
-      <b-button type="submit" variant="primary">Do a Check-In</b-button>
-    </b-card>
-  </b-form>
+        <div>
+          <input id="storeemail" type="checkbox" name="scales" checked />
+          <label for="storeemail">
+            Store my email adress to be warned whenever a contact was infected
+            by the Covid-19.
+          </label>
+        </div>
+        <br />
+        If you stay more than {{ duration }} minutes, please, recheckin.
+        <br />
+        <br />
+        <b-button type="submit" variant="primary">Do a Check-In</b-button>
+      </b-card>
+    </b-form>
+  </div>
   <p v-else-if="state === CheckinState.CHECKMAIL">
     An email has been sent to your mailbox. Please, click on the connection link
     in the mail.
@@ -114,6 +83,7 @@ export default class CheckIn extends Vue {
   duration: string = ''
   email: string = this.$store.getters['session/email']
   error: string = ''
+  result: string = ''
   storeEmail = true
 
   CheckinState = CheckinState
@@ -198,6 +168,7 @@ export default class CheckIn extends Vue {
   }
 
   onDecode(result: any) {
+    this.result = result
     document.location.href = result
   }
 
