@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <p v-if="state === ProfileState.LOADING">Loading. Please wait...</p>
+  <div v-else-if="state === ProfileState.LOADED">
     <h2>Your Profile</h2>
     <br />
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
@@ -42,7 +43,12 @@
         Do you really want to delete your profile?
         <br />
         <br />
-        <b-button type="submit" variant="success">Yes</b-button>
+        <b-button
+          type="submit"
+          variant="success"
+          @click="$bvModal.hide('place-delete-modal')"
+          >Yes</b-button
+        >
         <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
           >No</b-button
         >
@@ -60,12 +66,18 @@ import Component from 'vue-class-component'
 import { showError, showSuccess } from '../../../helpers/alerts'
 import { Profile } from '../../../types/Profile'
 
+enum ProfileState {
+  LOADING,
+  LOADED,
+}
+
 @Component({})
 export default class GuestProfile extends Vue {
+  state: ProfileState = ProfileState.LOADING
   profile: Profile | null = null
   saveEmail = false
   email: string | undefined | null = null
-
+  ProfileState = ProfileState
   async mounted() {
     try {
       this.profile = await this.$axios.$get('/profile', {
@@ -84,6 +96,7 @@ export default class GuestProfile extends Vue {
 
     this.saveEmail = this.profile?.email !== null
     this.email = this.$store.getters['session/email']
+    this.state = ProfileState.LOADED
   }
 
   async handleAddEmail(e: Event) {
@@ -133,10 +146,12 @@ export default class GuestProfile extends Vue {
             password: this.$store.getters['session/token'],
           },
         })
+        this.$store.dispatch('session/logout')
+        showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
       } catch (error) {
         showError(
           this.$bvToast,
-          'Profil',
+          'Profile',
           new Error(
             'A network error has occurred in deleting profile. Please, try again.'
           )
