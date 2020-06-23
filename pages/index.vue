@@ -6,13 +6,22 @@
       <h1>Welcome to Covid Journal!</h1>
       Be aware of Covid in public and private places
       <br />
-      <h2>Loggin In</h2>
-      <b-button to="/login" variant="primary">User log in</b-button>
+      <div v-if="role === null">
+        <h2>Loggin In</h2>
+        <b-button to="/login" variant="primary">User log in</b-button>
 
-      <b-button to="/login-professional" variant="primary"
-        >Professional log in</b-button
-      >
-      <br />
+        <b-button to="/login-professional" variant="primary"
+          >Professional log in</b-button
+        >
+        <br />
+      </div>
+      <div v-else>
+        <br />
+        <b-button @click="$store.dispatch('session/logout')" variant="primary"
+          >Log out</b-button
+        >
+      </div>
+
       <br />
       <h2>Check in a place</h2>
       Scan a QR Code
@@ -28,7 +37,20 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component({})
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  role: string | null = null
+
+  mounted() {
+    this.role = this.$store.getters['session/role']
+
+    this.$store.watch(
+      (store) => store.session.role,
+      (role) => {
+        this.role = role
+      }
+    )
+  }
+}
 </script>
 
 <style>
