@@ -3,6 +3,7 @@
     <h1 class="sr-only">Places</h1>
     <h2>Your Places</h2>
     <br />
+
     <b-button v-b-modal.place-creation-modal variant="primary" class="mb-2">
       Create a place
     </b-button>
@@ -54,7 +55,7 @@
 
     <b-modal id="place-creation-modal" title="Place Creation">
       <b-form @submit="handleplaceFormValuesSubmit">
-        <b-form-group label="Name:" label-for="place-name">
+        <b-form-group label="Name*" label-for="place-name">
           <b-form-input
             id="place-name"
             v-model="placeFormValues.name"
@@ -63,7 +64,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Description:" label-for="place-description">
+        <b-form-group label="Description*" label-for="place-description">
           <b-form-input
             id="place-description"
             v-model="placeFormValues.description"
@@ -73,14 +74,14 @@
         </b-form-group>
 
         <b-form-group
-          label="Average Duration of the stay:"
+          label="Average Duration of the stay in minutes*"
           label-for="place-average-duration"
         >
           <b-form-input
             id="place-average-duration"
             v-model="placeFormValues.averageDuration"
             required
-            placeholder="Average Duration"
+            placeholder="Average Duration in minutes"
           ></b-form-input>
         </b-form-group>
         <b-button type="submit" variant="primary">Create</b-button>
@@ -94,6 +95,8 @@
     <b-modal id="place-delete-modal" title="Delete Place">
       <b-form @submit="handleplaceFormValuesDelete">
         Do you really want to delete the place?
+        <br />
+        <br />
         <b-button type="submit" variant="success">Yes</b-button>
         <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
           >No</b-button

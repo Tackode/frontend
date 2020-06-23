@@ -43,10 +43,7 @@
         </b-form-group>
 
         <p>Start date of the infection*</p>
-        <b-calendar
-          v-model="infectionCreation.startDate"
-          locale="fr-FR"
-        ></b-calendar>
+        <b-calendar v-model="infectionCreation.startDate"></b-calendar>
 
         <b-time
           id="start-date-time"
@@ -56,10 +53,7 @@
         <br />
 
         <p>End date of the infection*</p>
-        <b-calendar
-          v-model="infectionCreation.endDate"
-          locale="fr-FR"
-        ></b-calendar>
+        <b-calendar v-model="infectionCreation.endDate"></b-calendar>
 
         <b-time
           id="end-date-time"
