@@ -31,8 +31,7 @@
       <template v-slot:cell(modify)>
         <b-button
           v-b-modal.place-creation-modal
-          size="lg"
-          variant="primary"
+          variant="outline-secondary"
           class="mb-2"
         >
           <b-icon icon="pencil"></b-icon>
@@ -42,8 +41,7 @@
       <template v-slot:cell(delete)>
         <b-button
           v-b-modal.place-delete-modal
-          size="lg"
-          variant="primary"
+          variant="outline-secondary"
           class="mb-2"
         >
           <b-icon icon="trash"></b-icon>
@@ -97,7 +95,9 @@
       <b-form @submit="handleplaceFormValuesDelete">
         Do you really want to delete the place?
         <b-button type="submit" variant="success">Yes</b-button>
-        <b-button type="cancel" variant="danger">No</b-button>
+        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
+          >No</b-button
+        >
       </b-form>
       <template v-slot:modal-footer>
         <span></span>
@@ -109,9 +109,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { BootstrapVueIcons } from 'bootstrap-vue'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 
+Vue.use(BootstrapVueIcons)
 interface PlaceFormValues {
   name: string
   description: string | null
@@ -216,9 +218,8 @@ export default class ProfessionalPlaces extends Vue {
 
   async handleplaceFormValuesDelete(e: Event) {
     e.preventDefault()
-
     try {
-      await this.$axios.$delete('/place/' + this.placeFormValues.name, {
+      await this.$axios.$delete('/place/', {
         auth: {
           username: this.$store.getters['session/login'],
           password: this.$store.getters['session/token'],
