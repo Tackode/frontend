@@ -4,7 +4,12 @@
     <h2>Your Places</h2>
     <br />
 
-    <b-button v-b-modal.place-creation-modal variant="primary" class="mb-2">
+    <b-button
+      v-b-modal.place-creation-modal
+      variant="primary"
+      @click="PlacetoCreate()"
+      class="mb-2"
+    >
       Create a place
     </b-button>
     <br />
@@ -29,9 +34,17 @@
           >Show QRCode</nuxt-link
         >
       </template>
-      <template v-slot:cell(modify)>
+      <template v-slot:cell(modify)="data">
         <b-button
           v-b-modal.place-creation-modal
+          @click="
+            PlacetoModify(
+              data.item.id,
+              data.item.name,
+              data.item.description,
+              data.item.averageDuration
+            )
+          "
           variant="outline-secondary"
           class="mb-2"
         >
@@ -39,9 +52,10 @@
         </b-button>
       </template>
 
-      <template v-slot:cell(delete)>
+      <template v-slot:cell(delete)="data">
         <b-button
           v-b-modal.place-delete-modal
+          @click="place = data.item.id"
           variant="outline-secondary"
           class="mb-2"
         >
@@ -53,7 +67,7 @@
       You don't have any places for now. Please, create a place to begin.
     </p>
 
-    <b-modal id="place-creation-modal" title="Place Creation">
+    <b-modal id="place-creation-modal" :title="FormTitle()">
       <b-form @submit="handleplaceFormValuesSubmit">
         <b-form-group label="Name*" label-for="place-name">
           <b-form-input
@@ -84,7 +98,10 @@
             placeholder="Average Duration in minutes"
           ></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary">Create</b-button>
+        <b-button v-if="placeFormMode" type="submit" variant="primary"
+          >Modify</b-button
+        >
+        <b-button v-else type="submit" variant="primary">Create</b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -127,7 +144,9 @@ interface PlaceFormValues {
 export default class ProfessionalPlaces extends Vue {
   fields = ['place_name', 'average_duration', 'action', 'modify', 'delete']
   places: Place[] = []
+  place: string = ''
   placeFormMode: Boolean = false
+  selectedUser: Place | null = null
   placeFormValues: PlaceFormValues = {
     name: '',
     description: null,
@@ -157,63 +176,55 @@ export default class ProfessionalPlaces extends Vue {
 
   async handleplaceFormValuesSubmit(e: Event) {
     e.preventDefault()
-
-    try {
-      await this.$axios.$post(
-        '/place',
-        {
-          name: this.placeFormValues.name,
-          description: this.placeFormValues.description,
-          averageDuration: parseInt(this.placeFormValues.averageDuration),
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
+    if (this.placeFormMode) {
+      try {
+        await this.$axios.$put(
+          '/place/' + this.place,
+          {
+            name: this.placeFormValues.name,
+            description: this.placeFormValues.description,
+            averageDuration: parseInt(this.placeFormValues.averageDuration),
           },
-        }
-      )
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Connexion',
-        new Error('A network error has occurred. Please, try again.')
-      )
-      return
-    }
-
-    this.$bvModal.hide('place-creation-modal')
-
-    this.loadData()
-  }
-
-  async handleplaceFormValuesModify(e: Event) {
-    e.preventDefault()
-
-    try {
-      await this.$axios.$put(
-        '/place',
-        {
-          name: this.placeFormValues.name,
-          description: this.placeFormValues.description,
-          averageDuration: parseInt(this.placeFormValues.averageDuration),
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token'],
+            },
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Connexion',
+          new Error('A network error has occurred. Please, try again.')
+        )
+        return
+      }
+    } else {
+      try {
+        await this.$axios.$post(
+          '/place',
+          {
+            name: this.placeFormValues.name,
+            description: this.placeFormValues.description,
+            averageDuration: parseInt(this.placeFormValues.averageDuration),
           },
-        }
-      )
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Connexion',
-        new Error('A network error has occurred. Please, try again.')
-      )
-      return
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token'],
+            },
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Connexion',
+          new Error('A network error has occurred. Please, try again.')
+        )
+        return
+      }
     }
-
     this.$bvModal.hide('place-creation-modal')
 
     this.loadData()
@@ -222,7 +233,7 @@ export default class ProfessionalPlaces extends Vue {
   async handleplaceFormValuesDelete(e: Event) {
     e.preventDefault()
     try {
-      await this.$axios.$delete('/place/', {
+      await this.$axios.$delete('/place/' + this.place, {
         auth: {
           username: this.$store.getters['session/login'],
           password: this.$store.getters['session/token'],
@@ -240,6 +251,35 @@ export default class ProfessionalPlaces extends Vue {
     this.$bvModal.hide('place-delete-modal')
 
     this.loadData()
+  }
+
+  PlacetoModify(
+    id: string,
+    name: string,
+    description: string,
+    averageDuration: string
+  ) {
+    this.placeFormMode = true
+    this.place = id
+    this.placeFormValues.name = name
+    this.placeFormValues.description = description
+    this.placeFormValues.averageDuration = averageDuration
+  }
+
+  PlacetoCreate() {
+    this.placeFormMode = false
+    this.place = ''
+    this.placeFormValues.name = ''
+    this.placeFormValues.description = ''
+    this.placeFormValues.averageDuration = ''
+  }
+
+  FormTitle() {
+    if (this.placeFormMode) {
+      return 'Place Modification'
+    } else {
+      return 'Place Creation'
+    }
   }
 }
 </script>
