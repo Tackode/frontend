@@ -15,12 +15,23 @@
     <br />
 
     <p>
-      Flash this QR Code to be informed of an infection
+      {{ $t('flash') }}
     </p>
     <br />
     <b-button class="no-print" @click="PrintPage"> Print the page</b-button>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "flash":"Flash this QR Code to be informed of an infection"
+  },
+  "fr": {
+    "flash":"Flasher le QR Code pour être informé d'une infection"
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

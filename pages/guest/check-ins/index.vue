@@ -3,7 +3,7 @@
     <h1 class="sr-only">All Check-ins</h1>
 
     <div v-if="infectedcheckins.length > 0">
-      <h2>Infected Check-ins</h2>
+      <h2>{{ $t('infchec') }}</h2>
       <br />
       <b-table striped hover :fields="fields" :items="infectedcheckins">
         <template v-slot:cell(organization)="data">
@@ -27,7 +27,7 @@
       <br />
     </div>
 
-    <h2>My Check-ins</h2>
+    <h2>{{ $t('chec') }}</h2>
     <br />
     <b-table striped hover :fields="fields" :items="checkins">
       <template v-slot:cell(organization)="data">
@@ -50,14 +50,28 @@
 
   <div v-else>
     <h1 class="sr-only">All Check-ins</h1>
-    <h2>My Check-ins</h2>
+    <h2>{{ $t('chec') }}</h2>
     <br />
     <p>
-      You don't have any check-in for now. Scan a QR code in a public location
-      to start.
+      {{ $t('nochec') }}
     </p>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "infchec":"Infected Check-ins",
+    "chec":"My Check-ins",
+    "nochec":"You don't have any check-in for now. Scan a QR code in a public location to start."
+  },
+  "fr": {
+    "infcheck":"Check-ins infectés",
+    "chec":"Mes Check-ins",
+    "nochec":"Vous n'avez aucun check-in pour l'instant. Scannez un code QR pour commencer."
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

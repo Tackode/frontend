@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="sr-only">Infections</h1>
-    <h2>Declaration of Infections</h2>
+    <h2>{{ $t('infec') }}</h2>
 
     <div v-if="places.length > 0">
       <br />
@@ -10,13 +10,13 @@
         variant="primary"
         class="mb-2"
       >
-        Declare a potential infection
+        {{ $t('potinf') }}
       </b-button>
       <br />
       <br />
     </div>
 
-    <p v-else>No place to declare an infection</p>
+    <p v-else>{{ $t('nopinf') }}</p>
 
     <b-table
       v-if="infections.length > 0"
@@ -124,6 +124,21 @@
     </b-modal>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "infec":"Declaration of Infections",
+    "potinf":"Declare a potential infection",
+    "nopinf":"No place to declare an infection"
+  },
+  "fr": {
+    "infec":"Déclarer une infection",
+    "potinf":"Déclarer une infection potentielle",
+    "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection."
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

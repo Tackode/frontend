@@ -1,8 +1,19 @@
 <template>
   <div>
-    Validate Device
+    {{ $t('vd') }}
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "vd":"Validate Device"
+  },
+  "fr": {
+    "vd":"Appareil Validé"
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

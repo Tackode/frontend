@@ -1,13 +1,13 @@
 <template>
-  <p v-if="state === ProfileState.LOADING">Loading. Please wait...</p>
+  <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
   <div v-else-if="state === ProfileState.LOADED">
-    <h2>Your Profile</h2>
+    <h2>{{ $t('pro') }}</h2>
     <br />
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
       <b-form v-if="profile" @submit="handleAddEmail">
         <b-form-group
           id="form-email"
-          label="Email address*"
+          :label="$t('email')"
           label-for="form-email"
         >
           <b-form-input
@@ -15,13 +15,13 @@
             v-model="email"
             type="email"
             readonly
-            placeholder="Your email"
+            :placeholder="$t('emai')"
           ></b-form-input>
         </b-form-group>
 
         <b-form-group
           id="form-organization"
-          label="Organization*"
+          :label="$t('or')"
           label-for="form-organization"
         >
           <b-form-input
@@ -29,7 +29,7 @@
             v-model="profile.organization.name"
             type="text"
             required
-            placeholder="Your orgnaization"
+            :placeholder="$t('org')"
           ></b-form-input>
         </b-form-group>
 
@@ -38,29 +38,29 @@
             v-model="saveEmail"
             :value="true"
             :unchecked-value="false"
-            >Store my email address to be warned whenever a contact was infected
-            by the Covid-19.</b-form-checkbox
           >
+            {{ $t('store') }}
+          </b-form-checkbox>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="primary"> {{ $t('sub') }} </b-button>
       </b-form>
     </b-card>
 
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
-      <b-button v-b-modal.place-delete-modal variant="secondary"
-        >Delete profile</b-button
-      >
+      <b-button v-b-modal.place-delete-modal variant="secondary">
+        {{ $t('sup') }}
+      </b-button>
     </b-card>
-    <b-modal id="place-delete-modal" title="Delete Profile">
+    <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="deleteProfile">
-        Do you really want to delete your profile?
+        {{ $t('del') }}
         <br />
         <br />
-        <b-button type="submit" variant="success">Yes</b-button>
-        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
-          >No</b-button
-        >
+        <b-button type="submit" variant="success"> {{ $t('yes') }} </b-button>
+        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')">
+          {{ $t('no') }}
+        </b-button>
       </b-form>
       <template v-slot:modal-footer>
         <span></span>
@@ -68,6 +68,39 @@
     </b-modal>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "wait":"Loading. Please wait...",
+    "pro":"My Profile",
+    "del":"Do you really want to delete your profile?",
+    "sup":"Delete profile",
+    "yes":"Yes",
+    "no":"No",
+    "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
+    "sub":"Submit",
+    "org":"Your organization",
+    "email":"Email address*",
+    "or":"Organization*",
+    "emai":"Your email"
+  },
+  "fr": {
+    "wait":"Chargement en cours...",
+    "pro":"Mon Profil",
+    "del":"Voulez-vous vraiment supprimer votre profil ?",
+    "sup":"Supprimer le profil",
+    "yes":"Oui",
+    "no":"Non",
+    "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
+    "sub":"Valider",
+    "org":"Votre entreprise",
+    "email":"Adresse mail*",
+    "or":"Entreprise*",
+    "emai":"Votre adresse mail"
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

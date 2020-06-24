@@ -2,40 +2,60 @@
   <div class="login">
     <b-form v-if="state === LoginState.IDLE" @submit="handleSubmit">
       <b-form-group
-        label="Email address:"
+        :label="$t('add')"
         label-for="login-email"
-        description="We'll never share your email with anyone else."
+        :description="$t('nevershare')"
       >
         <b-form-input
           id="login-email"
           v-model="email"
           type="email"
           required
-          placeholder="Enter your email"
+          :placeholder="$t('email')"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group
-        label="Organization name:"
-        label-for="login-organization-name"
-      >
+      <b-form-group :label="$t('org')" label-for="login-organization-name">
         <b-form-input
           id="login-organization-name"
           v-model="organizationName"
           required
-          placeholder="Enter your organization name"
+          :placeholder="$t('or')"
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Login</b-button>
+      <b-button type="submit" variant="primary"> {{ $t('log') }} </b-button>
     </b-form>
-    <p v-else-if="state === LoginState.CHECK_EMAIL">
-      An email has been sent to your mailbox. Please, click on the connection
-      link in the mail.
-    </p>
-    <p v-else-if="state === LoginState.LOADING">Loading. Please wait...</p>
+    <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emai') }}</p>
+    <p v-else-if="state === LoginState.LOADING">{{ $t('wait') }}</p>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "wait":"Loading. Please wait...",
+    "emai":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
+    "log":"Login",
+    "nevershare":"We'll never share your email with anyone else.",
+    "email":"Enter your email",
+    "add":"Email address:",
+    "org":"Organization name:",
+    "or":"Enter your organization name"
+  },
+  "fr": {
+    "wait":"Chargement en cours...",
+    "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
+    "log":"Se connecter",
+    "nevershare":"Nous ne partagerons pas votre email.",
+    "email":"Entrer votre adresse",
+    "add":"Adresse mail:",
+      "org":"Nom d'entreprise",
+      "or":"Entrer le nom de votre entreprise / organisation"
+
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

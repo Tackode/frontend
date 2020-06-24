@@ -63,6 +63,27 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            name: 'English',
+            code: 'en',
+            iso: 'en-EN',
+            file: 'en-EN.js',
+          },
+          {
+            name: 'Français',
+            code: 'fr',
+            iso: 'fr-FR',
+            file: 'fr-FR.js',
+          },
+        ],
+        defaultLocale: 'fr',
+        vueI18nLoader: true,
+      },
+    ],
+    [
       'nuxt-env',
       {
         keys: ['FRONT_URL', 'API_URL'],

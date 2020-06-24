@@ -1,8 +1,19 @@
 <template>
   <div>
-    First Check in
+    {{ $t('check') }}
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "check":"First Check in"
+  },
+  "fr": {
+    "check":"Première connection"
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

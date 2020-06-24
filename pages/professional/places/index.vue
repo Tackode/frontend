@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="sr-only">Places</h1>
-    <h2>Your Places</h2>
+    <h2>{{ $t('place') }}</h2>
     <br />
 
     <b-button
@@ -10,7 +10,7 @@
       @click="PlacetoCreate()"
       class="mb-2"
     >
-      Create a place
+      {{ $t('cplace') }}
     </b-button>
     <br />
     <br />
@@ -30,9 +30,9 @@
       </template>
 
       <template v-slot:cell(action)="data">
-        <nuxt-link :to="'/professional/places/' + data.item.id"
-          >Show QRCode</nuxt-link
-        >
+        <nuxt-link :to="'/professional/places/' + data.item.id">
+          {{ $t('aff') }}
+        </nuxt-link>
       </template>
       <template v-slot:cell(modify)="data">
         <b-button
@@ -64,17 +64,17 @@
       </template>
     </b-table>
     <p v-else>
-      You don't have any places for now. Please, create a place to begin.
+      {{ $t('noplace') }}
     </p>
 
     <b-modal id="place-creation-modal" :title="FormTitle()">
       <b-form @submit="handleplaceFormValuesSubmit">
-        <b-form-group label="Name*" label-for="place-name">
+        <b-form-group :label="$t('name')" label-for="place-name">
           <b-form-input
             id="place-name"
             v-model="placeFormValues.name"
             required
-            placeholder="Name"
+            :placeholder="$t('na')"
           ></b-form-input>
         </b-form-group>
 
@@ -88,20 +88,22 @@
         </b-form-group>
 
         <b-form-group
-          label="Average Duration of the stay in minutes*"
+          :label="$t('duration')"
           label-for="place-average-duration"
         >
           <b-form-input
             id="place-average-duration"
             v-model="placeFormValues.averageDuration"
             required
-            placeholder="Average Duration in minutes"
+            :placeholder="$t('dur')"
           ></b-form-input>
         </b-form-group>
-        <b-button v-if="placeFormMode" type="submit" variant="primary"
-          >Modify</b-button
-        >
-        <b-button v-else type="submit" variant="primary">Create place</b-button>
+        <b-button v-if="placeFormMode" type="submit" variant="primary">
+          {{ $t('mod') }}
+        </b-button>
+        <b-button v-else type="submit" variant="primary">
+          {{ $t('creer') }}
+        </b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -109,9 +111,9 @@
       </template>
     </b-modal>
 
-    <b-modal id="place-delete-modal" title="Delete Place">
+    <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="handleplaceFormValuesDelete">
-        Do you really want to delete the place?
+        {{ $t('del') }}
         <br />
         <br />
         <b-button type="submit" variant="success">Yes</b-button>
@@ -125,6 +127,40 @@
     </b-modal>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "place":"Your Places",
+    "cplace":"Create a place",
+    "noplace":"You don't have any places for now. Please, create a place to begin.",
+    "aff":"Show QRCode",
+    "name":"Name*",
+    "duration":"Average duration of the stay in minutes*",
+    "dur":"Average Duration in minutes",
+    "na":"Nom",
+    "mod":"Modify",
+    "creer":"Create place",
+    "del":"Do you really want to delete the place?",
+    "sup":"Delete Place"
+
+  },
+  "fr": {
+    "place":"Vos Adresses",
+    "cplace":"Ajouter un lieu",
+    "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
+    "aff":"Afficher QRCode",
+    "name":"Nom*",
+    "duration":"Durée moyenne de visite en minutes*",
+    "dur":"Durée moyenne en minutes",
+    "na":"Nom",
+    "mod":"Modifier",
+    "creer":"Créer le lieu",
+    "del":"Voulez vous vraiment supprimer le lieu ?",
+    "sup":"Supprimer le lieu"
+  }
+}
+</i18n>
 
 <script lang="ts">
 import Vue from 'vue'

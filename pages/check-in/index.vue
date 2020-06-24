@@ -62,6 +62,15 @@
   </p>
 </template>
 
+<i18n>
+{
+  "en": {
+  },
+  "fr": {
+  }
+}
+</i18n>
+
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
