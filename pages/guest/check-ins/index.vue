@@ -43,7 +43,7 @@
       </template>
 
       <template v-slot:cell(duration)="data">
-        {{ data.item.duration }}m
+        {{ data.item.duration }} minutes
       </template>
     </b-table>
   </div>

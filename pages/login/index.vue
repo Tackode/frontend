@@ -36,7 +36,7 @@
     "wait":"Chargement en cours...",
     "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
-    "nevershare":"Nous ne partagerons pas votre email.",
+    "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
     "email":"Entrer votre adresse",
     "add":"Adresse mail:"
   }

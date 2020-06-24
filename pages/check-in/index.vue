@@ -13,8 +13,8 @@
     <br />
     Scanning QR Code
   </div>
-  <p v-else-if="state === CheckinState.LOADING">Loading. Please wait...</p>
-  <p v-else-if="state === CheckinState.NOTFOUND">This place does not exist.</p>
+  <p v-else-if="state === CheckinState.LOADING">{{ $t('wait') }}</p>
+  <p v-else-if="state === CheckinState.NOTFOUND">{{ $t('nex') }}</p>
   <div v-else-if="state === CheckinState.LOADED">
     <b-form @submit="handleSubmit">
       <b-card v-if="place" class="mb-4">
@@ -28,45 +28,63 @@
       </b-card>
       <b-card class="mb-2">
         <b-form-group
-          label="Your Email*"
+          :label="$t('email')"
           label-for="login-email"
-          description="We'll never share your email with anyone else."
+          :description="$t('nevershare')"
         >
           <b-form-input
             id="login-email"
             v-model="email"
             type="email"
             required
-            placeholder="Enter your email"
+            :placeholder="$t('emai')"
           ></b-form-input>
         </b-form-group>
 
         <div>
           <input id="storeemail" type="checkbox" name="scales" checked />
           <label for="storeemail">
-            Store my email adress to be warned whenever a contact was infected
-            by the Covid-19.
+            {{ $t('store') }}
           </label>
         </div>
         <br />
-        If you stay more than {{ duration }} minutes, please, recheckin.
+        {{ $t('stay') }} {{ duration }} {{ $t('re') }}
         <br />
         <br />
-        <b-button type="submit" variant="primary">Do a Check-In</b-button>
+        <b-button type="submit" variant="primary"> {{ $t('sub') }} </b-button>
       </b-card>
     </b-form>
   </div>
   <p v-else-if="state === CheckinState.CHECKMAIL">
-    An email has been sent to your mailbox. Please, click on the connection link
-    in the mail.
+    {{ $t('ema') }}
   </p>
 </template>
 
 <i18n>
 {
-  "en": {
+    "en": {
+    "nex":"This place does not exist.",
+    "stay":"If you stay more than",
+    "re":"minutes, please, recheckin.",
+    "wait":"Loading. Please wait...",
+    "ema":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
+    "nevershare":"We'll never share your email with anyone else.",
+    "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
+    "sub":"Do a Checkin-In",
+    "email":"Email address*",
+    "emai":"Enter your email"
   },
   "fr": {
+    "nex":"Ce lieu n'existe plus.",
+    "stay":"Si vous restez plus de",
+    "re":"minutes, veuillez vous réenregistrer.",
+    "wait":"Chargement en cours...",
+    "ema":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
+    "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
+    "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
+    "sub":"Valider le Check-In",
+    "email":"Adresse mail*",
+    "emai":"Entrer votre mail"
   }
 }
 </i18n>
@@ -175,7 +193,7 @@ export default class CheckIn extends Vue {
     }
   }
 
-  onDecode(result: any) {
+  onDecode(result: string) {
     this.result = result
     document.location.href = result
   }

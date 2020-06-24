@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 console.log('API_URL:', process.env.API_URL)
+console.log('CSP:', process.env.CSP)
 
 export default {
   mode: 'universal',
@@ -103,6 +104,19 @@ export default {
     extend(_config, _ctx) {},
   },
   render: {
-    csp: true,
+    csp: {
+      reportOnly: true,
+      hashAlgorithm: 'sha256',
+      policies: {
+        'default-src': ["'self'"],
+        'img-src': ['https:'],
+        'worker-src': ["'self'", `blob:`],
+        'style-src': ["'self'"],
+        'script-src': ["'self'"],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'none'"],
+        'object-src': ["'none'"],
+      },
+    },
   },
 }

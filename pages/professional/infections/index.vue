@@ -37,7 +37,7 @@
       </template>
     </b-table>
 
-    <b-modal id="infection-creation-modal" title="Select affected places*">
+    <b-modal id="infection-creation-modal" :title="$t('af')">
       <b-form>
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
@@ -53,23 +53,22 @@
         <b-button
           @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
-          >Close</b-button
         >
+          {{ $t('close') }}
+        </b-button>
         <b-button
           v-b-modal.infection-creation2-modal
           @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
-          >Go to Start Date</b-button
         >
+          {{ $t('start') }}
+        </b-button>
       </b-form>
       <template v-slot:modal-footer>
         <span></span>
       </template>
     </b-modal>
-    <b-modal
-      id="infection-creation2-modal"
-      title="Start Date of the Infection*"
-    >
+    <b-modal id="infection-creation2-modal" :title="$t('st')">
       <b-form>
         <b-calendar v-model="infectionCreation.startDate"></b-calendar>
 
@@ -83,13 +82,14 @@
           v-b-modal.infection-creation-modal
           @click="$bvModal.hide('infection-creation2-modal')"
           variant="primary"
-          >Back to Choose Place
+        >
+          {{ $t('bk') }}
         </b-button>
         <b-button
           v-b-modal.infection-creation3-modal
           @click="$bvModal.hide('infection-creation2-modal')"
           variant="primary"
-          >Go to End Date</b-button
+          >{{ $t('end') }}</b-button
         >
       </b-form>
 
@@ -98,9 +98,9 @@
       </template>
     </b-modal>
 
-    <b-modal id="infection-creation3-modal" title="End Date of the Infection*">
+    <b-modal id="infection-creation3-modal" :title="$t('fin')">
       <b-form @submit="handleInfectionCreationSubmit">
-        <p>Maximum duration of infection: 12 hours</p>
+        <p>{{ $t('max') }}</p>
         <b-calendar v-model="infectionCreation.endDate"></b-calendar>
 
         <b-time
@@ -113,9 +113,10 @@
           v-b-modal.infection-creation2-modal
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
-          >Back to Start Date</b-button
         >
-        <b-button type="submit" variant="primary">Declare Infection</b-button>
+          {{ $t('back') }}
+        </b-button>
+        <b-button type="submit" variant="primary"> {{ $t('dec') }}</b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -128,11 +129,31 @@
 <i18n>
 {
   "en": {
+    "st":"Start Date of the Infection*",
+    "fin":"End Date of the Infection*",
+    "af":"Select affected places*",
+    "max":"Maximum duration of infection: 12 hours",
+    "back":"Back to Start Date",
+    "close":"Close",
+    "dec":"Declare Infection",
+    "bk":"Back to Choose Place",
+    "start":"Go to Start Date",
+    "end":"Go to End Date",
     "infec":"Declaration of Infections",
     "potinf":"Declare a potential infection",
     "nopinf":"No place to declare an infection"
   },
   "fr": {
+    "st":"Date de départ de l'infection*",
+    "fin":"Date de fin de l'infection*",
+    "af":"Lieux infectés*",
+    "max":"Durée maximale d'infection: 12 heures",
+    "back":"Retour à la Date de Début",
+    "close":"Fermer",
+    "dec":"Déclarer l'infection",
+    "bk":"Retour au Choix du Lieu",
+    "start":"Vers la Date de Début d'Infection",
+    "end":"Vers la Date de Fin d'Infection",
     "infec":"Déclarer une infection",
     "potinf":"Déclarer une infection potentielle",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection."

@@ -16,19 +16,11 @@
         </b-button>
         <br />
       </div>
-      <div v-else>
-        <br />
-        <b-button variant="primary" @click="$store.dispatch('session/logout')">
-          {{ $t('logout') }}</b-button
-        >
-      </div>
 
       <br />
       <h2>{{ $t('checkin') }}</h2>
-      {{ $t('scan') }}
       <br />
-      <br />
-      <b-button to="/check-in" variant="primary">{{ $t('check') }}</b-button>
+      <b-button to="/check-in" variant="primary">{{ $t('scan') }}</b-button>
     </div>
   </div>
 </template>
@@ -36,24 +28,22 @@
 <i18n>
 {
   "en": {
-    "welcome": "Welcome to Covid Journal!",
+    "welcome": "Welcome to Covid Journal",
     "message": "Be aware of Covid in public and private places",
     "log": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan a QR Code",
-    "check":"Do a Check-in",
     "prolog":"Professional log in",
     "userlog":"User log in"
   },
   "fr": {
-    "welcome": "Bienvenue sur Covid Journal!",
+    "welcome": "Bienvenue sur Covid Journal",
     "message": "Covid-19 : Soyez alerté dans les lieux visités",
     "log": "Se connecter",
     "logout":"Se déconnecter",
-    "checkin" : "Scanner votre entrée",
+    "checkin" : "Enregistrer son passage",
     "scan": "Scanner un QR Code",
-    "check":"Faire un Check-in",
     "prolog":"Connexion Pro",
     "userlog":"Connexion utilisateur"
   }

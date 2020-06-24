@@ -1,6 +1,8 @@
 <template>
   <div>
-    <nuxt-link class="no-print" to="/professional/places/">Back</nuxt-link>
+    <nuxt-link class="no-print" to="/professional/places/">
+      {{ $t('bk') }}
+    </nuxt-link>
     <h2>{{ organization }}</h2>
     <h2>
       <b>{{ name }}</b>
@@ -18,16 +20,20 @@
       {{ $t('flash') }}
     </p>
     <br />
-    <b-button class="no-print" @click="PrintPage"> Print the page</b-button>
+    <b-button class="no-print" @click="PrintPage"> {{ $t('print') }} </b-button>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
+    "bk":"Back",
+    "print":"Print the page",
     "flash":"Flash this QR Code to be informed of an infection"
   },
   "fr": {
+    "bk":"Retour",
+    "print":"Imprimer",
     "flash":"Flasher le QR Code pour être informé d'une infection"
   }
 }
