@@ -29,6 +29,7 @@
 
     <b-modal id="infection-creation-modal" title="Infection Declaration">
       <b-form @submit="handleInfectionCreationSubmit">
+        <p>Maximum duration of infection: 12 hours</p>
         Select affected places*
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
@@ -175,6 +176,11 @@ export default class ProfessionalInfections extends Vue {
                 this.$bvToast,
                 'Infections',
                 new Error('A network error occured. Please, try again.')
+              )
+              showError(
+                this.$bvToast,
+                'Infections',
+                new Error('Maximum time of infection : 12 hours')
               )
               return
             }

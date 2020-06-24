@@ -17,7 +17,7 @@
       </div>
       <div v-else>
         <br />
-        <b-button @click="$store.dispatch('session/logout')" variant="primary"
+        <b-button variant="primary" @click="$store.dispatch('session/logout')"
           >Log out</b-button
         >
       </div>

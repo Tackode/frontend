@@ -15,5 +15,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     'no-console': 'off',
+    'vue/no-use-v-if-with-v-for': 'off',
   },
 }

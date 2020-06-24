@@ -14,6 +14,7 @@
     Scanning QR Code
   </div>
   <p v-else-if="state === CheckinState.LOADING">Loading. Please wait...</p>
+  <p v-else-if="state === CheckinState.NOTFOUND">This place does not exist.</p>
   <div v-else-if="state === CheckinState.LOADED">
     <b-form @submit="handleSubmit">
       <b-card v-if="place" class="mb-4">
@@ -72,6 +73,7 @@ enum CheckinState {
   LOADING,
   LOADED,
   ERROR,
+  NOTFOUND,
   CHECKMAIL,
   FINISH,
 }
@@ -100,11 +102,8 @@ export default class CheckIn extends Vue {
     try {
       this.place = await this.$axios.$get(`/place/${placeId}`)
     } catch (error) {
-      showError(
-        this.$bvToast,
-        'Checkin',
-        new Error('A network error occured. Please, try again.')
-      )
+      this.state = CheckinState.NOTFOUND
+      showError(this.$bvToast, 'Checkin', new Error('Place not found.'))
       return
     }
     this.duration = `${this.place?.averageDuration}`
