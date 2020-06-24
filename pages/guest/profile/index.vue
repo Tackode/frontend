@@ -43,12 +43,7 @@
         Do you really want to delete your profile?
         <br />
         <br />
-        <b-button
-          type="submit"
-          variant="success"
-          @click="$bvModal.hide('place-delete-modal')"
-          >Yes</b-button
-        >
+        <b-button type="submit" variant="success">Yes</b-button>
         <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
           >No</b-button
         >
@@ -146,6 +141,7 @@ export default class GuestProfile extends Vue {
             password: this.$store.getters['session/token'],
           },
         })
+        this.$bvModal.hide('place-delete-modal')
         this.$store.dispatch('session/logout')
         showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
       } catch (error) {
