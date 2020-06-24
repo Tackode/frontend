@@ -72,6 +72,7 @@ export default class GuestProfile extends Vue {
   profile: Profile | null = null
   saveEmail = false
   email: string | undefined | null = null
+  emai: string | undefined | null = null
   ProfileState = ProfileState
   async mounted() {
     try {
@@ -90,14 +91,20 @@ export default class GuestProfile extends Vue {
     }
 
     this.saveEmail = this.profile?.email !== null
-    this.email = this.$store.getters['session/email']
+    if (this.$store.getters['session/email']) {
+      this.email = this.$store.getters['session/email']
+    } else {
+      this.email = localStorage.emai
+    }
     this.state = ProfileState.LOADED
   }
 
   async handleAddEmail(e: Event) {
     e.preventDefault()
-    if (this.saveEmail === false) {
-      this.email = null
+    if (this.saveEmail) {
+      this.emai = this.email
+    } else {
+      this.emai = null
     }
 
     try {
@@ -127,7 +134,11 @@ export default class GuestProfile extends Vue {
     }
 
     if (this.saveEmail === false) {
-      this.email = this.$store.getters['session/email']
+      if (this.$store.getters['session/email']) {
+        this.email = this.$store.getters['session/email']
+      } else {
+        this.email = localStorage.emai
+      }
     }
   }
 

@@ -33,6 +33,7 @@
       An email has been sent to your mailbox. Please, click on the connection
       link in the mail.
     </p>
+    <p v-else-if="state === LoginState.LOADING">Loading. Please wait...</p>
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import { showError } from '../../helpers/alerts'
 enum LoginState {
   IDLE,
   CHECK_EMAIL,
+  LOADING,
 }
 
 @Component
@@ -57,7 +59,7 @@ export default class LoginProfessional extends Vue {
 
   async handleSubmit(e: Event) {
     e.preventDefault()
-
+    this.state = LoginState.LOADING
     try {
       await this.$axios.$post('/login', {
         email: this.email,
@@ -74,6 +76,7 @@ export default class LoginProfessional extends Vue {
     }
 
     this.state = LoginState.CHECK_EMAIL
+    localStorage.emai = this.email
   }
 }
 </script>

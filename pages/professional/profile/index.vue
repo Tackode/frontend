@@ -86,6 +86,7 @@ export default class ProfessionalProfile extends Vue {
   profile: Profile | null = null
   saveEmail = false
   email: string | undefined | null = null
+  emai: string | undefined | null = null
   ProfileState = ProfileState
 
   async mounted() {
@@ -107,7 +108,11 @@ export default class ProfessionalProfile extends Vue {
     }
 
     this.saveEmail = this.profile?.email !== null
-    this.email = this.$store.getters['session/email']
+    if (this.$store.getters['session/email']) {
+      this.email = this.$store.getters['session/email']
+    } else {
+      this.email = localStorage.emai
+    }
     this.state = ProfileState.LOADED
   }
 
@@ -135,15 +140,17 @@ export default class ProfessionalProfile extends Vue {
       )
     }
 
-    if (this.saveEmail === false) {
-      this.email = null
+    if (this.saveEmail) {
+      this.emai = this.email
+    } else {
+      this.emai = null
     }
 
     try {
       await this.$axios.$put(
         '/profile',
         {
-          email: this.email,
+          email: this.emai,
         },
         {
           auth: {
@@ -163,9 +170,6 @@ export default class ProfessionalProfile extends Vue {
         'Profile',
         new Error('A network error has occurred in posting. Please, try again.')
       )
-    }
-    if (this.saveEmail === false) {
-      this.email = this.$store.getters['session/email']
     }
   }
 
