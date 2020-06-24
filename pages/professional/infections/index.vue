@@ -27,10 +27,8 @@
       </template>
     </b-table>
 
-    <b-modal id="infection-creation-modal" title="Infection Declaration">
-      <b-form @submit="handleInfectionCreationSubmit">
-        <p>Maximum duration of infection: 12 hours</p>
-        Select affected places*
+    <b-modal id="infection-creation-modal" title="Select affected places*">
+      <b-form>
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
             <b-form-checkbox
@@ -42,8 +40,27 @@
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-
-        <p>Start date of the infection*</p>
+        <b-button
+          @click="$bvModal.hide('infection-creation-modal')"
+          variant="primary"
+          >Close</b-button
+        >
+        <b-button
+          v-b-modal.infection-creation2-modal
+          @click="$bvModal.hide('infection-creation-modal')"
+          variant="primary"
+          >Go to Start Date</b-button
+        >
+      </b-form>
+      <template v-slot:modal-footer>
+        <span></span>
+      </template>
+    </b-modal>
+    <b-modal
+      id="infection-creation2-modal"
+      title="Start Date of the Infection*"
+    >
+      <b-form>
         <b-calendar v-model="infectionCreation.startDate"></b-calendar>
 
         <b-time
@@ -52,8 +69,28 @@
         ></b-time>
         <br />
         <br />
+        <b-button
+          v-b-modal.infection-creation-modal
+          @click="$bvModal.hide('infection-creation2-modal')"
+          variant="primary"
+          >Back to Choose Place
+        </b-button>
+        <b-button
+          v-b-modal.infection-creation3-modal
+          @click="$bvModal.hide('infection-creation2-modal')"
+          variant="primary"
+          >Go to End Date</b-button
+        >
+      </b-form>
 
-        <p>End date of the infection*</p>
+      <template v-slot:modal-footer>
+        <span></span>
+      </template>
+    </b-modal>
+
+    <b-modal id="infection-creation3-modal" title="End Date of the Infection*">
+      <b-form @submit="handleInfectionCreationSubmit">
+        <p>Maximum duration of infection: 12 hours</p>
         <b-calendar v-model="infectionCreation.endDate"></b-calendar>
 
         <b-time
@@ -62,8 +99,13 @@
         ></b-time>
         <br />
         <br />
-
-        <b-button type="submit" variant="primary">Create</b-button>
+        <b-button
+          v-b-modal.infection-creation2-modal
+          @click="$bvModal.hide('infection-creation3-modal')"
+          variant="primary"
+          >Back to Start Date</b-button
+        >
+        <b-button type="submit" variant="primary">Declare Infection</b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -144,6 +186,9 @@ export default class ProfessionalInfections extends Vue {
 
   async handleInfectionCreationSubmit(e: Event) {
     e.preventDefault()
+    console.log(
+      `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`
+    )
     if (this.infectionCreation.placesIds.length > 0) {
       if (
         this.infectionCreation.startDateTime !== '' &&
@@ -215,7 +260,7 @@ export default class ProfessionalInfections extends Vue {
       )
     }
 
-    this.$bvModal.hide('infection-creation-modal')
+    this.$bvModal.hide('infection-creation3-modal')
 
     this.loadData()
   }
