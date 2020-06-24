@@ -2,12 +2,22 @@
   <div>
     <h1 class="sr-only">Infections</h1>
     <h2>Declaration of Infections</h2>
-    <br />
-    <b-button v-b-modal.infection-creation-modal variant="primary" class="mb-2">
-      Declare a potential infection
-    </b-button>
-    <br />
-    <br />
+
+    <div v-if="places.length > 0">
+      <br />
+      <b-button
+        v-b-modal.infection-creation-modal
+        variant="primary"
+        class="mb-2"
+      >
+        Declare a potential infection
+      </b-button>
+      <br />
+      <br />
+    </div>
+
+    <p v-else>No place to declare an infection</p>
+
     <b-table
       v-if="infections.length > 0"
       striped
@@ -186,9 +196,7 @@ export default class ProfessionalInfections extends Vue {
 
   async handleInfectionCreationSubmit(e: Event) {
     e.preventDefault()
-    console.log(
-      `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`
-    )
+
     if (this.infectionCreation.placesIds.length > 0) {
       if (
         this.infectionCreation.startDateTime !== '' &&
@@ -274,7 +282,9 @@ export default class ProfessionalInfections extends Vue {
     })
 
     ids.forEach((id) => {
-      result += placesWithIds[id].name + ', '
+      if (id in placesWithIds) {
+        result += placesWithIds[id].name + ', '
+      }
     })
 
     if (result.length > 0) {

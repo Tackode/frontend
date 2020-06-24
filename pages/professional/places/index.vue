@@ -101,7 +101,7 @@
         <b-button v-if="placeFormMode" type="submit" variant="primary"
           >Modify</b-button
         >
-        <b-button v-else type="submit" variant="primary">Create</b-button>
+        <b-button v-else type="submit" variant="primary">Create place</b-button>
       </b-form>
 
       <template v-slot:modal-footer>
