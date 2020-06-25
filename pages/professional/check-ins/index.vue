@@ -1,6 +1,6 @@
 <template>
   <div v-if="checkins.length > 0">
-    <h1 class="sr-only">All Check-ins</h1>
+    <h1 class="sr-only">{{ $t('all') }}</h1>
 
     <div v-if="infectedcheckins.length > 0">
       <h2>{{ $t('infchec') }}</h2>
@@ -49,7 +49,7 @@
   </div>
 
   <div v-else>
-    <h1 class="sr-only">All Check-ins</h1>
+    <h1 class="sr-only">{{ $t('all') }}</h1>
     <h2>{{ $t('chec') }}</h2>
     <br />
     <p>
@@ -61,12 +61,14 @@
 <i18n>
 {
   "en": {
+    "all":"All Check-ins",
     "infchec":"Infected Check-ins",
     "chec":"My Check-ins",
     "nochec":"You don't have any check-in for now. Scan a QR code in a public location to start."
   },
   "fr": {
-    "infcheck":"Check-ins infectés",
+    "all":"Tous les Check-ins",
+    "infchec":"Check-ins infectés",
     "chec":"Mes Check-ins",
     "nochec":"Vous n'avez aucun check-in pour l'instant. Scannez un code QR pour commencer."
   }

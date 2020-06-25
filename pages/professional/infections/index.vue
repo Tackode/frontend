@@ -55,11 +55,11 @@
           v-b-modal.infection-creation2-modal
           variant="primary"
         >
-          Enter Start Date
+          {{ $t('st') }}
         </b-button>
         <br />
         <b-button v-b-modal.infection-creation3-modal variant="primary">
-          Enter End Date
+          {{ $t('fin') }}
         </b-button>
         <br />
         <br />
@@ -94,8 +94,9 @@
         <b-button
           @click="$bvModal.hide('infection-creation2-modal')"
           variant="primary"
-          >Validate</b-button
         >
+          {{ $t('vl') }}
+        </b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -118,8 +119,8 @@
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
         >
-          Validate</b-button
-        >
+          {{ $t('vl') }}
+        </b-button>
       </b-form>
 
       <template v-slot:modal-footer>
@@ -144,7 +145,8 @@
     "end":"Go to End Date",
     "infec":"Declaration of Infections",
     "potinf":"Declare a potential infection",
-    "nopinf":"No place to declare an infection"
+    "nopinf":"No place to declare an infection",
+    "vl":"Validate"
   },
   "fr": {
     "st":"Date de départ de l'infection*",
@@ -159,7 +161,8 @@
     "end":"Vers la Date de Fin d'Infection",
     "infec":"Déclarer une infection",
     "potinf":"Déclarer une infection potentielle",
-    "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection."
+    "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
+    "vl":"Valider"
   }
 }
 </i18n>
