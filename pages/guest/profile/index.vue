@@ -38,12 +38,12 @@
         {{ $t('sup') }}
       </b-button>
     </b-card>
-    <b-modal id="place-delete-modal" title="Delete Profile">
+    <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="deleteProfile">
         {{ $t('del') }}
         <br />
         <br />
-        <b-button type="submit" variant="success">Yes</b-button>
+        <b-button type="submit" variant="success"> {{ $t('yes') }} </b-button>
         <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')">
           {{ $t('no') }}
         </b-button>
@@ -140,7 +140,7 @@ export default class GuestProfile extends Vue {
       await this.$axios.$put(
         '/profile',
         {
-          email: this.email,
+          email: this.emai,
         },
         {
           auth: {
@@ -161,38 +161,28 @@ export default class GuestProfile extends Vue {
         new Error('A network error has occurred in posting. Please, try again.')
       )
     }
-
-    if (this.saveEmail === false) {
-      if (this.$store.getters['session/email']) {
-        this.email = this.$store.getters['session/email']
-      } else {
-        this.email = localStorage.emai
-      }
-    }
   }
 
   async deleteProfile(e: Event) {
     e.preventDefault()
-    if (this.saveEmail) {
-      try {
-        await this.$axios.$delete('/profile', {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        })
-        this.$bvModal.hide('place-delete-modal')
-        this.$store.dispatch('session/logout')
-        showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Profile',
-          new Error(
-            'A network error has occurred in deleting profile. Please, try again.'
-          )
+    try {
+      await this.$axios.$delete('/profile', {
+        auth: {
+          username: this.$store.getters['session/login'],
+          password: this.$store.getters['session/token'],
+        },
+      })
+      this.$bvModal.hide('place-delete-modal')
+      this.$store.dispatch('session/logout')
+      showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Profile',
+        new Error(
+          'A network error has occurred in deleting profile. Please, try again.'
         )
-      }
+      )
     }
   }
 }
