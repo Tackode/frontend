@@ -131,6 +131,11 @@ export default class CheckIn extends Vue {
 
   async mounted() {
     const placeId = this.$route.query.placeId
+    if (this.$store.getters['session/email']) {
+      this.email = this.$store.getters['session/email']
+    } else {
+      this.email = localStorage.emai
+    }
 
     if (!placeId) {
       this.state = CheckinState.SCANNING
