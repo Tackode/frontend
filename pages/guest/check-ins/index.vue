@@ -21,7 +21,7 @@
         </template>
 
         <template v-slot:cell(duration)="data">
-          <div class="red">{{ data.item.duration }}m</div>
+          <div class="red">{{ data.item.duration }} minutes</div>
         </template>
       </b-table>
       <br />

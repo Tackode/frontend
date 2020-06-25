@@ -50,16 +50,38 @@
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
+        {{ $t('start') }}
+        <b-form-input
+          v-model="infectionCreation.startDate"
+          readonly
+          :placeholder="$t('st')"
+        ></b-form-input>
+        <b-form-input
+          v-model="infectionCreation.startDateTime"
+          readonly
+          :placeholder="$t('sth')"
+        ></b-form-input>
         <b-button
           class="center"
           v-b-modal.infection-creation2-modal
           variant="primary"
         >
-          {{ $t('st') }}
+          {{ $t('md') }}
         </b-button>
         <br />
+        {{ $t('end') }}
+        <b-form-input
+          v-model="infectionCreation.endDate"
+          readonly
+          :placeholder="$t('fin')"
+        ></b-form-input>
+        <b-form-input
+          v-model="infectionCreation.endDateTime"
+          readonly
+          :placeholder="$t('finh')"
+        ></b-form-input>
         <b-button v-b-modal.infection-creation3-modal variant="primary">
-          {{ $t('fin') }}
+          {{ $t('md') }}
         </b-button>
         <br />
         <br />
@@ -135,34 +157,40 @@
   "en": {
     "st":"Start Date of the Infection*",
     "fin":"End Date of the Infection*",
+    "sth":"Start Time of the Infection*",
+    "finh":"End Time of the Infection*",
     "af":"Select affected places*",
     "max":"Maximum duration of infection: 12 hours",
     "back":"Back to Start Date",
     "close":"Close",
     "dec":"Declare Infection",
     "bk":"Back to Choose Place",
-    "start":"Go to Start Date",
-    "end":"Go to End Date",
+    "start":"Start date :",
+    "end":"End date :",
     "infec":"Declaration of Infections",
     "potinf":"Declare a potential infection",
     "nopinf":"No place to declare an infection",
-    "vl":"Validate"
+    "vl":"Validate",
+    "md":"Modify"
   },
   "fr": {
-    "st":"Date de départ de l'infection*",
+    "st":"Date de début de l'infection*",
     "fin":"Date de fin de l'infection*",
+    "sth":"Heure de début de l'infection*",
+    "finh":"Heure de fin de l'infection*",
     "af":"Lieux infectés*",
     "max":"Durée maximale d'infection: 12 heures",
     "back":"Retour à la Date de Début",
     "close":"Fermer",
     "dec":"Déclarer l'infection",
     "bk":"Retour au Choix du Lieu",
-    "start":"Vers la Date de Début d'Infection",
-    "end":"Vers la Date de Fin d'Infection",
+    "start":"Date de début :",
+    "end":"Date de fin :",
     "infec":"Déclarer une infection",
     "potinf":"Déclarer une infection potentielle",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
-    "vl":"Valider"
+    "vl":"Valider",
+    "md":"Modifier"
   }
 }
 </i18n>
@@ -254,10 +282,10 @@ export default class ProfessionalInfections extends Vue {
             this.infectionCreation.startDate <= this.infectionCreation.endDate
           ) {
             this.startDate = new Date(
-              `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}`
+              `${this.infectionCreation.startDate} ${this.infectionCreation.startDateTime}`
             ).toISOString()
             this.endDate = new Date(
-              `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}`
+              `${this.infectionCreation.endDate} ${this.infectionCreation.endDateTime}`
             ).toISOString()
             try {
               await this.$axios.$post(
