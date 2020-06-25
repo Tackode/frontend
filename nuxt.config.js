@@ -82,6 +82,10 @@ export default {
         ],
         defaultLocale: 'fr',
         vueI18nLoader: true,
+        detectBrowserLanguage: {
+          useCookie: true,
+          cookieKey: 'i18n_redirected',
+        },
       },
     ],
     [

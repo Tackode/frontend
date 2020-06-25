@@ -1,17 +1,14 @@
 <template>
   <div v-if="state === CheckinState.SCANNING">
-    <h2>Scan a QR Code</h2>
+    <h2>{{ $t('scan') }}</h2>
     <br />
     <qrcode-stream @decode="onDecode" @init="onInit" />
     <p>
-      <b> {{ error }}</b>
-    </p>
-    <p class="decode-result">
-      Last result: <b>{{ result }}</b>
+      <b> {{ $t(error) }}</b>
     </p>
 
     <br />
-    Scanning QR Code
+    {{ $t('sca') }}
   </div>
   <p v-else-if="state === CheckinState.LOADING">{{ $t('wait') }}</p>
   <p v-else-if="state === CheckinState.NOTFOUND">{{ $t('nex') }}</p>
@@ -72,7 +69,15 @@
     "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
     "sub":"Do a Checkin-In",
     "email":"Email address*",
-    "emai":"Enter your email"
+    "emai":"Enter your email",
+    "scan":"Scan a QR Code",
+    "sca":"Scanning",
+    "nocam":"ERROR: No camera on this device",
+    "noallow":"ERROR: You need to grant camera access permisson",
+    "sec":"ERROR: secure context required (HTTPS, localhost)",
+    "inuse":"ERROR: is the camera already in use?",
+    "over":"ERROR: installed cameras are not suitable",
+    "stream":"ERROR: Stream API is not supported in this browser"
   },
   "fr": {
     "nex":"Ce lieu n'existe plus.",
@@ -84,7 +89,15 @@
     "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
     "sub":"Valider le Check-In",
     "email":"Adresse mail*",
-    "emai":"Entrer votre mail"
+    "emai":"Entrer votre mail",
+    "scan":"Scanner un QR Code",
+    "sca":"Scan en cours",
+    "nocam":"ERREUR : Pas de caméra sur cet appareil",
+    "noallow":"ERREUR : Vous devez permettre l'accès à la caméra pour scanner",
+    "sec":"ERREUR: Contexte sécurisé requis (HTTPS, localhost)",
+    "inuse":"ERREUR: Votre caméra est déjà utilisée ?",
+    "over":"ERREUR: La caméra installée n'est pas compatible",
+    "stream":"ERREUR: La vidéo n'est pas supportée sur votre appareil"
   }
 }
 </i18n>
@@ -112,7 +125,6 @@ export default class CheckIn extends Vue {
   duration: string = ''
   email: string = this.$store.getters['session/email']
   error: string = ''
-  result: string = ''
   storeEmail = true
 
   CheckinState = CheckinState
@@ -194,7 +206,6 @@ export default class CheckIn extends Vue {
   }
 
   onDecode(result: string) {
-    this.result = result
     document.location.href = result
   }
 
@@ -203,17 +214,17 @@ export default class CheckIn extends Vue {
       await promise
     } catch (error) {
       if (error.name === 'NotAllowedError') {
-        this.error = 'ERROR: you need to grant camera access permisson'
+        this.error = 'noallow'
       } else if (error.name === 'NotFoundError') {
-        this.error = 'ERROR: no camera on this device'
+        this.error = 'nocam'
       } else if (error.name === 'NotSupportedError') {
-        this.error = 'ERROR: secure context required (HTTPS, localhost)'
+        this.error = 'sec'
       } else if (error.name === 'NotReadableError') {
-        this.error = 'ERROR: is the camera already in use?'
+        this.error = 'inuse'
       } else if (error.name === 'OverconstrainedError') {
-        this.error = 'ERROR: installed cameras are not suitable'
+        this.error = 'over'
       } else if (error.name === 'StreamApiNotSupportedError') {
-        this.error = 'ERROR: Stream API is not supported in this browser'
+        this.error = 'stream'
       }
     }
   }

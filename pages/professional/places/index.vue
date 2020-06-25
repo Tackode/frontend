@@ -67,7 +67,7 @@
       {{ $t('noplace') }}
     </p>
 
-    <b-modal id="place-creation-modal" :title="FormTitle()">
+    <b-modal id="place-creation-modal" :title="$t(FormTitle())">
       <b-form @submit="handleplaceFormValuesSubmit">
         <b-form-group :label="$t('name')" label-for="place-name">
           <b-form-input
@@ -142,7 +142,9 @@
     "mod":"Modify",
     "creer":"Create place",
     "del":"Do you really want to delete the place?",
-    "sup":"Delete Place"
+    "sup":"Delete Place",
+    "mod":"Place Modification",
+    "crea":"Place Creation"
 
   },
   "fr": {
@@ -157,7 +159,9 @@
     "mod":"Modifier",
     "creer":"Créer le lieu",
     "del":"Voulez vous vraiment supprimer le lieu ?",
-    "sup":"Supprimer le lieu"
+    "sup":"Supprimer le lieu",
+    "mod":"Modification du lieu",
+    "crea":"Création du lieu"
   }
 }
 </i18n>
@@ -312,9 +316,9 @@ export default class ProfessionalPlaces extends Vue {
 
   FormTitle() {
     if (this.placeFormMode) {
-      return 'Place Modification'
+      return 'mod'
     } else {
-      return 'Place Creation'
+      return 'crea'
     }
   }
 }
