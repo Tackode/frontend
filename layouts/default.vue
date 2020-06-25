@@ -3,13 +3,13 @@
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand to="/">
         <img
-          src="./Logo.jpg"
+          src="./Logo.png"
+          srcset="./Logo.png 1x, ./Logo@2x.png 2x"
           height="30"
-          width="30"
+          width="160"
           class="d-inline-block align-top"
         />
-        Covid Journal</b-navbar-brand
-      >
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

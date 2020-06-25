@@ -3,6 +3,7 @@
     <nuxt-link class="no-print" to="/professional/places/">
       {{ $t('bk') }}
     </nuxt-link>
+    <br />
     <h2>{{ organization }}</h2>
     <h2>
       <b>{{ name }}</b>

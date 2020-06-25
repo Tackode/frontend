@@ -182,7 +182,14 @@ interface PlaceFormValues {
 
 @Component
 export default class ProfessionalPlaces extends Vue {
-  fields = ['place_name', 'average_duration', 'action', 'modify', 'delete']
+  fields = [
+    { key: 'place_name', label: 'Place Name' },
+    { key: 'average_duration', label: 'Average Duration' },
+    { key: 'action', label: 'Action' },
+    { key: 'modify', label: 'Modify' },
+    { key: 'delete', label: 'Delete' },
+  ]
+
   places: Place[] = []
   place: string = ''
   placeFormMode: Boolean = false

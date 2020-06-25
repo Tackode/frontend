@@ -28,7 +28,7 @@ export default {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
   },
   /*
    ** Customize the progress-bar color
@@ -85,6 +85,7 @@ export default {
         detectBrowserLanguage: {
           useCookie: true,
           cookieKey: 'i18n_redirected',
+          alwaysRedirect: true,
         },
       },
     ],
