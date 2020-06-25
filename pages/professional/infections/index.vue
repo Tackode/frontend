@@ -38,7 +38,7 @@
     </b-table>
 
     <b-modal id="infection-creation-modal" :title="$t('af')">
-      <b-form>
+      <b-form @submit="handleInfectionCreationSubmit">
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
             <b-form-checkbox
@@ -51,17 +51,30 @@
           </b-form-checkbox-group>
         </b-form-group>
         <b-button
+          class="center"
+          v-b-modal.infection-creation2-modal
+          variant="primary"
+        >
+          Enter Start Date
+        </b-button>
+        <br />
+        <b-button v-b-modal.infection-creation3-modal variant="primary">
+          Enter End Date
+        </b-button>
+        <br />
+        <br />
+        <b-button
           @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
         >
           {{ $t('close') }}
         </b-button>
         <b-button
-          v-b-modal.infection-creation2-modal
+          type="submit"
           @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
         >
-          {{ $t('start') }}
+          {{ $t('dec') }}
         </b-button>
       </b-form>
       <template v-slot:modal-footer>
@@ -79,17 +92,9 @@
         <br />
         <br />
         <b-button
-          v-b-modal.infection-creation-modal
           @click="$bvModal.hide('infection-creation2-modal')"
           variant="primary"
-        >
-          {{ $t('bk') }}
-        </b-button>
-        <b-button
-          v-b-modal.infection-creation3-modal
-          @click="$bvModal.hide('infection-creation2-modal')"
-          variant="primary"
-          >{{ $t('end') }}</b-button
+          >Validate</b-button
         >
       </b-form>
 
@@ -99,7 +104,7 @@
     </b-modal>
 
     <b-modal id="infection-creation3-modal" :title="$t('fin')">
-      <b-form @submit="handleInfectionCreationSubmit">
+      <b-form>
         <p>{{ $t('max') }}</p>
         <b-calendar v-model="infectionCreation.endDate"></b-calendar>
 
@@ -110,13 +115,11 @@
         <br />
         <br />
         <b-button
-          v-b-modal.infection-creation2-modal
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
         >
-          {{ $t('back') }}
-        </b-button>
-        <b-button type="submit" variant="primary"> {{ $t('dec') }}</b-button>
+          Validate</b-button
+        >
       </b-form>
 
       <template v-slot:modal-footer>
@@ -184,6 +187,8 @@ export default class ProfessionalInfections extends Vue {
   fields = ['infected_places', 'start_date', 'end_date']
   places: Place[] = []
   infections: Infectionreation[] = []
+  startDate: string = ''
+  endDate: string = ''
   infectionCreation: Infectionreation = {
     placesIds: [],
     name: [],
@@ -245,13 +250,19 @@ export default class ProfessionalInfections extends Vue {
           if (
             this.infectionCreation.startDate <= this.infectionCreation.endDate
           ) {
+            this.startDate = new Date(
+              `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}`
+            ).toISOString()
+            this.endDate = new Date(
+              `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}`
+            ).toISOString()
             try {
               await this.$axios.$post(
                 '/infection',
                 {
                   placesIds: this.infectionCreation.placesIds,
-                  startTimestamp: `${this.infectionCreation.startDate}T${this.infectionCreation.startDateTime}Z`,
-                  endTimestamp: `${this.infectionCreation.endDate}T${this.infectionCreation.endDateTime}Z`,
+                  startTimestamp: `${this.startDate}`,
+                  endTimestamp: `${this.endDate}`,
                 },
                 {
                   auth: {
