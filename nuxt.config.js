@@ -5,6 +5,7 @@ dotenv.config()
 
 console.log('API_URL:', process.env.API_URL)
 console.log('CSP:', process.env.CSP)
+const PRIMARY_HOSTS = `api.covid-journal.org`
 
 export default {
   mode: 'universal',
@@ -115,9 +116,9 @@ export default {
       policies: {
         'default-src': ["'self'"],
         'img-src': ['https:'],
-        'worker-src': ["'self'", `blob:`],
-        'style-src': ["'self'"],
-        'script-src': ["'self'"],
+        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS],
+        'style-src': ["'self'", PRIMARY_HOSTS],
+        'script-src': ["'self'", PRIMARY_HOSTS],
         'form-action': ["'self'"],
         'frame-ancestors': ["'none'"],
         'object-src': ["'none'"],
