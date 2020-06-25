@@ -144,7 +144,9 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
+.btn {
+  margin-bottom: 5px;
+}
 .button--green {
   display: inline-block;
   border-radius: 4px;

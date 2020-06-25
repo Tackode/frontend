@@ -19,9 +19,9 @@
         <h2>
           <b>{{ place.name }}</b>
         </h2>
-        <h3>
-          <em>{{ place.description }}</em>
-        </h3>
+        <h5>
+          {{ place.description }}
+        </h5>
       </b-card>
       <b-card class="mb-2">
         <b-form-group

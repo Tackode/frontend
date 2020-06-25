@@ -1,16 +1,19 @@
 <template>
-  <div>
+  <div v-if="(state = ValidateState.LOADING)">
     {{ $t('vd') }}
   </div>
+  <p v-else-if="(state = ValidateState.FAILURE)">{{ $t('fa') }}</p>
 </template>
 
 <i18n>
 {
   "en": {
-    "vd":"Validate Device"
+    "vd":"Validate Device",
+    "fa":"Fail to connect you. Please, retry to connect. "
   },
   "fr": {
-    "vd":"Appareil Validé"
+    "vd":"Appareil Validé",
+    "fa":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter."
   }
 }
 </i18n>
@@ -20,8 +23,17 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 
+enum ValidateState {
+  LOADING,
+  FAILURE,
+}
+
 @Component({})
 export default class ValidateDevice extends Vue {
+  state: ValidateState = ValidateState.LOADING
+
+  ValidateState = ValidateState
+
   async mounted() {
     // Retrieve device & session
     const sessionId = this.$route.query.sessionId
@@ -49,6 +61,7 @@ export default class ValidateDevice extends Vue {
         'Connexion',
         new Error('A network error has occurred. Please, try again.')
       )
+      this.state = ValidateState.FAILURE
       return
     }
 
