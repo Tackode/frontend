@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nuxt-link class="no-print" to="/professional/places/">
+    <nuxt-link
+      class="no-print"
+      :to="'/' + $i18n.locale + '/professional/places/'"
+    >
       {{ $t('bk') }}
     </nuxt-link>
     <br />

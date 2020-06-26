@@ -173,7 +173,8 @@
     "md":"Modify",
     "inf":"Infected Place",
     "sda":"Start Date",
-    "eda":"End Date"
+    "eda":"End Date",
+    "d":"Deleted Place"
   },
   "fr": {
     "st":"Date de début de l'infection*",
@@ -193,7 +194,8 @@
     "md":"Modifier",
     "inf":"Lieux Infectés",
     "sda":"Date de début",
-    "eda":"Date de fin"
+    "eda":"Date de fin",
+    "d":"Lieu supprimé"
   }
 }
 </i18n>
@@ -374,6 +376,8 @@ export default class ProfessionalInfections extends Vue {
     ids.forEach((id) => {
       if (id in placesWithIds) {
         result += placesWithIds[id].name + ', '
+      } else {
+        result += this.$i18n.t('d') + ', '
       }
     })
 
