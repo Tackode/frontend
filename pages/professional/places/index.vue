@@ -80,11 +80,10 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Description*" label-for="place-description">
+        <b-form-group label="Description" label-for="place-description">
           <b-form-input
             id="place-description"
             v-model="placeFormValues.description"
-            required
             placeholder="Description"
           ></b-form-input>
         </b-form-group>
