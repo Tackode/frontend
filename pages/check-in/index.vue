@@ -25,6 +25,21 @@
       </b-card>
       <b-card class="mb-2">
         <b-form-group
+          v-if="$store.getters['session/email'] !== null"
+          :label="$t('email')"
+          label-for="login-email"
+          :description="$t('nevershare')"
+        >
+          <b-form-input
+            id="login-email"
+            v-model="email"
+            type="email"
+            readonly
+            :placeholder="$t('emai')"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group
+          v-else
           :label="$t('email')"
           label-for="login-email"
           :description="$t('nevershare')"
@@ -188,7 +203,13 @@ export default class CheckIn extends Vue {
       }
 
       this.state = CheckinState.FINISH
-      this.$router.replace('/' + this.$i18n.locale + '/')
+      if (this.$store.getters['session/role'] === 'Public') {
+        this.$router.replace('/' + this.$i18n.locale + '/guest/check-ins')
+      } else {
+        this.$router.replace(
+          '/' + this.$i18n.locale + '/professional/check-ins'
+        )
+      }
     } else {
       try {
         await this.$axios.$post('/checkin', {
