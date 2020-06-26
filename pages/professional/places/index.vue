@@ -30,7 +30,9 @@
       </template>
 
       <template v-slot:cell(action)="data">
-        <nuxt-link :to="'/professional/places/' + data.item.id">
+        <nuxt-link
+          :to="'/' + $i18n.locale + '/professional/places/' + data.item.id"
+        >
           {{ $t('aff') }}
         </nuxt-link>
       </template>

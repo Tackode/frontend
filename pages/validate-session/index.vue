@@ -20,8 +20,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
+
+Vue.use(VueI18n)
 
 enum ValidateState {
   LOADING,
@@ -31,9 +34,8 @@ enum ValidateState {
 @Component({})
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
-
   ValidateState = ValidateState
-
+  i18n = new VueI18n({})
   async mounted() {
     // Retrieve device & session
     const sessionId = this.$route.query.sessionId
@@ -67,7 +69,7 @@ export default class ValidateDevice extends Vue {
 
     this.$store.dispatch('session/setSession', result)
 
-    this.$router.replace('/guest/check-ins')
+    this.$router.replace('/' + this.$i18n.locale + '/guest/check-ins')
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand to="/">
+      <b-navbar-brand :to="'/' + $i18n.locale + '/'">
         <img
           src="./Logo.png"
           srcset="./Logo.png 1x, ./Logo@2x.png 2x"
@@ -16,20 +16,24 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <template v-if="role === 'Public'">
-            <b-nav-item to="/guest/check-ins"> {{ $t('check') }} </b-nav-item>
-            <b-nav-item to="/guest/profile"> {{ $t('profil') }} </b-nav-item>
+            <b-nav-item :to="'/' + $i18n.locale + '/guest/check-ins'">
+              {{ $t('check') }}
+            </b-nav-item>
+            <b-nav-item :to="'/' + $i18n.locale + '/guest/profile'">
+              {{ $t('profil') }}
+            </b-nav-item>
           </template>
           <template v-if="role === 'Professional'">
-            <b-nav-item to="/professional/places">
+            <b-nav-item :to="'/' + $i18n.locale + '/professional/places'">
               {{ $t('place') }}
             </b-nav-item>
-            <b-nav-item to="/professional/infections">
+            <b-nav-item :to="'/' + $i18n.locale + '/professional/infections'">
               {{ $t('inf') }}
             </b-nav-item>
-            <b-nav-item to="/professional/check-ins">
+            <b-nav-item :to="'/' + $i18n.locale + '/professional/check-ins'">
               {{ $t('chec') }}
             </b-nav-item>
-            <b-nav-item to="/professional/profile">
+            <b-nav-item :to="'/' + $i18n.locale + '/professional/profile'">
               {{ $t('profi') }}
             </b-nav-item>
           </template>
@@ -42,8 +46,12 @@
           <template v-else>
             <b-nav-text> {{ $t('log') }} </b-nav-text>
 
-            <b-nav-item to="/login"> {{ $t('user') }} </b-nav-item>
-            <b-nav-item to="/login-professional"> {{ $t('pro') }} </b-nav-item>
+            <b-nav-item :to="'/' + $i18n.locale + '/login'">
+              {{ $t('user') }}
+            </b-nav-item>
+            <b-nav-item :to="'/' + $i18n.locale + '/login-professional'">
+              {{ $t('pro') }}
+            </b-nav-item>
           </template>
           <nuxt-link
             v-for="locale in $i18n.locales"
@@ -98,6 +106,7 @@ import Component from 'vue-class-component'
 @Component
 export default class DefaultLayout extends Vue {
   role: string | null = null
+  $i18n: any
 
   created() {
     // Init store
@@ -120,7 +129,7 @@ export default class DefaultLayout extends Vue {
 
     this.$store.dispatch('session/logout')
 
-    this.$router.replace('/')
+    this.$router.replace('/' + this.$i18n.locale + '/')
   }
 }
 </script>

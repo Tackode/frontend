@@ -188,7 +188,7 @@ export default class CheckIn extends Vue {
       }
 
       this.state = CheckinState.FINISH
-      this.$router.push({ path: '/' })
+      this.$router.replace('/' + this.$i18n.locale + '/')
     } else {
       try {
         await this.$axios.$post('/checkin', {

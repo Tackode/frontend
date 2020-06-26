@@ -20,7 +20,9 @@
       <br />
       <h2>{{ $t('checkin') }}</h2>
       <br />
-      <b-button to="/check-in" variant="primary">{{ $t('scan') }}</b-button>
+      <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">{{
+        $t('scan')
+      }}</b-button>
     </div>
   </div>
 </template>

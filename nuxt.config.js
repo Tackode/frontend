@@ -81,6 +81,7 @@ export default {
             file: 'fr-FR.js',
           },
         ],
+        strategy: 'prefix_and_default',
         defaultLocale: 'fr',
         vueI18nLoader: true,
         detectBrowserLanguage: {
