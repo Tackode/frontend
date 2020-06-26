@@ -86,15 +86,15 @@
         <br />
         <br />
         <b-button
-          @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
+          @click="$bvModal.hide('infection-creation-modal')"
         >
           {{ $t('close') }}
         </b-button>
         <b-button
           type="submit"
-          @click="$bvModal.hide('infection-creation-modal')"
           variant="primary"
+          @click="$bvModal.hide('infection-creation-modal')"
         >
           {{ $t('dec') }}
         </b-button>
@@ -103,6 +103,7 @@
         <span></span>
       </template>
     </b-modal>
+
     <b-modal id="infection-creation2-modal" :title="$t('st')">
       <b-form>
         <b-calendar v-model="infectionCreation.startDate"></b-calendar>
@@ -114,8 +115,8 @@
         <br />
         <br />
         <b-button
-          @click="$bvModal.hide('infection-creation2-modal')"
           variant="primary"
+          @click="$bvModal.hide('infection-creation2-modal')"
         >
           {{ $t('vl') }}
         </b-button>
@@ -161,17 +162,18 @@
     "finh":"End Time of the Infection*",
     "af":"Select affected places*",
     "max":"Maximum duration of infection: 12 hours",
-    "back":"Back to Start Date",
     "close":"Close",
     "dec":"Declare Infection",
-    "bk":"Back to Choose Place",
     "start":"Start date :",
     "end":"End date :",
     "infec":"Declaration of Infections",
     "potinf":"Declare a potential infection",
     "nopinf":"No place to declare an infection",
     "vl":"Validate",
-    "md":"Modify"
+    "md":"Modify",
+    "inf":"Infected Place",
+    "sda":"Start Date",
+    "eda":"End Date"
   },
   "fr": {
     "st":"Date de début de l'infection*",
@@ -180,17 +182,18 @@
     "finh":"Heure de fin de l'infection*",
     "af":"Lieux infectés*",
     "max":"Durée maximale d'infection: 12 heures",
-    "back":"Retour à la Date de Début",
     "close":"Fermer",
     "dec":"Déclarer l'infection",
-    "bk":"Retour au Choix du Lieu",
     "start":"Date de début :",
     "end":"Date de fin :",
     "infec":"Déclarer une infection",
     "potinf":"Déclarer une infection potentielle",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
     "vl":"Valider",
-    "md":"Modifier"
+    "md":"Modifier",
+    "inf":"Lieux Infectés",
+    "sda":"Date de début",
+    "eda":"Date de fin"
   }
 }
 </i18n>
@@ -215,7 +218,12 @@ interface Infectionreation {
 
 @Component
 export default class ProfessionalInfections extends Vue {
-  fields = ['infected_places', 'start_date', 'end_date']
+  fields = [
+    { key: 'infected_places', label: this.tr('inf') },
+    { key: 'start_date', label: this.tr('sda') },
+    { key: 'end_date', label: this.tr('eda') },
+  ]
+
   places: Place[] = []
   infections: Infectionreation[] = []
   startDate: string = ''
@@ -349,6 +357,10 @@ export default class ProfessionalInfections extends Vue {
     this.$bvModal.hide('infection-creation3-modal')
 
     this.loadData()
+  }
+
+  tr(ind: string) {
+    return this.$i18n.t(ind)
   }
 
   getPlacesNameWithIds(ids: string[]): string {

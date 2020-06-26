@@ -64,12 +64,20 @@
     "all":"All Check-ins",
     "infchec":"Infected Check-ins",
     "chec":"My Check-ins",
+    "pla":"Place Name",
+    "org":"Organization",
+    "ti":"Time",
+    "du":"Duration",
     "nochec":"You don't have any check-in for now. Scan a QR code in a public location to start."
   },
   "fr": {
     "all":"Tous les Check-ins",
     "infcheck":"Check-ins infectés",
     "chec":"Mes Check-ins",
+    "org":"Organisation",
+    "pla":"Nom du lieu",
+    "ti":"Horaire de visite",
+    "du":"Durée",
     "nochec":"Vous n'avez aucun check-in pour l'instant. Scannez un code QR pour commencer."
   }
 }
@@ -83,7 +91,13 @@ import { Checkin } from '../../../types/Checkin'
 
 @Component({})
 export default class GuestCheckIns extends Vue {
-  fields = ['organization', 'place_name', 'time', 'duration']
+  fields = [
+    { key: 'organization', label: this.tr('org') },
+    { key: 'place_name', label: this.tr('pla') },
+    { key: 'time', label: this.tr('ti') },
+    { key: 'duration', label: this.tr('du') },
+  ]
+
   checkins: Checkin[] = []
   infectedcheckins: Checkin[] = []
 
@@ -109,6 +123,10 @@ export default class GuestCheckIns extends Vue {
         this.infectedcheckins.push(checkin)
       }
     })
+  }
+
+  tr(ind: string) {
+    return this.$i18n.t(ind)
   }
 }
 </script>

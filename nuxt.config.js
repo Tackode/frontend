@@ -45,6 +45,7 @@ export default {
   plugins: [
     '~plugins/formatters',
     '~plugins/qrcode',
+    '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
   ],
   /*

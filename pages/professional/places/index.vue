@@ -7,8 +7,8 @@
     <b-button
       v-b-modal.place-creation-modal
       variant="primary"
-      @click="PlacetoCreate()"
       class="mb-2"
+      @click="PlacetoCreate()"
     >
       {{ $t('cplace') }}
     </b-button>
@@ -39,6 +39,8 @@
       <template v-slot:cell(modify)="data">
         <b-button
           v-b-modal.place-creation-modal
+          variant="outline-secondary"
+          class="mb-2"
           @click="
             PlacetoModify(
               data.item.id,
@@ -47,8 +49,6 @@
               data.item.averageDuration
             )
           "
-          variant="outline-secondary"
-          class="mb-2"
         >
           <b-icon icon="pencil"></b-icon>
         </b-button>
@@ -57,9 +57,9 @@
       <template v-slot:cell(delete)="data">
         <b-button
           v-b-modal.place-delete-modal
-          @click="place = data.item.id"
           variant="outline-secondary"
           class="mb-2"
+          @click="place = data.item.id"
         >
           <b-icon icon="trash"></b-icon>
         </b-button>
@@ -141,12 +141,16 @@
     "duration":"Average duration of the stay in minutes*",
     "dur":"Average Duration in minutes",
     "na":"Nom",
-    "mod":"Modify",
+    "mo":"Modify",
     "creer":"Create place",
     "del":"Do you really want to delete the place?",
     "sup":"Delete Place",
     "mod":"Place Modification",
-    "crea":"Place Creation"
+    "crea":"Place Creation",
+    "pla":"Place Name",
+    "dur":"Average Duration",
+    "de":"Delete",
+    "ac":"Action"
 
   },
   "fr": {
@@ -158,12 +162,16 @@
     "duration":"Durée moyenne de visite en minutes*",
     "dur":"Durée moyenne en minutes",
     "na":"Nom",
-    "mod":"Modifier",
+    "mo":"Modifier",
     "creer":"Créer le lieu",
     "del":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
     "mod":"Modification du lieu",
-    "crea":"Création du lieu"
+    "crea":"Création du lieu",
+    "pla":"Nom du lieu",
+    "dur":"Durée moyenne sur place",
+    "de":"Supprimer",
+    "ac":"QR Code"
   }
 }
 </i18n>
@@ -185,11 +193,11 @@ interface PlaceFormValues {
 @Component
 export default class ProfessionalPlaces extends Vue {
   fields = [
-    { key: 'place_name', label: 'Place Name' },
-    { key: 'average_duration', label: 'Average Duration' },
-    { key: 'action', label: 'Action' },
-    { key: 'modify', label: 'Modify' },
-    { key: 'delete', label: 'Delete' },
+    { key: 'place_name', label: this.tr('pla') },
+    { key: 'average_duration', label: this.tr('dur') },
+    { key: 'action', label: this.tr('ac') },
+    { key: 'modify', label: this.tr('mo') },
+    { key: 'delete', label: this.tr('de') },
   ]
 
   places: Place[] = []
@@ -313,6 +321,10 @@ export default class ProfessionalPlaces extends Vue {
     this.placeFormValues.name = name
     this.placeFormValues.description = description
     this.placeFormValues.averageDuration = averageDuration
+  }
+
+  tr(ind: string) {
+    return this.$i18n.t(ind)
   }
 
   PlacetoCreate() {
