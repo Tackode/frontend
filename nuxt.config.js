@@ -47,6 +47,7 @@ export default {
     '~plugins/qrcode',
     '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
+    { src: '~/plugins/axios', mode: 'client' },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -99,9 +100,6 @@ export default {
       },
     ],
   ],
-  axios: {
-    baseURL: process.env.API_URL || 'http://localhost:3000',
-  },
   /*
    ** Build configuration
    */
