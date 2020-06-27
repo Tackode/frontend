@@ -30,15 +30,15 @@
     "log":"Login",
     "nevershare":"We'll never share your email with anyone else.",
     "email":"Enter your email",
-    "add":"Email address:"
+    "add":"Email address"
   },
   "fr": {
     "wait":"Chargement en cours...",
     "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
     "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
-    "email":"Entrer votre adresse",
-    "add":"Adresse mail:"
+    "email":"Entrez votre adresse",
+    "add":"Adresse mail"
   }
 }
 </i18n>
@@ -86,8 +86,4 @@ export default class Login extends Vue {
 }
 </script>
 
-<style>
-.login {
-  padding-top: 30px;
-}
-</style>
+<style></style>

@@ -3,8 +3,11 @@
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand :to="'/' + $i18n.locale + '/'">
         <img
-          src="./Logo.png"
-          srcset="./Logo.png 1x, ./Logo@2x.png 2x"
+          src="~/assets/images/logo-covid-journal.png"
+          srcset="
+            ~/assets/images/logo-covid-journal.png    1x,
+            ~/assets/images/logo-covid-journal@2x.png 2x
+          "
           height="30"
           width="160"
           class="d-inline-block align-top"
@@ -43,6 +46,7 @@
           <template v-if="role">
             <b-nav-item @click="logout"> {{ $t('logout') }} </b-nav-item>
           </template>
+
           <template v-else>
             <b-nav-text> {{ $t('log') }} </b-nav-text>
 
@@ -53,13 +57,15 @@
               {{ $t('pro') }}
             </b-nav-item>
           </template>
-          <nuxt-link
+
+          <b-nav-item
             v-for="locale in $i18n.locales"
             v-if="locale.code !== $i18n.locale"
             :key="locale.code"
             :to="switchLocalePath(locale.code)"
-            >{{ locale.name }}</nuxt-link
           >
+            {{ locale.name }}
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -91,7 +97,7 @@
     "inf":"Infections",
     "profi":"Profil",
     "logout":"Se déconnecter",
-    "log":"Connexion comme :",
+    "log":"Connexion :",
     "pro":"Professionel",
     "user":"Utilisateur",
     "chec":"Check-Ins"
@@ -153,9 +159,15 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
+
+.bg-dark {
+  background-color: #3c3c3c !important;
+}
+
 .btn {
   margin-bottom: 5px;
 }
+
 .button--green {
   display: inline-block;
   border-radius: 4px;

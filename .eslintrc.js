@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
+    'vue/attributes-order': 'off',
   },
 }

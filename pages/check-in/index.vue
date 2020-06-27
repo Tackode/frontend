@@ -257,8 +257,4 @@ export default class CheckIn extends Vue {
 }
 </script>
 
-<style>
-.login {
-  padding-top: 30px;
-}
-</style>
+<style></style>
