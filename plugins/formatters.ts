@@ -1,7 +1,7 @@
-import Vue from 'vue'
 import { format } from 'date-fns'
+import Vue from 'vue'
 
-Vue.filter('formatDate', function (value) {
+Vue.filter('formatDate', function (value: string) {
   if (!value) {
     return ''
   }
@@ -13,7 +13,7 @@ Vue.filter('formatDate', function (value) {
   }
 })
 
-Vue.filter('formatDateTime', function (value) {
+Vue.filter('formatDateTime', function (value: string) {
   if (!value) {
     return ''
   }
