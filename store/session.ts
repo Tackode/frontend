@@ -9,7 +9,7 @@ const state = (): State => ({
   login: null,
   token: null,
   email: null,
-  role: null
+  role: null,
 })
 
 const actions = {
@@ -34,7 +34,7 @@ const actions = {
     commit('SET_TOKEN', null)
     commit('SET_EMAIL', null)
     commit('SET_ROLE', null)
-  }
+  },
 }
 
 const mutations = {
@@ -73,7 +73,7 @@ const mutations = {
     }
 
     state.role = role
-  }
+  },
 }
 
 const getters = {
@@ -88,7 +88,7 @@ const getters = {
   },
   role(state: State): string | null {
     return state.role
-  }
+  },
 }
 
 export default {
@@ -96,5 +96,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

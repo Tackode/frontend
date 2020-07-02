@@ -16,7 +16,7 @@
 
         <template v-slot:cell(time)="data">
           <div class="red">
-            {{ data.item.start_timestamp | formatDateTime }}
+            {{ data.item.startTimestamp | formatDateTime }}
           </div>
         </template>
 
@@ -39,7 +39,7 @@
       </template>
 
       <template v-slot:cell(time)="data">
-        {{ data.item.start_timestamp | formatDateTime }}
+        {{ data.item.startTimestamp | formatDateTime }}
       </template>
 
       <template v-slot:cell(duration)="data">
@@ -119,7 +119,7 @@ export default class ProfessionalCheckIns extends Vue {
     }
 
     this.checkins.forEach((checkin) => {
-      if (checkin.potential_infection) {
+      if (checkin.potentialInfection) {
         this.infectedcheckins.push(checkin)
       }
     })
