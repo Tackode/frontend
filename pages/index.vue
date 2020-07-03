@@ -1,27 +1,51 @@
 <template>
   <div class="content">
     <div class="title">
-      <h1>{{ $t('welcome') }}</h1>
-      <p>{{ $t('message') }}</p>
+      <h1 class="d-none">{{ $t('covidjournal') }}</h1>
+      <img
+        :alt="$t('covidjournal')"
+        class="img-fluid logo"
+        src="~/assets/images/logo-covid-journal-big.png"
+        srcset="
+          ~/assets/images/logo-covid-journal-big.png    1x,
+          ~/assets/images/logo-covid-journal-big@2x.png 2x
+        "
+      />
+      <p>{{ $t('summary') }}</p>
     </div>
 
-    <div class="login" v-if="role === null">
-      <h2>{{ $t('log') }}</h2>
-      <b-button to="/login" variant="primary">
-        {{ $t('userlog') }}
-      </b-button>
+    <p class="image-caption">
+      Photo by
+      <a
+        href="https://unsplash.com/@jonwaits?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        >Jonathan Nguyen</a
+      >
+      on
+      <a
+        href="https://unsplash.com/s/photos/covid-restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        >Unsplash</a
+      >
+    </p>
 
-      <b-button to="/login-professional" variant="primary">
-        {{ $t('prolog') }}
-      </b-button>
-      <br />
-    </div>
+    <div class="wrapped-container container">
+      <div class="login" v-if="role === null">
+        <h2>{{ $t('log') }}</h2>
+        <b-button to="/login" variant="primary">
+          {{ $t('userlog') }}
+        </b-button>
 
-    <div class="checkin">
-      <h2>{{ $t('checkin') }}</h2>
-      <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">
-        {{ $t('scan') }}
-      </b-button>
+        <b-button to="/login-professional" variant="primary">
+          {{ $t('prolog') }}
+        </b-button>
+        <br />
+      </div>
+
+      <div class="checkin">
+        <h2>{{ $t('checkin') }}</h2>
+        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">
+          {{ $t('scan') }}
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +53,8 @@
 <i18n>
 {
   "en": {
-    "welcome": "Welcome to Covid-Journal",
-    "message": "Be aware of Covid in public and private places",
+    "covidjournal": "Covid-Journal",
+    "summary": "Check-in and be notified of potential contact with infected people",
     "log": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
@@ -39,8 +63,8 @@
     "userlog":"User log in"
   },
   "fr": {
-    "welcome": "Bienvenue sur Covid-Journal",
-    "message": "Covid-19 : Soyez alerté dans les lieux visités",
+    "covidjournal": "Bienvenue sur Covid-Journal",
+    "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée",
     "log": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
@@ -72,17 +96,39 @@ export default class Home extends Vue {
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+<style lang="scss">
+.title {
+  height: 30vh;
+  background-image: url('~assets/images/background.jpg');
+  background-size: cover;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  .logo {
+    max-width: 500px;
+    width: 80vw;
+  }
+
+  p {
+    color: white;
+    max-width: 600px;
+    font-size: 1.1em;
+
+    @media (min-width: 768px) {
+      font-size: 1.5em;
+    }
+  }
 }
 
-.title,
+.image-caption {
+  font-size: 8px;
+}
+
+.image-caption,
 .login,
 .checkin {
   margin-bottom: 2em;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapped-container container">
     <nuxt-link
       class="no-print"
       :to="'/' + $i18n.locale + '/professional/places/'"

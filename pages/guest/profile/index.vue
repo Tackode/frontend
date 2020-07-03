@@ -1,6 +1,9 @@
 <template>
   <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
-  <div v-else-if="state === ProfileState.LOADED">
+  <div
+    v-else-if="state === ProfileState.LOADED"
+    class="wrapped-container container"
+  >
     <h2>{{ $t('pro') }}</h2>
     <br />
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">

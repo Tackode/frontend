@@ -1,5 +1,8 @@
 <template>
-  <div v-if="state === CheckinState.SCANNING">
+  <div
+    v-if="state === CheckinState.SCANNING"
+    class="wrapped-container container"
+  >
     <h2>{{ $t('scan') }}</h2>
     <br />
     <qrcode-stream @decode="onDecode" @init="onInit" />
@@ -10,9 +13,22 @@
     <br />
     {{ $t('sca') }}
   </div>
-  <p v-else-if="state === CheckinState.LOADING">{{ $t('wait') }}</p>
-  <p v-else-if="state === CheckinState.NOTFOUND">{{ $t('nex') }}</p>
-  <div v-else-if="state === CheckinState.LOADED">
+  <p
+    v-else-if="state === CheckinState.LOADING"
+    class="wrapped-container container"
+  >
+    {{ $t('wait') }}
+  </p>
+  <p
+    v-else-if="state === CheckinState.NOTFOUND"
+    class="wrapped-container container"
+  >
+    {{ $t('nex') }}
+  </p>
+  <div
+    v-else-if="state === CheckinState.LOADED"
+    class="wrapped-container container"
+  >
     <b-form @submit="handleSubmit">
       <b-card v-if="place" class="mb-4">
         <h2>{{ place.organization.name }}</h2>

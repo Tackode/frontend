@@ -1,19 +1,21 @@
 <template>
   <div v-if="(state = ValidateState.LOADING)">
-    {{ $t('vd') }}
+    {{ $t('validate-device') }}
   </div>
-  <p v-else-if="(state = ValidateState.FAILURE)">{{ $t('fa') }}</p>
+  <p v-else-if="(state = ValidateState.FAILURE)">
+    {{ $t('validation-failed') }}
+  </p>
 </template>
 
 <i18n>
 {
   "en": {
-    "vd":"Validate Device",
-    "fa":"Fail to connect you. Please, retry to connect. "
+    "validate-device":"Validate Device",
+    "validation-failed":"Fail to connect you. Please, retry to connect. "
   },
   "fr": {
-    "vd":"Appareil Validé",
-    "fa":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter."
+    "validate-device":"Appareil Validé",
+    "validation-failed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter."
   }
 }
 </i18n>

@@ -1,60 +1,62 @@
 <template>
-  <div v-if="checkins.length > 0">
-    <h1 class="sr-only">{{ $t('all') }}</h1>
+  <div class="wrapped-container container">
+    <div v-if="checkins.length > 0">
+      <h1 class="sr-only">{{ $t('all') }}</h1>
 
-    <div v-if="infectedcheckins.length > 0">
-      <h2>{{ $t('infchec') }}</h2>
+      <div v-if="infectedcheckins.length > 0">
+        <h2>{{ $t('infchec') }}</h2>
+        <br />
+        <b-table striped hover :fields="fields" :items="infectedcheckins">
+          <template v-slot:cell(organization)="data">
+            <div class="red">{{ data.item.place.organization.name }}</div>
+          </template>
+
+          <template v-slot:cell(place_name)="data">
+            <div class="red">{{ data.item.place.name }}</div>
+          </template>
+
+          <template v-slot:cell(time)="data">
+            <div class="red">
+              {{ data.item.startTimestamp | formatDateTime }}
+            </div>
+          </template>
+
+          <template v-slot:cell(duration)="data">
+            <div class="red">{{ data.item.duration }} minutes</div>
+          </template>
+        </b-table>
+        <br />
+      </div>
+
+      <h2>{{ $t('chec') }}</h2>
       <br />
-      <b-table striped hover :fields="fields" :items="infectedcheckins">
+      <b-table striped hover :fields="fields" :items="checkins">
         <template v-slot:cell(organization)="data">
-          <div class="red">{{ data.item.place.organization.name }}</div>
+          {{ data.item.place.organization.name }}
         </template>
 
         <template v-slot:cell(place_name)="data">
-          <div class="red">{{ data.item.place.name }}</div>
+          {{ data.item.place.name }}
         </template>
 
         <template v-slot:cell(time)="data">
-          <div class="red">
-            {{ data.item.startTimestamp | formatDateTime }}
-          </div>
+          {{ data.item.startTimestamp | formatDateTime }}
         </template>
 
         <template v-slot:cell(duration)="data">
-          <div class="red">{{ data.item.duration }} minutes</div>
+          {{ data.item.duration }} minutes
         </template>
       </b-table>
-      <br />
     </div>
 
-    <h2>{{ $t('chec') }}</h2>
-    <br />
-    <b-table striped hover :fields="fields" :items="checkins">
-      <template v-slot:cell(organization)="data">
-        {{ data.item.place.organization.name }}
-      </template>
-
-      <template v-slot:cell(place_name)="data">
-        {{ data.item.place.name }}
-      </template>
-
-      <template v-slot:cell(time)="data">
-        {{ data.item.startTimestamp | formatDateTime }}
-      </template>
-
-      <template v-slot:cell(duration)="data">
-        {{ data.item.duration }} minutes
-      </template>
-    </b-table>
-  </div>
-
-  <div v-else>
-    <h1 class="sr-only">{{ $t('all') }}</h1>
-    <h2>{{ $t('chec') }}</h2>
-    <br />
-    <p>
-      {{ $t('nochec') }}
-    </p>
+    <div v-else>
+      <h1 class="sr-only">{{ $t('all') }}</h1>
+      <h2>{{ $t('chec') }}</h2>
+      <br />
+      <p>
+        {{ $t('nochec') }}
+      </p>
+    </div>
   </div>
 </template>
 
