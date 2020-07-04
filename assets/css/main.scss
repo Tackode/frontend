@@ -22,10 +22,6 @@ html {
   display: flex;
   flex-direction: column;
 
-  .navbar {
-    flex: 0 0;
-  }
-
   .main-container {
     flex: 1 0;
     overflow: auto;
