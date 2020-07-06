@@ -32,7 +32,9 @@
           </b-form-checkbox>
         </b-form-group>
 
-        <b-button type="submit" variant="primary"> {{ $t('sub') }} </b-button>
+        <b-button type="submit" variant="primary">
+          {{ $t('submit') }}
+        </b-button>
       </b-form>
     </b-card>
 
@@ -43,7 +45,7 @@
     </b-card>
     <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="deleteProfile">
-        {{ $t('del') }}
+        {{ $t('delete') }}
         <br />
         <br />
         <b-button type="submit" variant="success"> {{ $t('yes') }} </b-button>
@@ -63,24 +65,24 @@
   "en": {
     "wait":"Loading. Please wait...",
     "pro":"My Profile",
-    "del":"Do you really want to delete your profile?",
+    "delete":"Do you really want to delete your profile?",
     "sup":"Delete profile",
     "yes":"Yes",
     "no":"No",
     "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
-    "sub":"Submit",
+    "submit":"Submit",
     "email":"Email address*",
     "emai":"Your email"
   },
   "fr": {
     "wait":"Chargement en cours...",
     "pro":"Mon Profil",
-    "del":"Voulez-vous vraiment supprimer votre profil ?",
+    "delete":"Voulez-vous vraiment supprimer votre profil ?",
     "sup":"Supprimer le profil",
     "yes":"Oui",
     "no":"Non",
     "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
-    "sub":"Valider",
+    "submit":"Valider",
     "email":"Adresse mail*",
     "emai":"Votre adresse mail"
   }

@@ -37,7 +37,7 @@
       </template>
     </b-table>
 
-    <b-modal id="infection-creation-modal" :title="$t('af')">
+    <b-modal id="infection-creation-modal" :title="$t('affectedplace')">
       <b-form @submit="handleInfectionCreationSubmit">
         <b-form-group id="infection-places">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
@@ -54,19 +54,19 @@
         <b-form-input
           v-model="infectionCreation.startDate"
           readonly
-          :placeholder="$t('st')"
+          :placeholder="$t('startdate')"
         ></b-form-input>
         <b-form-input
           v-model="infectionCreation.startDateTime"
           readonly
-          :placeholder="$t('sth')"
+          :placeholder="$t('Starttimeinfection')"
         ></b-form-input>
         <b-button
           class="center"
           v-b-modal.infection-creation2-modal
           variant="primary"
         >
-          {{ $t('md') }}
+          {{ $t('modify') }}
         </b-button>
         <br />
         {{ $t('end') }}
@@ -81,7 +81,7 @@
           :placeholder="$t('finh')"
         ></b-form-input>
         <b-button v-b-modal.infection-creation3-modal variant="primary">
-          {{ $t('md') }}
+          {{ $t('modify') }}
         </b-button>
         <br />
         <br />
@@ -104,7 +104,7 @@
       </template>
     </b-modal>
 
-    <b-modal id="infection-creation2-modal" :title="$t('st')">
+    <b-modal id="infection-creation2-modal" :title="$t('startdate')">
       <b-form>
         <b-calendar v-model="infectionCreation.startDate"></b-calendar>
 
@@ -118,7 +118,7 @@
           variant="primary"
           @click="$bvModal.hide('infection-creation2-modal')"
         >
-          {{ $t('vl') }}
+          {{ $t('validate') }}
         </b-button>
       </b-form>
 
@@ -142,7 +142,7 @@
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
         >
-          {{ $t('vl') }}
+          {{ $t('validate') }}
         </b-button>
       </b-form>
 
@@ -156,11 +156,11 @@
 <i18n>
 {
   "en": {
-    "st":"Start Date of the Infection*",
+    "startdate":"Start Date of the Infection*",
     "fin":"End Date of the Infection*",
-    "sth":"Start Time of the Infection*",
+    "Starttimeinfection":"Start Time of the Infection*",
     "finh":"End Time of the Infection*",
-    "af":"Select affected places*",
+    "affectedplace":"Select affected places*",
     "max":"Maximum duration of infection: 12 hours",
     "close":"Close",
     "dec":"Declare Infection",
@@ -169,19 +169,19 @@
     "infec":"Declaration of Infections",
     "potinf":"Declare a potential infection",
     "nopinf":"No place to declare an infection",
-    "vl":"Validate",
-    "md":"Modify",
-    "inf":"Infected Place",
-    "sda":"Start Date",
-    "eda":"End Date",
-    "d":"Deleted Place"
+    "validate":"Validate",
+    "modify":"Modify",
+    "infectedplace":"Infected Place",
+    "startdate":"Start Date",
+    "enddate":"End Date",
+    "delplace":"Deleted Place"
   },
   "fr": {
-    "st":"Date de début de l'infection*",
+    "startdate":"Date de début de l'infection*",
     "fin":"Date de fin de l'infection*",
-    "sth":"Heure de début de l'infection*",
+    "Starttimeinfection":"Heure de début de l'infection*",
     "finh":"Heure de fin de l'infection*",
-    "af":"Lieux infectés*",
+    "affectedplace":"Lieux infectés*",
     "max":"Durée maximale d'infection: 12 heures",
     "close":"Fermer",
     "dec":"Déclarer l'infection",
@@ -190,12 +190,12 @@
     "infec":"Déclarer une infection",
     "potinf":"Déclarer une infection potentielle",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
-    "vl":"Valider",
-    "md":"Modifier",
-    "inf":"Lieux Infectés",
-    "sda":"Date de début",
-    "eda":"Date de fin",
-    "d":"Lieu supprimé"
+    "validate":"Valider",
+    "modify":"Modifier",
+    "infectedplace":"Lieux Infectés",
+    "startdate":"Date de début",
+    "enddate":"Date de fin",
+    "delplace":"Lieu supprimé"
   }
 }
 </i18n>
@@ -221,9 +221,9 @@ interface Infectionreation {
 @Component
 export default class ProfessionalInfections extends Vue {
   fields = [
-    { key: 'infected_places', label: this.tr('inf') },
-    { key: 'start_date', label: this.tr('sda') },
-    { key: 'end_date', label: this.tr('eda') },
+    { key: 'infected_places', label: this.tr('infectedplace') },
+    { key: 'start_date', label: this.tr('startdate') },
+    { key: 'end_date', label: this.tr('enddate') },
   ]
 
   places: Place[] = []
@@ -377,7 +377,7 @@ export default class ProfessionalInfections extends Vue {
       if (id in placesWithIds) {
         result += placesWithIds[id].name + ', '
       } else {
-        result += this.$i18n.t('d') + ', '
+        result += this.$i18n.t('delplace') + ', '
       }
     })
 

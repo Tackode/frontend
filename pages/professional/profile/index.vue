@@ -4,7 +4,7 @@
     v-else-if="state === ProfileState.LOADED"
     class="wrapped-container container"
   >
-    <h2>{{ $t('pro') }}</h2>
+    <h2>{{ $t('profile') }}</h2>
     <br />
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
       <b-form v-if="profile" @submit="handleAddEmail">
@@ -24,7 +24,7 @@
 
         <b-form-group
           id="form-organization"
-          :label="$t('or')"
+          :label="$t('organization')"
           label-for="form-organization"
         >
           <b-form-input
@@ -76,7 +76,7 @@
 {
   "en": {
     "wait":"Loading. Please wait...",
-    "pro":"My Profile",
+    "profile":"My Profile",
     "del":"Do you really want to delete your profile?",
     "sup":"Delete profile",
     "yes":"Yes",
@@ -85,12 +85,12 @@
     "sub":"Submit",
     "org":"Your organization",
     "email":"Email address*",
-    "or":"Organization*",
+    "organization":"Organization*",
     "emai":"Your email"
   },
   "fr": {
     "wait":"Chargement en cours...",
-    "pro":"Mon Profil",
+    "profile":"Mon Profil",
     "del":"Voulez-vous vraiment supprimer votre profil ?",
     "sup":"Supprimer le profil",
     "yes":"Oui",
@@ -99,7 +99,7 @@
     "sub":"Valider",
     "org":"Votre entreprise",
     "email":"Adresse mail*",
-    "or":"Entreprise*",
+    "organization":"Entreprise*",
     "emai":"Votre adresse mail"
   }
 }

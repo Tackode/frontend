@@ -33,7 +33,7 @@
         <nuxt-link
           :to="'/' + $i18n.locale + '/professional/places/' + data.item.id"
         >
-          {{ $t('aff') }}
+          {{ $t('showqr') }}
         </nuxt-link>
       </template>
       <template v-slot:cell(modify)="data">
@@ -76,7 +76,7 @@
             id="place-name"
             v-model="placeFormValues.name"
             required
-            :placeholder="$t('na')"
+            :placeholder="$t('nom')"
           ></b-form-input>
         </b-form-group>
 
@@ -100,7 +100,7 @@
           ></b-form-input>
         </b-form-group>
         <b-button v-if="placeFormMode" type="submit" variant="primary">
-          {{ $t('mod') }}
+          {{ $t('modifyplace') }}
         </b-button>
         <b-button v-else type="submit" variant="primary">
           {{ $t('creer') }}
@@ -114,7 +114,7 @@
 
     <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="handleplaceFormValuesDelete">
-        {{ $t('del') }}
+        {{ $t('delete') }}
         <br />
         <br />
         <b-button type="submit" variant="success">Yes</b-button>
@@ -135,42 +135,40 @@
     "place":"Your Places",
     "cplace":"Create a place",
     "noplace":"You don't have any places for now. Please, create a place to begin.",
-    "aff":"Show QRCode",
+    "showqr":"Show QRCode",
     "name":"Name*",
     "duration":"Average duration of the stay in minutes*",
-    "dur":"Average Duration in minutes",
-    "na":"Nom",
-    "mo":"Modify",
+    "nom":"Nom",
+    "modif":"Modify",
     "creer":"Create place",
-    "del":"Do you really want to delete the place?",
+    "delete":"Do you really want to delete the place?",
     "sup":"Delete Place",
-    "mod":"Place Modification",
+    "modifyplace":"Place Modification",
     "crea":"Place Creation",
     "pla":"Place Name",
     "dur":"Average Duration",
-    "de":"Delete",
-    "ac":"Action"
+    "delete":"Delete",
+    "action":"Action"
 
   },
   "fr": {
     "place":"Vos Adresses",
     "cplace":"Ajouter un lieu",
     "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
-    "aff":"Afficher QRCode",
+    "showqr":"Afficher QRCode",
     "name":"Nom*",
     "duration":"Durée moyenne de visite en minutes*",
-    "dur":"Durée moyenne en minutes",
-    "na":"Nom",
-    "mo":"Modifier",
+    "nom":"Nom",
+    "modif":"Modifier",
     "creer":"Créer le lieu",
-    "del":"Voulez vous vraiment supprimer le lieu ?",
+    "delete":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
-    "mod":"Modification du lieu",
+    "modifyplace":"Modification du lieu",
     "crea":"Création du lieu",
     "pla":"Nom du lieu",
     "dur":"Durée moyenne sur place",
-    "de":"Supprimer",
-    "ac":"QR Code"
+    "delete":"Supprimer",
+    "action":"QR Code"
   }
 }
 </i18n>
@@ -194,9 +192,9 @@ export default class ProfessionalPlaces extends Vue {
   fields = [
     { key: 'place_name', label: this.tr('pla') },
     { key: 'average_duration', label: this.tr('dur') },
-    { key: 'action', label: this.tr('ac') },
-    { key: 'modify', label: this.tr('mo') },
-    { key: 'delete', label: this.tr('de') },
+    { key: 'action', label: this.tr('action') },
+    { key: 'modify', label: this.tr('modif') },
+    { key: 'delete', label: this.tr('delete') },
   ]
 
   places: Place[] = []

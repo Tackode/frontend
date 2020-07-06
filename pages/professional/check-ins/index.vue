@@ -28,7 +28,7 @@
         <br />
       </div>
 
-      <h2>{{ $t('chec') }}</h2>
+      <h2>{{ $t('checkin') }}</h2>
       <br />
       <b-table striped hover :fields="fields" :items="checkins">
         <template v-slot:cell(organization)="data">
@@ -51,7 +51,7 @@
 
     <div v-else>
       <h1 class="sr-only">{{ $t('all') }}</h1>
-      <h2>{{ $t('chec') }}</h2>
+      <h2>{{ $t('checkin') }}</h2>
       <br />
       <p>
         {{ $t('nochec') }}
@@ -65,21 +65,21 @@
   "en": {
     "all":"All Check-ins",
     "infchec":"Infected Check-ins",
-    "chec":"My Check-ins",
-    "pla":"Place Name",
-    "org":"Organization",
-    "ti":"Time",
-    "du":"Duration",
+    "checkin":"My Check-ins",
+    "place":"Place Name",
+    "organisation":"Organization",
+    "time":"Time",
+    "duration":"Duration",
     "nochec":"You don't have any check-in for now. Scan a QR code in a public location to start."
   },
   "fr": {
     "all":"Tous les Check-ins",
     "infchec":"Check-ins infectés",
-    "chec":"Mes Check-ins",
-    "org":"Organisation",
-    "pla":"Nom du lieu",
-    "ti":"Horaire de visite",
-    "du":"Durée",
+    "checkin":"Mes Check-ins",
+    "organisation":"Organisation",
+    "place":"Nom du lieu",
+    "time":"Horaire de visite",
+    "duration":"Durée",
     "nochec":"Vous n'avez aucun check-in pour l'instant. Scannez un code QR pour commencer."
   }
 }
@@ -94,10 +94,10 @@ import { Checkin } from '../../../types/Checkin'
 @Component({})
 export default class ProfessionalCheckIns extends Vue {
   fields = [
-    { key: 'organization', label: this.tr('org') },
-    { key: 'place_name', label: this.tr('pla') },
-    { key: 'time', label: this.tr('ti') },
-    { key: 'duration', label: this.tr('du') },
+    { key: 'organization', label: this.tr('organisation') },
+    { key: 'place_name', label: this.tr('place') },
+    { key: 'time', label: this.tr('time') },
+    { key: 'duration', label: this.tr('duration') },
   ]
 
   checkins: Checkin[] = []

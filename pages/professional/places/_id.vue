@@ -4,7 +4,7 @@
       class="no-print"
       :to="'/' + $i18n.locale + '/professional/places/'"
     >
-      {{ $t('bk') }}
+      {{ $t('back') }}
     </nuxt-link>
     <br />
     <h2>{{ organization }}</h2>
@@ -31,12 +31,12 @@
 <i18n>
 {
   "en": {
-    "bk":"Back",
+    "back":"Back",
     "print":"Print the page",
     "flash":"Flash this QR Code to be informed of an infection"
   },
   "fr": {
-    "bk":"Retour",
+    "back":"Retour",
     "print":"Imprimer",
     "flash":"Flasher le QR Code pour être informé d'une infection"
   }
