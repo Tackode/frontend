@@ -55,7 +55,7 @@
 
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
       <b-button v-b-modal.place-delete-modal variant="secondary">
-        {{ $t('sup') }}
+        {{ $t('delete-profile') }}
       </b-button>
     </b-card>
     <b-modal id="place-delete-modal" :title="$t('delete-profile')">
