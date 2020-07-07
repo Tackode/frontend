@@ -1,9 +1,9 @@
 <template>
   <div v-if="checkins.length > 0" class="wrapped-container container">
-    <h1 class="sr-only">{{ $t('all') }}</h1>
+    <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
 
     <div v-if="infectedcheckins.length > 0">
-      <h2>{{ $t('infchec') }}</h2>
+      <h2>{{ $t('potential-contacts-with-infected') }}</h2>
       <br />
       <b-table striped hover :fields="fields" :items="infectedcheckins">
         <template v-slot:cell(organization)="data">
@@ -27,7 +27,7 @@
       <br />
     </div>
 
-    <h2>{{ $t('checkin') }}</h2>
+    <h2>{{ $t('my-check-ins') }}</h2>
     <br />
     <b-table striped hover :fields="fields" :items="checkins">
       <template v-slot:cell(organization)="data">
@@ -50,10 +50,10 @@
 
   <div v-else>
     <h1 class="sr-only">{{ $t('all') }}</h1>
-    <h2>{{ $t('checkin') }}</h2>
+    <h2>{{ $t('my-check-ins') }}</h2>
     <br />
     <p>
-      {{ $t('nochec') }}
+      {{ $t('no-check-in') }}
     </p>
   </div>
 </template>
@@ -61,24 +61,24 @@
 <i18n>
 {
   "en": {
-    "all":"All Check-ins",
-    "infchec":"Infected Check-ins",
-    "checkin":"My Check-ins",
-    "place":"Place Name",
-    "organisation":"Organization",
-    "time":"Time",
-    "duration":"Duration",
-    "nochec":"You don't have any check-in for now. Scan a QR code in a public location to start."
+    "all-check-ins": "All Check-ins",
+    "potential-contacts-with-infected": "Potential contacts with infected people",
+    "my-check-ins": "My Check-ins",
+    "place": "Place Name",
+    "organization": "Organization",
+    "time": "Time",
+    "duration": "Duration",
+    "no-check-in": "You don't have any check-in for now. Scan a QR code in a public location to start."
   },
   "fr": {
-    "all":"Tous les Check-ins",
-    "infcheck":"Check-ins infectés",
-    "checkin":"Mes Check-ins",
-    "organisation":"Organisation",
-    "place":"Nom du lieu",
-    "time":"Horaire de visite",
-    "duration":"Durée",
-    "nochec":"Vous n'avez aucun check-in pour l'instant. Scannez un code QR pour commencer."
+    "all-check-ins": "Tous mes passages",
+    "potential-contacts-with-infected": "Contacts potentiels avec une personne infectée",
+    "my-check-ins": "Mes passages",
+    "organization": "Organisation",
+    "place": "Nom du lieu",
+    "time": "Horaire de visite",
+    "duration": "Durée",
+    "no-check-in": "Vous n'avez aucun passage enregistré pour l'instant. Scannez un code QR pour commencer."
   }
 }
 </i18n>
@@ -86,13 +86,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError } from '../../../helpers/alerts'
-import { Checkin } from '../../../types/Checkin'
+import { showError } from '../../helpers/alerts'
+import { Checkin } from '../../types/Checkin'
 
 @Component({})
-export default class GuestCheckIns extends Vue {
+export default class CheckIns extends Vue {
   fields = [
-    { key: 'organization', label: this.tr('organisation') },
+    { key: 'organization', label: this.tr('organization') },
     { key: 'place_name', label: this.tr('place') },
     { key: 'time', label: this.tr('time') },
     { key: 'duration', label: this.tr('duration') },

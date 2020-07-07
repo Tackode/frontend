@@ -15,15 +15,6 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group :label="$t('org')" label-for="login-organization-name">
-        <b-form-input
-          id="login-organization-name"
-          v-model="organizationName"
-          required
-          :placeholder="$t('or')"
-        ></b-form-input>
-      </b-form-group>
-
       <b-button type="submit" variant="primary"> {{ $t('log') }} </b-button>
     </b-form>
     <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emai') }}</p>
@@ -39,19 +30,15 @@
     "log":"Login",
     "nevershare":"We'll never share your email with anyone else.",
     "email":"Enter your email",
-    "add":"Email address",
-    "org":"Organization name",
-    "or":"Enter your organization name"
+    "add":"Email address"
   },
   "fr": {
     "wait":"Chargement en cours...",
     "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
-    "nevershare":"Nous ne partagerons pas votre email.",
+    "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
     "email":"Entrez votre adresse",
-    "add":"Adresse mail",
-    "org":"Nom d'entreprise",
-    "or":"Nom de votre entreprise"
+    "add":"Adresse mail"
   }
 }
 </i18n>
@@ -59,7 +46,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError } from '../../helpers/alerts'
+import { showError } from '../helpers/alerts'
 
 enum LoginState {
   IDLE,
@@ -68,10 +55,9 @@ enum LoginState {
 }
 
 @Component
-export default class LoginProfessional extends Vue {
+export default class Login extends Vue {
   state: LoginState = LoginState.IDLE
   email: string = ''
-  organizationName: string = ''
 
   // Bind enum for Vue
   LoginState = LoginState
@@ -82,8 +68,8 @@ export default class LoginProfessional extends Vue {
     try {
       await this.$axios.$post('/login', {
         email: this.email,
-        role: 'Professional',
-        organizationName: this.organizationName,
+        role: 'Public',
+        organizationName: null,
       })
     } catch (error) {
       showError(
@@ -95,7 +81,7 @@ export default class LoginProfessional extends Vue {
     }
 
     this.state = LoginState.CHECK_EMAIL
-    localStorage.emai = this.email
+    localStorage.email = this.email
   }
 }
 </script>

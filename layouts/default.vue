@@ -18,26 +18,20 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <template v-if="role === 'Public'">
-            <b-nav-item :to="'/' + $i18n.locale + '/guest/check-ins'">
-              {{ $t('check') }}
+          <template v-if="role != null">
+            <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
+              {{ $t('my-check-ins') }}
             </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/guest/profile'">
-              {{ $t('profil') }}
+            <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
+              {{ $t('my-profile') }}
             </b-nav-item>
           </template>
           <template v-if="role === 'Professional'">
-            <b-nav-item :to="'/' + $i18n.locale + '/professional/places'">
-              {{ $t('place') }}
+            <b-nav-item :to="'/' + $i18n.locale + '/organization/places'">
+              {{ $t('places') }}
             </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/professional/infections'">
-              {{ $t('inf') }}
-            </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/professional/check-ins'">
-              {{ $t('chec') }}
-            </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/professional/profile'">
-              {{ $t('profi') }}
+            <b-nav-item :to="'/' + $i18n.locale + '/organization/infections'">
+              {{ $t('infections') }}
             </b-nav-item>
           </template>
         </b-navbar-nav>
@@ -48,13 +42,13 @@
           </template>
 
           <template v-else>
-            <b-nav-text> {{ $t('log') }} </b-nav-text>
+            <b-nav-text> {{ $t('login-as') }} </b-nav-text>
 
             <b-nav-item :to="'/' + $i18n.locale + '/login'">
               {{ $t('user') }}
             </b-nav-item>
             <b-nav-item :to="'/' + $i18n.locale + '/login-professional'">
-              {{ $t('pro') }}
+              {{ $t('professional') }}
             </b-nav-item>
           </template>
 
@@ -79,28 +73,24 @@
 <i18n>
 {
   "en": {
-    "check":"My Check-ins",
-    "profil":"My Profile",
-    "place":"Places",
-    "inf":"Infections",
-    "profi":"Profile",
+    "my-check-ins":"My Check-ins",
+    "my-profile":"My Profile",
+    "places":"Places",
+    "infections":"Infections",
     "logout":"Logout",
-    "log":"Login as:",
-    "pro":"Professional",
-    "user":"User",
-    "chec":"Check-Ins"
+    "login-as":"Login as:",
+    "professional":"Professional",
+    "user":"User"
   },
   "fr": {
-    "check":"Mes Check-ins",
-    "profil":"Mon Profil",
-    "place":"Lieux",
-    "inf":"Infections",
-    "profi":"Profil",
+    "my-check-ins":"Mes Check-ins",
+    "my-profile":"Mon Profil",
+    "places":"Lieux",
+    "infections":"Infections",
     "logout":"Se déconnecter",
-    "log":"Connexion :",
-    "pro":"Professionel",
-    "user":"Utilisateur",
-    "chec":"Check-Ins"
+    "login-as":"Connexion :",
+    "professional":"Professionel",
+    "user":"Utilisateur"
   }
 }
 </i18n>

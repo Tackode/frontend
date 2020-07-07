@@ -4,7 +4,7 @@
     v-else-if="state === ProfileState.LOADED"
     class="wrapped-container container"
   >
-    <h2>{{ $t('pro') }}</h2>
+    <h2>{{ $t('my-profile') }}</h2>
     <br />
     <b-card tag="article" style="max-width: 40rem;" class="mb-2">
       <b-form v-if="profile" @submit="handleAddEmail">
@@ -18,7 +18,22 @@
             v-model="email"
             type="email"
             readonly
-            :placeholder="$t('emai')"
+            :placeholder="$t('email-placeholder')"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          v-if="role === 'Professional'"
+          id="form-organization"
+          :label="$t('organization')"
+          label-for="form-organization"
+        >
+          <b-form-input
+            id="form-organization"
+            v-model="profile.organization.name"
+            type="text"
+            required
+            :placeholder="$t('my-organization')"
           ></b-form-input>
         </b-form-group>
 
@@ -28,7 +43,7 @@
             :value="true"
             :unchecked-value="false"
           >
-            {{ $t('store') }}
+            {{ $t('store-email-checkbox') }}
           </b-form-checkbox>
         </b-form-group>
 
@@ -43,12 +58,12 @@
         {{ $t('sup') }}
       </b-button>
     </b-card>
-    <b-modal id="place-delete-modal" :title="$t('sup')">
+    <b-modal id="place-delete-modal" :title="$t('delete-profile')">
       <b-form @submit="deleteProfile">
-        {{ $t('delete') }}
+        {{ $t('delete-profile-validation') }}
         <br />
         <br />
-        <b-button type="submit" variant="success"> {{ $t('yes') }} </b-button>
+        <b-button type="submit" variant="success">{{ $t('yes') }}</b-button>
         <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')">
           {{ $t('no') }}
         </b-button>
@@ -63,28 +78,32 @@
 <i18n>
 {
   "en": {
-    "wait":"Loading. Please wait...",
-    "pro":"My Profile",
-    "delete":"Do you really want to delete your profile?",
-    "sup":"Delete profile",
-    "yes":"Yes",
-    "no":"No",
-    "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
-    "submit":"Submit",
-    "email":"Email address*",
-    "emai":"Your email"
+    "wait": "Loading. Please wait...",
+    "my-profile": "My Profile",
+    "delete-profile-validation": "Do you really want to delete your profile?",
+    "delete-profile": "Delete profile",
+    "yes": "Yes",
+    "no": "No",
+    "store-email-checkbox": "Store my email address to be warned whenever a contact was infected by the Covid-19.",
+    "submit": "Submit",
+    "my-organization": "My organization",
+    "email": "Email address*",
+    "organization": "Organization*",
+    "email-placeholder": "Your email"
   },
   "fr": {
-    "wait":"Chargement en cours...",
-    "pro":"Mon Profil",
-    "delete":"Voulez-vous vraiment supprimer votre profil ?",
-    "sup":"Supprimer le profil",
-    "yes":"Oui",
-    "no":"Non",
-    "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
-    "submit":"Valider",
-    "email":"Adresse mail*",
-    "emai":"Votre adresse mail"
+    "wait": "Chargement en cours...",
+    "my-profile": "Mon Profil",
+    "delete-profile-validation": "Voulez-vous vraiment supprimer votre profil ?",
+    "delete-profile": "Supprimer le profil",
+    "yes": "Oui",
+    "no": "Non",
+    "store-email-checkbox": "Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
+    "submit": "Valider",
+    "my-organization": "Mon organisation",
+    "email": "Adresse mail*",
+    "organization": "Entreprise*",
+    "email-placeholder": "Votre adresse mail"
   }
 }
 </i18n>
@@ -92,8 +111,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError, showSuccess } from '../../../helpers/alerts'
-import { Profile } from '../../../types/Profile'
+import { showError, showSuccess } from '../../helpers/alerts'
+import { Profile } from '../../types/Profile'
 
 enum ProfileState {
   LOADING,
@@ -101,14 +120,17 @@ enum ProfileState {
 }
 
 @Component({})
-export default class GuestProfile extends Vue {
+export default class ProfilePage extends Vue {
   state: ProfileState = ProfileState.LOADING
+  role: string | null = null
   profile: Profile | null = null
   saveEmail = false
   email: string | undefined | null = null
-  emai: string | undefined | null = null
   ProfileState = ProfileState
+
   async mounted() {
+    this.role = this.$store.getters['session/role']
+
     try {
       this.profile = await this.$axios.$get('/profile', {
         auth: {
@@ -120,7 +142,9 @@ export default class GuestProfile extends Vue {
       showError(
         this.$bvToast,
         'Profil',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(
+          'A network error occurred while loading the profile. Please, try Again.'
+        )
       )
     }
 
@@ -128,24 +152,44 @@ export default class GuestProfile extends Vue {
     if (this.$store.getters['session/email']) {
       this.email = this.$store.getters['session/email']
     } else {
-      this.email = localStorage.emai
+      this.email = localStorage.email
     }
     this.state = ProfileState.LOADED
   }
 
   async handleAddEmail(e: Event) {
     e.preventDefault()
-    if (this.saveEmail) {
-      this.emai = this.email
-    } else {
-      this.emai = null
+
+    if (this.role === 'Professional') {
+      try {
+        await this.$axios.$put(
+          '/organization',
+          {
+            name: this.profile?.organization?.name,
+          },
+          {
+            auth: {
+              username: this.$store.getters['session/login'],
+              password: this.$store.getters['session/token'],
+            },
+          }
+        )
+      } catch (error) {
+        showError(
+          this.$bvToast,
+          'Profil',
+          new Error(
+            'A network error has occurred in posting. Please, try again.'
+          )
+        )
+      }
     }
 
     try {
       await this.$axios.$put(
         '/profile',
         {
-          email: this.emai,
+          email: this.saveEmail ? this.email : null,
         },
         {
           auth: {
@@ -162,7 +206,7 @@ export default class GuestProfile extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Profil',
+        'Profile',
         new Error('A network error has occurred in posting. Please, try again.')
       )
     }

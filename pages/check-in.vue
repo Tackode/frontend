@@ -136,8 +136,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Place } from '../../types/Place'
-import { showError } from '../../helpers/alerts'
+import { Place } from '../types/Place'
+import { showError } from '../helpers/alerts'
 
 enum CheckinState {
   SCANNING,
@@ -165,7 +165,7 @@ export default class CheckIn extends Vue {
     if (this.$store.getters['session/email']) {
       this.email = this.$store.getters['session/email']
     } else {
-      this.email = localStorage.emai
+      this.email = localStorage.email
     }
 
     if (!placeId) {

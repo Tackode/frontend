@@ -203,8 +203,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError } from '../../../helpers/alerts'
-import { Place } from '../../../types/Place'
+import { showError } from '../../helpers/alerts'
+import { Place } from '../../types/Place'
 
 interface Infectionreation {
   placesIds: String[]
