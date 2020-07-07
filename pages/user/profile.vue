@@ -125,7 +125,7 @@ export default class ProfilePage extends Vue {
   role: string | null = null
   profile: Profile | null = null
   saveEmail = false
-  email: string | undefined | null = null
+  email: string = this.$store.getters['session/localEmail']
   ProfileState = ProfileState
 
   async mounted() {
@@ -149,11 +149,6 @@ export default class ProfilePage extends Vue {
     }
 
     this.saveEmail = this.profile?.email !== null
-    if (this.$store.getters['session/email']) {
-      this.email = this.$store.getters['session/email']
-    } else {
-      this.email = localStorage.email
-    }
     this.state = ProfileState.LOADED
   }
 

@@ -81,7 +81,8 @@ export default class Login extends Vue {
     }
 
     this.state = LoginState.CHECK_EMAIL
-    localStorage.email = this.email
+
+    this.$store.dispatch('session/setLocalEmail', this.email)
   }
 }
 </script>

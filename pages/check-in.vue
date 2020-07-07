@@ -154,7 +154,7 @@ export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   duration: string = ''
-  email: string = this.$store.getters['session/email']
+  email: string | null = this.$store.getters['session/localEmail']
   error: string = ''
   storeEmail = true
 
@@ -162,11 +162,6 @@ export default class CheckIn extends Vue {
 
   async mounted() {
     const placeId = this.$route.query.placeId
-    if (this.$store.getters['session/email']) {
-      this.email = this.$store.getters['session/email']
-    } else {
-      this.email = localStorage.email
-    }
 
     if (!placeId) {
       this.state = CheckinState.SCANNING
@@ -217,6 +212,8 @@ export default class CheckIn extends Vue {
         )
         return
       }
+
+      this.$store.dispatch('session/setLocalEmail', this.email)
 
       this.state = CheckinState.FINISH
       if (this.$store.getters['session/role'] === 'Public') {

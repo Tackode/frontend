@@ -3,6 +3,7 @@ interface State {
   token: string | null
   email: string | null
   role: string | null
+  localEmail: string | null
 }
 
 const state = (): State => ({
@@ -10,6 +11,7 @@ const state = (): State => ({
   token: null,
   email: null,
   role: null,
+  localEmail: null,
 })
 
 const actions = {
@@ -19,6 +21,17 @@ const actions = {
       commit('SET_TOKEN', localStorage.getItem('token'))
       commit('SET_EMAIL', localStorage.getItem('email'))
       commit('SET_ROLE', localStorage.getItem('role'))
+      commit('SET_LOCAL_EMAIL', localStorage.getItem('localEmail'))
+    }
+  },
+
+  setLocalEmail({ commit, state }: any, email: string) {
+    if (state.localEmail !== email) {
+      commit('SET_LOGIN', null)
+      commit('SET_TOKEN', null)
+      commit('SET_EMAIL', null)
+      commit('SET_ROLE', null)
+      commit('SET_LOCAL_EMAIL', email)
     }
   },
 
@@ -34,6 +47,7 @@ const actions = {
     commit('SET_TOKEN', null)
     commit('SET_EMAIL', null)
     commit('SET_ROLE', null)
+    commit('SET_LOCAL_EMAIL', null)
   },
 }
 
@@ -74,6 +88,15 @@ const mutations = {
 
     state.role = role
   },
+  SET_LOCAL_EMAIL(state: State, email: string | null) {
+    if (email) {
+      localStorage.setItem('localEmail', email)
+    } else {
+      localStorage.removeItem('localEmail')
+    }
+
+    state.localEmail = email
+  },
 }
 
 const getters = {
@@ -82,6 +105,9 @@ const getters = {
   },
   token(state: State): string | null {
     return state.token
+  },
+  localEmail(state: State): string | null {
+    return state.localEmail
   },
   email(state: State): string | null {
     return state.email
