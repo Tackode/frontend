@@ -12005,10 +12005,10 @@ vue-no-ssr@^1.1.1:
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
 
-vue-qrcode-reader@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/vue-qrcode-reader/-/vue-qrcode-reader-2.3.1.tgz#d5985bba9c753bc9a0579c8c0a0d901ed103889d"
-  integrity sha512-/FvV1xA6q4rlMv9kMN7iwVmsFOdB4K5xws++41/K9/Njbc47/0KvTAubqIYnOxZmKuWUO4G2Hv4nM8iQhjcrYA==
+vue-qrcode-reader@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/vue-qrcode-reader/-/vue-qrcode-reader-2.3.3.tgz#5062f6c27dedd0a3cf1e865986415323fc1b71ba"
+  integrity sha512-utbA34kKM/xxZcE0ElzalECzbDUjEKuAaJu2aCHrHisO40aUxku/yx4z0Gjvpx/FO0npOCqLvfZt8e4bw8tTmw==
   dependencies:
     babel-runtime "^6.26.0"
     callforth "^0.3.0"
