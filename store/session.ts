@@ -40,7 +40,7 @@ const actions = {
 const mutations = {
   SET_LOGIN(state: State, login: string | null) {
     if (login) {
-      localStorage.setItem('login', login ?? '')
+      localStorage.setItem('login', login)
     } else {
       localStorage.removeItem('login')
     }
@@ -49,7 +49,7 @@ const mutations = {
   },
   SET_TOKEN(state: State, token: string | null) {
     if (token) {
-      localStorage.setItem('token', token ?? '')
+      localStorage.setItem('token', token)
     } else {
       localStorage.removeItem('token')
     }
@@ -58,7 +58,7 @@ const mutations = {
   },
   SET_EMAIL(state: State, email: string | null) {
     if (email) {
-      localStorage.setItem('email', email ?? '')
+      localStorage.setItem('email', email)
     } else {
       localStorage.removeItem('email')
     }
@@ -67,7 +67,7 @@ const mutations = {
   },
   SET_ROLE(state: State, role: string | null) {
     if (role) {
-      localStorage.setItem('role', role ?? '')
+      localStorage.setItem('role', role)
     } else {
       localStorage.removeItem('role')
     }
