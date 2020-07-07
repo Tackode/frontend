@@ -71,7 +71,7 @@ export default class ValidateDevice extends Vue {
 
     this.$store.dispatch('session/setSession', result)
 
-    this.$router.replace('/' + this.$i18n.locale + '/guest/check-ins')
+    this.$router.replace('/' + this.$i18n.locale + '/user/check-ins')
   }
 }
 </script>

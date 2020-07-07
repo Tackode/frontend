@@ -31,7 +31,7 @@
 
       <template v-slot:cell(action)="data">
         <nuxt-link
-          :to="'/' + $i18n.locale + '/professional/places/' + data.item.id"
+          :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
         >
           {{ $t('showqr') }}
         </nuxt-link>

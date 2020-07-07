@@ -216,13 +216,7 @@ export default class CheckIn extends Vue {
       this.$store.dispatch('session/setLocalEmail', this.email)
 
       this.state = CheckinState.FINISH
-      if (this.$store.getters['session/role'] === 'Public') {
-        this.$router.replace('/' + this.$i18n.locale + '/guest/check-ins')
-      } else {
-        this.$router.replace(
-          '/' + this.$i18n.locale + '/professional/check-ins'
-        )
-      }
+      this.$router.replace('/' + this.$i18n.locale + '/user/check-ins')
     } else {
       try {
         await this.$axios.$post('/checkin', {
