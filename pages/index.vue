@@ -29,32 +29,44 @@
 
     <div class="wrapped-container container">
       <b-card :title="$t('checkin')" tag="checkin" class="checkin mb-2 w-100">
-        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="light">
-          <img
-            alt="coucou"
-            class="small-container"
-            src="~/assets/images/qr-code.png"
-            srcset="
-              ~/assets/images/qr-code.png    1x,
-              ~/assets/images/qr-code@2x.png 2x
-            "
-          />
-          <p>{{ $t('scan') }}</p>
+        <b-button
+          class="container"
+          :to="'/' + $i18n.locale + '/check-in'"
+          variant="light"
+        >
+          <b-row>
+            <b-col sm="2">
+              <img
+                left
+                alt="coucou"
+                class="small-container"
+                src="~/assets/images/qr-code.png"
+                srcset="
+                  ~/assets/images/qr-code.png    1x,
+                  ~/assets/images/qr-code@2x.png 2x
+                "
+              />
+            </b-col>
+            <b-col class="text-center" sm="10">
+              <h3>{{ $t('register') }}</h3>
+              {{ $t('scan') }}
+            </b-col>
+          </b-row>
         </b-button>
       </b-card>
-
       <b-card
         v-if="role === null"
         :title="$t('log')"
         tag="login"
         class="login mb-2 w-100"
       >
-        <b-button to="/login" variant="primary">
-          {{ $t('userlog') }}
+        <p>{{ $t('Intro') }}</p>
+        <b-button to="/login-professional" class="container" variant="primary">
+          {{ $t('prolog') }}
         </b-button>
 
-        <b-button to="/login-professional" variant="primary">
-          {{ $t('prolog') }}
+        <b-button to="/login" class="container" variant="primary">
+          {{ $t('userlog') }}
         </b-button>
       </b-card>
     </div>
@@ -64,6 +76,9 @@
 <i18n>
 {
   "en": {
+    "register":"REGISTER",
+    "Intro":"If you are professional",
+    "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people",
     "log": "Loggin In",
@@ -74,6 +89,9 @@
     "userlog":"User log in"
   },
   "fr": {
+    "register":"S'ENREGISTRER",
+    "Intro":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidjournal": "Bienvenue sur Covid-Journal",
     "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée",
     "log": "Connexion",
