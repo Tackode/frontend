@@ -28,8 +28,18 @@
     </p>
 
     <div class="wrapped-container container">
-      <div class="login" v-if="role === null">
-        <h2>{{ $t('log') }}</h2>
+      <b-card :title="$t('checkin')" tag="checkin" class="checkin mb-2 w-100">
+        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">
+          {{ $t('scan') }}
+        </b-button>
+      </b-card>
+
+      <b-card
+        v-if="role === null"
+        :title="$t('log')"
+        tag="login"
+        class="login mb-2 w-100"
+      >
         <b-button to="/login" variant="primary">
           {{ $t('userlog') }}
         </b-button>
@@ -37,15 +47,7 @@
         <b-button to="/login-professional" variant="primary">
           {{ $t('prolog') }}
         </b-button>
-        <br />
-      </div>
-
-      <div class="checkin">
-        <h2>{{ $t('checkin') }}</h2>
-        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">
-          {{ $t('scan') }}
-        </b-button>
-      </div>
+      </b-card>
     </div>
   </div>
 </template>

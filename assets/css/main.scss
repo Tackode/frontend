@@ -26,6 +26,10 @@ html {
     flex: 1 0;
     overflow: auto;
 
+    .small-container {
+      max-width: 400px;
+    }
+
     .wrapped-container {
       margin: 0 auto;
       display: flex;
