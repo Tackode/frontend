@@ -29,8 +29,17 @@
 
     <div class="wrapped-container container">
       <b-card :title="$t('checkin')" tag="checkin" class="checkin mb-2 w-100">
-        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="primary">
-          {{ $t('scan') }}
+        <b-button :to="'/' + $i18n.locale + '/check-in'" variant="light">
+          <img
+            alt="coucou"
+            class="small-container"
+            src="~/assets/images/qr-code.png"
+            srcset="
+              ~/assets/images/qr-code.png    1x,
+              ~/assets/images/qr-code@2x.png 2x
+            "
+          />
+          <p>{{ $t('scan') }}</p>
         </b-button>
       </b-card>
 
