@@ -52,6 +52,10 @@
             </b-nav-item>
           </template>
 
+          <b-nav-item :to="'/' + $i18n.locale + '/legal'">
+            {{ $t('legal') }}
+          </b-nav-item>
+
           <b-nav-item
             v-for="locale in $i18n.locales"
             v-if="locale.code !== $i18n.locale"
@@ -73,6 +77,7 @@
 <i18n>
 {
   "en": {
+    "legal":"Legal Noticies",
     "my-check-ins":"My Check-ins",
     "my-profile":"My Profile",
     "places":"Places",
@@ -83,6 +88,7 @@
     "user":"User"
   },
   "fr": {
+    "legal":"Mentions légales",
     "my-check-ins":"Mes Check-ins",
     "my-profile":"Mon Profil",
     "places":"Lieux",
