@@ -29,30 +29,15 @@
 
     <div class="wrapped-container container">
       <b-card :title="$t('checkin')" tag="checkin" class="checkin mb-2 w-100">
-        <b-button
-          class="container"
-          :to="'/' + $i18n.locale + '/check-in'"
-          variant="light"
-        >
-          <b-row>
-            <b-col sm="2">
-              <img
-                left
-                alt="coucou"
-                class="small-container"
-                src="~/assets/images/qr-code.png"
-                srcset="
-                  ~/assets/images/qr-code.png    1x,
+        <BigButtonAction
+          :title="$t('register')"
+          :subtitle="$t('scan')"
+          src="~/assets/images/qr-code.png"
+          srcset=" ~/assets/images/qr-code.png    1x,
                   ~/assets/images/qr-code@2x.png 2x
                 "
-              />
-            </b-col>
-            <b-col class="text-center" sm="10">
-              <h3>{{ $t('register') }}</h3>
-              {{ $t('scan') }}
-            </b-col>
-          </b-row>
-        </b-button>
+          :url="'/' + $i18n.locale + '/check-in'"
+        />
       </b-card>
       <b-card
         v-if="role === null"
@@ -60,13 +45,16 @@
         tag="login"
         class="login mb-2 w-100"
       >
-        <p>{{ $t('Intro') }}</p>
-        <b-button to="/login-professional" class="container" variant="primary">
-          {{ $t('prolog') }}
-        </b-button>
-
-        <b-button to="/login" class="container" variant="primary">
-          {{ $t('userlog') }}
+        <BigButtonAction
+          :title="$t('prolog')"
+          :subtitle="$t('Intro')"
+          :url="'/' + $i18n.locale + '/login-professional'"
+        />
+<BigButtonAction
+          :title="$t('userlog')"
+          :subtitle="$t('places')"
+          :url="'/' + $i18n.locale + '/login'"
+        />
         </b-button>
       </b-card>
     </div>
@@ -76,7 +64,7 @@
 <i18n>
 {
   "en": {
-    "register":"REGISTER",
+    "register":"Register",
     "Intro":"If you are professional",
     "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Covid-Journal",
@@ -86,10 +74,11 @@
     "checkin" : "Check in a place",
     "scan": "Scan a QR Code",
     "prolog":"Professional log in",
-    "userlog":"User log in"
+    "userlog":"User log in",
+    "places":"Manage your places and your profile."
   },
   "fr": {
-    "register":"S'ENREGISTRER",
+    "register":"S'enregistrer",
     "Intro":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidjournal": "Bienvenue sur Covid-Journal",
@@ -99,7 +88,8 @@
     "checkin" : "Enregistrer son passage",
     "scan": "Scanner un QR Code",
     "prolog":"Connexion Pro",
-    "userlog":"Connexion Utilisateur"
+    "userlog":"Connexion Utilisateur",
+    "places":"Gérez vos lieux de passages et votre profil."
   }
 }
 </i18n>
@@ -107,8 +97,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import BigButtonAction from '../components/BigButtonAction.vue'
 
-@Component
+@Component({
+  components: {
+    BigButtonAction,
+  },
+})
 export default class Home extends Vue {
   role: string | null = null
 
