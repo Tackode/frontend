@@ -64,31 +64,31 @@
 <i18n>
 {
   "en": {
-    "register":"Register",
-    "Intro":"If you are professional",
+    "register":"Register a crossing point to be notified when an infection is reported.",
+    "Intro":"Manage your organization and the corresponding places.",
     "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people",
     "log": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
-    "scan": "Scan a QR Code",
-    "prolog":"Professional log in",
-    "userlog":"User log in",
+    "scan": "Scan the QR Code of the place where you are.",
+    "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors.",
+    "userlog":"You want to know if you have crossed an infected person",
     "places":"Manage your places and your profile."
   },
   "fr": {
-    "register":"S'enregistrer",
-    "Intro":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
+    "Intro":"Gérez votre organisation et les lieux correspondants.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidjournal": "Bienvenue sur Covid-Journal",
     "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée",
     "log": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
-    "scan": "Scanner un QR Code",
-    "prolog":"Connexion Pro",
-    "userlog":"Connexion Utilisateur",
+    "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
+    "prolog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs",
+    "userlog":"Vous souhaitez savoir si vous avez croisé une personne infectée",
     "places":"Gérez vos lieux de passages et votre profil."
   }
 }
