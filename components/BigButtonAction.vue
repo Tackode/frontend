@@ -1,7 +1,7 @@
 <template>
   <b-button class="container" :to="url" variant="secondary">
     <b-row>
-      <img :src="src" class="mr-3" />
+      <img :src="src" :srcset="srcset" class="mr-3" />
       <b-col class="text-center" align-self="center">
         <h5 class="mt-0">{{ title }}</h5>
         <p>
