@@ -1,5 +1,5 @@
 <template>
-  <div class="container wrapped-container medium-container">
+  <div class="container wrapped-container center-div medium-container">
     <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
     <div v-if="checkins.length > 0" class="wrapped-container container">
       <div v-if="infectedcheckins.length > 0">
@@ -54,6 +54,15 @@
       <p>
         {{ $t('no-check-in') }}
       </p>
+      <BigButtonAction
+        :title="$t('register')"
+        :subtitle="$t('scan')"
+        src="/_nuxt/assets/images/qr-code.png"
+        srcset="/_nuxt/assets/images/qr-code.png    1x,
+                 /_nuxt/assets/images/qr-code@2x.png 2x
+                "
+        :url="'/' + $i18n.locale + '/check-in'"
+      />
     </div>
   </div>
 </template>
@@ -61,6 +70,8 @@
 <i18n>
 {
   "en": {
+    "register":"Register a crossing point to be notified when an infection is reported.",
+    "scan" : "Scan the QR Code of the place where you are.",
     "all-check-ins": "All Check-ins",
     "potential-contacts-with-infected": "Potential contacts with infected people",
     "my-check-ins": "My Check-ins",
@@ -71,14 +82,16 @@
     "no-check-in": "You don't have any check-in for now. Scan a QR code in a public location to start."
   },
   "fr": {
-    "all-check-ins": "Tous mes passages",
+    "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
+    "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
+    "all-check-ins": "Tous mes visites",
     "potential-contacts-with-infected": "Contacts potentiels avec une personne infectée",
-    "my-check-ins": "Mes passages",
+    "my-check-ins": "Mes visites",
     "organization": "Organisation",
     "place": "Nom du lieu",
     "time": "Horaire de visite",
     "duration": "Durée",
-    "no-check-in": "Vous n'avez aucun passage enregistré pour l'instant. Scannez un code QR pour commencer."
+    "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant. Scannez un code QR pour commencer."
   }
 }
 </i18n>
@@ -88,8 +101,13 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
+import BigButtonAction from '~/components/BigButtonAction.vue'
 
-@Component({})
+@Component({
+  components: {
+    BigButtonAction,
+  },
+})
 export default class CheckIns extends Vue {
   fields = [
     { key: 'organization', label: this.tr('organization') },

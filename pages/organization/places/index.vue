@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container container medium-container">
+  <div class="wrapped-container container center-div medium-container">
     <h1 class="sr-only">Places</h1>
     <h2>{{ $t('place') }}</h2>
     <br />

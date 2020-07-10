@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="state === CheckinState.SCANNING"
-    class="wrapped-container container"
+    class="wrapped-container center-div container"
   >
     <h2>{{ $t('scan') }}</h2>
     <br />
