@@ -1,17 +1,15 @@
 <template>
-  <div class="wrapped-container container">
+  <div class="wrapped-container container medium-container">
     <h1 class="sr-only">Places</h1>
     <h2>{{ $t('place') }}</h2>
     <br />
-
-    <b-button
+    <BigButtonAction
       v-b-modal.place-creation-modal
-      variant="primary"
-      class="mb-2"
       @click="PlacetoCreate()"
-    >
-      {{ $t('cplace') }}
-    </b-button>
+      :title="$t('cplace')"
+      :subtitle="$t('subtitle')"
+    />
+
     <br />
     <br />
     <b-table
@@ -133,7 +131,7 @@
 {
   "en": {
     "place":"Your Places",
-    "cplace":"Create a place",
+    "cplace":"Add a new place open to the public",
     "noplace":"You don't have any places for now. Please, create a place to begin.",
     "showqr":"Show QRCode",
     "name":"Name*",
@@ -148,12 +146,13 @@
     "pla":"Place Name",
     "dur":"Average Duration",
     "delete":"Delete",
-    "action":"Action"
+    "action":"Action",
+    "subtitle":"Generate a QR Code for this new place"
 
   },
   "fr": {
     "place":"Vos Adresses",
-    "cplace":"Ajouter un lieu",
+    "cplace":"Ajoutez un nouveau lieu ouvert au public",
     "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
     "showqr":"Afficher QRCode",
     "name":"Nom*",
@@ -168,7 +167,8 @@
     "pla":"Nom du lieu",
     "dur":"Durée moyenne sur place",
     "delete":"Supprimer",
-    "action":"QR Code"
+    "action":"QR Code",
+    "subtitle":"Générez un QR Code pour ce nouveau lieu"
   }
 }
 </i18n>
@@ -179,6 +179,7 @@ import Component from 'vue-class-component'
 import { BootstrapVueIcons } from 'bootstrap-vue'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
+import BigButtonAction from '~/components/BigButtonAction.vue'
 
 Vue.use(BootstrapVueIcons)
 interface PlaceFormValues {
@@ -187,7 +188,11 @@ interface PlaceFormValues {
   averageDuration: string
 }
 
-@Component
+@Component({
+  components: {
+    BigButtonAction,
+  },
+})
 export default class ProfessionalPlaces extends Vue {
   fields = [
     { key: 'place_name', label: this.tr('pla') },

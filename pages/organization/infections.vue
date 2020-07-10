@@ -1,17 +1,15 @@
 <template>
-  <div class="wrapped-container container">
+  <div class="wrapped-container container medium-container">
     <h1 class="sr-only">Infections</h1>
     <h2>{{ $t('infec') }}</h2>
 
-    <div v-if="places.length > 0">
+    <div class="container" v-if="places.length > 0">
       <br />
-      <b-button
+      <BigButtonAction
         v-b-modal.infection-creation-modal
-        variant="primary"
-        class="mb-2"
-      >
-        {{ $t('potinf') }}
-      </b-button>
+        :title="$t('potinf')"
+        :subtitle="$t('subtitle')"
+      />
       <br />
       <br />
     </div>
@@ -167,14 +165,15 @@
     "start":"Start date :",
     "end":"End date :",
     "infec":"Declaration of Infections",
-    "potinf":"Declare a potential infection",
+    "potinf":"Report a new infection in one or more of your places.",
     "nopinf":"No place to declare an infection",
     "validate":"Validate",
     "modify":"Modify",
     "infectedplace":"Infected Place",
     "startdate":"Start Date",
     "enddate":"End Date",
-    "delplace":"Deleted Place"
+    "delplace":"Deleted Place",
+    "subtitle":"Record an infection to automatically notify your visitors"
   },
   "fr": {
     "startdate":"Date de début de l'infection*",
@@ -188,14 +187,15 @@
     "start":"Date de début :",
     "end":"Date de fin :",
     "infec":"Déclarer une infection",
-    "potinf":"Déclarer une infection potentielle",
+    "potinf":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
     "validate":"Valider",
     "modify":"Modifier",
     "infectedplace":"Lieux Infectés",
     "startdate":"Date de début",
     "enddate":"Date de fin",
-    "delplace":"Lieu supprimé"
+    "delplace":"Lieu supprimé",
+    "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs."
   }
 }
 </i18n>
@@ -205,6 +205,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
+import BigButtonAction from '~/components/BigButtonAction.vue'
 
 interface Infectionreation {
   placesIds: String[]
@@ -218,7 +219,11 @@ interface Infectionreation {
   endTimestamp: string
 }
 
-@Component
+@Component({
+  components: {
+    BigButtonAction,
+  },
+})
 export default class ProfessionalInfections extends Vue {
   fields = [
     { key: 'infected_places', label: this.tr('infectedplace') },

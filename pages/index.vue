@@ -28,7 +28,11 @@
     </p>
 
     <div class="wrapped-container container">
-      <b-card :title="$t('checkin')" tag="checkin" class="checkin mb-2 w-100">
+      <b-card
+        :title="$t('checkin')"
+        tag="checkin"
+        class="no-border checkin mb-2 w-100"
+      >
         <BigButtonAction
           :title="$t('register')"
           :subtitle="$t('scan')"
@@ -50,12 +54,11 @@
           :subtitle="$t('Intro')"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
-<BigButtonAction
+        <BigButtonAction
           :title="$t('userlog')"
           :subtitle="$t('places')"
           :url="'/' + $i18n.locale + '/login'"
         />
-        </b-button>
       </b-card>
     </div>
   </div>
@@ -68,13 +71,13 @@
     "Intro":"Manage your organization and the corresponding places.",
     "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Covid-Journal",
-    "summary": "Check-in and be notified of potential contact with infected people",
+    "summary": "Check-in and be notified of potential contact with infected people.",
     "log": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are.",
     "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors.",
-    "userlog":"You want to know if you have crossed an infected person",
+    "userlog":"You want to know if you have crossed an infected person.",
     "places":"Manage your places and your profile."
   },
   "fr": {
@@ -82,13 +85,13 @@
     "Intro":"Gérez votre organisation et les lieux correspondants.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidjournal": "Bienvenue sur Covid-Journal",
-    "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée",
+    "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
     "log": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "prolog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs",
-    "userlog":"Vous souhaitez savoir si vous avez croisé une personne infectée",
+    "prolog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "userlog":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
     "places":"Gérez vos lieux de passages et votre profil."
   }
 }
@@ -97,7 +100,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import BigButtonAction from '../components/BigButtonAction.vue'
+import BigButtonAction from '~/components/BigButtonAction.vue'
 
 @Component({
   components: {

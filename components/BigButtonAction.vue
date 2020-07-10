@@ -1,5 +1,5 @@
 <template>
-  <b-button class="container" :to="url" variant="secondary">
+  <b-button class="container medium-container" :to="url" variant="secondary">
     <b-row>
       <img :src="src" :srcset="srcset" class="mr-3" />
       <b-col class="text-center" align-self="center">

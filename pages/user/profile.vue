@@ -2,11 +2,11 @@
   <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
   <div
     v-else-if="state === ProfileState.LOADED"
-    class="wrapped-container container"
+    class="wrapped-container container medium-container"
   >
     <h2>{{ $t('my-profile') }}</h2>
     <br />
-    <b-card tag="article" style="max-width: 40rem;" class="mb-2">
+    <b-card tag="article" style="max-width: 40rem;" class="mb-2 no-border">
       <b-form v-if="profile" @submit="handleAddEmail">
         <b-form-group
           id="form-email"
@@ -52,8 +52,16 @@
         </b-button>
       </b-form>
     </b-card>
-
-    <b-card tag="article" style="max-width: 40rem;" class="mb-2">
+    <hr
+      style="
+        height: 1px;
+        color: black;
+        background-color: black;
+        width: 60%;
+        border: none;
+      "
+    />
+    <b-card class="mb-2 no-border" tag="article" style="max-width: 40rem;">
       <b-button v-b-modal.place-delete-modal variant="secondary">
         {{ $t('delete-profile') }}
       </b-button>
