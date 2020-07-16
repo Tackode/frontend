@@ -70,8 +70,8 @@
 <i18n>
 {
   "en": {
-    "register":"Register a crossing point to be notified when an infection is reported.",
-    "scan" : "Scan the QR Code of the place where you are.",
+    "register":"Register a place to be notified when an infection is reported",
+    "scan" : "Scan the QR Code of the place where you are",
     "all-check-ins": "All Check-ins",
     "potential-contacts-with-infected": "Potential contacts with infected people",
     "my-check-ins": "My Check-ins",

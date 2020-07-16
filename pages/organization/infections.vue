@@ -165,7 +165,7 @@
     "start":"Start date :",
     "end":"End date :",
     "infec":"Declaration of Infections",
-    "potinf":"Report a new infection in one or more of your places.",
+    "potinf":"Report a new infection in one or more of your places",
     "nopinf":"No place to declare an infection",
     "validate":"Validate",
     "modify":"Modify",
