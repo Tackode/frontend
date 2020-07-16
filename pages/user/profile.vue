@@ -53,9 +53,9 @@
     </b-card>
     <hr
       style="
-        height: 1px;
-        color: black;
-        background-color: black;
+        height: 0.5px;
+        color: grey;
+        background-color: grey;
         width: 60%;
         border: none;
       "

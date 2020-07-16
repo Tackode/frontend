@@ -68,7 +68,7 @@
 {
   "en": {
     "register":"Register a place to be notified when an infection is reported",
-    "Intro":"Manage your organization and the corresponding places.",
+    "Intro":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people.",
@@ -76,9 +76,9 @@
     "logout":"Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
-    "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors.",
-    "userlog":"You want to know if you have crossed an infected person.",
-    "places":"Manage your places and your profile."
+    "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors",
+    "userlog":"You want to know if you have crossed an infected person",
+    "places":"Manage your places and your profile"
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",

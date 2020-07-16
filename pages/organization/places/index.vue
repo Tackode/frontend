@@ -112,7 +112,7 @@
 
     <b-modal id="place-delete-modal" :title="$t('sup')">
       <b-form @submit="handleplaceFormValuesDelete">
-        {{ $t('delete') }}
+        {{ $t('deleteplace') }}
         <br />
         <br />
         <b-button type="submit" variant="success">Yes</b-button>
@@ -142,6 +142,7 @@
     "delete":"Do you really want to delete the place?",
     "sup":"Delete Place",
     "modifyplace":"Place Modification",
+    "deleteplace":"Delete the place ?",
     "crea":"Place Creation",
     "pla":"Place Name",
     "dur":"Average Duration",
@@ -163,6 +164,7 @@
     "delete":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
     "modifyplace":"Modification du lieu",
+    "deleteplace":"Supprimer le lieu ?",
     "crea":"Création du lieu",
     "pla":"Nom du lieu",
     "dur":"Durée moyenne sur place",
@@ -339,7 +341,7 @@ export default class ProfessionalPlaces extends Vue {
 
   FormTitle() {
     if (this.placeFormMode) {
-      return 'mod'
+      return 'modifyplace'
     } else {
       return 'crea'
     }
