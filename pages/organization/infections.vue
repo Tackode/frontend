@@ -18,6 +18,7 @@
 
     <b-table
       v-if="infections.length > 0"
+      class="PTSans"
       striped
       hover
       :fields="fields"

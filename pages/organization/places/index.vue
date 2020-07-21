@@ -14,6 +14,7 @@
     <br />
     <b-table
       v-if="places.length > 0"
+      class="PTSans"
       striped
       hover
       :fields="fields"
@@ -172,7 +173,7 @@
     "deleteplace":"Supprimer le lieu ?",
     "crea":"Création du lieu",
     "pla":"Nom du lieu",
-    "dur":"Durée moyenne sur place",
+    "dur":"Durée estimée",
     "delete":"Supprimer",
     "action":"QR Code",
     "subtitle":"Générez un QR Code pour ce nouveau lieu"
