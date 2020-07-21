@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container container login">
+  <div class="wrapped-container container login" style="padding-top: 1em;">
     <h2>{{ $t('legal-noticies') }}</h2>
     <p>En vigueur au 10/07/2020</p>
     <p>

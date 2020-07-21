@@ -47,13 +47,14 @@
         v-if="role === null"
         :title="$t('log')"
         tag="login"
-        class="login mb-2 w-100"
+        class="no-border login mb-2 w-100"
       >
         <BigButtonAction
           :title="$t('prolog')"
           :subtitle="$t('Intro')"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
+        <br />
         <BigButtonAction
           :title="$t('userlog')"
           :subtitle="$t('places')"
