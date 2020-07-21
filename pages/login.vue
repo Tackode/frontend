@@ -15,7 +15,9 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary"> {{ $t('log') }} </b-button>
+      <b-button class="button--blue" type="submit" variant="primary">
+        {{ $t('log') }}
+      </b-button>
     </b-form>
     <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emai') }}</p>
     <p v-else-if="state === LoginState.LOADING">{{ $t('wait') }}</p>

@@ -51,7 +51,7 @@
           </b-form-checkbox>
         </b-form-group>
 
-        <b-button block type="submit" variant="primary">
+        <b-button block class="button--blue" type="submit" variant="primary">
           {{ $t('submit') }}
         </b-button>
       </b-form>

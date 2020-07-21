@@ -97,10 +97,15 @@
             :placeholder="$t('dur')"
           ></b-form-input>
         </b-form-group>
-        <b-button v-if="placeFormMode" type="submit" variant="primary">
+        <b-button
+          class="button--blue"
+          v-if="placeFormMode"
+          type="submit"
+          variant="primary"
+        >
           {{ $t('modifyplace') }}
         </b-button>
-        <b-button v-else type="submit" variant="primary">
+        <b-button v-else class="button--blue" type="submit" variant="primary">
           {{ $t('creer') }}
         </b-button>
       </b-form>

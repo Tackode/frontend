@@ -60,7 +60,7 @@
           :placeholder="$t('Starttimeinfection')"
         ></b-form-input>
         <b-button
-          class="center"
+          class="center button--blue"
           v-b-modal.infection-creation2-modal
           variant="primary"
         >
@@ -78,18 +78,24 @@
           readonly
           :placeholder="$t('finh')"
         ></b-form-input>
-        <b-button v-b-modal.infection-creation3-modal variant="primary">
+        <b-button
+          v-b-modal.infection-creation3-modal
+          class="button--blue"
+          variant="primary"
+        >
           {{ $t('modify') }}
         </b-button>
         <br />
         <br />
         <b-button
+          class="button--blue"
           variant="primary"
           @click="$bvModal.hide('infection-creation-modal')"
         >
           {{ $t('close') }}
         </b-button>
         <b-button
+          class="button--blue"
           type="submit"
           variant="primary"
           @click="$bvModal.hide('infection-creation-modal')"
@@ -113,6 +119,7 @@
         <br />
         <br />
         <b-button
+          class="button--blue"
           variant="primary"
           @click="$bvModal.hide('infection-creation2-modal')"
         >
@@ -137,6 +144,7 @@
         <br />
         <br />
         <b-button
+          class="button--blue"
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
         >

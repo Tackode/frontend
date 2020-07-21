@@ -79,7 +79,9 @@
         {{ $t('stay') }} {{ duration }} {{ $t('re') }}
         <br />
         <br />
-        <b-button type="submit" variant="primary"> {{ $t('sub') }} </b-button>
+        <b-button class="button--blue" type="submit" variant="primary">
+          {{ $t('sub') }}
+        </b-button>
       </b-card>
     </b-form>
   </div>
