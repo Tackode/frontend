@@ -86,11 +86,25 @@
   <p v-else-if="state === CheckinState.CHECKMAIL">
     {{ $t('ema') }}
   </p>
+  <div
+    v-else-if="state === CheckinState.ERROR"
+    class="wrapped-container center-div container"
+  >
+    <h2>{{ $t('scanimpossible') }}</h2>
+    <br />
+    <b> {{ $t(error) }}</b>
+    <p>{{ $t(retry) }}</p>
+    <br />
+    <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
+      {{ $t('back') }}
+    </nuxt-link>
+  </div>
 </template>
 
 <i18n>
 {
     "en": {
+    "back":"Back to home page",
     "nex":"This place does not exist.",
     "stay":"If you stay more than",
     "re":"minutes, please, recheckin.",
@@ -102,15 +116,20 @@
     "email":"Email address*",
     "emai":"Enter your email",
     "scan":"Scan a QR Code",
+    "scanimpossible":"Scan Impossible",
     "sca":"Scanning",
-    "nocam":"ERROR: No camera on this device",
-    "noallow":"ERROR: You need to grant camera access permisson",
-    "sec":"ERROR: secure context required (HTTPS, localhost)",
-    "inuse":"ERROR: is the camera already in use?",
-    "over":"ERROR: installed cameras are not suitable",
-    "stream":"ERROR: Stream API is not supported in this browser"
+    "retrydevice":"Retry with a compatible device",
+    "retryop":"Please allow the use of the camera and retry",
+    "nocam":"You have no camera on this device",
+    "noallow":"You need to grant camera access permisson",
+    "sec":"Secure context required (HTTPS, localhost)",
+    "retry":"Fix error and retry",
+    "inuse":"Is the camera already in use?",
+    "over":"Installed cameras are not suitable",
+    "stream":"Stream API is not supported in this browser"
   },
   "fr": {
+    "back":"Retour à la page d'accueil",
     "nex":"Ce lieu n'existe plus.",
     "stay":"Si vous restez plus de",
     "re":"minutes, veuillez vous réenregistrer.",
@@ -122,13 +141,17 @@
     "email":"Adresse mail*",
     "emai":"Entrer votre mail",
     "scan":"Scanner un QR Code",
+    "scanimpossible":"Scan Impossible",
     "sca":"Scan en cours",
-    "nocam":"ERREUR : Pas de caméra sur cet appareil",
-    "noallow":"ERREUR : Vous devez permettre l'accès à la caméra pour scanner",
-    "sec":"ERREUR: Contexte sécurisé requis (HTTPS, localhost)",
-    "inuse":"ERREUR: Votre caméra est déjà utilisée ?",
-    "over":"ERREUR: La caméra installée n'est pas compatible",
-    "stream":"ERREUR: La vidéo n'est pas supportée sur votre appareil"
+    "retrydevice":"Reéssayer avec un appareil compatible",
+    "retryop":"Veuillez autoriser l'accès à la caméra puis réessayer",
+    "nocam":"Vous n'avez pas de caméra sur cet appareil",
+    "noallow":"Vous devez permettre l'accès à la caméra pour scanner",
+    "sec":"Contexte sécurisé requis (HTTPS, localhost)",
+    "retry":"Corrigez l'erreur et réessayer",
+    "inuse":"Votre caméra est déjà utilisée ?",
+    "over":"La caméra installée n'est pas compatible",
+    "stream":"La vidéo n'est pas supportée sur votre appareil"
   }
 }
 </i18n>
@@ -157,6 +180,7 @@ export default class CheckIn extends Vue {
   email: string | null = this.$store.getters['session/localEmail']
   error: string = ''
   storeEmail = true
+  retry: string = ''
 
   CheckinState = CheckinState
 
@@ -246,17 +270,24 @@ export default class CheckIn extends Vue {
     try {
       await promise
     } catch (error) {
+      this.state = CheckinState.ERROR
       if (error.name === 'NotAllowedError') {
         this.error = 'noallow'
+        this.retry = 'retryop'
       } else if (error.name === 'NotFoundError') {
         this.error = 'nocam'
+        this.retry = 'retrydevice'
       } else if (error.name === 'NotSupportedError') {
+        this.retry = 'retry'
         this.error = 'sec'
       } else if (error.name === 'NotReadableError') {
+        this.retry = 'retry'
         this.error = 'inuse'
       } else if (error.name === 'OverconstrainedError') {
+        this.retry = 'retrydevice'
         this.error = 'over'
       } else if (error.name === 'StreamApiNotSupportedError') {
+        this.retry = 'retrydevice'
         this.error = 'stream'
       }
     }
