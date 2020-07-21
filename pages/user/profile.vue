@@ -5,8 +5,13 @@
     class="wrapped-container center-div container medium-container"
   >
     <h2>{{ $t('my-profile') }}</h2>
-    <b-card tag="article" style="max-width: 40rem;" class="mb-2 no-border">
-      <b-form v-if="profile" @submit="handleAddEmail">
+    <b-card
+      v-if="profile"
+      tag="article"
+      style="max-width: 40rem;"
+      class="mb-2 no-border"
+    >
+      <b-form @submit="handleAddEmail">
         <b-form-group
           id="form-email"
           :label="$t('email')"
@@ -46,25 +51,29 @@
           </b-form-checkbox>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">
+        <b-button block type="submit" variant="primary">
           {{ $t('submit') }}
         </b-button>
       </b-form>
-    </b-card>
-    <hr
-      style="
-        height: 0.5px;
-        color: grey;
-        background-color: grey;
-        width: 60%;
-        border: none;
-      "
-    />
-    <b-card class="mb-2 no-border" tag="article" style="max-width: 40rem;">
-      <b-button v-b-modal.place-delete-modal variant="secondary">
+
+      <hr
+        v-if="profile"
+        style="
+          height: 0.5px;
+          color: grey;
+          background-color: grey;
+          width: 60%;
+          border: none;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      />
+
+      <b-button v-b-modal.place-delete-modal block variant="secondary">
         {{ $t('delete-profile') }}
       </b-button>
     </b-card>
+    <b v-else>{{ $t('charge') }}</b>
     <b-modal id="place-delete-modal" :title="$t('delete-profile')">
       <b-form @submit="deleteProfile">
         {{ $t('delete-profile-validation') }}
@@ -85,6 +94,7 @@
 <i18n>
 {
   "en": {
+    "charge":"Loading impossible. Cannot find your profile",
     "wait": "Loading. Please wait...",
     "my-profile": "My Profile",
     "delete-profile-validation": "Do you really want to delete your profile?",
@@ -99,6 +109,7 @@
     "email-placeholder": "Your email"
   },
   "fr": {
+    "charge":"Chargement impossible. Profil Introuvable.",
     "wait": "Chargement en cours...",
     "my-profile": "Mon Profil",
     "delete-profile-validation": "Voulez-vous vraiment supprimer votre profil ?",
