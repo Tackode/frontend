@@ -1,7 +1,13 @@
 <template>
   <b-button class="container medium-container" :to="url" variant="secondary">
     <b-row>
-      <img :src="src" :srcset="srcset" class="mr-3" />
+      <img
+        v-if="image"
+        :src="require(`@/assets/images/${image}.png`)"
+        :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
+                 ${require(`@/assets/images/${image}@2x.png`)} 2x`"
+        class="mr-3"
+      />
       <b-col class="text-center" align-self="center">
         <h5 class="mt-0">{{ title }}</h5>
         <p>
@@ -22,8 +28,10 @@ const BigButtonProps = Vue.extend({
     title: String,
     subtitle: String,
     url: String,
-    src: String,
-    srcset: String,
+    image: {
+      type: String,
+      required: false,
+    },
   },
 })
 

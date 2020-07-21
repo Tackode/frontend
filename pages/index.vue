@@ -36,10 +36,7 @@
         <BigActionButton
           :title="$t('register')"
           :subtitle="$t('scan')"
-          src="/_nuxt/assets/images/qr-code.png"
-          srcset="/_nuxt/assets/images/qr-code.png    1x,
-                 /_nuxt/assets/images/qr-code@2x.png 2x
-                "
+          image="qr-code"
           :url="'/' + $i18n.locale + '/check-in'"
         />
       </b-card>
