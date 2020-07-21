@@ -28,5 +28,5 @@ const BigButtonProps = Vue.extend({
 })
 
 @Component
-export default class BigButtonAction extends BigButtonProps {}
+export default class BigActionButton extends BigButtonProps {}
 </script>

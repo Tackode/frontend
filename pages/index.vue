@@ -33,7 +33,7 @@
         tag="checkin"
         class="no-border checkin mb-2 w-100"
       >
-        <BigButtonAction
+        <BigActionButton
           :title="$t('register')"
           :subtitle="$t('scan')"
           src="/_nuxt/assets/images/qr-code.png"
@@ -49,13 +49,13 @@
         tag="login"
         class="no-border login mb-2 w-100"
       >
-        <BigButtonAction
+        <BigActionButton
           :title="$t('prolog')"
           :subtitle="$t('Intro')"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
         <br />
-        <BigButtonAction
+        <BigActionButton
           :title="$t('userlog')"
           :subtitle="$t('places')"
           :url="'/' + $i18n.locale + '/login'"
@@ -101,11 +101,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import BigButtonAction from '~/components/BigButtonAction.vue'
+import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({
   components: {
-    BigButtonAction,
+    BigActionButton,
   },
 })
 export default class Home extends Vue {

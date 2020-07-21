@@ -3,7 +3,7 @@
     <h1 class="sr-only">Places</h1>
     <h2>{{ $t('place') }}</h2>
     <br />
-    <BigButtonAction
+    <BigActionButton
       v-b-modal.place-creation-modal
       @click="PlacetoCreate()"
       :title="$t('cplace')"
@@ -181,7 +181,7 @@ import Component from 'vue-class-component'
 import { BootstrapVueIcons } from 'bootstrap-vue'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
-import BigButtonAction from '~/components/BigButtonAction.vue'
+import BigActionButton from '~/components/BigActionButton.vue'
 
 Vue.use(BootstrapVueIcons)
 interface PlaceFormValues {
@@ -192,7 +192,7 @@ interface PlaceFormValues {
 
 @Component({
   components: {
-    BigButtonAction,
+    BigActionButton,
   },
 })
 export default class ProfessionalPlaces extends Vue {

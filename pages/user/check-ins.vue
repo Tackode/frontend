@@ -54,7 +54,7 @@
       <p>
         {{ $t('no-check-in') }}
       </p>
-      <BigButtonAction
+      <BigActionButton
         :title="$t('register')"
         :subtitle="$t('scan')"
         src="/_nuxt/assets/images/qr-code.png"
@@ -101,11 +101,11 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
-import BigButtonAction from '~/components/BigButtonAction.vue'
+import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({
   components: {
-    BigButtonAction,
+    BigActionButton,
   },
 })
 export default class CheckIns extends Vue {

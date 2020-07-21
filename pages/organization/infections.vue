@@ -5,7 +5,7 @@
 
     <div class="container" v-if="places.length > 0">
       <br />
-      <BigButtonAction
+      <BigActionButton
         v-b-modal.infection-creation-modal
         :title="$t('potinf')"
         :subtitle="$t('subtitle')"
@@ -205,7 +205,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
-import BigButtonAction from '~/components/BigButtonAction.vue'
+import BigActionButton from '~/components/BigActionButton.vue'
 
 interface Infectionreation {
   placesIds: String[]
@@ -221,7 +221,7 @@ interface Infectionreation {
 
 @Component({
   components: {
-    BigButtonAction,
+    BigActionButton,
   },
 })
 export default class ProfessionalInfections extends Vue {
