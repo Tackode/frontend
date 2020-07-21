@@ -3,12 +3,11 @@
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand :to="'/' + $i18n.locale + '/'">
         <img
-          src="~/assets/images/logo-covid-journal-big.png"
+          src="~/assets/images/logo-covid-journal.png"
           srcset="
-            ~/assets/images/logo-covid-journal-big.png    1x,
-            ~/assets/images/logo-covid-journal-big@2x.png 2x
+            ~/assets/images/logo-covid-journal.png    1x,
+            ~/assets/images/logo-covid-journal@2x.png 2x
           "
-          height="30"
           width="160"
           class="d-inline-block align-top"
         />
