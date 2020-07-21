@@ -85,8 +85,8 @@
     "potential-contacts-with-infected": "Contacts potentiels avec une personne infectée",
     "my-check-ins": "Mes visites",
     "organization": "Organisation",
-    "place": "Nom du lieu",
-    "time": "Horaire de visite",
+    "place": "Lieu",
+    "time": "Horaire",
     "duration": "Durée",
     "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant. Scannez un code QR pour commencer."
   }
