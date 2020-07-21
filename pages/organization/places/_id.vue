@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container container">
+  <div class="wrapped-container container center-div">
     <nuxt-link
       class="no-print"
       :to="'/' + $i18n.locale + '/organization/places/'"
