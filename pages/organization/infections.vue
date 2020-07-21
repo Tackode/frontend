@@ -170,7 +170,7 @@
     "validate":"Validate",
     "modify":"Modify",
     "infectedplace":"Infected Place",
-    "startdate":"Start Date",
+    "startday":"Start Date",
     "enddate":"End Date",
     "delplace":"Deleted Place",
     "subtitle":"Record an infection to automatically notify your visitors"
@@ -192,7 +192,7 @@
     "validate":"Valider",
     "modify":"Modifier",
     "infectedplace":"Lieux Infectés",
-    "startdate":"Date de début",
+    "startday":"Date de début",
     "enddate":"Date de fin",
     "delplace":"Lieu supprimé",
     "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs."
@@ -227,7 +227,7 @@ interface Infectionreation {
 export default class ProfessionalInfections extends Vue {
   fields = [
     { key: 'infected_places', label: this.tr('infectedplace') },
-    { key: 'start_date', label: this.tr('startdate') },
+    { key: 'start_date', label: this.tr('startday') },
     { key: 'end_date', label: this.tr('enddate') },
   ]
 
@@ -302,33 +302,41 @@ export default class ProfessionalInfections extends Vue {
             this.endDate = new Date(
               `${this.infectionCreation.endDate} ${this.infectionCreation.endDateTime}`
             ).toISOString()
-            try {
-              await this.$axios.$post(
-                '/infection',
-                {
-                  placesIds: this.infectionCreation.placesIds,
-                  startTimestamp: `${this.startDate}`,
-                  endTimestamp: `${this.endDate}`,
-                },
-                {
-                  auth: {
-                    username: this.$store.getters['session/login'],
-                    password: this.$store.getters['session/token'],
+            if (this.endDate < new Date().toISOString()) {
+              try {
+                await this.$axios.$post(
+                  '/infection',
+                  {
+                    placesIds: this.infectionCreation.placesIds,
+                    startTimestamp: `${this.startDate}`,
+                    endTimestamp: `${this.endDate}`,
                   },
-                }
-              )
-            } catch (error) {
+                  {
+                    auth: {
+                      username: this.$store.getters['session/login'],
+                      password: this.$store.getters['session/token'],
+                    },
+                  }
+                )
+              } catch (error) {
+                showError(
+                  this.$bvToast,
+                  'Infections',
+                  new Error('A network error occured. Please, try again.')
+                )
+                showError(
+                  this.$bvToast,
+                  'Infections',
+                  new Error('Maximum time of infection : 12 hours')
+                )
+                return
+              }
+            } else {
               showError(
                 this.$bvToast,
                 'Infections',
-                new Error('A network error occured. Please, try again.')
+                new Error('You cannot declare infections in the future')
               )
-              showError(
-                this.$bvToast,
-                'Infections',
-                new Error('Maximum time of infection : 12 hours')
-              )
-              return
             }
           } else {
             showError(
