@@ -1,5 +1,9 @@
 <template>
-  <b-button class="container medium-container" :to="url" variant="secondary">
+  <b-button
+    class="PTSans container medium-container"
+    :to="url"
+    variant="secondary"
+  >
     <b-row>
       <img
         v-if="image"

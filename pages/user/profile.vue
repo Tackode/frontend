@@ -69,7 +69,12 @@
         "
       />
 
-      <b-button v-b-modal.place-delete-modal block variant="secondary">
+      <b-button
+        v-b-modal.place-delete-modal
+        class="PTSans"
+        block
+        variant="secondary"
+      >
         {{ $t('delete-profile') }}
       </b-button>
     </b-card>
