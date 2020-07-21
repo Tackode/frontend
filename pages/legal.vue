@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="wrapped-container container PTSans login"
-    style="padding-top: 1em;"
-  >
+  <div class="wrapped-container container login" style="padding-top: 1em;">
     <h2 class="subtitle">{{ $t('legal-noticies') }}</h2>
     <p>En vigueur au 10/07/2020</p>
     <p>

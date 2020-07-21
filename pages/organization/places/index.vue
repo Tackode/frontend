@@ -14,7 +14,6 @@
     <br />
     <b-table
       v-if="places.length > 0"
-      class="PTSans"
       striped
       hover
       :fields="fields"
