@@ -1,7 +1,7 @@
 <template>
   <div class="wrapped-container container center-div medium-container">
-    <h1 class="sr-only">Infections</h1>
-    <h2>{{ $t('infec') }}</h2>
+    <h1 class="sr-only subtitle">Infections</h1>
+    <h2 class="subtitle">{{ $t('infec') }}</h2>
 
     <div class="container" v-if="places.length > 0">
       <br />

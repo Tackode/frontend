@@ -31,7 +31,7 @@
       <b-card
         :title="$t('checkin')"
         tag="checkin"
-        class="no-border checkin mb-2 w-100"
+        class="subtitle no-border checkin mb-2 w-100"
       >
         <BigActionButton
           :title="$t('register')"
@@ -44,7 +44,7 @@
         v-if="role === null"
         :title="$t('log')"
         tag="login"
-        class="no-border login mb-2 w-100"
+        class="subtitle no-border login mb-2 w-100"
       >
         <BigActionButton
           :title="$t('prolog')"

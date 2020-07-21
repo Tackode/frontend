@@ -4,7 +4,7 @@
     v-else-if="state === ProfileState.LOADED"
     class="wrapped-container center-div container medium-container"
   >
-    <h2>{{ $t('my-profile') }}</h2>
+    <h2 class="subtitle">{{ $t('my-profile') }}</h2>
     <b-card
       v-if="profile"
       tag="article"

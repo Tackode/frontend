@@ -3,7 +3,7 @@
     v-if="state === CheckinState.SCANNING"
     class="wrapped-container center-div container"
   >
-    <h2>{{ $t('scan') }}</h2>
+    <h2 class="subtitle">{{ $t('scan') }}</h2>
     <br />
     <qrcode-stream @decode="onDecode" @init="onInit" />
     <p>
@@ -90,7 +90,7 @@
     v-else-if="state === CheckinState.ERROR"
     class="wrapped-container center-div container"
   >
-    <h2>{{ $t('scanimpossible') }}</h2>
+    <h2 class="subtitle">{{ $t('scanimpossible') }}</h2>
     <br />
     <b> {{ $t(error) }}</b>
     <p>{{ $t(retry) }}</p>

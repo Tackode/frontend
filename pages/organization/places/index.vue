@@ -1,7 +1,7 @@
 <template>
   <div class="wrapped-container container center-div medium-container">
-    <h1 class="sr-only">Places</h1>
-    <h2>{{ $t('place') }}</h2>
+    <h1 class="sr-only subtitle">Places</h1>
+    <h2 class="subtitle">{{ $t('place') }}</h2>
     <br />
     <BigActionButton
       v-b-modal.place-creation-modal
