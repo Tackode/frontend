@@ -6,9 +6,6 @@
     <h2 class="subtitle">{{ $t('scan') }}</h2>
     <br />
     <qrcode-stream @decode="onDecode" @init="onInit" />
-    <p>
-      <b> {{ $t(error) }}</b>
-    </p>
 
     <br />
     {{ $t('sca') }}
@@ -125,7 +122,7 @@
     "nocam":"You have no camera on this device",
     "noallow":"You need to grant camera access permisson",
     "sec":"Secure context required (HTTPS, localhost)",
-    "retry":"Fix error and retry",
+    "retry":"Please, fix the error and retry",
     "inuse":"Is the camera already in use?",
     "over":"Installed cameras are not suitable",
     "stream":"Stream API is not supported in this browser"
@@ -150,7 +147,7 @@
     "nocam":"Vous n'avez pas de caméra sur cet appareil",
     "noallow":"Vous devez permettre l'accès à la caméra pour scanner",
     "sec":"Contexte sécurisé requis (HTTPS, localhost)",
-    "retry":"Corrigez l'erreur et réessayer",
+    "retry":"Corrigez l'erreur et réessayez",
     "inuse":"Votre caméra est déjà utilisée ?",
     "over":"La caméra installée n'est pas compatible",
     "stream":"La vidéo n'est pas supportée sur votre appareil"
@@ -280,17 +277,17 @@ export default class CheckIn extends Vue {
         this.error = 'nocam'
         this.retry = 'retrydevice'
       } else if (error.name === 'NotSupportedError') {
-        this.retry = 'retry'
         this.error = 'sec'
-      } else if (error.name === 'NotReadableError') {
         this.retry = 'retry'
+      } else if (error.name === 'NotReadableError') {
         this.error = 'inuse'
+        this.retry = 'retry'
       } else if (error.name === 'OverconstrainedError') {
-        this.retry = 'retrydevice'
         this.error = 'over'
-      } else if (error.name === 'StreamApiNotSupportedError') {
         this.retry = 'retrydevice'
+      } else if (error.name === 'StreamApiNotSupportedError') {
         this.error = 'stream'
+        this.retry = 'retrydevice'
       }
     }
   }
