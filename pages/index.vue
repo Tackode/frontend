@@ -27,39 +27,29 @@
       >
     </p>
 
-    <div class="wrapped-container medium-container container">
-      <b-card
-        :title="$t('checkin')"
-        tag="checkin"
-        class="no-border checkin mb-2 w-100"
-      >
-        <BigActionButton
-          class="margin-top"
-          :title="$t('register')"
-          :subtitle="$t('scan')"
-          image="qr-code"
-          :url="'/' + $i18n.locale + '/check-in'"
-        />
-      </b-card>
-      <b-card
-        v-if="role === null"
-        :title="$t('log')"
-        tag="login"
-        class="no-border login mb-2 w-100"
-      >
-        <BigActionButton
-          class="margin-top"
-          :title="$t('prolog')"
-          :subtitle="$t('Intro')"
-          :url="'/' + $i18n.locale + '/login-professional'"
-        />
-        <br />
-        <BigActionButton
-          :title="$t('userlog')"
-          :subtitle="$t('places')"
-          :url="'/' + $i18n.locale + '/login'"
-        />
-      </b-card>
+    <div class="wrapped-container medium-container container mb-3">
+      <h2>{{ $t('checkin') }}</h2>
+      <BigActionButton
+        :title="$t('register')"
+        :subtitle="$t('scan')"
+        image="qr-code"
+        :url="'/' + $i18n.locale + '/check-in'"
+      />
+
+      <hr />
+
+      <h2>{{ $t('log') }}</h2>
+      <BigActionButton
+        class="mb-3"
+        :title="$t('prolog')"
+        :subtitle="$t('Intro')"
+        :url="'/' + $i18n.locale + '/login-professional'"
+      />
+      <BigActionButton
+        :title="$t('userlog')"
+        :subtitle="$t('places')"
+        :url="'/' + $i18n.locale + '/login'"
+      />
     </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
   <b-card class="hoverable-card">
     <b-media class="align-items-center">
-      <template v-if="image" v-slot:aside>
+      <template v-if="image" v-slot:aside class="d-none d-md-block">
         <b-img
           :src="require(`@/assets/images/${image}.png`)"
           :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
                 ${require(`@/assets/images/${image}@2x.png`)} 2x`"
-          class="mr-3"
+          class="mr-3 d-none d-md-block"
         />
       </template>
       <h5 class="mt-0">
