@@ -46,7 +46,7 @@
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-        {{ $t('start') }}
+        <p class="wrapped-container container">{{ $t('start') }}</p>
         <b-form-input
           v-model="infectionCreation.startDate"
           readonly
@@ -66,7 +66,7 @@
         >
           {{ $t('modify') }}
         </b-button>
-        {{ $t('end') }}
+        <p class="wrapped-container container">{{ $t('end') }}</p>
         <b-form-input
           v-model="infectionCreation.endDate"
           readonly
