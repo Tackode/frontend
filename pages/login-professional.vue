@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container small-container container center-div login">
+  <div class="wrapped-container small center my-3">
     <b-form v-if="state === LoginState.IDLE" @submit="handleSubmit">
       <b-form-group
         :label="$t('add')"

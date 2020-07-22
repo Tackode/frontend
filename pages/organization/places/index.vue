@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container container center-div medium-container">
+  <div class="wrapped-container center medium my-3">
     <h2>{{ $t('place') }}</h2>
 
     <BigActionButton
@@ -83,14 +83,6 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Description" label-for="place-description">
-          <b-form-input
-            id="place-description"
-            v-model="placeFormValues.description"
-            placeholder="Description"
-          ></b-form-input>
-        </b-form-group>
-
         <b-form-group
           :label="$t('duration')"
           label-for="place-average-duration"
@@ -102,6 +94,15 @@
             required
             :placeholder="$t('dur')"
           ></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="Description" label-for="place-description">
+          <b-form-textarea
+            id="place-description"
+            v-model="placeFormValues.description"
+            placeholder="Description"
+            rows="8"
+          ></b-form-textarea>
         </b-form-group>
       </b-form>
     </b-modal>

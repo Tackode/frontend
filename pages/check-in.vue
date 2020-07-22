@@ -1,102 +1,89 @@
 <template>
-  <div
-    v-if="state === CheckinState.SCANNING"
-    class="wrapped-container center-div container"
-  >
-    <h2>{{ $t('scan') }}</h2>
-    <br />
-    <qrcode-stream @decode="onDecode" @init="onInit" />
+  <div class="wrapped-container center my-3">
+    <div v-if="state === CheckinState.SCANNING">
+      <h2>{{ $t('scan') }}</h2>
+      <br />
+      <qrcode-stream @decode="onDecode" @init="onInit" />
 
-    <br />
-    {{ $t('sca') }}
-  </div>
-  <p
-    v-else-if="state === CheckinState.LOADING"
-    class="wrapped-container container"
-  >
-    {{ $t('wait') }}
-  </p>
-  <p
-    v-else-if="state === CheckinState.NOTFOUND"
-    class="wrapped-container container"
-  >
-    {{ $t('nex') }}
-  </p>
-  <div
-    v-else-if="state === CheckinState.LOADED"
-    class="wrapped-container container"
-  >
-    <b-form @submit="handleSubmit">
-      <b-card v-if="place" class="mb-4">
-        <h2>{{ place.organization.name }}</h2>
-        <h2>
-          <b>{{ place.name }}</b>
-        </h2>
-        <h5>
-          {{ place.description }}
-        </h5>
-      </b-card>
-      <b-card class="mb-2">
-        <b-form-group
-          v-if="$store.getters['session/email'] !== null"
-          :label="$t('email')"
-          label-for="login-email"
-          :description="$t('nevershare')"
-        >
-          <b-form-input
-            id="login-email"
-            v-model="email"
-            type="email"
-            readonly
-            :placeholder="$t('emai')"
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          v-else
-          :label="$t('email')"
-          label-for="login-email"
-          :description="$t('nevershare')"
-        >
-          <b-form-input
-            id="login-email"
-            v-model="email"
-            type="email"
-            required
-            :placeholder="$t('emai')"
-          ></b-form-input>
-        </b-form-group>
+      <br />
+      {{ $t('sca') }}
+    </div>
+    <p v-else-if="state === CheckinState.LOADING">
+      {{ $t('wait') }}
+    </p>
+    <p v-else-if="state === CheckinState.NOTFOUND">
+      {{ $t('nex') }}
+    </p>
+    <div v-else-if="state === CheckinState.LOADED">
+      <b-form @submit="handleSubmit">
+        <b-card v-if="place" class="mb-4">
+          <h2>{{ place.organization.name }}</h2>
+          <h2>
+            <b>{{ place.name }}</b>
+          </h2>
+          <h5>
+            {{ place.description }}
+          </h5>
+        </b-card>
+        <b-card class="mb-2">
+          <b-form-group
+            v-if="$store.getters['session/email'] !== null"
+            :label="$t('email')"
+            label-for="login-email"
+            :description="$t('nevershare')"
+          >
+            <b-form-input
+              id="login-email"
+              v-model="email"
+              type="email"
+              readonly
+              :placeholder="$t('emai')"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+            v-else
+            :label="$t('email')"
+            label-for="login-email"
+            :description="$t('nevershare')"
+          >
+            <b-form-input
+              id="login-email"
+              v-model="email"
+              type="email"
+              required
+              :placeholder="$t('emai')"
+            ></b-form-input>
+          </b-form-group>
 
-        <div>
-          <input id="storeemail" type="checkbox" name="scales" checked />
-          <label for="storeemail">
-            {{ $t('store') }}
-          </label>
-        </div>
-        <br />
-        {{ $t('stay') }} {{ duration }} {{ $t('re') }}
-        <br />
-        <br />
-        <b-button type="submit" variant="primary" block>
-          {{ $t('sub') }}
-        </b-button>
-      </b-card>
-    </b-form>
-  </div>
-  <p v-else-if="state === CheckinState.CHECKMAIL">
-    {{ $t('ema') }}
-  </p>
-  <div
-    v-else-if="state === CheckinState.ERROR"
-    class="wrapped-container center-div container"
-  >
-    <h2>{{ $t('scanimpossible') }}</h2>
-    <br />
-    <b> {{ $t(error) }}</b>
-    <p>{{ $t(retry) }}</p>
-    <br />
-    <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
-      {{ $t('back') }}
-    </nuxt-link>
+          <div>
+            <input id="storeemail" type="checkbox" name="scales" checked />
+            <label for="storeemail">
+              {{ $t('store') }}
+            </label>
+          </div>
+          <br />
+          {{ $t('stay') }} {{ duration }} {{ $t('re') }}
+          <br />
+          <br />
+          <b-button type="submit" variant="primary" block>
+            {{ $t('sub') }}
+          </b-button>
+        </b-card>
+      </b-form>
+    </div>
+    <p v-else-if="state === CheckinState.CHECKMAIL">
+      {{ $t('ema') }}
+    </p>
+    <div v-else-if="state === CheckinState.ERROR">
+      <h2>{{ $t('scanimpossible') }}</h2>
+      <br />
+      <b> {{ $t(error) }}</b>
+      <p>{{ $t(retry) }}</p>
+      <br />
+      <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
+        {{ $t('back') }}
+      </nuxt-link>
+    </div>
   </div>
 </template>
 

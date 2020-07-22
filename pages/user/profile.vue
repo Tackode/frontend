@@ -1,73 +1,72 @@
 <template>
-  <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
-  <div
-    v-else-if="state === ProfileState.LOADED"
-    class="wrapped-container center-div container small-container"
-  >
-    <h2>{{ $t('my-profile') }}</h2>
-    <div v-if="profile">
-      <b-form @submit="handleAddEmail">
-        <b-form-group
-          id="form-email"
-          :label="$t('email')"
-          label-for="form-email"
-        >
-          <b-form-input
+  <div class="wrapped-container small center my-3">
+    <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
+    <template v-else-if="state === ProfileState.LOADED">
+      <h2>{{ $t('my-profile') }}</h2>
+      <div v-if="profile">
+        <b-form @submit="handleAddEmail">
+          <b-form-group
             id="form-email"
-            v-model="email"
-            type="email"
-            readonly
-            :placeholder="$t('email-placeholder')"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          v-if="role === 'Professional'"
-          id="form-organization"
-          :label="$t('organization')"
-          label-for="form-organization"
-        >
-          <b-form-input
-            id="form-organization"
-            v-model="profile.organization.name"
-            type="text"
-            required
-            :placeholder="$t('my-organization')"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group>
-          <b-form-checkbox
-            v-model="saveEmail"
-            :value="true"
-            :unchecked-value="false"
+            :label="$t('email')"
+            label-for="form-email"
           >
-            {{ $t('store-email-checkbox') }}
-          </b-form-checkbox>
-        </b-form-group>
+            <b-form-input
+              id="form-email"
+              v-model="email"
+              type="email"
+              readonly
+              :placeholder="$t('email-placeholder')"
+            ></b-form-input>
+          </b-form-group>
 
-        <b-button block type="submit" variant="primary">
-          {{ $t('submit') }}
+          <b-form-group
+            v-if="role === 'Professional'"
+            id="form-organization"
+            :label="$t('organization')"
+            label-for="form-organization"
+          >
+            <b-form-input
+              id="form-organization"
+              v-model="profile.organization.name"
+              type="text"
+              required
+              :placeholder="$t('my-organization')"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-checkbox
+              v-model="saveEmail"
+              :value="true"
+              :unchecked-value="false"
+            >
+              {{ $t('store-email-checkbox') }}
+            </b-form-checkbox>
+          </b-form-group>
+
+          <b-button block type="submit" variant="primary">
+            {{ $t('submit') }}
+          </b-button>
+        </b-form>
+
+        <hr />
+
+        <b-button v-b-modal.place-delete-modal block variant="secondary">
+          {{ $t('delete-profile') }}
         </b-button>
-      </b-form>
-
-      <hr />
-
-      <b-button v-b-modal.place-delete-modal block variant="secondary">
-        {{ $t('delete-profile') }}
-      </b-button>
-    </div>
-    <b v-else>{{ $t('charge') }}</b>
-    <b-modal
-      id="place-delete-modal"
-      :title="$t('delete-profile')"
-      ok-variant="danger"
-      :ok-title="$t('delete')"
-      :cancel-title="$t('cancel')"
-      @ok="deleteProfile"
-    >
-      {{ $t('delete-profile-validation') }}
-    </b-modal>
+      </div>
+      <b v-else>{{ $t('charge') }}</b>
+      <b-modal
+        id="place-delete-modal"
+        :title="$t('delete-profile')"
+        ok-variant="danger"
+        :ok-title="$t('delete')"
+        :cancel-title="$t('cancel')"
+        @ok="deleteProfile"
+      >
+        {{ $t('delete-profile-validation') }}
+      </b-modal>
+    </template>
   </div>
 </template>
 

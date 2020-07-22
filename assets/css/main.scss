@@ -20,16 +20,10 @@ h2 {
   flex-direction: column;
 
   .main-container {
+    display: flex;
+    flex-direction: column;
     flex: 1 0;
     overflow: auto;
-
-    .medium-container {
-      max-width: 800px;
-    }
-
-    .small-container {
-      max-width: 350px;
-    }
 
     .wrapped-container {
       margin: 0 auto;
@@ -37,6 +31,27 @@ h2 {
       flex-direction: column;
       justify-content: center;
       text-align: center;
+      flex: auto;
+      padding-right: 15px;
+      padding-left: 15px;
+
+      &.medium {
+        max-width: 800px;
+
+        @media print {
+          max-width: none;
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
+
+      &.small {
+        max-width: 350px;
+      }
+
+      &.center {
+        align-self: center;
+      }
     }
   }
 }
@@ -48,11 +63,6 @@ h2 {
 
 .bg-dark {
   background-color: #3c3c3c !important;
-}
-
-.center-div {
-  padding-top: 2em;
-  min-height: 85vh;
 }
 
 .no-border {

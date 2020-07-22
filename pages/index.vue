@@ -27,7 +27,7 @@
       >
     </p>
 
-    <div class="wrapped-container medium-container container mb-3">
+    <div class="wrapped-container medium mb-3">
       <h2>{{ $t('checkin') }}</h2>
       <BigActionButton
         :title="$t('register')"
@@ -146,7 +146,6 @@ export default class Home extends Vue {
 }
 
 .image-caption,
-.login,
 .checkin {
   margin-bottom: 2em;
 }

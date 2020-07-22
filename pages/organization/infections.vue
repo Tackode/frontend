@@ -1,20 +1,18 @@
 <template>
-  <div class="wrapped-container container center-div small-container">
-    <h1 class="sr-only">Infections</h1>
+  <div class="wrapped-container center medium my-3">
     <h2>{{ $t('infec') }}</h2>
 
-    <div class="container margin-top" v-if="places.length > 0">
-      <BigActionButton
-        v-b-modal.infection-creation-modal
-        :title="$t('potinf')"
-        :subtitle="$t('subtitle')"
-      />
-    </div>
+    <BigActionButton
+      v-if="places.length > 0"
+      v-b-modal.infection-creation-modal
+      class="mb-3"
+      :title="$t('potinf')"
+      :subtitle="$t('subtitle')"
+    />
 
-    <p class="margin-top" v-else>{{ $t('nopinf') }}</p>
+    <p v-else>{{ $t('nopinf') }}</p>
 
     <b-table
-      class="margin-top"
       v-if="infections.length > 0"
       striped
       hover

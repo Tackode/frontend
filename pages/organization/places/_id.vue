@@ -1,30 +1,35 @@
 <template>
-  <div class="wrapped-container container center-div">
+  <div class="wrapped-container medium center my-3">
     <nuxt-link
       class="no-print"
       :to="'/' + $i18n.locale + '/organization/places/'"
     >
       {{ $t('back') }}
     </nuxt-link>
-    <br />
-    <h2>{{ organization }}</h2>
-    <h2>
-      <b>{{ name }}</b>
-    </h2>
-    <h3>
-      <em>{{ description }}</em>
-    </h3>
 
-    <br />
+    <b-button class="no-print my-3" @click="PrintPage" variant="primary" block>
+      {{ $t('print') }}
+    </b-button>
 
-    <qrcode :value="qrCodeUrl" :options="{ width: 400 }"></qrcode>
-    <br />
+    <template v-if="place">
+      <PlaceView :data="place" />
 
-    <p>
-      {{ $t('flash') }}
-    </p>
-    <br />
-    <b-button class="no-print" @click="PrintPage"> {{ $t('print') }} </b-button>
+      <qrcode
+        class="align-self-center"
+        :value="qrCodeUrl"
+        :options="{ width: 400 }"
+      ></qrcode>
+
+      <p class="info">{{ $t('flash') }}</p>
+
+      <div class="footer">
+        <img
+          :alt="$t('covidjournal')"
+          class="img-fluid logo"
+          src="~/assets/images/logo-covid-journal-print.png"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -38,7 +43,7 @@
   "fr": {
     "back":"Retour",
     "print":"Imprimer",
-    "flash":"Flasher le QR Code pour être informé d'une infection"
+    "flash":"Flashez le QR Code pour être informé d'une infection"
   }
 }
 </i18n>
@@ -48,8 +53,13 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
+import PlaceView from '../../../components/PlaceView.vue'
 
-@Component
+@Component({
+  components: {
+    PlaceView,
+  },
+})
 export default class PlaceDetail extends Vue {
   placeId: string | null = null
   place: Place | null = null
@@ -92,24 +102,40 @@ export default class PlaceDetail extends Vue {
 }
 </script>
 
-<style>
-.printOnly {
+<style lang="scss">
+.footer {
+  padding: 20px;
+
+  .logo {
+    height: 70px;
+  }
+}
+
+.info {
+  font-size: 1.5rem;
+}
+
+.print-only {
   display: none;
 }
+
 @media print {
+  html {
+    font-size: 25px;
+  }
+
   .no-print,
   .no-print * {
     display: none !important;
   }
+
   canvas {
     width: 560px !important;
     height: 560px !important;
   }
-  .printOnly {
+
+  .print-only {
     display: block;
-  }
-  p {
-    font-size: 2em;
   }
 }
 </style>
