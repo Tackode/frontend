@@ -5,12 +5,7 @@
     class="wrapped-container center-div container small-container"
   >
     <h2>{{ $t('my-profile') }}</h2>
-    <b-card
-      v-if="profile"
-      tag="article"
-      style="max-width: 40rem;"
-      class="mb-2 no-border"
-    >
+    <div v-if="profile">
       <b-form @submit="handleAddEmail">
         <b-form-group
           id="form-email"
@@ -56,37 +51,22 @@
         </b-button>
       </b-form>
 
-      <hr
-        v-if="profile"
-        style="
-          height: 0.5px;
-          color: grey;
-          background-color: grey;
-          width: 60%;
-          border: none;
-          margin-left: auto;
-          margin-right: auto;
-        "
-      />
+      <hr />
 
       <b-button v-b-modal.place-delete-modal block variant="secondary">
         {{ $t('delete-profile') }}
       </b-button>
-    </b-card>
+    </div>
     <b v-else>{{ $t('charge') }}</b>
-    <b-modal id="place-delete-modal" :title="$t('delete-profile')">
-      <b-form @submit="deleteProfile">
-        {{ $t('delete-profile-validation') }}
-        <br />
-        <br />
-        <b-button type="submit" variant="success">{{ $t('yes') }}</b-button>
-        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')">
-          {{ $t('no') }}
-        </b-button>
-      </b-form>
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
+    <b-modal
+      id="place-delete-modal"
+      :title="$t('delete-profile')"
+      ok-variant="danger"
+      :ok-title="$t('delete')"
+      :cancel-title="$t('cancel')"
+      @ok="deleteProfile"
+    >
+      {{ $t('delete-profile-validation') }}
     </b-modal>
   </div>
 </template>
@@ -99,8 +79,8 @@
     "my-profile": "My Profile",
     "delete-profile-validation": "Do you really want to delete your profile?",
     "delete-profile": "Delete profile",
-    "yes": "Yes",
-    "no": "No",
+    "delete": "Delete",
+    "cancel": "Cancel",
     "store-email-checkbox": "Store my email address to be warned whenever a contact was infected by the Covid-19.",
     "submit": "Submit",
     "my-organization": "My organization",
@@ -114,8 +94,8 @@
     "my-profile": "Mon Profil",
     "delete-profile-validation": "Voulez-vous vraiment supprimer votre profil ?",
     "delete-profile": "Supprimer le profil",
-    "yes": "Oui",
-    "no": "Non",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
     "store-email-checkbox": "Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
     "submit": "Valider",
     "my-organization": "Mon organisation",
@@ -225,8 +205,7 @@ export default class ProfilePage extends Vue {
     }
   }
 
-  async deleteProfile(e: Event) {
-    e.preventDefault()
+  async deleteProfile() {
     try {
       await this.$axios.$delete('/profile', {
         auth: {
@@ -236,6 +215,7 @@ export default class ProfilePage extends Vue {
       })
       this.$bvModal.hide('place-delete-modal')
       this.$store.dispatch('session/logout')
+      this.$router.replace('/' + this.$i18n.locale)
       showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
     } catch (error) {
       showError(

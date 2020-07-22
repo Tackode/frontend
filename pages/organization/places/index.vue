@@ -1,17 +1,16 @@
 <template>
-  <div class="wrapped-container container center-div small-container">
-    <h1 class="sr-only">Places</h1>
+  <div class="wrapped-container container center-div medium-container">
     <h2>{{ $t('place') }}</h2>
+
     <BigActionButton
       v-b-modal.place-creation-modal
-      class="margin-top"
       @click="PlacetoCreate()"
+      class="mb-3"
       :title="$t('cplace')"
       :subtitle="$t('subtitle')"
     />
 
     <b-table
-      class="margin-top"
       v-if="places.length > 0"
       striped
       hover
@@ -66,8 +65,15 @@
       {{ $t('noplace') }}
     </p>
 
-    <b-modal id="place-creation-modal" :title="$t(FormTitle())">
-      <b-form @submit="handleplaceFormValuesSubmit">
+    <b-modal
+      id="place-creation-modal"
+      :title="$t(FormTitle())"
+      :ok-title="placeFormMode ? $t('modif') : $t('create')"
+      :cancel-title="$t('cancel')"
+      @ok="handleModalOk"
+      @hidden="resetModal"
+    >
+      <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
         <b-form-group :label="$t('name')" label-for="place-name">
           <b-form-input
             id="place-name"
@@ -92,36 +98,23 @@
           <b-form-input
             id="place-average-duration"
             v-model="placeFormValues.averageDuration"
+            number
             required
             :placeholder="$t('dur')"
           ></b-form-input>
         </b-form-group>
-        <b-button v-if="placeFormMode" type="submit" variant="primary">
-          {{ $t('modifyplace') }}
-        </b-button>
-        <b-button v-else type="submit" variant="primary">
-          {{ $t('create') }}
-        </b-button>
       </b-form>
-
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
     </b-modal>
 
-    <b-modal id="place-delete-modal" :title="$t('sup')">
-      <b-form @submit="handleplaceFormValuesDelete">
-        {{ $t('deleteplace') }}
-        <br />
-        <br />
-        <b-button type="submit" variant="success">Yes</b-button>
-        <b-button variant="danger" @click="$bvModal.hide('place-delete-modal')"
-          >No</b-button
-        >
-      </b-form>
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
+    <b-modal
+      id="place-delete-modal"
+      :title="$t('sup')"
+      ok-variant="danger"
+      :ok-title="$t('delete')"
+      :cancel-title="$t('cancel')"
+      @ok="deletePlace"
+    >
+      {{ $t('deleteplace') }}
     </b-modal>
   </div>
 </template>
@@ -137,8 +130,8 @@
     "duration":"Average duration of the stay in minutes*",
     "nom":"Nom",
     "modif":"Modify",
+    "cancel":"Cancel",
     "create":"Create place",
-    "delete":"Do you really want to delete the place?",
     "sup":"Delete Place",
     "modifyplace":"Place Modification",
     "deleteplace":"Do you really want to delete this place ?",
@@ -159,8 +152,8 @@
     "duration":"Durée moyenne de visite en minutes*",
     "nom":"Nom",
     "modif":"Modifier",
+    "cancel":"Annuler",
     "create":"Créer le lieu",
-    "delete":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
     "modifyplace":"Modification du lieu",
     "deleteplace":"Voulez-vous vraiment supprimer ce lieu ?",
@@ -184,7 +177,7 @@ import BigActionButton from '~/components/BigActionButton.vue'
 interface PlaceFormValues {
   name: string
   description: string | null
-  averageDuration: string
+  averageDuration: number
 }
 
 @Component({
@@ -208,7 +201,7 @@ export default class ProfessionalPlaces extends Vue {
   placeFormValues: PlaceFormValues = {
     name: '',
     description: null,
-    averageDuration: '',
+    averageDuration: 30,
   }
 
   mounted() {
@@ -232,63 +225,55 @@ export default class ProfessionalPlaces extends Vue {
     }
   }
 
-  async handleplaceFormValuesSubmit(e: Event) {
+  resetModal() {
+    this.placeFormValues = {
+      name: '',
+      description: null,
+      averageDuration: 30,
+    }
+    this.place = ''
+  }
+
+  async handleModalOk(e: Event) {
     e.preventDefault()
-    if (this.placeFormMode) {
-      try {
+    await this.handlePlaceSubmit()
+  }
+
+  async handlePlaceSubmit() {
+    const options = {
+      auth: {
+        username: this.$store.getters['session/login'],
+        password: this.$store.getters['session/token'],
+      },
+    }
+
+    try {
+      if (this.placeFormMode) {
         await this.$axios.$put(
           '/place/' + this.place,
-          {
-            name: this.placeFormValues.name,
-            description: this.placeFormValues.description,
-            averageDuration: parseInt(this.placeFormValues.averageDuration),
-          },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token'],
-            },
-          }
+          this.placeFormValues,
+          options
         )
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Connexion',
-          new Error('A network error has occurred. Please, try again.')
-        )
-        return
+      } else {
+        await this.$axios.$post('/place', this.placeFormValues, options)
       }
-    } else {
-      try {
-        await this.$axios.$post(
-          '/place',
-          {
-            name: this.placeFormValues.name,
-            description: this.placeFormValues.description,
-            averageDuration: parseInt(this.placeFormValues.averageDuration),
-          },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token'],
-            },
-          }
-        )
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Connexion',
-          new Error('A network error has occurred. Please, try again.')
-        )
-        return
-      }
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Connexion',
+        new Error('A network error has occurred. Please, try again.')
+      )
+      return
     }
-    this.$bvModal.hide('place-creation-modal')
+
+    this.$nextTick(() => {
+      this.$bvModal.hide('place-creation-modal')
+    })
 
     this.loadData()
   }
 
-  async handleplaceFormValuesDelete(e: Event) {
+  async deletePlace(e: Event) {
     e.preventDefault()
     try {
       await this.$axios.$delete('/place/' + this.place, {
@@ -315,7 +300,7 @@ export default class ProfessionalPlaces extends Vue {
     id: string,
     name: string,
     description: string,
-    averageDuration: string
+    averageDuration: number
   ) {
     this.placeFormMode = true
     this.place = id
@@ -333,7 +318,7 @@ export default class ProfessionalPlaces extends Vue {
     this.place = ''
     this.placeFormValues.name = ''
     this.placeFormValues.description = ''
-    this.placeFormValues.averageDuration = ''
+    this.placeFormValues.averageDuration = 30
   }
 
   FormTitle() {
