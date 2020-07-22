@@ -9,13 +9,12 @@
         :title="$t('potinf')"
         :subtitle="$t('subtitle')"
       />
-      <br />
-      <br />
     </div>
 
-    <p v-else>{{ $t('nopinf') }}</p>
+    <p class="margin-top" v-else>{{ $t('nopinf') }}</p>
 
     <b-table
+      class="margin-top"
       v-if="infections.length > 0"
       striped
       hover
@@ -59,13 +58,14 @@
           :placeholder="$t('Starttimeinfection')"
         ></b-form-input>
         <b-button
-          class="center button--blue"
+          block
+          class="button--blue margin-top"
+          style="margin-left: auto; margin-right: auto; width: 70%;"
           v-b-modal.infection-creation2-modal
           variant="primary"
         >
           {{ $t('modify') }}
         </b-button>
-        <br />
         {{ $t('end') }}
         <b-form-input
           v-model="infectionCreation.endDate"
@@ -79,24 +79,26 @@
         ></b-form-input>
         <b-button
           v-b-modal.infection-creation3-modal
-          class="button--blue"
+          block
+          class="button--blue margin-top"
+          style="margin-left: auto; margin-right: auto; width: 70%;"
           variant="primary"
         >
           {{ $t('modify') }}
         </b-button>
-        <br />
-        <br />
         <b-button
           class="button--blue"
           variant="primary"
+          style="width: 49%; margin-top: 1.5em;"
           @click="$bvModal.hide('infection-creation-modal')"
         >
           {{ $t('close') }}
         </b-button>
         <b-button
-          class="button--blue"
+          class="button--blue margin-top"
           type="submit"
           variant="primary"
+          style="width: 49%; margin-top: 1.5em;"
           @click="$bvModal.hide('infection-creation-modal')"
         >
           {{ $t('dec') }}
@@ -118,6 +120,7 @@
         <br />
         <br />
         <b-button
+          block
           class="button--blue"
           variant="primary"
           @click="$bvModal.hide('infection-creation2-modal')"
@@ -143,6 +146,7 @@
         <br />
         <br />
         <b-button
+          block
           class="button--blue"
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"

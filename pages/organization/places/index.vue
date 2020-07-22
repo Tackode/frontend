@@ -10,9 +10,8 @@
       :subtitle="$t('subtitle')"
     />
 
-    <br />
-    <br />
     <b-table
+      class="margin-top"
       v-if="places.length > 0"
       striped
       hover
@@ -147,7 +146,7 @@
     "delete":"Do you really want to delete the place?",
     "sup":"Delete Place",
     "modifyplace":"Place Modification",
-    "deleteplace":"Delete the place ?",
+    "deleteplace":"Do you really want to delete this place ?",
     "crea":"Place Creation",
     "pla":"Place Name",
     "dur":"Average Duration",
@@ -169,7 +168,7 @@
     "delete":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
     "modifyplace":"Modification du lieu",
-    "deleteplace":"Supprimer le lieu ?",
+    "deleteplace":"Voulez-vous vraiment supprimer ce lieu ?",
     "crea":"Création du lieu",
     "pla":"Nom du lieu",
     "dur":"Durée estimée",

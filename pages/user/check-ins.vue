@@ -29,10 +29,11 @@
             <div class="red">{{ data.item.duration }} minutes</div>
           </template>
         </b-table>
-        <br />
       </div>
 
-      <h2 class="subtitle">{{ $t('my-check-ins') }}</h2>
+      <h2 class="subtitle" style="margin-top: 0.5em;">
+        {{ $t('my-check-ins') }}
+      </h2>
       <b-table
         class="margin-top"
         striped
