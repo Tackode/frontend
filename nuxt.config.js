@@ -100,6 +100,11 @@ export default {
       },
     ],
   ],
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
+    icons: true,
+  },
   /*
    ** Build configuration
    */

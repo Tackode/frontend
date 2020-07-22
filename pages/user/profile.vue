@@ -2,9 +2,9 @@
   <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
   <div
     v-else-if="state === ProfileState.LOADED"
-    class="wrapped-container center-div container medium-container"
+    class="wrapped-container center-div container small-container"
   >
-    <h2 class="subtitle">{{ $t('my-profile') }}</h2>
+    <h2>{{ $t('my-profile') }}</h2>
     <b-card
       v-if="profile"
       tag="article"
@@ -51,7 +51,7 @@
           </b-form-checkbox>
         </b-form-group>
 
-        <b-button block class="button--blue" type="submit" variant="primary">
+        <b-button block type="submit" variant="primary">
           {{ $t('submit') }}
         </b-button>
       </b-form>

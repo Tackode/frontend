@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapped-container container center-div medium-container">
-    <h1 class="sr-only subtitle">Infections</h1>
-    <h2 class="subtitle">{{ $t('infec') }}</h2>
+  <div class="wrapped-container container center-div small-container">
+    <h1 class="sr-only">Infections</h1>
+    <h2>{{ $t('infec') }}</h2>
 
     <div class="container margin-top" v-if="places.length > 0">
       <BigActionButton
@@ -59,7 +59,6 @@
         ></b-form-input>
         <b-button
           block
-          class="button--blue margin-top"
           style="margin-left: auto; margin-right: auto; width: 70%;"
           v-b-modal.infection-creation2-modal
           variant="primary"
@@ -80,14 +79,13 @@
         <b-button
           v-b-modal.infection-creation3-modal
           block
-          class="button--blue margin-top"
+          class="margin-top"
           style="margin-left: auto; margin-right: auto; width: 70%;"
           variant="primary"
         >
           {{ $t('modify') }}
         </b-button>
         <b-button
-          class="button--blue"
           variant="primary"
           style="width: 49%; margin-top: 1.5em;"
           @click="$bvModal.hide('infection-creation-modal')"
@@ -95,7 +93,6 @@
           {{ $t('close') }}
         </b-button>
         <b-button
-          class="button--blue margin-top"
           type="submit"
           variant="primary"
           style="width: 49%; margin-top: 1.5em;"
@@ -121,7 +118,6 @@
         <br />
         <b-button
           block
-          class="button--blue"
           variant="primary"
           @click="$bvModal.hide('infection-creation2-modal')"
         >
@@ -147,7 +143,6 @@
         <br />
         <b-button
           block
-          class="button--blue"
           @click="$bvModal.hide('infection-creation3-modal')"
           variant="primary"
         >

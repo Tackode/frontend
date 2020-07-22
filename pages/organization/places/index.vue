@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapped-container container center-div medium-container">
-    <h1 class="sr-only subtitle">Places</h1>
-    <h2 class="subtitle">{{ $t('place') }}</h2>
+  <div class="wrapped-container container center-div small-container">
+    <h1 class="sr-only">Places</h1>
+    <h2>{{ $t('place') }}</h2>
     <BigActionButton
       v-b-modal.place-creation-modal
       class="margin-top"
@@ -96,16 +96,11 @@
             :placeholder="$t('dur')"
           ></b-form-input>
         </b-form-group>
-        <b-button
-          class="button--blue"
-          v-if="placeFormMode"
-          type="submit"
-          variant="primary"
-        >
+        <b-button v-if="placeFormMode" type="submit" variant="primary">
           {{ $t('modifyplace') }}
         </b-button>
-        <b-button v-else class="button--blue" type="submit" variant="primary">
-          {{ $t('creer') }}
+        <b-button v-else type="submit" variant="primary">
+          {{ $t('create') }}
         </b-button>
       </b-form>
 
@@ -142,7 +137,7 @@
     "duration":"Average duration of the stay in minutes*",
     "nom":"Nom",
     "modif":"Modify",
-    "creer":"Create place",
+    "create":"Create place",
     "delete":"Do you really want to delete the place?",
     "sup":"Delete Place",
     "modifyplace":"Place Modification",
@@ -164,7 +159,7 @@
     "duration":"Durée moyenne de visite en minutes*",
     "nom":"Nom",
     "modif":"Modifier",
-    "creer":"Créer le lieu",
+    "create":"Créer le lieu",
     "delete":"Voulez vous vraiment supprimer le lieu ?",
     "sup":"Supprimer le lieu",
     "modifyplace":"Modification du lieu",
@@ -182,12 +177,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { BootstrapVueIcons } from 'bootstrap-vue'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'
 
-Vue.use(BootstrapVueIcons)
 interface PlaceFormValues {
   name: string
   description: string | null

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container container center-div login">
+  <div class="wrapped-container small-container container center-div login">
     <b-form v-if="state === LoginState.IDLE" @submit="handleSubmit">
       <b-form-group
         :label="$t('add')"
@@ -15,7 +15,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button class="button--blue" type="submit" variant="primary">
+      <b-button type="submit" variant="primary" block>
         {{ $t('log') }}
       </b-button>
     </b-form>

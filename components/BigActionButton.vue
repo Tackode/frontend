@@ -1,21 +1,20 @@
 <template>
-  <b-button class="container medium-container" :to="url" variant="secondary">
-    <b-row>
-      <img
-        v-if="image"
-        :src="require(`@/assets/images/${image}.png`)"
-        :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
-                 ${require(`@/assets/images/${image}@2x.png`)} 2x`"
-        class="mr-3"
-      />
-      <b-col class="text-center" align-self="center">
-        <h5 class="mt-0">{{ title }}</h5>
-        <p>
-          {{ subtitle }}
-        </p>
-      </b-col>
-    </b-row>
-  </b-button>
+  <b-card class="hoverable-card">
+    <b-media class="align-items-center">
+      <template v-if="image" v-slot:aside>
+        <b-img
+          :src="require(`@/assets/images/${image}.png`)"
+          :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
+                ${require(`@/assets/images/${image}@2x.png`)} 2x`"
+          class="mr-3"
+        />
+      </template>
+      <h5 class="mt-0">
+        <a :href="url" class="stretched-link">{{ title }}</a>
+      </h5>
+      <p class="mb-0">{{ subtitle }}</p>
+    </b-media>
+  </b-card>
 </template>
 
 <script lang="ts">

@@ -1,9 +1,9 @@
 <template>
-  <div class="container wrapped-container center-div medium-container">
-    <h1 class="sr-only subtitle">{{ $t('all-check-ins') }}</h1>
+  <div class="container wrapped-container center-div small-container">
+    <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
     <div v-if="checkins.length > 0" class="wrapped-container container">
       <div v-if="infectedcheckins.length > 0">
-        <h2 class="subtitle">{{ $t('potential-contacts-with-infected') }}</h2>
+        <h2>{{ $t('potential-contacts-with-infected') }}</h2>
         <b-table
           class="margin-top"
           striped
@@ -31,7 +31,7 @@
         </b-table>
       </div>
 
-      <h2 class="subtitle" style="margin-top: 0.5em;">
+      <h2 style="margin-top: 0.5em;">
         {{ $t('my-check-ins') }}
       </h2>
       <b-table

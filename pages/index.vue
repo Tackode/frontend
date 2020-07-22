@@ -27,11 +27,11 @@
       >
     </p>
 
-    <div class="wrapped-container container">
+    <div class="wrapped-container medium-container container">
       <b-card
         :title="$t('checkin')"
         tag="checkin"
-        class="subtitle no-border checkin mb-2 w-100"
+        class="no-border checkin mb-2 w-100"
       >
         <BigActionButton
           class="margin-top"
@@ -45,7 +45,7 @@
         v-if="role === null"
         :title="$t('log')"
         tag="login"
-        class="subtitle no-border login mb-2 w-100"
+        class="no-border login mb-2 w-100"
       >
         <BigActionButton
           class="margin-top"
