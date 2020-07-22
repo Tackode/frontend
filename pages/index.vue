@@ -34,6 +34,7 @@
         class="subtitle no-border checkin mb-2 w-100"
       >
         <BigActionButton
+          class="margin-top"
           :title="$t('register')"
           :subtitle="$t('scan')"
           image="qr-code"
@@ -47,6 +48,7 @@
         class="subtitle no-border login mb-2 w-100"
       >
         <BigActionButton
+          class="margin-top"
           :title="$t('prolog')"
           :subtitle="$t('Intro')"
           :url="'/' + $i18n.locale + '/login-professional'"
