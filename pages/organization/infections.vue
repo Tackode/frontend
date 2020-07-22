@@ -3,8 +3,7 @@
     <h1 class="sr-only subtitle">Infections</h1>
     <h2 class="subtitle">{{ $t('infec') }}</h2>
 
-    <div class="container" v-if="places.length > 0">
-      <br />
+    <div class="container margin-top" v-if="places.length > 0">
       <BigActionButton
         v-b-modal.infection-creation-modal
         :title="$t('potinf')"

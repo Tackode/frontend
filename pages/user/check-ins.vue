@@ -4,8 +4,13 @@
     <div v-if="checkins.length > 0" class="wrapped-container container">
       <div v-if="infectedcheckins.length > 0">
         <h2 class="subtitle">{{ $t('potential-contacts-with-infected') }}</h2>
-        <br />
-        <b-table striped hover :fields="fields" :items="infectedcheckins">
+        <b-table
+          class="margin-top"
+          striped
+          hover
+          :fields="fields"
+          :items="infectedcheckins"
+        >
           <template v-slot:cell(organization)="data">
             <div class="red">{{ data.item.place.organization.name }}</div>
           </template>
@@ -28,8 +33,13 @@
       </div>
 
       <h2 class="subtitle">{{ $t('my-check-ins') }}</h2>
-      <br />
-      <b-table striped hover :fields="fields" :items="checkins">
+      <b-table
+        class="margin-top"
+        striped
+        hover
+        :fields="fields"
+        :items="checkins"
+      >
         <template v-slot:cell(organization)="data">
           {{ data.item.place.organization.name }}
         </template>
