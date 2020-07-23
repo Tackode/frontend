@@ -6,7 +6,7 @@
           :src="require(`@/assets/images/${image}.png`)"
           :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
                 ${require(`@/assets/images/${image}@2x.png`)} 2x`"
-          class="btn-icon mr-3 d-none d-md-block"
+          class="btn-icon d-none d-md-block"
         />
       </template>
       <h5 class="mt-0">
@@ -41,6 +41,7 @@ export default class BigActionButton extends BigButtonProps {}
 <style lang="scss">
 .btn-icon {
   max-width: 80px;
+  max-height: 80px;
 }
 
 .hoverable-card a {

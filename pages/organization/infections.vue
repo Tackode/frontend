@@ -79,6 +79,7 @@
                 id="start-date"
                 type="date"
                 v-model="infectionCreation.startDate"
+                placeholder="MM/DD/YYYY"
               ></b-form-input>
             </b-form-group>
 
@@ -92,6 +93,7 @@
                 id="start-time"
                 type="time"
                 v-model="infectionCreation.startTime"
+                placeholder="12:00:00"
               ></b-form-input>
             </b-form-group>
           </b-form-group>
@@ -114,6 +116,7 @@
               <b-form-input
                 id="end-date"
                 type="date"
+                placeholder="MM/DD/YYYY"
                 v-model="infectionCreation.endDate"
               ></b-form-input>
             </b-form-group>
@@ -127,6 +130,7 @@
               <b-form-input
                 id="end-time"
                 type="time"
+                placeholder="12:00:00"
                 v-model="infectionCreation.endTime"
               ></b-form-input>
             </b-form-group>

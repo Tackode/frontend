@@ -37,11 +37,11 @@
     <h2>{{ $t('my-check-ins') }}</h2>
 
     <BigActionButton
+      class="mb-3"
       :title="$t('register')"
       :subtitle="$t('scan')"
       image="qr-code"
       :url="'/' + $i18n.locale + '/check-in'"
-      class="mb-3"
     />
 
     <b-table
