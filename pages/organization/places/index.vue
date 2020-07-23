@@ -129,6 +129,7 @@
 {
   "en": {
     "place":"Your Places",
+    "wait": "Loading. Please wait...",
     "cplace":"Add a new place open to the public",
     "nex":"This place does not exist.",
     "noplace":"You don't have any places for now. Please, create a place to begin.",
@@ -152,6 +153,7 @@
   },
   "fr": {
     "place":"Vos Adresses",
+    "wait": "Chargement en cours...",
     "nex":"Ce lieu n'existe plus.",
     "cplace":"Ajoutez un nouveau lieu ouvert au public",
     "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
@@ -167,7 +169,7 @@
     "deleteplace":"Voulez-vous vraiment supprimer ce lieu ?",
     "crea":"Création du lieu",
     "pla":"Nom du lieu",
-    "dur":"Durée estimée",
+    "dur":"Durée moyenne sur place",
     "delete":"Supprimer",
     "action":"QR Code",
     "subtitle":"Générez un QR Code pour ce nouveau lieu"

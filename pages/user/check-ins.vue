@@ -87,7 +87,7 @@
     "potential-contacts-with-infected": "Contacts potentiels avec une personne infectée",
     "my-check-ins": "Mes visites",
     "organization": "Organisation",
-    "place": "Lieu",
+    "place": "Lieu visité",
     "time": "Horaire",
     "duration": "Durée",
     "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant."
