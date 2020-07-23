@@ -11,9 +11,12 @@
     <p v-else-if="state === CheckinState.LOADING">
       {{ $t('wait') }}
     </p>
-    <p v-else-if="state === CheckinState.NOTFOUND">
-      {{ $t('nex') }}
-    </p>
+    <div v-else-if="state === CheckinState.NOTFOUND">
+      <p>{{ $t('nex') }}</p>
+      <nuxt-link class="no-print" :to="'/' + $i18n.locale">
+        {{ $t('back') }}
+      </nuxt-link>
+    </div>
     <div v-else-if="state === CheckinState.LOADED">
       <PlaceView :data="place" />
       <b-card class="my-3">
@@ -191,7 +194,6 @@ export default class CheckIn extends Vue {
       this.place = await this.$axios.$get(`/place/${placeId}`)
     } catch (error) {
       this.state = CheckinState.NOTFOUND
-      showError(this.$bvToast, 'Checkin', new Error('Place not found.'))
       return
     }
     this.duration = `${this.place?.averageDuration}`
