@@ -100,7 +100,13 @@
     "my-organization": "My organization",
     "email": "Email address*",
     "organization": "Organization*",
-    "email-placeholder": "Your email"
+    "email-placeholder": "Your email",
+    "successfully_updated":"Your profile was successfully updated.",
+    "Profile":"Profile",
+    "A network error has occurred in posting. Please, try again.":"A network error has occurred in posting. Please, try again.",
+    "A network error occurred while loading the profile. Please, try Again.":"A network error occurred while loading the profile. Please, try Again.",
+    "Your profile has been deleted.":"Your profile has been deleted.",
+    "Network error in deleting profile.":"A network error has occurred in deleting profile. Please, try again."
   },
   "fr": {
     "charge":"Chargement impossible. Profil Introuvable.",
@@ -115,7 +121,13 @@
     "my-organization": "Mon organisation",
     "email": "Adresse mail*",
     "organization": "Entreprise*",
-    "email-placeholder": "Votre adresse mail"
+    "email-placeholder": "Votre adresse mail",
+    "successfully_updated":"Votre profil a bien été mis à jour.",
+    "Profile":"Profil",
+    "A network error has occurred in posting. Please, try again.":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
+    "A network error occurred while loading the profile. Please, try Again.":"Une erreur réseau est apparue pendant le chargement du profil. S'il vous plaît, réessayer.",
+    "Your profile has been deleted.":"Votre profil a bien été supprimé",
+    "Network error in deleting profile.":"Une erreur réseau est survenue en supprimant le profil. S'il vous plait réessayer"
   }
 }
 </i18n>
@@ -162,9 +174,11 @@ export default class ProfilePage extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Profil',
+        this.$i18n.t('Profile') as string,
         new Error(
-          'A network error occurred while loading the profile. Please, try Again.'
+          this.$i18n.t(
+            'A network error occurred while loading the profile. Please, try Again.'
+          ) as string
         )
       )
     }
@@ -193,9 +207,11 @@ export default class ProfilePage extends Vue {
       } catch (error) {
         showError(
           this.$bvToast,
-          'Profil',
+          this.$i18n.t('Profile') as string,
           new Error(
-            'A network error has occurred in posting. Please, try again.'
+            this.$i18n.t(
+              'A network error has occurred in posting. Please, try again.'
+            ) as string
           )
         )
       }
@@ -216,8 +232,8 @@ export default class ProfilePage extends Vue {
       )
       showSuccess(
         this.$bvToast,
-        'Profile',
-        'Your profile was successfully updated.'
+        this.$i18n.t('Profile') as string,
+        this.$i18n.t('successfully_updated') as string
       )
     } catch (error) {
       showError(
@@ -239,14 +255,16 @@ export default class ProfilePage extends Vue {
       this.$bvModal.hide('place-delete-modal')
       this.$store.dispatch('session/logout')
       this.$router.replace('/' + this.$i18n.locale)
-      showSuccess(this.$bvToast, 'Profile', 'Your profile has been deleted.')
+      showSuccess(
+        this.$bvToast,
+        this.$i18n.t('Profile') as string,
+        this.$i18n.t('Your profile has been deleted.') as string
+      )
     } catch (error) {
       showError(
         this.$bvToast,
-        'Profile',
-        new Error(
-          'A network error has occurred in deleting profile. Please, try again.'
-        )
+        this.$i18n.t('Profile') as string,
+        new Error(this.$i18n.t('Network error in deleting profile.') as string)
       )
     }
   }

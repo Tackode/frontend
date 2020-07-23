@@ -144,8 +144,6 @@
 <i18n>
 {
   "en": {
-    "close":"Close",
-    "dec":"Declare Infection",
     "infec":"Declaration of Infections",
     "potinf":"Report a new infection in one or more of your places",
     "nopinf":"No place to declare an infection",
@@ -166,11 +164,17 @@
     "date-end-label": "End date:",
     "time-end-label": "End time:",
     "cancel": "Cancel",
-    "declare": "Declare"
+    "declare": "Declare",
+    "No affected place has been chosen.":"No affected place has been chosen.",
+    "The start is not defined.":"The date of arrival is not defined.",
+    "The end is not defined.":"The date of departure is not defined.",
+    "The end date is before the start date.":"The end date is before the start date.",
+    "You cannot declare infections in the future":"You cannot declare in the future",
+    "Maximum time of infection : 12 hours":"Maximum time of infection : 12 hours",
+    "A network error occured. Please, try again.":"A network error occured. Please, try again.",
+    "Error":"Error"
   },
   "fr": {
-    "close":"Fermer",
-    "dec":"Déclarer l'infection",
     "infec":"Déclarer une infection",
     "potinf":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
@@ -192,7 +196,15 @@
     "date-end-label": "Date de départ :",
     "time-end-label": "Heure de départ :",
     "cancel": "Annuler",
-    "declare": "Déclarer"
+    "declare": "Déclarer",
+    "No affected place has been chosen.":"Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
+    "The start is not defined.":"La date d'arrivée n'a pas été définie.",
+    "The end is not defined.":"La date de départ n'a pas été définie.",
+    "The end date is before the start date.":"La date de fin est avant la date de début.",
+    "You cannot declare infections in the future":"Vous ne pouvez pas déclarer dans le futur.",
+    "Maximum time of infection : 12 hours":"Durée maximale sur place : 12 heures",
+    "A network error occured. Please, try again.":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
+    "Error":"Erreur"
   }
 }
 </i18n>
@@ -263,8 +275,10 @@ export default class ProfessionalInfections extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('A network error occured. Please, try again.')
+        this.$i18n.t('Error') as string,
+        new Error(
+          this.$i18n.t('A network error occured. Please, try again.') as string
+        )
       )
       return
     }
@@ -274,8 +288,10 @@ export default class ProfessionalInfections extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('A network error occured. Please, try again.')
+        this.$i18n.t('Error') as string,
+        new Error(
+          this.$i18n.t('A network error occured. Please, try again.') as string
+        )
       )
     }
   }
@@ -299,8 +315,8 @@ export default class ProfessionalInfections extends Vue {
     if (this.infectionCreation.placesIds.length === 0) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('No affected place has been chosen.')
+        this.$i18n.t('Error') as string,
+        new Error(this.$i18n.t('No affected place has been chosen.') as string)
       )
       return
     }
@@ -311,8 +327,8 @@ export default class ProfessionalInfections extends Vue {
     ) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('The start of the infection is not defined.')
+        this.$i18n.t('Error') as string,
+        new Error(this.$i18n.t('The start is not defined.') as string)
       )
       return
     }
@@ -323,19 +339,8 @@ export default class ProfessionalInfections extends Vue {
     ) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('The end of the infection is not defined.')
-      )
-      return
-    }
-
-    if (this.infectionCreation.startDate > this.infectionCreation.endDate) {
-      showError(
-        this.$bvToast,
-        'Infections',
-        new Error(
-          'The end date of the infection is before the start date of the infection.'
-        )
+        this.$i18n.t('Error') as string,
+        new Error(this.$i18n.t('The end is not defined.') as string)
       )
       return
     }
@@ -347,23 +352,38 @@ export default class ProfessionalInfections extends Vue {
     const endDate = new Date(
       `${this.infectionCreation.endDate} ${this.infectionCreation.endTime}`
     )
+    const distance = endDate.getTime() - startDate.getTime()
+
+    if (distance < 0) {
+      showError(
+        this.$bvToast,
+        this.$i18n.t('Error') as string,
+        new Error(
+          this.$i18n.t('The end date is before the start date.') as string
+        )
+      )
+      return
+    }
 
     if (endDate >= new Date()) {
       showError(
         this.$bvToast,
         'Infections',
-        new Error('You cannot declare infections in the future')
+        new Error(
+          this.$i18n.t('You cannot declare infections in the future') as string
+        )
       )
       return
     }
 
-    const distance = endDate.getTime() - startDate.getTime()
     if (distance > 43200000) {
       // 12 hours
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('Maximum time of infection : 12 hours')
+        this.$i18n.t('Error') as string,
+        new Error(
+          this.$i18n.t('Maximum time of infection : 12 hours') as string
+        )
       )
       return
     }
@@ -386,8 +406,10 @@ export default class ProfessionalInfections extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Infections',
-        new Error('A network error occured. Please, try again.')
+        this.$i18n.t('Error') as string,
+        new Error(
+          this.$i18n.t('A nework error occured. Please, try again.') as string
+        )
       )
       return
     }
