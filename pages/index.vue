@@ -38,18 +38,20 @@
 
       <hr />
 
-      <h2>{{ $t('log') }}</h2>
-      <BigActionButton
-        class="mb-3"
-        :title="$t('prolog')"
-        :subtitle="$t('Intro')"
-        :url="'/' + $i18n.locale + '/login-professional'"
-      />
-      <BigActionButton
-        :title="$t('userlog')"
-        :subtitle="$t('places')"
-        :url="'/' + $i18n.locale + '/login'"
-      />
+      <template v-if="role == null">
+        <h2>{{ $t('log') }}</h2>
+        <BigActionButton
+          class="mb-3"
+          :title="$t('prolog')"
+          :subtitle="$t('Intro')"
+          :url="'/' + $i18n.locale + '/login-professional'"
+        />
+        <BigActionButton
+          :title="$t('userlog')"
+          :subtitle="$t('places')"
+          :url="'/' + $i18n.locale + '/login'"
+        />
+      </template>
     </div>
   </div>
 </template>
