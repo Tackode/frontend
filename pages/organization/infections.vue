@@ -31,9 +31,17 @@
       </template>
     </b-table>
 
-    <b-modal id="infection-creation-modal" :title="$t('affectedplace')">
-      <b-form @submit="handleInfectionCreationSubmit">
-        <b-form-group id="infection-places">
+    <b-modal
+      id="infection-creation-modal"
+      size="lg"
+      :title="$t('infection-declaration-title')"
+      :ok-title="$t('declare')"
+      :cancel-title="$t('cancel')"
+      @ok="handleModalOk"
+      @hidden="resetModal"
+    >
+      <b-form @submit.stop.prevent="handleInfectionSubmit">
+        <b-form-group id="infection-places" :label="$t('concerned-places')">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
             <b-form-checkbox
               v-for="place in places"
@@ -44,113 +52,83 @@
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-        <p class="wrapped-container container">{{ $t('start') }}</p>
-        <b-form-input
-          v-model="infectionCreation.startDate"
-          readonly
-          :placeholder="$t('startdate')"
-        ></b-form-input>
-        <b-form-input
-          v-model="infectionCreation.startDateTime"
-          readonly
-          :placeholder="$t('Starttimeinfection')"
-        ></b-form-input>
-        <b-button
-          block
-          style="margin-left: auto; margin-right: auto; width: 70%;"
-          v-b-modal.infection-creation2-modal
-          variant="primary"
-        >
-          {{ $t('modify') }}
-        </b-button>
-        <p class="wrapped-container container">{{ $t('end') }}</p>
-        <b-form-input
-          v-model="infectionCreation.endDate"
-          readonly
-          :placeholder="$t('fin')"
-        ></b-form-input>
-        <b-form-input
-          v-model="infectionCreation.endDateTime"
-          readonly
-          :placeholder="$t('finh')"
-        ></b-form-input>
-        <b-button
-          v-b-modal.infection-creation3-modal
-          block
-          class="mt-3"
-          style="margin-left: auto; margin-right: auto; width: 70%;"
-          variant="primary"
-        >
-          {{ $t('modify') }}
-        </b-button>
-        <b-button
-          variant="primary"
-          style="width: 49%; margin-top: 1.5em;"
-          @click="$bvModal.hide('infection-creation-modal')"
-        >
-          {{ $t('close') }}
-        </b-button>
-        <b-button
-          type="submit"
-          variant="primary"
-          style="width: 49%; margin-top: 1.5em;"
-          @click="$bvModal.hide('infection-creation-modal')"
-        >
-          {{ $t('dec') }}
-        </b-button>
+
+        <b-alert variant="info" show>{{
+          $t('infection-max-period-info')
+        }}</b-alert>
+
+        <b-card bg-variant="light" class="mb-3">
+          <b-form-group
+            label-cols-lg="3"
+            :label="$t('infection-start-label')"
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
+          >
+            <b-form-group
+              label-cols-sm="3"
+              :label="$t('date-start-label')"
+              label-align-sm="right"
+              label-for="start-date"
+            >
+              <b-form-input
+                id="start-date"
+                type="date"
+                v-model="infectionCreation.startDate"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+              label-cols-sm="3"
+              :label="$t('time-start-label')"
+              label-align-sm="right"
+              label-for="start-time"
+            >
+              <b-form-input
+                id="start-time"
+                type="time"
+                v-model="infectionCreation.startTime"
+              ></b-form-input>
+            </b-form-group>
+          </b-form-group>
+        </b-card>
+
+        <b-card bg-variant="light">
+          <b-form-group
+            label-cols-lg="3"
+            :label="$t('infection-end-label')"
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
+          >
+            <b-form-group
+              label-cols-sm="3"
+              :label="$t('date-end-label')"
+              label-align-sm="right"
+              label-for="end-date"
+            >
+              <b-form-input
+                id="end-date"
+                type="date"
+                v-model="infectionCreation.endDate"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+              label-cols-sm="3"
+              :label="$t('time-end-label')"
+              label-align-sm="right"
+              label-for="end-time"
+            >
+              <b-form-input
+                id="end-time"
+                type="time"
+                v-model="infectionCreation.endTime"
+              ></b-form-input>
+            </b-form-group>
+          </b-form-group>
+        </b-card>
       </b-form>
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
-    </b-modal>
-
-    <b-modal id="infection-creation2-modal" :title="$t('startdate')">
-      <b-form>
-        <b-calendar v-model="infectionCreation.startDate"></b-calendar>
-
-        <b-time
-          id="start-date-time"
-          v-model="infectionCreation.startDateTime"
-        ></b-time>
-        <br />
-        <br />
-        <b-button
-          block
-          variant="primary"
-          @click="$bvModal.hide('infection-creation2-modal')"
-        >
-          {{ $t('validate') }}
-        </b-button>
-      </b-form>
-
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
-    </b-modal>
-
-    <b-modal id="infection-creation3-modal" :title="$t('fin')">
-      <b-form>
-        <p>{{ $t('max') }}</p>
-        <b-calendar v-model="infectionCreation.endDate"></b-calendar>
-
-        <b-time
-          id="end-date-time"
-          v-model="infectionCreation.endDateTime"
-        ></b-time>
-        <br />
-        <br />
-        <b-button
-          block
-          @click="$bvModal.hide('infection-creation3-modal')"
-          variant="primary"
-        >
-          {{ $t('validate') }}
-        </b-button>
-      </b-form>
-
-      <template v-slot:modal-footer>
-        <span></span>
-      </template>
     </b-modal>
   </div>
 </template>
@@ -158,38 +136,33 @@
 <i18n>
 {
   "en": {
-    "startdate":"Start Date of the Infection*",
-    "fin":"End Date of the Infection*",
-    "Starttimeinfection":"Start Time of the Infection*",
-    "finh":"End Time of the Infection*",
-    "affectedplace":"Select affected places*",
-    "max":"Maximum duration of infection: 12 hours",
     "close":"Close",
     "dec":"Declare Infection",
-    "start":"Start date :",
-    "end":"End date :",
     "infec":"Declaration of Infections",
     "potinf":"Report a new infection in one or more of your places",
     "nopinf":"No place to declare an infection",
     "validate":"Validate",
-    "modify":"Modify",
     "infectedplace":"Infected Place",
     "startday":"Start Date",
     "enddate":"End Date",
     "delplace":"Deleted Place",
-    "subtitle":"Record an infection to automatically notify your visitors"
+    "subtitle":"Record an infection to automatically notify your visitors",
+
+    "infection-declaration-title": "New infection declaration",
+    "concerned-places": "Concerned places",
+    "infection-max-period-info": "Maximum duration on site: 12 hours.",
+    "infection-start-label": "Date of arrival on site",
+    "date-start-label": "Start date:",
+    "time-start-label": "Start time:",
+    "infection-end-label": "Date of departure from the place",
+    "date-end-label": "End date:",
+    "time-end-label": "End time:",
+    "cancel": "Cancel",
+    "declare": "Declare"
   },
   "fr": {
-    "startdate":"Date de début de l'infection*",
-    "fin":"Date de fin de l'infection*",
-    "Starttimeinfection":"Heure de début de l'infection*",
-    "finh":"Heure de fin de l'infection*",
-    "affectedplace":"Lieux infectés*",
-    "max":"Durée maximale d'infection: 12 heures",
     "close":"Fermer",
     "dec":"Déclarer l'infection",
-    "start":"Date de début :",
-    "end":"Date de fin :",
     "infec":"Déclarer une infection",
     "potinf":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
     "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
@@ -199,7 +172,19 @@
     "startday":"Date de début",
     "enddate":"Date de fin",
     "delplace":"Lieu supprimé",
-    "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs."
+    "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs.",
+
+    "infection-declaration-title": "Déclarer une nouvelle infection",
+    "concerned-places": "Lieux concernés",
+    "infection-max-period-info": "Durée maximale sur place : 12 heures.",
+    "infection-start-label": "Date d'arrivée sur les lieux",
+    "date-start-label": "Date d'arrivée :",
+    "time-start-label": "Heure d'arrivée :",
+    "infection-end-label": "Date de départ des lieux",
+    "date-end-label": "Date de départ :",
+    "time-end-label": "Heure de départ :",
+    "cancel": "Annuler",
+    "declare": "Déclarer"
   }
 }
 </i18n>
@@ -211,16 +196,24 @@ import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'
 
-interface Infectionreation {
+interface Infection {
   placesIds: String[]
   name: String[]
   organization: string
   startDate: string
-  startDateTime: string
+  startTime: string
   startTimestamp: string
   endDate: string
-  endDateTime: string
+  endTime: string
   endTimestamp: string
+}
+
+interface InfectionCreation {
+  placesIds: String[]
+  startDate: string
+  startTime: string
+  endDate: string
+  endTime: string
 }
 
 @Component({
@@ -236,19 +229,13 @@ export default class ProfessionalInfections extends Vue {
   ]
 
   places: Place[] = []
-  infections: Infectionreation[] = []
-  startDate: string = ''
-  endDate: string = ''
-  infectionCreation: Infectionreation = {
+  infections: Infection[] = []
+  infectionCreation: InfectionCreation = {
     placesIds: [],
-    name: [],
-    organization: '',
     startDate: '',
-    startDateTime: '',
-    startTimestamp: '',
+    startTime: '',
     endDate: '',
-    endDateTime: '',
-    endTimestamp: '',
+    endTime: '',
   }
 
   mounted() {
@@ -285,95 +272,121 @@ export default class ProfessionalInfections extends Vue {
     }
   }
 
-  async handleInfectionCreationSubmit(e: Event) {
-    e.preventDefault()
+  resetModal() {
+    this.infectionCreation = {
+      placesIds: [],
+      startDate: '',
+      startTime: '',
+      endDate: '',
+      endTime: '',
+    }
+  }
 
-    if (this.infectionCreation.placesIds.length > 0) {
-      if (
-        this.infectionCreation.startDateTime !== '' &&
-        this.infectionCreation.startDate !== ''
-      ) {
-        if (
-          this.infectionCreation.endDateTime !== '' &&
-          this.infectionCreation.endDate !== ''
-        ) {
-          if (
-            this.infectionCreation.startDate <= this.infectionCreation.endDate
-          ) {
-            this.startDate = new Date(
-              `${this.infectionCreation.startDate} ${this.infectionCreation.startDateTime}`
-            ).toISOString()
-            this.endDate = new Date(
-              `${this.infectionCreation.endDate} ${this.infectionCreation.endDateTime}`
-            ).toISOString()
-            if (this.endDate < new Date().toISOString()) {
-              try {
-                await this.$axios.$post(
-                  '/infection',
-                  {
-                    placesIds: this.infectionCreation.placesIds,
-                    startTimestamp: `${this.startDate}`,
-                    endTimestamp: `${this.endDate}`,
-                  },
-                  {
-                    auth: {
-                      username: this.$store.getters['session/login'],
-                      password: this.$store.getters['session/token'],
-                    },
-                  }
-                )
-              } catch (error) {
-                showError(
-                  this.$bvToast,
-                  'Infections',
-                  new Error('A network error occured. Please, try again.')
-                )
-                showError(
-                  this.$bvToast,
-                  'Infections',
-                  new Error('Maximum time of infection : 12 hours')
-                )
-                return
-              }
-            } else {
-              showError(
-                this.$bvToast,
-                'Infections',
-                new Error('You cannot declare infections in the future')
-              )
-            }
-          } else {
-            showError(
-              this.$bvToast,
-              'Infections',
-              new Error(
-                'The end date of the infection is before the start date of the infection.'
-              )
-            )
-          }
-        } else {
-          showError(
-            this.$bvToast,
-            'Infections',
-            new Error('The end of the infection is not defined.')
-          )
-        }
-      } else {
-        showError(
-          this.$bvToast,
-          'Infections',
-          new Error('The start of the infection is not defined.')
-        )
-      }
-    } else {
+  async handleModalOk(e: Event) {
+    e.preventDefault()
+    await this.handleInfectionSubmit()
+  }
+
+  async handleInfectionSubmit() {
+    if (this.infectionCreation.placesIds.length === 0) {
       showError(
         this.$bvToast,
         'Infections',
         new Error('No affected place has been chosen.')
       )
+      return
     }
 
-    this.$bvModal.hide('infection-creation3-modal')
+    if (
+      this.infectionCreation.startTime === '' ||
+      this.infectionCreation.startDate === ''
+    ) {
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error('The start of the infection is not defined.')
+      )
+      return
+    }
+
+    if (
+      this.infectionCreation.endTime === '' ||
+      this.infectionCreation.endDate === ''
+    ) {
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error('The end of the infection is not defined.')
+      )
+      return
+    }
+
+    if (this.infectionCreation.startDate > this.infectionCreation.endDate) {
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error(
+          'The end date of the infection is before the start date of the infection.'
+        )
+      )
+      return
+    }
+
+    const startDate = new Date(
+      `${this.infectionCreation.startDate} ${this.infectionCreation.startTime}`
+    )
+
+    const endDate = new Date(
+      `${this.infectionCreation.endDate} ${this.infectionCreation.endTime}`
+    )
+
+    if (endDate >= new Date()) {
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error('You cannot declare infections in the future')
+      )
+      return
+    }
+
+    const distance = endDate.getTime() - startDate.getTime()
+    if (distance > 43200000) {
+      // 12 hours
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error('Maximum time of infection : 12 hours')
+      )
+      return
+    }
+
+    try {
+      await this.$axios.$post(
+        '/infection',
+        {
+          placesIds: this.infectionCreation.placesIds,
+          startTimestamp: `${startDate.toISOString()}`,
+          endTimestamp: `${endDate.toISOString()}`,
+        },
+        {
+          auth: {
+            username: this.$store.getters['session/login'],
+            password: this.$store.getters['session/token'],
+          },
+        }
+      )
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Infections',
+        new Error('A network error occured. Please, try again.')
+      )
+      return
+    }
+
+    this.$nextTick(() => {
+      this.$bvModal.hide('infection-creation-modal')
+    })
 
     this.loadData()
   }
