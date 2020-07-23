@@ -76,7 +76,7 @@
 <i18n>
 {
   "en": {
-    "legal":"Legal Noticies",
+    "legal":"Legal Notices",
     "my-check-ins":"My Check-ins",
     "my-profile":"My Profile",
     "places":"Places",

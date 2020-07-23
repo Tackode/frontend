@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapped-container c-medium my-3">
-    <h2>{{ $t('legal-noticies') }}</h2>
+  <div class="wrapped-container c-medium my-3 legal-notice">
+    <h2>{{ $t('legal-notices') }}</h2>
     <p>En vigueur au 10/07/2020</p>
     <p>
       Conformément aux dispositions des Articles 6-III et 19 de la Loi
@@ -11,6 +11,7 @@
       acceptation intégrale et sans réserve des présentes mentions légales. Ces
       dernières sont accessibles sur le site à la rubrique « Mentions légales ».
     </p>
+
     <h5>ARTICLE 1 : L’ÉDITEUR</h5>
     <p>
       L'édition du site Covid-Journal est assurée par la Société Creatiwity dont
@@ -22,6 +23,7 @@
       L'hébergeur du site Covid-Journal est la Société OVH, dont le siège social
       est situé au 2 rue Kellermann - 59100 Roubaix - France.
     </p>
+
     <h5>ARTICLE 3 : ACCÈS AU SITE</h5>
     <p>
       Le site est accessible par tout endroit, 7j/7, 24h/24 sauf cas de force
@@ -30,35 +32,29 @@
       suspension des services le site Covid-Journal ne saurait être tenu
       responsable.
     </p>
+
     <h5>ARTICLE 4 : COLLECTE DES DONNÉES</h5>
     <p>
       Le site assure à l'Utilisateur une collecte et un traitement
       d'informations personnelles dans le respect de la vie privée conformément
       à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers
-      et aux libertés. Le site est déclaré à la CNIL sous le numéro
-      ________________. En vertu de la loi Informatique et Libertés, en date du
-      6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de
-      rectification, de suppression et d'opposition de ses données personnelles.
-      L'Utilisateur exerce ce droit :
+      et aux libertés. En vertu de la loi Informatique et Libertés, en date du 6
+      janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification,
+      de suppression et d'opposition de ses données personnelles. L'Utilisateur
+      exerce ce droit par mail :
+      <a href="mailto:contact@creatiwity.net">contact@creatiwity.net</a>
     </p>
-    <p>Par mail : ________________</p>
+
     <h5>ARTICLE 5 : COOKIES</h5>
     <p>
       L’Utilisateur est informé que lors de ses visites sur le site, un cookie
       peut s’installer automatiquement sur son logiciel de navigation. En
       naviguant sur le site, il les accepte. Un cookie est un élément qui ne
       permet pas d’identifier l’Utilisateur mais sert à enregistrer des
-      informations relatives à la navigation de celui-ci sur le site Internet.
-      L’Utilisateur pourra désactiver ce cookie par l’intermédiaire des
-      paramètres figurant au sein de son logiciel de navigation.
-    </p>
-    <h5>ARTICLE 6 : PROPRIÉTÉ INTELLECTUELLE</h5>
-    <p>
-      Toute utilisation, reproduction, diffusion, commercialisation,
-      modification de toute ou partie du site covid-journal.org, sans
-      autorisation de l’Editeur est prohibée et pourra entraînée des actions et
-      poursuites judiciaires telles que notamment prévues par le Code de la
-      propriété intellectuelle et le Code civil.
+      informations relatives à la navigation de celui-ci sur le site Internet
+      comme la langue sélectionnée. L’Utilisateur pourra désactiver ce cookie
+      par l’intermédiaire des paramètres figurant au sein de son logiciel de
+      navigation.
     </p>
   </div>
 </template>
@@ -66,10 +62,10 @@
 <i18n>
 {
   "en": {
-    "legal-noticies":"Legal Noticies"
+    "legal-notices":"Legal Notices"
   },
   "fr": {
-  "legal-noticies":"Mentions légales"
+    "legal-notices":"Mentions légales"
   }
 }
 </i18n>
@@ -82,4 +78,8 @@ import Component from 'vue-class-component'
 export default class Legal extends Vue {}
 </script>
 
-<style></style>
+<style lang="scss">
+.legal-notice p {
+  text-align: justify;
+}
+</style>
