@@ -1,65 +1,68 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
-    <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
-    <div v-if="checkins.length > 0" class="wrapped-container container">
-      <div v-if="infectedcheckins.length > 0">
-        <h2 class="mb-3">{{ $t('potential-contacts-with-infected') }}</h2>
-        <b-table striped hover :fields="fields" :items="infectedcheckins">
-          <template v-slot:cell(organization)="data">
-            <div class="red">{{ data.item.place.organization.name }}</div>
-          </template>
+    <h1 class="sr-only">{{ $t('my-check-ins') }}</h1>
 
-          <template v-slot:cell(place_name)="data">
-            <div class="red">{{ data.item.place.name }}</div>
-          </template>
+    <div v-if="infectedcheckins.length > 0">
+      <h2>{{ $t('potential-contacts-with-infected') }}</h2>
 
-          <template v-slot:cell(time)="data">
-            <div class="red">
-              {{ data.item.startTimestamp | formatDateTime }}
-            </div>
-          </template>
-
-          <template v-slot:cell(duration)="data">
-            <div class="red">{{ data.item.duration }} minutes</div>
-          </template>
-        </b-table>
-      </div>
-
-      <h2 class="my-2 mb-3">
-        {{ $t('my-check-ins') }}
-      </h2>
-      <b-table striped hover :fields="fields" :items="checkins">
+      <b-table striped hover :fields="fields" :items="infectedcheckins">
         <template v-slot:cell(organization)="data">
-          {{ data.item.place.organization.name }}
+          <div class="red">{{ data.item.place.organization.name }}</div>
         </template>
 
         <template v-slot:cell(place_name)="data">
-          {{ data.item.place.name }}
+          <div class="red">{{ data.item.place.name }}</div>
         </template>
 
         <template v-slot:cell(time)="data">
-          {{ data.item.startTimestamp | formatDateTime }}
+          <div class="red">
+            {{ data.item.startTimestamp | formatDateTime }}
+          </div>
         </template>
 
         <template v-slot:cell(duration)="data">
-          {{ data.item.duration }} minutes
+          <div class="red">{{ data.item.duration }} minutes</div>
         </template>
       </b-table>
     </div>
 
-    <div v-else>
-      <h2>{{ $t('my-check-ins') }}</h2>
-      <br />
-      <p>
-        {{ $t('no-check-in') }}
-      </p>
-      <BigActionButton
-        :title="$t('register')"
-        :subtitle="$t('scan')"
-        image="qr-code"
-        :url="'/' + $i18n.locale + '/check-in'"
-      />
-    </div>
+    <h2>{{ $t('my-check-ins') }}</h2>
+
+    <BigActionButton
+      :title="$t('register')"
+      :subtitle="$t('scan')"
+      image="qr-code"
+      :url="'/' + $i18n.locale + '/check-in'"
+      class="mb-3"
+    />
+
+    <b-table
+      v-if="checkins.length > 0"
+      striped
+      hover
+      :fields="fields"
+      :items="checkins"
+    >
+      <template v-slot:cell(organization)="data">
+        {{ data.item.place.organization.name }}
+      </template>
+
+      <template v-slot:cell(place_name)="data">
+        {{ data.item.place.name }}
+      </template>
+
+      <template v-slot:cell(time)="data">
+        {{ data.item.startTimestamp | formatDateTime }}
+      </template>
+
+      <template v-slot:cell(duration)="data">
+        {{ data.item.duration }} minutes
+      </template>
+    </b-table>
+
+    <p v-else>
+      {{ $t('no-check-in') }}
+    </p>
   </div>
 </template>
 
@@ -75,7 +78,7 @@
     "organization": "Organization",
     "time": "Time",
     "duration": "Duration",
-    "no-check-in": "You don't have any check-in for now. Scan a QR code in a public location to start."
+    "no-check-in": "You don't have any check-in for now."
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
@@ -87,7 +90,7 @@
     "place": "Lieu",
     "time": "Horaire",
     "duration": "Durée",
-    "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant. Scannez un code QR pour commencer."
+    "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant."
   }
 }
 </i18n>

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container c-center my-3">
+  <div class="wrapped-container c-medium c-center my-3">
     <div v-if="state === CheckinState.SCANNING">
       <h2>{{ $t('scan') }}</h2>
       <br />
@@ -15,9 +15,9 @@
       {{ $t('nex') }}
     </p>
     <div v-else-if="state === CheckinState.LOADED">
-      <b-form @submit="handleSubmit">
-        <PlaceView :data="place" />
-        <b-card class="my-3">
+      <PlaceView :data="place" />
+      <b-card class="my-3">
+        <b-form @submit="handleSubmit">
           <b-form-group
             v-if="$store.getters['session/email'] !== null"
             :label="$t('email')"
@@ -32,6 +32,7 @@
               :placeholder="$t('emai')"
             ></b-form-input>
           </b-form-group>
+
           <b-form-group
             v-else
             :label="$t('email')"
@@ -47,21 +48,23 @@
             ></b-form-input>
           </b-form-group>
 
-          <div>
-            <input id="storeemail" type="checkbox" name="scales" checked />
-            <label for="storeemail">
+          <b-form-group>
+            <b-form-checkbox
+              v-model="storeEmail"
+              :value="true"
+              :unchecked-value="false"
+            >
               {{ $t('store') }}
-            </label>
-          </div>
-          <br />
-          {{ $t('stay') }} {{ duration }} {{ $t('re') }}
-          <br />
-          <br />
+            </b-form-checkbox>
+          </b-form-group>
+
+          <p>{{ $t('stay') }} {{ duration }} {{ $t('re') }}</p>
+
           <b-button type="submit" variant="primary" block>
             {{ $t('sub') }}
           </b-button>
-        </b-card>
-      </b-form>
+        </b-form>
+      </b-card>
     </div>
     <p v-else-if="state === CheckinState.CHECKMAIL">
       {{ $t('ema') }}
