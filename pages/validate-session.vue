@@ -1,10 +1,12 @@
 <template>
-  <div v-if="(state = ValidateState.LOADING)">
-    {{ $t('validate-device') }}
+  <div class="wrapped-container c-small c-center my-3">
+    <div v-if="state === ValidateState.LOADING">
+      {{ $t('validate-device') }}
+    </div>
+    <p v-else-if="state === ValidateState.FAILURE">
+      {{ $t('validation-failed') }}
+    </p>
   </div>
-  <p v-else-if="(state = ValidateState.FAILURE)">
-    {{ $t('validation-failed') }}
-  </p>
 </template>
 
 <i18n>
