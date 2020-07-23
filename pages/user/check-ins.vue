@@ -3,14 +3,8 @@
     <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
     <div v-if="checkins.length > 0" class="wrapped-container container">
       <div v-if="infectedcheckins.length > 0">
-        <h2>{{ $t('potential-contacts-with-infected') }}</h2>
-        <b-table
-          class="margin-top"
-          striped
-          hover
-          :fields="fields"
-          :items="infectedcheckins"
-        >
+        <h2 class="mb-3">{{ $t('potential-contacts-with-infected') }}</h2>
+        <b-table striped hover :fields="fields" :items="infectedcheckins">
           <template v-slot:cell(organization)="data">
             <div class="red">{{ data.item.place.organization.name }}</div>
           </template>
@@ -31,16 +25,10 @@
         </b-table>
       </div>
 
-      <h2 class="my-2">
+      <h2 class="my-2 mb-3">
         {{ $t('my-check-ins') }}
       </h2>
-      <b-table
-        class="margin-top"
-        striped
-        hover
-        :fields="fields"
-        :items="checkins"
-      >
+      <b-table striped hover :fields="fields" :items="checkins">
         <template v-slot:cell(organization)="data">
           {{ data.item.place.organization.name }}
         </template>

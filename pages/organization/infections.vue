@@ -77,7 +77,7 @@
         <b-button
           v-b-modal.infection-creation3-modal
           block
-          class="margin-top"
+          class="mt-3"
           style="margin-left: auto; margin-right: auto; width: 70%;"
           variant="primary"
         >

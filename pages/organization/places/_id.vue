@@ -3,9 +3,18 @@
     <p v-if="state === PlaceState.LOADING">
       {{ $t('wait') }}
     </p>
-    <p v-else-if="state === PlaceState.NOTFOUND">
-      {{ $t('nex') }}
-    </p>
+    <div v-else-if="state === PlaceState.NOTFOUND">
+      <p>
+        {{ $t('nex') }}
+      </p>
+
+      <nuxt-link
+        class="no-print mt-3"
+        :to="'/' + $i18n.locale + '/organization/places/'"
+      >
+        {{ $t('back') }}
+      </nuxt-link>
+    </div>
     <div v-else-if="state === PlaceState.LOADED">
       <nuxt-link
         class="no-print"
