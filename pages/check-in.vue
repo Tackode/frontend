@@ -16,16 +16,8 @@
     </p>
     <div v-else-if="state === CheckinState.LOADED">
       <b-form @submit="handleSubmit">
-        <b-card v-if="place" class="mb-4">
-          <h2>{{ place.organization.name }}</h2>
-          <h2>
-            <b>{{ place.name }}</b>
-          </h2>
-          <h5>
-            {{ place.description }}
-          </h5>
-        </b-card>
-        <b-card class="mb-2">
+        <PlaceView :data="place" />
+        <b-card class="my-3">
           <b-form-group
             v-if="$store.getters['session/email'] !== null"
             :label="$t('email')"
@@ -147,6 +139,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
+import PlaceView from '../components/PlaceView.vue'
 
 enum CheckinState {
   SCANNING,
@@ -158,7 +151,11 @@ enum CheckinState {
   FINISH,
 }
 
-@Component({})
+@Component({
+  components: {
+    PlaceView,
+  },
+})
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null

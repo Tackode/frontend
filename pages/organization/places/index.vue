@@ -1,122 +1,127 @@
 <template>
   <div class="wrapped-container center medium my-3">
-    <h2>{{ $t('place') }}</h2>
-
-    <BigActionButton
-      v-b-modal.place-creation-modal
-      @click="PlacetoCreate()"
-      class="mb-3"
-      :title="$t('cplace')"
-      :subtitle="$t('subtitle')"
-    />
-
-    <b-table
-      v-if="places.length > 0"
-      striped
-      hover
-      :fields="fields"
-      :items="places"
-    >
-      <template v-slot:cell(place_name)="data">
-        {{ data.item.name }}
-      </template>
-
-      <template v-slot:cell(average_duration)="data">
-        {{ data.item.averageDuration }} minutes
-      </template>
-
-      <template v-slot:cell(action)="data">
-        <nuxt-link
-          :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
-        >
-          {{ $t('showqr') }}
-        </nuxt-link>
-      </template>
-      <template v-slot:cell(modify)="data">
-        <b-button
-          v-b-modal.place-creation-modal
-          variant="outline-secondary"
-          class="mb-2"
-          @click="
-            PlacetoModify(
-              data.item.id,
-              data.item.name,
-              data.item.description,
-              data.item.averageDuration
-            )
-          "
-        >
-          <b-icon icon="pencil"></b-icon>
-        </b-button>
-      </template>
-
-      <template v-slot:cell(delete)="data">
-        <b-button
-          v-b-modal.place-delete-modal
-          variant="outline-secondary"
-          class="mb-2"
-          @click="place = data.item.id"
-        >
-          <b-icon icon="trash"></b-icon>
-        </b-button>
-      </template>
-    </b-table>
-    <p v-else>
-      {{ $t('noplace') }}
+    <p v-if="state === PlaceState.LOADING">
+      {{ $t('wait') }}
     </p>
+    <div v-else-if="state === PlaceState.LOADED">
+      <h2>{{ $t('place') }}</h2>
 
-    <b-modal
-      id="place-creation-modal"
-      :title="$t(FormTitle())"
-      :ok-title="placeFormMode ? $t('modif') : $t('create')"
-      :cancel-title="$t('cancel')"
-      @ok="handleModalOk"
-      @hidden="resetModal"
-    >
-      <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
-        <b-form-group :label="$t('name')" label-for="place-name">
-          <b-form-input
-            id="place-name"
-            v-model="placeFormValues.name"
-            required
-            :placeholder="$t('nom')"
-          ></b-form-input>
-        </b-form-group>
+      <BigActionButton
+        v-b-modal.place-creation-modal
+        @click="PlacetoCreate()"
+        class="mb-3"
+        :title="$t('cplace')"
+        :subtitle="$t('subtitle')"
+      />
 
-        <b-form-group
-          :label="$t('duration')"
-          label-for="place-average-duration"
-        >
-          <b-form-input
-            id="place-average-duration"
-            v-model="placeFormValues.averageDuration"
-            number
-            required
-            :placeholder="$t('dur')"
-          ></b-form-input>
-        </b-form-group>
+      <b-table
+        v-if="places.length > 0"
+        striped
+        hover
+        :fields="fields"
+        :items="places"
+      >
+        <template v-slot:cell(place_name)="data">
+          {{ data.item.name }}
+        </template>
 
-        <b-form-group label="Description" label-for="place-description">
-          <b-form-textarea
-            id="place-description"
-            v-model="placeFormValues.description"
-            placeholder="Description"
-            rows="8"
-          ></b-form-textarea>
-        </b-form-group>
-      </b-form>
-    </b-modal>
+        <template v-slot:cell(average_duration)="data">
+          {{ data.item.averageDuration }} minutes
+        </template>
 
-    <b-modal
-      id="place-delete-modal"
-      :title="$t('sup')"
-      ok-variant="danger"
-      :ok-title="$t('delete')"
-      :cancel-title="$t('cancel')"
-      @ok="deletePlace"
-    >
-      {{ $t('deleteplace') }}
-    </b-modal>
+        <template v-slot:cell(action)="data">
+          <nuxt-link
+            :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
+          >
+            {{ $t('showqr') }}
+          </nuxt-link>
+        </template>
+        <template v-slot:cell(modify)="data">
+          <b-button
+            v-b-modal.place-creation-modal
+            variant="outline-secondary"
+            class="mb-2"
+            @click="
+              PlacetoModify(
+                data.item.id,
+                data.item.name,
+                data.item.description,
+                data.item.averageDuration
+              )
+            "
+          >
+            <b-icon icon="pencil"></b-icon>
+          </b-button>
+        </template>
+
+        <template v-slot:cell(delete)="data">
+          <b-button
+            v-b-modal.place-delete-modal
+            variant="outline-secondary"
+            class="mb-2"
+            @click="place = data.item.id"
+          >
+            <b-icon icon="trash"></b-icon>
+          </b-button>
+        </template>
+      </b-table>
+      <p v-else>
+        {{ $t('noplace') }}
+      </p>
+
+      <b-modal
+        id="place-creation-modal"
+        :title="$t(FormTitle())"
+        :ok-title="placeFormMode ? $t('modif') : $t('create')"
+        :cancel-title="$t('cancel')"
+        @ok="handleModalOk"
+        @hidden="resetModal"
+      >
+        <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
+          <b-form-group :label="$t('name')" label-for="place-name">
+            <b-form-input
+              id="place-name"
+              v-model="placeFormValues.name"
+              required
+              :placeholder="$t('nom')"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            :label="$t('duration')"
+            label-for="place-average-duration"
+          >
+            <b-form-input
+              id="place-average-duration"
+              v-model="placeFormValues.averageDuration"
+              number
+              required
+              :placeholder="$t('dur')"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group label="Description" label-for="place-description">
+            <b-form-textarea
+              id="place-description"
+              v-model="placeFormValues.description"
+              placeholder="Description"
+              rows="8"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-form>
+      </b-modal>
+
+      <b-modal
+        id="place-delete-modal"
+        :title="$t('sup')"
+        ok-variant="danger"
+        :ok-title="$t('delete')"
+        :cancel-title="$t('cancel')"
+        @ok="deletePlace"
+      >
+        {{ $t('deleteplace') }}
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -125,6 +130,7 @@
   "en": {
     "place":"Your Places",
     "cplace":"Add a new place open to the public",
+    "nex":"This place does not exist.",
     "noplace":"You don't have any places for now. Please, create a place to begin.",
     "showqr":"Show QRCode",
     "name":"Name*",
@@ -146,6 +152,7 @@
   },
   "fr": {
     "place":"Vos Adresses",
+    "nex":"Ce lieu n'existe plus.",
     "cplace":"Ajoutez un nouveau lieu ouvert au public",
     "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
     "showqr":"Afficher QRCode",
@@ -175,6 +182,11 @@ import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'
 
+enum PlaceState {
+  LOADING,
+  LOADED,
+}
+
 interface PlaceFormValues {
   name: string
   description: string | null
@@ -199,14 +211,18 @@ export default class ProfessionalPlaces extends Vue {
   place: string = ''
   placeFormMode: Boolean = false
   selectedUser: Place | null = null
+  state: PlaceState = PlaceState.LOADING
   placeFormValues: PlaceFormValues = {
     name: '',
     description: null,
     averageDuration: 30,
   }
 
+  PlaceState = PlaceState
+
   mounted() {
     this.loadData()
+    this.state = PlaceState.LOADED
   }
 
   async loadData() {

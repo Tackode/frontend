@@ -1,35 +1,48 @@
 <template>
   <div class="wrapped-container medium center my-3">
-    <nuxt-link
-      class="no-print"
-      :to="'/' + $i18n.locale + '/organization/places/'"
-    >
-      {{ $t('back') }}
-    </nuxt-link>
+    <p v-if="state === PlaceState.LOADING">
+      {{ $t('wait') }}
+    </p>
+    <p v-else-if="state === PlaceState.NOTFOUND">
+      {{ $t('nex') }}
+    </p>
+    <div v-else-if="state === PlaceState.LOADED">
+      <nuxt-link
+        class="no-print"
+        :to="'/' + $i18n.locale + '/organization/places/'"
+      >
+        {{ $t('back') }}
+      </nuxt-link>
 
-    <b-button class="no-print my-3" @click="PrintPage" variant="primary" block>
-      {{ $t('print') }}
-    </b-button>
+      <b-button
+        class="no-print my-3"
+        @click="PrintPage"
+        variant="primary"
+        block
+      >
+        {{ $t('print') }}
+      </b-button>
 
-    <template v-if="place">
-      <PlaceView :data="place" />
+      <template v-if="place">
+        <PlaceView :data="place" />
 
-      <qrcode
-        class="align-self-center"
-        :value="qrCodeUrl"
-        :options="{ width: 400 }"
-      ></qrcode>
+        <qrcode
+          class="align-self-center"
+          :value="qrCodeUrl"
+          :options="{ width: 400 }"
+        ></qrcode>
 
-      <p class="info">{{ $t('flash') }}</p>
+        <p class="info">{{ $t('flash') }}</p>
 
-      <div class="footer">
-        <img
-          :alt="$t('covidjournal')"
-          class="img-fluid logo"
-          src="~/assets/images/logo-covid-journal-print.png"
-        />
-      </div>
-    </template>
+        <div class="footer">
+          <img
+            :alt="$t('covidjournal')"
+            class="img-fluid logo"
+            src="~/assets/images/logo-covid-journal-print.png"
+          />
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -38,12 +51,17 @@
   "en": {
     "back":"Back",
     "print":"Print the page",
-    "flash":"Flash this QR Code to be informed of an infection"
+    "flash":"Flash this QR Code to be informed of an infection",
+    "nex":"This place does not exist.",
+    "wait":"Loading. Please wait..."
+
   },
   "fr": {
     "back":"Retour",
     "print":"Imprimer",
-    "flash":"Flashez le QR Code pour être informé d'une infection"
+    "flash":"Flashez le QR Code pour être informé d'une infection",
+    "nex":"Ce lieu n'existe plus.",
+    "wait":"Chargement en cours..."
   }
 }
 </i18n>
@@ -51,9 +69,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 import PlaceView from '../../../components/PlaceView.vue'
+
+enum PlaceState {
+  LOADING,
+  LOADED,
+  NOTFOUND,
+}
 
 @Component({
   components: {
@@ -66,6 +89,8 @@ export default class PlaceDetail extends Vue {
   name: string | null = null
   description: string | null = null
   organization: string | null = null
+  state: PlaceState = PlaceState.LOADING
+  PlaceState = PlaceState
 
   mounted() {
     this.placeId = this.$route.params.id
@@ -80,12 +105,9 @@ export default class PlaceDetail extends Vue {
           password: this.$store.getters['session/token'],
         },
       })
+      this.state = PlaceState.LOADED
     } catch (error) {
-      showError(
-        this.$bvToast,
-        'Connexion',
-        new Error('A network error has occurred. Please, try again.')
-      )
+      this.state = PlaceState.NOTFOUND
     }
     this.organization = `${this.place?.organization?.name}`
     this.name = `${this.place?.name}`

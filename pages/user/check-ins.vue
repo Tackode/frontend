@@ -31,7 +31,7 @@
         </b-table>
       </div>
 
-      <h2 style="margin-top: 0.5em;">
+      <h2 class="my-2">
         {{ $t('my-check-ins') }}
       </h2>
       <b-table
