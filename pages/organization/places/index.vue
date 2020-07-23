@@ -17,7 +17,10 @@
       <b-table
         v-if="places.length > 0"
         striped
+        bordered
         hover
+        head-variant="dark"
+        variant="light"
         :fields="fields"
         :items="places"
       >
@@ -29,14 +32,14 @@
           {{ data.item.averageDuration }} minutes
         </template>
 
-        <template v-slot:cell(action)="data">
+        <template v-slot:cell(qr_code)="data">
           <nuxt-link
             :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
           >
             {{ $t('showqr') }}
           </nuxt-link>
         </template>
-        <template v-slot:cell(modify)="data">
+        <template v-slot:cell(actions)="data">
           <b-button
             v-b-modal.place-creation-modal
             variant="outline-secondary"
@@ -52,9 +55,7 @@
           >
             <b-icon icon="pencil"></b-icon>
           </b-button>
-        </template>
 
-        <template v-slot:cell(delete)="data">
           <b-button
             v-b-modal.place-delete-modal
             variant="outline-secondary"
@@ -147,9 +148,9 @@
     "pla":"Place Name",
     "dur":"Average Duration",
     "delete":"Delete",
-    "action":"Action",
+    "qr-code":"QR Code",
+    "actions": "Actions",
     "subtitle":"Generate a QR Code for this new place"
-
   },
   "fr": {
     "place":"Vos Adresses",
@@ -171,7 +172,8 @@
     "pla":"Nom du lieu",
     "dur":"Durée moyenne sur place",
     "delete":"Supprimer",
-    "action":"QR Code",
+    "qr-code":"QR Code",
+    "actions": "Actions",
     "subtitle":"Générez un QR Code pour ce nouveau lieu"
   }
 }
@@ -204,9 +206,8 @@ export default class ProfessionalPlaces extends Vue {
   fields = [
     { key: 'place_name', label: this.tr('pla') },
     { key: 'average_duration', label: this.tr('dur') },
-    { key: 'action', label: this.tr('action') },
-    { key: 'modify', label: this.tr('modif') },
-    { key: 'delete', label: this.tr('delete') },
+    { key: 'qr_code', label: this.tr('qr-code') },
+    { key: 'actions', label: this.tr('actions') },
   ]
 
   places: Place[] = []

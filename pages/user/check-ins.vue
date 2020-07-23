@@ -5,7 +5,15 @@
     <div v-if="infectedcheckins.length > 0">
       <h2>{{ $t('potential-contacts-with-infected') }}</h2>
 
-      <b-table striped hover :fields="fields" :items="infectedcheckins">
+      <b-table
+        striped
+        bordered
+        hover
+        head-variant="dark"
+        variant="light"
+        :fields="fields"
+        :items="infectedcheckins"
+      >
         <template v-slot:cell(organization)="data">
           <div class="red">{{ data.item.place.organization.name }}</div>
         </template>
@@ -39,7 +47,10 @@
     <b-table
       v-if="checkins.length > 0"
       striped
+      bordered
       hover
+      head-variant="dark"
+      variant="light"
       :fields="fields"
       :items="checkins"
     >

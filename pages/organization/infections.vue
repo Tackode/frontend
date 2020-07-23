@@ -15,7 +15,10 @@
     <b-table
       v-if="infections.length > 0"
       striped
+      bordered
       hover
+      head-variant="dark"
+      variant="light"
       :fields="fields"
       :items="infections"
     >
