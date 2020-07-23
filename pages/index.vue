@@ -27,7 +27,7 @@
       >
     </p>
 
-    <div class="wrapped-container medium mb-3">
+    <div class="wrapped-container c-medium mb-3">
       <h2>{{ $t('checkin') }}</h2>
       <BigActionButton
         :title="$t('register')"

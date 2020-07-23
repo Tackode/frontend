@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container small center my-3">
+  <div class="wrapped-container c-small c-center my-3">
     <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
     <template v-else-if="state === ProfileState.LOADED">
       <h2>{{ $t('my-profile') }}</h2>

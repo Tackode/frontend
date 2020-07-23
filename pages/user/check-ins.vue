@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container center medium my-3">
+  <div class="wrapped-container c-center c-medium my-3">
     <h1 class="sr-only">{{ $t('all-check-ins') }}</h1>
     <div v-if="checkins.length > 0" class="wrapped-container container">
       <div v-if="infectedcheckins.length > 0">

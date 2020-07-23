@@ -26,16 +26,17 @@ h2 {
     overflow: auto;
 
     .wrapped-container {
+      width: 100%;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      flex: auto;
       padding-right: 15px;
       padding-left: 15px;
+      text-align: center;
+      flex: auto;
+      flex-direction: column;
+      justify-content: center;
+      display: flex;
 
-      &.medium {
+      &.c-medium {
         max-width: 800px;
 
         @media print {
@@ -45,11 +46,11 @@ h2 {
         }
       }
 
-      &.small {
+      &.c-small {
         max-width: 350px;
       }
 
-      &.center {
+      &.c-center {
         align-self: center;
       }
     }

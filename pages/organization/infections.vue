@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container center medium my-3">
+  <div class="wrapped-container c-center c-medium my-3">
     <h2>{{ $t('infec') }}</h2>
 
     <BigActionButton

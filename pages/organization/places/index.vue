@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container center medium my-3">
+  <div class="wrapped-container c-center c-medium my-3">
     <p v-if="state === PlaceState.LOADING">
       {{ $t('wait') }}
     </p>
