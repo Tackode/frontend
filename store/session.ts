@@ -25,6 +25,10 @@ const actions = {
     }
   },
 
+  sendLocalEmail({ commit }: any, email: string) {
+    commit('SET_LOCAL_EMAIL', email)
+  },
+
   setLocalEmail({ commit, state }: any, email: string) {
     if (state.localEmail !== email) {
       commit('SET_LOGIN', null)

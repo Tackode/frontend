@@ -6,6 +6,7 @@
       <div v-if="profile">
         <b-form @submit="handleAddEmail">
           <b-form-group
+            v-if="$store.getters['session/localEmail'] !== null"
             id="form-email"
             :label="$t('email')"
             label-for="form-email"
@@ -15,6 +16,20 @@
               v-model="email"
               type="email"
               readonly
+              :placeholder="$t('email-placeholder')"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            v-else
+            id="form-email"
+            :label="$t('email')"
+            label-for="form-email"
+          >
+            <b-form-input
+              id="form-email"
+              v-model="email"
+              type="email"
               :placeholder="$t('email-placeholder')"
             ></b-form-input>
           </b-form-group>
@@ -128,6 +143,13 @@ export default class ProfilePage extends Vue {
   ProfileState = ProfileState
 
   async mounted() {
+    if (
+      !this.$store.getters['session/localEmail'] &&
+      this.$store.getters['session/email']
+    ) {
+      this.email = this.$store.getters['session/email']
+      this.$store.dispatch('session/sendLocalEmail', this.email)
+    }
     this.role = this.$store.getters['session/role']
 
     try {

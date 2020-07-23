@@ -19,7 +19,7 @@
       <b-card class="my-3">
         <b-form @submit="handleSubmit">
           <b-form-group
-            v-if="$store.getters['session/email'] !== null"
+            v-if="$store.getters['session/localEmail'] !== null"
             :label="$t('email')"
             label-for="login-email"
             :description="$t('nevershare')"
@@ -174,6 +174,13 @@ export default class CheckIn extends Vue {
   async mounted() {
     const placeId = this.$route.query.placeId
 
+    if (
+      !this.$store.getters['session/localEmail'] &&
+      this.$store.getters['session/email']
+    ) {
+      this.email = this.$store.getters['session/email']
+      this.$store.dispatch('session/sendLocalEmail', this.email)
+    }
     if (!placeId) {
       this.state = CheckinState.SCANNING
 
