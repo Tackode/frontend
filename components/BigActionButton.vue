@@ -6,7 +6,7 @@
           :src="require(`@/assets/images/${image}.png`)"
           :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
                 ${require(`@/assets/images/${image}@2x.png`)} 2x`"
-          class="mr-3 d-none d-md-block"
+          class="btn-icon mr-3 d-none d-md-block"
         />
       </template>
       <h5 class="mt-0">
@@ -37,3 +37,13 @@ const BigButtonProps = Vue.extend({
 @Component
 export default class BigActionButton extends BigButtonProps {}
 </script>
+
+<style lang="scss">
+.btn-icon {
+  max-width: 80px;
+}
+
+.hoverable-card a {
+  color: rgb(33, 37, 41);
+}
+</style>

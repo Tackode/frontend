@@ -12,6 +12,7 @@
         class="mb-3"
         :title="$t('cplace')"
         :subtitle="$t('subtitle')"
+        image="place"
       />
 
       <b-table

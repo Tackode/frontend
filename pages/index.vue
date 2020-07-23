@@ -44,11 +44,13 @@
           class="mb-3"
           :title="$t('prolog')"
           :subtitle="$t('Intro')"
+          image="pro"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
         <BigActionButton
           :title="$t('userlog')"
           :subtitle="$t('places')"
+          image="perso"
           :url="'/' + $i18n.locale + '/login'"
         />
       </template>

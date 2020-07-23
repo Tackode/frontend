@@ -8,6 +8,7 @@
       class="mb-3"
       :title="$t('potinf')"
       :subtitle="$t('subtitle')"
+      image="infection"
     />
 
     <p v-else>{{ $t('nopinf') }}</p>
