@@ -165,6 +165,7 @@ export default class CheckIn extends Vue {
   storeEmail = true
   retry: string = ''
 
+  // Bind enum for Vue
   CheckinState = CheckinState
 
   async mounted() {

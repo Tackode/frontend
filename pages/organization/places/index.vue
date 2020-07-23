@@ -218,6 +218,7 @@ export default class ProfessionalPlaces extends Vue {
     averageDuration: 30,
   }
 
+  // Bind enum for Vue
   PlaceState = PlaceState
 
   mounted() {

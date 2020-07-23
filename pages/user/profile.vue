@@ -123,6 +123,8 @@ export default class ProfilePage extends Vue {
   profile: Profile | null = null
   saveEmail = false
   email: string = this.$store.getters['session/localEmail']
+
+  // Bind enum for Vue
   ProfileState = ProfileState
 
   async mounted() {

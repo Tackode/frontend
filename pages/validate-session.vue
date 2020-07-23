@@ -36,8 +36,11 @@ enum ValidateState {
 @Component({})
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
-  ValidateState = ValidateState
   i18n = new VueI18n({})
+
+  // Bind enum for Vue
+  ValidateState = ValidateState
+
   async mounted() {
     // Retrieve device & session
     const sessionId = this.$route.query.sessionId

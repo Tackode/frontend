@@ -99,6 +99,8 @@ export default class PlaceDetail extends Vue {
   description: string | null = null
   organization: string | null = null
   state: PlaceState = PlaceState.LOADING
+
+  // Bind enum for Vue
   PlaceState = PlaceState
 
   mounted() {
