@@ -2,11 +2,7 @@
   <div class="wrapped-container c-medium c-center my-3">
     <div v-if="state === CheckinState.SCANNING">
       <h2>{{ $t('scan') }}</h2>
-      <br />
-      <qrcode-stream @decode="onDecode" @init="onInit" />
-
-      <br />
-      {{ $t('sca') }}
+      <qrcode-stream class="full-screen" @decode="onDecode" @init="onInit" />
     </div>
     <p v-else-if="state === CheckinState.LOADING">
       {{ $t('wait') }}
@@ -101,7 +97,6 @@
     "emai":"Enter your email",
     "scan":"Scan a QR Code",
     "scanimpossible":"Scan Impossible",
-    "sca":"Scanning",
     "retrydevice":"Retry with a compatible device",
     "retryop":"Please allow the use of the camera and retry",
     "nocam":"You have no camera on this device",
@@ -127,7 +122,6 @@
     "emai":"Entrer votre mail",
     "scan":"Scanner un QR Code",
     "scanimpossible":"Scan Impossible",
-    "sca":"Scan en cours",
     "retrydevice":"Reéssayer avec un appareil compatible",
     "retryop":"Veuillez autoriser l'accès à la caméra puis réessayer",
     "nocam":"Vous n'avez pas de caméra sur cet appareil",
