@@ -358,7 +358,7 @@ export default class ProfessionalPlaces extends Vue {
   }
 
   get placeFormTitle(): string {
-    return this.placeFormMode ? 'modifyPlace' : 'createPlace'
+    return this.isPlaceFormEditionMode ? 'modifyPlace' : 'createPlace'
   }
 }
 </script>
