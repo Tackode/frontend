@@ -8,7 +8,6 @@
 
       <BigActionButton
         v-b-modal.place-creation-modal
-        @click="PlacetoCreate()"
         class="mb-3"
         :title="$t('cplace')"
         :subtitle="$t('subtitle')"
@@ -46,7 +45,7 @@
             variant="outline-secondary"
             class="mb-2"
             @click="
-              PlacetoModify(
+              prepacePlaceFormEdition(
                 data.item.id,
                 data.item.name,
                 data.item.description,
@@ -73,7 +72,7 @@
 
       <b-modal
         id="place-creation-modal"
-        :title="$t(FormTitle())"
+        :title="$t(placeFormTitle)"
         :ok-title="placeFormMode ? $t('modif') : $t('create')"
         :cancel-title="$t('cancel')"
         @ok="handleModalOk"
@@ -211,10 +210,10 @@ interface PlaceFormValues {
 })
 export default class ProfessionalPlaces extends Vue {
   fields = [
-    { key: 'place_name', label: this.tr('pla') },
-    { key: 'average_duration', label: this.tr('dur') },
-    { key: 'qr_code', label: this.tr('qr-code') },
-    { key: 'actions', label: this.tr('actions') },
+    { key: 'place_name', label: this.translate('pla') },
+    { key: 'average_duration', label: this.translate('dur') },
+    { key: 'qr_code', label: this.translate('qr-code') },
+    { key: 'actions', label: this.translate('actions') },
   ]
 
   places: Place[] = []
@@ -348,7 +347,11 @@ export default class ProfessionalPlaces extends Vue {
     this.loadData()
   }
 
-  PlacetoModify(
+  translate(index: string) {
+    return this.$i18n.t(index)
+  }
+
+  prepacePlaceFormEdition(
     id: string,
     name: string,
     description: string,
@@ -361,24 +364,8 @@ export default class ProfessionalPlaces extends Vue {
     this.placeFormValues.averageDuration = averageDuration
   }
 
-  tr(ind: string) {
-    return this.$i18n.t(ind)
-  }
-
-  PlacetoCreate() {
-    this.placeFormMode = false
-    this.place = ''
-    this.placeFormValues.name = ''
-    this.placeFormValues.description = ''
-    this.placeFormValues.averageDuration = 30
-  }
-
-  FormTitle() {
-    if (this.placeFormMode) {
-      return 'modifyplace'
-    } else {
-      return 'crea'
-    }
+  get placeFormTitle(): string {
+    return this.placeFormMode ? 'modifyplace' : 'crea'
   }
 }
 </script>
