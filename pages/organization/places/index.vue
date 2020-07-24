@@ -73,10 +73,10 @@
       <b-modal
         id="place-creation-modal"
         :title="$t(placeFormTitle)"
-        :ok-title="placeFormMode ? $t('modif') : $t('create')"
+        :ok-title="isPlaceFormEditionMode ? $t('modif') : $t('create')"
         :cancel-title="$t('cancel')"
         @ok="handleModalOk"
-        @hidden="resetModal"
+        @hidden="prepacePlaceFormCreation"
       >
         <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
           <b-form-group :label="$t('name')" label-for="place-name">
@@ -156,7 +156,7 @@
     "Place":"Place"
   },
   "fr": {
-    "place":"Vos Adresses",
+    "place":"Vos lieux",
     "wait": "Chargement en cours...",
     "nex":"Ce lieu n'existe plus.",
     "cplace":"Ajoutez un nouveau lieu ouvert au public",
@@ -167,7 +167,7 @@
     "nom":"Nom",
     "modif":"Modifier",
     "cancel":"Annuler",
-    "create":"Créer le lieu",
+    "create":"Créer",
     "sup":"Supprimer le lieu",
     "modifyplace":"Modification du lieu",
     "deleteplace":"Voulez-vous vraiment supprimer ce lieu ?",
@@ -218,7 +218,7 @@ export default class ProfessionalPlaces extends Vue {
 
   places: Place[] = []
   place: string = ''
-  placeFormMode: Boolean = false
+  isPlaceFormEditionMode: Boolean = false
   selectedUser: Place | null = null
   state: PlaceState = PlaceState.LOADING
   placeFormValues: PlaceFormValues = {
@@ -291,7 +291,7 @@ export default class ProfessionalPlaces extends Vue {
     }
 
     try {
-      if (this.placeFormMode) {
+      if (this.isPlaceFormEditionMode) {
         await this.$axios.$put(
           '/place/' + this.place,
           this.placeFormValues,
@@ -351,13 +351,18 @@ export default class ProfessionalPlaces extends Vue {
     return this.$i18n.t(index)
   }
 
+  prepacePlaceFormCreation() {
+    this.isPlaceFormEditionMode = false
+    this.resetModal()
+  }
+
   prepacePlaceFormEdition(
     id: string,
     name: string,
     description: string,
     averageDuration: number
   ) {
-    this.placeFormMode = true
+    this.isPlaceFormEditionMode = true
     this.place = id
     this.placeFormValues.name = name
     this.placeFormValues.description = description
@@ -365,7 +370,7 @@ export default class ProfessionalPlaces extends Vue {
   }
 
   get placeFormTitle(): string {
-    return this.placeFormMode ? 'modifyplace' : 'crea'
+    return this.isPlaceFormEditionMode ? 'modifyplace' : 'crea'
   }
 }
 </script>
