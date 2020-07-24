@@ -28,7 +28,7 @@
               v-model="email"
               type="email"
               readonly
-              :placeholder="$t('emai')"
+              :placeholder="$t('enterEmail')"
             ></b-form-input>
           </b-form-group>
 
@@ -43,7 +43,7 @@
               v-model="email"
               type="email"
               required
-              :placeholder="$t('emai')"
+              :placeholder="$t('enterEmail')"
             ></b-form-input>
           </b-form-group>
 
@@ -60,13 +60,13 @@
           <p>{{ $t('stay') }} {{ duration }} {{ $t('reconnect') }}</p>
 
           <b-button type="submit" variant="primary" block>
-            {{ $t('sub') }}
+            {{ $t('submit') }}
           </b-button>
         </b-form>
       </b-card>
     </div>
     <p v-else-if="state === CheckinState.CHECKMAIL">
-      {{ $t('ema') }}
+      {{ $t('emailMailbox') }}
     </p>
     <div v-else-if="state === CheckinState.ERROR">
       <h2>{{ $t('scanImpossible') }}</h2>
@@ -89,12 +89,12 @@
     "stay":"If you stay more than",
     "reconnect":"minutes, please, recheckin.",
     "wait":"Loading. Please wait...",
-    "ema":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
+    "emailMailbox":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
     "neverShare":"We'll never share your email with anyone else.",
     "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
-    "sub":"Do a Checkin-In",
+    "submit":"Do a Checkin-In",
     "email":"Email address*",
-    "emai":"Enter your email",
+    "enterEmail":"Enter your email",
     "scan":"Scan a QR Code",
     "scanImpossible":"Scan Impossible",
     "retryDevice":"Retry with a compatible device",
@@ -114,12 +114,12 @@
     "stay":"Si vous restez plus de",
     "reconnect":"minutes, veuillez vous réenregistrer.",
     "wait":"Chargement en cours...",
-    "ema":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
+    "emailMailbox":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
     "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
-    "sub":"Valider le Check-In",
+    "submit":"Valider le Check-In",
     "email":"Adresse mail*",
-    "emai":"Entrer votre mail",
+    "enterEmail":"Entrer votre mail",
     "scan":"Scanner un QR Code",
     "scanImpossible":"Scan Impossible",
     "retryDevice":"Reéssayer avec un appareil compatible",

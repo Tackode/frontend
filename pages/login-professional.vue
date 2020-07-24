@@ -2,7 +2,7 @@
   <div class="wrapped-container c-small c-center my-3">
     <b-form v-if="state === LoginState.IDLE" @submit="handleSubmit">
       <b-form-group
-        :label="$t('add')"
+        :label="$t('email')"
         label-for="login-email"
         :description="$t('neverShare')"
       >
@@ -11,7 +11,7 @@
           v-model="email"
           type="email"
           required
-          :placeholder="$t('email')"
+          :placeholder="$t('enterEmail')"
         ></b-form-input>
       </b-form-group>
 
@@ -43,8 +43,8 @@
     "emailSent":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
     "log":"Login",
     "neverShare":"We'll never share your email with anyone else.",
-    "email":"Enter your email",
-    "add":"Email address",
+    "enterEmail":"Enter your email",
+    "email":"Email Address",
     "organizationName":"Organization name",
     "enterOrganizationName":"Enter your organization name",
     "networkError":"A network error has occurred. Please, try again."
@@ -55,8 +55,8 @@
     "emailSent":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
     "neverShare":"Nous ne partagerons pas votre email.",
-    "email":"Entrez votre adresse",
-    "add":"Adresse mail",
+    "enterEmail":"Entrez votre adresse",
+    "email":"Adresse mail",
     "organizationName":"Nom d'entreprise",
     "enterOrganizationName":"Nom de votre entreprise",
     "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."

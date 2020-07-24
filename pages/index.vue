@@ -45,7 +45,7 @@
         <h2>{{ $t('log') }}</h2>
         <BigActionButton
           class="mb-3"
-          :title="$t('prolog')"
+          :title="$t('proLog')"
           :subtitle="$t('introduction')"
           image="pro"
           :url="'/' + $i18n.locale + '/login-professional'"
@@ -73,7 +73,7 @@
     "logout":"Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
-    "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors",
+    "proLog":"You welcome the public and you want to offer Covid-Journal to your visitors",
     "userLog":"You want to know if you have crossed an infected person",
     "places":"Manage your places and your profile"
   },
@@ -87,7 +87,7 @@
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "prolog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "proLog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
     "userLog":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
     "places":"Gérez vos lieux de passages et votre profil."
   }

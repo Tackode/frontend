@@ -9,7 +9,7 @@
       <BigActionButton
         v-b-modal.place-creation-modal
         class="mb-3"
-        :title="$t('cPlace')"
+        :title="$t('addPlace')"
         :subtitle="$t('subtitle')"
         image="place"
       />
@@ -36,7 +36,7 @@
           <nuxt-link
             :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
           >
-            {{ $t('showqr') }}
+            {{ $t('showQR') }}
           </nuxt-link>
         </template>
         <template v-slot:cell(actions)="data">
@@ -73,7 +73,7 @@
       <b-modal
         id="place-creation-modal"
         :title="$t(placeFormTitle)"
-        :ok-title="isPlaceFormEditionMode ? $t('modif') : $t('create')"
+        :ok-title="isPlaceFormEditionMode ? $t('modify') : $t('create')"
         :cancel-title="$t('cancel')"
         @ok="handleModalOk"
         @hidden="prepacePlaceFormCreation"
@@ -131,14 +131,13 @@
   "en": {
     "place":"Your Places",
     "wait": "Loading. Please wait...",
-    "cPlace":"Add a new place open to the public",
-    "nex":"This place does not exist.",
+    "addPlace":"Add a new place open to the public",
     "noPlace":"You don't have any places for now. Please, create a place to begin.",
-    "showqr":"Show QRCode",
+    "showQR":"Show QRCode",
     "nameMandatory":"Name*",
     "duration":"Average duration of the stay in minutes*",
     "name":"Nom",
-    "modif":"Modify",
+    "modify":"Modify",
     "cancel":"Cancel",
     "create":"Create place",
     "deletePlace":"Delete Place",
@@ -158,14 +157,13 @@
   "fr": {
     "place":"Vos lieux",
     "wait": "Chargement en cours...",
-    "nex":"Ce lieu n'existe plus.",
-    "cPlace":"Ajoutez un nouveau lieu ouvert au public",
+    "addPlace":"Ajoutez un nouveau lieu ouvert au public",
     "noPlace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
-    "showqr":"Afficher QRCode",
+    "showQR":"Afficher QRCode",
     "nameMandatory":"Nom*",
     "duration":"Durée moyenne de visite en minutes*",
     "name":"Nom",
-    "modif":"Modifier",
+    "modify":"Modifier",
     "cancel":"Annuler",
     "create":"Créer le lieu",
     "deletePlace":"Supprimer le lieu",
