@@ -45,7 +45,7 @@
 
         <div class="footer">
           <img
-            :alt="$t('covidjournal')"
+            alt="Covid Journal"
             class="img-fluid logo"
             src="~/assets/images/logo-covid-journal-print.png"
           />

@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div class="title">
-      <h1 class="d-none">{{ $t('covidjournal') }}</h1>
+      <h1 class="sr-only">{{ $t('covidjournal') }}</h1>
       <img
-        :alt="$t('covidjournal')"
+        alt="Covid Journal"
         class="img-fluid logo"
         src="~/assets/images/logo-covid-journal-big.png"
         srcset="
@@ -18,17 +18,20 @@
       Photo by
       <a
         href="https://unsplash.com/@jonwaits?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
-        >Jonathan Nguyen</a
       >
+        Jonathan Nguyen
+      </a>
       on
       <a
         href="https://unsplash.com/s/photos/covid-restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
-        >Unsplash</a
       >
+        Unsplash
+      </a>
     </p>
 
     <div class="wrapped-container c-medium mb-3">
       <h2>{{ $t('checkin') }}</h2>
+
       <BigActionButton
         :title="$t('register')"
         :subtitle="$t('scan')"
@@ -64,7 +67,7 @@
     "register":"Register a place to be notified when an infection is reported",
     "Intro":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
-    "covidjournal": "Covid-Journal",
+    "covidjournal": "Welcome to Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people.",
     "log": "Loggin In",
     "logout":"Log Out",
