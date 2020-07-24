@@ -127,7 +127,7 @@ export default class Home extends Vue {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  padding: 15px;
 
   .logo {
     max-width: 500px;
