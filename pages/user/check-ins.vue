@@ -1,9 +1,9 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
-    <h1 class="sr-only">{{ $t('my-check-ins') }}</h1>
+    <h1 class="sr-only">{{ $t('myCheckIns') }}</h1>
 
     <div v-if="infectedcheckins.length > 0">
-      <h2>{{ $t('potential-contacts-with-infected') }}</h2>
+      <h2>{{ $t('potentialContactsWithInfected') }}</h2>
 
       <b-table
         striped
@@ -34,7 +34,7 @@
       </b-table>
     </div>
 
-    <h2>{{ $t('my-check-ins') }}</h2>
+    <h2>{{ $t('myCheckIns') }}</h2>
 
     <BigActionButton
       class="mb-3"
@@ -72,7 +72,7 @@
     </b-table>
 
     <p v-else>
-      {{ $t('no-check-in') }}
+      {{ $t('noCheckIn') }}
     </p>
   </div>
 </template>
@@ -82,26 +82,26 @@
   "en": {
     "register":"Register a place to be notified when an infection is reported",
     "scan" : "Scan the QR Code of the place where you are",
-    "all-check-ins": "All Check-ins",
-    "potential-contacts-with-infected": "Potential contacts with infected people",
-    "my-check-ins": "My Check-ins",
+    "potentialContactsWithInfected": "Potential contacts with infected people",
+    "myCheckIns": "My Check-ins",
     "place": "Place Name",
     "organization": "Organization",
     "time": "Time",
     "duration": "Duration",
-    "no-check-in": "You don't have any check-in for now."
+    "noCheckIn": "You don't have any check-in for now.",
+    "networkError":"A network error has occurred. Please, try again."
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "all-check-ins": "Tous mes visites",
-    "potential-contacts-with-infected": "Contacts potentiels avec une personne infectée",
-    "my-check-ins": "Mes visites",
+    "potentialContactsWithInfected": "Contacts potentiels avec une personne infectée",
+    "myCheckIns": "Mes visites",
     "organization": "Organisation",
     "place": "Lieu visité",
     "time": "Horaire",
     "duration": "Durée",
-    "no-check-in": "Vous n'avez aucune visite enregistrée pour l'instant."
+    "noCheckIn": "Vous n'avez aucune visite enregistrée pour l'instant.",
+    "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer."
   }
 }
 </i18n>
@@ -141,8 +141,8 @@ export default class CheckIns extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        'Check-In',
+        new Error(this.$i18n.t('networkError') as string)
       )
     }
 

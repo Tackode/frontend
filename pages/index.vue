@@ -46,12 +46,12 @@
         <BigActionButton
           class="mb-3"
           :title="$t('prolog')"
-          :subtitle="$t('Intro')"
+          :subtitle="$t('introduction')"
           image="pro"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
         <BigActionButton
-          :title="$t('userlog')"
+          :title="$t('userLog')"
           :subtitle="$t('places')"
           image="perso"
           :url="'/' + $i18n.locale + '/login'"
@@ -65,7 +65,7 @@
 {
   "en": {
     "register":"Register a place to be notified when an infection is reported",
-    "Intro":"Manage your organization and the corresponding places",
+    "introduction":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
     "covidjournal": "Welcome to Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people.",
@@ -74,21 +74,21 @@
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
     "prolog":"You welcome the public and you want to offer Covid-Journal to your visitors",
-    "userlog":"You want to know if you have crossed an infected person",
+    "userLog":"You want to know if you have crossed an infected person",
     "places":"Manage your places and your profile"
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
-    "Intro":"Gérez votre organisation et les lieux correspondants.",
+    "introduction":"Gérez votre organisation et les lieux correspondants.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
-    "covidjournal": "Bienvenue sur Covid-Journal",
+    "covidJournal": "Bienvenue sur Covid-Journal",
     "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
     "log": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
     "prolog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
-    "userlog":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
+    "userLog":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
     "places":"Gérez vos lieux de passages et votre profil."
   }
 }

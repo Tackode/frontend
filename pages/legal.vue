@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped-container c-medium my-3 legal-notice">
-    <h2>{{ $t('legal-notices') }}</h2>
+    <h2>{{ $t('legalNotices') }}</h2>
     <p>En vigueur au 10/07/2020</p>
     <p>
       Conformément aux dispositions des Articles 6-III et 19 de la Loi
@@ -62,10 +62,10 @@
 <i18n>
 {
   "en": {
-    "legal-notices":"Legal Notices"
+    "legalNotices":"Legal Notices"
   },
   "fr": {
-    "legal-notices":"Mentions légales"
+    "legalNotices":"Mentions légales"
   }
 }
 </i18n>

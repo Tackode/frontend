@@ -4,7 +4,7 @@
       <b-form-group
         :label="$t('add')"
         label-for="login-email"
-        :description="$t('nevershare')"
+        :description="$t('neverShare')"
       >
         <b-form-input
           id="login-email"
@@ -39,7 +39,7 @@
     "wait":"Loading. Please wait...",
     "emai":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
     "log":"Login",
-    "nevershare":"We'll never share your email with anyone else.",
+    "neverShare":"We'll never share your email with anyone else.",
     "email":"Enter your email",
     "add":"Email address",
     "org":"Organization name",
@@ -51,7 +51,7 @@
     "wait":"Chargement en cours...",
     "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
-    "nevershare":"Nous ne partagerons pas votre email.",
+    "neverShare":"Nous ne partagerons pas votre email.",
     "email":"Entrez votre adresse",
     "add":"Adresse mail",
     "org":"Nom d'entreprise",

@@ -8,7 +8,7 @@
       {{ $t('wait') }}
     </p>
     <div v-else-if="state === CheckinState.NOTFOUND">
-      <p>{{ $t('nex') }}</p>
+      <p>{{ $t('notExists') }}</p>
       <nuxt-link class="no-print" :to="'/' + $i18n.locale">
         {{ $t('back') }}
       </nuxt-link>
@@ -21,7 +21,7 @@
             v-if="$store.getters['session/localEmail'] !== null"
             :label="$t('email')"
             label-for="login-email"
-            :description="$t('nevershare')"
+            :description="$t('neverShare')"
           >
             <b-form-input
               id="login-email"
@@ -36,7 +36,7 @@
             v-else
             :label="$t('email')"
             label-for="login-email"
-            :description="$t('nevershare')"
+            :description="$t('neverShare')"
           >
             <b-form-input
               id="login-email"
@@ -57,7 +57,7 @@
             </b-form-checkbox>
           </b-form-group>
 
-          <p>{{ $t('stay') }} {{ duration }} {{ $t('re') }}</p>
+          <p>{{ $t('stay') }} {{ duration }} {{ $t('reconnect') }}</p>
 
           <b-button type="submit" variant="primary" block>
             {{ $t('sub') }}
@@ -69,7 +69,7 @@
       {{ $t('ema') }}
     </p>
     <div v-else-if="state === CheckinState.ERROR">
-      <h2>{{ $t('scanimpossible') }}</h2>
+      <h2>{{ $t('scanImpossible') }}</h2>
       <br />
       <b> {{ $t(error) }}</b>
       <p>{{ $t(retry) }}</p>
@@ -85,53 +85,54 @@
 {
     "en": {
     "back":"Back to home page",
-    "nex":"This place does not exist.",
+    "notExists":"This place does not exist.",
     "stay":"If you stay more than",
-    "re":"minutes, please, recheckin.",
+    "reconnect":"minutes, please, recheckin.",
     "wait":"Loading. Please wait...",
     "ema":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
-    "nevershare":"We'll never share your email with anyone else.",
+    "neverShare":"We'll never share your email with anyone else.",
     "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
     "sub":"Do a Checkin-In",
     "email":"Email address*",
     "emai":"Enter your email",
     "scan":"Scan a QR Code",
-    "scanimpossible":"Scan Impossible",
-    "retrydevice":"Retry with a compatible device",
-    "retryop":"Please allow the use of the camera and retry",
-    "nocam":"You have no camera on this device",
-    "noallow":"You need to grant camera access permisson",
-    "sec":"Secure context required (HTTPS, localhost)",
+    "scanImpossible":"Scan Impossible",
+    "retryDevice":"Retry with a compatible device",
+    "retryOperation":"Please allow the use of the camera and retry",
+    "noCamera":"You have no camera on this device",
+    "notAllowed":"You need to grant camera access permisson",
+    "secureContext":"Secure context required (HTTPS, localhost)",
     "retry":"Please, fix the error and retry",
-    "inuse":"Is the camera already in use?",
-    "over":"Installed cameras are not suitable",
-    "stream":"Stream API is not supported in this browser",
-    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
+    "inUse":"Is the camera already in use?",
+    "notSuitable":"Installed cameras are not suitable",
+    "streamAPINotSupported":"Stream API is not supported in this browser",
+    "networkError":"A network error has occurred. Please, try again."
   },
   "fr": {
     "back":"Retour à la page d'accueil",
-    "nex":"Ce lieu n'existe plus.",
+    "notExists":"Ce lieu n'existe plus.",
     "stay":"Si vous restez plus de",
-    "re":"minutes, veuillez vous réenregistrer.",
+    "reconnect":"minutes, veuillez vous réenregistrer.",
     "wait":"Chargement en cours...",
     "ema":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
-    "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
+    "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
     "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
     "sub":"Valider le Check-In",
     "email":"Adresse mail*",
     "emai":"Entrer votre mail",
     "scan":"Scanner un QR Code",
-    "scanimpossible":"Scan Impossible",
-    "retrydevice":"Reéssayer avec un appareil compatible",
-    "retryop":"Veuillez autoriser l'accès à la caméra puis réessayer",
-    "nocam":"Vous n'avez pas de caméra sur cet appareil",
-    "noallow":"Vous devez permettre l'accès à la caméra pour scanner",
-    "sec":"Contexte sécurisé requis (HTTPS, localhost)",
+    "scanImpossible":"Scan Impossible",
+    "retryDevice":"Reéssayer avec un appareil compatible",
+    "retryOperation":"Veuillez autoriser l'accès à la caméra puis réessayer",
+    "noCamera":"Vous n'avez pas de caméra sur cet appareil",
+    "notAllowed":"Vous devez permettre l'accès à la caméra pour scanner",
+    "secureContext":"Contexte sécurisé requis (HTTPS, localhost)",
     "retry":"Corrigez l'erreur et réessayez",
-    "inuse":"Votre caméra est déjà utilisée ?",
-    "over":"La caméra installée n'est pas compatible",
-    "stream":"La vidéo n'est pas supportée sur votre appareil",
-    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "inUse":"Votre caméra est déjà utilisée ?",
+    "notSuitable":"La caméra installée n'est pas compatible",
+    "streamAPINotSupported":"La vidéo n'est pas supportée sur votre appareil",
+    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+
   }
 }
 </i18n>
@@ -227,11 +228,7 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error(
-            this.$i18n.t(
-              'A network error has occurred. Please, try again.'
-            ) as string
-          )
+          new Error(this.$i18n.t('networkError') as string)
         )
         return
       }
@@ -252,11 +249,7 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error(
-            this.$i18n.t(
-              'A network error has occurred. Please, try again.'
-            ) as string
-          )
+          new Error(this.$i18n.t('networkError') as string)
         )
         return
       }
@@ -275,23 +268,23 @@ export default class CheckIn extends Vue {
     } catch (error) {
       this.state = CheckinState.ERROR
       if (error.name === 'NotAllowedError') {
-        this.error = 'noallow'
-        this.retry = 'retryop'
+        this.error = 'notAllowed'
+        this.retry = 'retryOperation'
       } else if (error.name === 'NotFoundError') {
-        this.error = 'nocam'
-        this.retry = 'retrydevice'
+        this.error = 'noCamera'
+        this.retry = 'retryDevice'
       } else if (error.name === 'NotSupportedError') {
-        this.error = 'sec'
+        this.error = 'secureContext'
         this.retry = 'retry'
       } else if (error.name === 'NotReadableError') {
-        this.error = 'inuse'
+        this.error = 'inUse'
         this.retry = 'retry'
       } else if (error.name === 'OverconstrainedError') {
-        this.error = 'over'
-        this.retry = 'retrydevice'
+        this.error = 'notSuitable'
+        this.retry = 'retryDevice'
       } else if (error.name === 'StreamApiNotSupportedError') {
-        this.error = 'stream'
-        this.retry = 'retrydevice'
+        this.error = 'streamAPINotSupported'
+        this.retry = 'retryDevice'
       }
     }
   }

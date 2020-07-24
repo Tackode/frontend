@@ -1,17 +1,17 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
-    <h2>{{ $t('infec') }}</h2>
+    <h2>{{ $t('infection') }}</h2>
 
     <BigActionButton
       v-if="places.length > 0"
       v-b-modal.infection-creation-modal
       class="mb-3"
-      :title="$t('potinf')"
+      :title="$t('potentialInfection')"
       :subtitle="$t('subtitle')"
       image="infection"
     />
 
-    <p v-else>{{ $t('nopinf') }}</p>
+    <p v-else>{{ $t('noPlaceInfection') }}</p>
 
     <b-table
       v-if="infections.length > 0"
@@ -38,14 +38,14 @@
     <b-modal
       id="infection-creation-modal"
       size="lg"
-      :title="$t('infection-declaration-title')"
-      :ok-title="$t('declare')"
-      :cancel-title="$t('cancel')"
+      :title="$t('infectionDeclarationTitle')"
+      :okTitle="$t('declare')"
+      :cancelTitle="$t('cancel')"
       @ok="handleModalOk"
       @hidden="resetModal"
     >
       <b-form @submit.stop.prevent="handleInfectionSubmit">
-        <b-form-group id="infection-places" :label="$t('concerned-places')">
+        <b-form-group id="infectionPlaces" :label="$t('concernedPlaces')">
           <b-form-checkbox-group v-model="infectionCreation.placesIds">
             <b-form-checkbox
               v-for="place in places"
@@ -58,20 +58,20 @@
         </b-form-group>
 
         <b-alert variant="info" show>{{
-          $t('infection-max-period-info')
+          $t('infectionMaxPeriodInfo')
         }}</b-alert>
 
         <b-card bg-variant="light" class="mb-3">
           <b-form-group
             label-cols-lg="3"
-            :label="$t('infection-start-label')"
+            :label="$t('infectionStartLabel')"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
             <b-form-group
               label-cols-sm="3"
-              :label="$t('date-start-label')"
+              :label="$t('dateStartLabel')"
               label-align-sm="right"
               label-for="start-date"
             >
@@ -85,7 +85,7 @@
 
             <b-form-group
               label-cols-sm="3"
-              :label="$t('time-start-label')"
+              :label="$t('timeStartLabel')"
               label-align-sm="right"
               label-for="start-time"
             >
@@ -102,14 +102,14 @@
         <b-card bg-variant="light">
           <b-form-group
             label-cols-lg="3"
-            :label="$t('infection-end-label')"
+            :label="$t('infectionEndLabel')"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
             <b-form-group
               label-cols-sm="3"
-              :label="$t('date-end-label')"
+              :label="$t('dateEndLabel')"
               label-align-sm="right"
               label-for="end-date"
             >
@@ -123,7 +123,7 @@
 
             <b-form-group
               label-cols-sm="3"
-              :label="$t('time-end-label')"
+              :label="$t('timeEndLabel')"
               label-align-sm="right"
               label-for="end-time"
             >
@@ -144,66 +144,66 @@
 <i18n>
 {
   "en": {
-    "infec":"Declaration of Infections",
-    "potinf":"Report a new infection in one or more of your places",
-    "nopinf":"No place to declare an infection",
+    "infection":"Declaration of Infections",
+    "potentialInfection":"Report a new infection in one or more of your places",
+    "noPlaceInfection":"No place to declare an infection",
     "validate":"Validate",
-    "infectedplace":"Infected Place",
-    "startday":"Start Date",
-    "enddate":"End Date",
+    "infectedPlace":"Infected Place",
+    "startDay":"Start Date",
+    "endDate":"End Date",
     "delplace":"Deleted Place",
     "subtitle":"Record an infection to automatically notify your visitors",
 
-    "infection-declaration-title": "New infection declaration",
-    "concerned-places": "Concerned places",
-    "infection-max-period-info": "Maximum duration on site: 12 hours.",
-    "infection-start-label": "Date of arrival on site",
-    "date-start-label": "Start date:",
-    "time-start-label": "Start time:",
-    "infection-end-label": "Date of departure from the place",
-    "date-end-label": "End date:",
-    "time-end-label": "End time:",
+    "infectionDeclarationTitle": "New infection declaration",
+    "concernedPlaces": "Concerned places",
+    "infectionMaxPeriodInfo": "Maximum duration on site: 12 hours.",
+    "infectionStartLabel": "Date of arrival on site",
+    "dateStartLabel": "Start date:",
+    "timeStartLabel": "Start time:",
+    "infectionEndLabel": "Date of departure from the place",
+    "dateEndLabel": "End date:",
+    "timeEndLabel": "End time:",
     "cancel": "Cancel",
     "declare": "Declare",
-    "No affected place has been chosen.":"No affected place has been chosen.",
-    "The start is not defined.":"The date of arrival is not defined.",
-    "The end is not defined.":"The date of departure is not defined.",
-    "The end date is before the start date.":"The end date is before the start date.",
-    "You cannot declare infections in the future":"You cannot declare in the future",
-    "Maximum time of infection : 12 hours":"Maximum time of infection : 12 hours",
-    "A network error occured. Please, try again.":"A network error occured. Please, try again.",
+    "noAffectedPlace":"noAffectedPlace",
+    "startDateNotDefined":"The date of arrival is not defined.",
+    "endDateNotDefined":"The date of departure is not defined.",
+    "endDateBeforeStartDate":"The date of departure is before the date of arrival.",
+    "noInfectionInTheFuture":"You cannot declare in the future",
+    "maximumTime":"maximumTime",
+    "networkError":"networkError",
     "Error":"Error"
   },
   "fr": {
-    "infec":"Déclarer une infection",
-    "potinf":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
-    "nopinf": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
+    "infection":"Déclarer une infection",
+    "potentialInfection":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
+    "noPlaceInfection": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
     "validate":"Valider",
     "modify":"Modifier",
-    "infectedplace":"Lieux Infectés",
-    "startday":"Date de début",
-    "enddate":"Date de fin",
+    "infectedPlace":"Lieux Infectés",
+    "startDay":"Date de début",
+    "endDate":"Date de fin",
     "delplace":"Lieu supprimé",
     "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs.",
 
-    "infection-declaration-title": "Déclarer une nouvelle infection",
-    "concerned-places": "Lieux concernés",
-    "infection-max-period-info": "Durée maximale sur place : 12 heures.",
-    "infection-start-label": "Date d'arrivée sur les lieux",
-    "date-start-label": "Date d'arrivée :",
-    "time-start-label": "Heure d'arrivée :",
-    "infection-end-label": "Date de départ des lieux",
-    "date-end-label": "Date de départ :",
-    "time-end-label": "Heure de départ :",
+    "infectionDeclarationTitle": "Déclarer une nouvelle infection",
+    "concernedPlaces": "Lieux concernés",
+    "infectionMaxPeriodInfo": "Durée maximale sur place : 12 heures.",
+    "infectionStartLabel": "Date d'arrivée sur les lieux",
+    "dateStartLabel": "Date d'arrivée :",
+    "timeStartLabel": "Heure d'arrivée :",
+    "infectionEndLabel": "Date de départ des lieux",
+    "dateEndLabel": "Date de départ :",
+    "timeEndLabel": "Heure de départ :",
     "cancel": "Annuler",
     "declare": "Déclarer",
-    "No affected place has been chosen.":"Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
-    "The start is not defined.":"La date d'arrivée n'a pas été définie.",
-    "The end is not defined.":"La date de départ n'a pas été définie.",
-    "The end date is before the start date.":"La date de fin est avant la date de début.",
-    "You cannot declare infections in the future":"Vous ne pouvez pas déclarer dans le futur.",
-    "Maximum time of infection : 12 hours":"Durée maximale sur place : 12 heures",
-    "A network error occured. Please, try again.":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
+    "noAffectedPlace":"Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
+    "startDateNotDefined":"La date d'arrivée n'a pas été définie.",
+    "endDateNotDefined":"La date de départ n'a pas été définie.",
+    "endDateBeforeStartDate":"La date de fin est avant la date de début.",
+    "noInfectionInTheFuture":"Vous ne pouvez pas déclarer dans le futur.",
+    "maximumTime":"Durée maximale sur place : 12 heures",
+    "networkError":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
     "Error":"Erreur"
   }
 }
@@ -243,9 +243,9 @@ interface InfectionCreation {
 })
 export default class ProfessionalInfections extends Vue {
   fields = [
-    { key: 'infected_places', label: this.tr('infectedplace') },
-    { key: 'start_date', label: this.tr('startday') },
-    { key: 'end_date', label: this.tr('enddate') },
+    { key: 'infected_places', label: this.tr('infectedPlace') },
+    { key: 'start_date', label: this.tr('startDay') },
+    { key: 'end_date', label: this.tr('endDate') },
   ]
 
   places: Place[] = []
@@ -276,9 +276,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(
-          this.$i18n.t('A network error occured. Please, try again.') as string
-        )
+        new Error(this.$i18n.t('networkError') as string)
       )
       return
     }
@@ -289,9 +287,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(
-          this.$i18n.t('A network error occured. Please, try again.') as string
-        )
+        new Error(this.$i18n.t('networkError') as string)
       )
     }
   }
@@ -316,7 +312,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(this.$i18n.t('No affected place has been chosen.') as string)
+        new Error(this.$i18n.t('noAffectedPlace') as string)
       )
       return
     }
@@ -328,7 +324,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(this.$i18n.t('The start is not defined.') as string)
+        new Error(this.$i18n.t('startDateNotDefined') as string)
       )
       return
     }
@@ -340,7 +336,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(this.$i18n.t('The end is not defined.') as string)
+        new Error(this.$i18n.t('endDateNotDefined') as string)
       )
       return
     }
@@ -358,9 +354,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(
-          this.$i18n.t('The end date is before the start date.') as string
-        )
+        new Error(this.$i18n.t('endDateBeforeStartDate') as string)
       )
       return
     }
@@ -369,9 +363,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         'Infections',
-        new Error(
-          this.$i18n.t('You cannot declare infections in the future') as string
-        )
+        new Error(this.$i18n.t('noInfectionInTheFuture') as string)
       )
       return
     }
@@ -381,9 +373,7 @@ export default class ProfessionalInfections extends Vue {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
-        new Error(
-          this.$i18n.t('Maximum time of infection : 12 hours') as string
-        )
+        new Error(this.$i18n.t('maximumTime') as string)
       )
       return
     }

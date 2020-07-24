@@ -9,7 +9,7 @@
       <BigActionButton
         v-b-modal.place-creation-modal
         class="mb-3"
-        :title="$t('cplace')"
+        :title="$t('cPlace')"
         :subtitle="$t('subtitle')"
         image="place"
       />
@@ -67,7 +67,7 @@
         </template>
       </b-table>
       <p v-else>
-        {{ $t('noplace') }}
+        {{ $t('noPlace') }}
       </p>
 
       <b-modal
@@ -79,12 +79,12 @@
         @hidden="prepacePlaceFormCreation"
       >
         <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
-          <b-form-group :label="$t('name')" label-for="place-name">
+          <b-form-group :label="$t('nameMandatory')" label-for="place-name">
             <b-form-input
               id="place-name"
               v-model="placeFormValues.name"
               required
-              :placeholder="$t('nom')"
+              :placeholder="$t('name')"
             ></b-form-input>
           </b-form-group>
 
@@ -97,7 +97,7 @@
               v-model="placeFormValues.averageDuration"
               number
               required
-              :placeholder="$t('dur')"
+              :placeholder="$t('durationOnSite')"
             ></b-form-input>
           </b-form-group>
 
@@ -114,13 +114,13 @@
 
       <b-modal
         id="place-delete-modal"
-        :title="$t('sup')"
+        :title="$t('deletePlace')"
         ok-variant="danger"
         :ok-title="$t('delete')"
         :cancel-title="$t('cancel')"
         @ok="deletePlace"
       >
-        {{ $t('deleteplace') }}
+        {{ $t('deletePlace') }}
       </b-modal>
     </div>
   </div>
@@ -131,56 +131,56 @@
   "en": {
     "place":"Your Places",
     "wait": "Loading. Please wait...",
-    "cplace":"Add a new place open to the public",
+    "cPlace":"Add a new place open to the public",
     "nex":"This place does not exist.",
-    "noplace":"You don't have any places for now. Please, create a place to begin.",
+    "noPlace":"You don't have any places for now. Please, create a place to begin.",
     "showqr":"Show QRCode",
-    "name":"Name*",
+    "nameMandatory":"Name*",
     "duration":"Average duration of the stay in minutes*",
-    "nom":"Nom",
+    "name":"Nom",
     "modif":"Modify",
     "cancel":"Cancel",
     "create":"Create place",
-    "sup":"Delete Place",
-    "modifyplace":"Place Modification",
-    "deleteplace":"Do you really want to delete this place ?",
-    "crea":"Place Creation",
-    "pla":"Place Name",
-    "dur":"Average Duration",
+    "deletePlace":"Delete Place",
+    "modifyPlace":"Place Modification",
+    "deletePlace":"Do you really want to delete this place ?",
+    "createPlace":"Place Creation",
+    "placeName":"Place Name",
+    "durationOnSite":"Average Duration",
     "delete":"Delete",
-    "qr-code":"QR Code",
+    "qrCode":"QR Code",
     "actions": "Actions",
     "subtitle":"Generate a QR Code for this new place",
-    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again.",
-    "Please fill in the required fields.":"Please fill in the required fields.",
-    "Place":"Place"
+    "networkError":"A network error has occurred. Please, try again.",
+    "fillInRequiredFields":"Please fill in the required fields.",
+    "placeError":"Place"
   },
   "fr": {
     "place":"Vos lieux",
     "wait": "Chargement en cours...",
     "nex":"Ce lieu n'existe plus.",
-    "cplace":"Ajoutez un nouveau lieu ouvert au public",
-    "noplace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
+    "cPlace":"Ajoutez un nouveau lieu ouvert au public",
+    "noPlace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
     "showqr":"Afficher QRCode",
-    "name":"Nom*",
+    "nameMandatory":"Nom*",
     "duration":"Durée moyenne de visite en minutes*",
-    "nom":"Nom",
+    "name":"Nom",
     "modif":"Modifier",
     "cancel":"Annuler",
-    "create":"Créer",
-    "sup":"Supprimer le lieu",
-    "modifyplace":"Modification du lieu",
-    "deleteplace":"Voulez-vous vraiment supprimer ce lieu ?",
-    "crea":"Création du lieu",
-    "pla":"Nom du lieu",
-    "dur":"Durée moyenne sur place",
+    "create":"Créer le lieu",
+    "deletePlace":"Supprimer le lieu",
+    "modifyPlace":"Modification du lieu",
+    "deletePlace":"Voulez-vous vraiment supprimer ce lieu ?",
+    "createPlace":"Création du lieu",
+    "placeName":"Nom du lieu",
+    "durationOnSite":"Durée moyenne sur place",
     "delete":"Supprimer",
-    "qr-code":"QR Code",
+    "qrCode":"QR Code",
     "actions": "Actions",
     "subtitle":"Générez un QR Code pour ce nouveau lieu",
-    "A network error has occurred. Please, try again.":"Une erreur réseau s'est produite. Veuillez réessayer.",
-    "Please fill in the required fields.":"Veuillez remplir tous les champs requis",
-    "Place":"Lieu"
+    "networkError":"Une erreur réseau s'est produite. Veuillez réessayer.",
+    "fillInRequiredFields":"Veuillez remplir tous les champs requis",
+    "placeError":"Lieu"
   }
 }
 </i18n>
@@ -210,9 +210,9 @@ interface PlaceFormValues {
 })
 export default class ProfessionalPlaces extends Vue {
   fields = [
-    { key: 'place_name', label: this.translate('pla') },
-    { key: 'average_duration', label: this.translate('dur') },
-    { key: 'qr_code', label: this.translate('qr-code') },
+    { key: 'place_name', label: this.translate('placeName') },
+    { key: 'average_duration', label: this.translate('durationOnSite') },
+    { key: 'qr_code', label: this.translate('qrCode') },
     { key: 'actions', label: this.translate('actions') },
   ]
 
@@ -246,12 +246,8 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        this.$i18n.t('Place') as string,
-        new Error(
-          this.$i18n.t(
-            'A network error has occurred. Please, try again.'
-          ) as string
-        )
+        this.$i18n.t('placeError') as string,
+        new Error(this.$i18n.t('networkError') as string)
       )
     }
   }
@@ -284,8 +280,8 @@ export default class ProfessionalPlaces extends Vue {
     ) {
       showError(
         this.$bvToast,
-        this.$i18n.t('Place') as string,
-        new Error(this.$i18n.t('Please fill in the required fields.') as string)
+        this.$i18n.t('placeError') as string,
+        new Error(this.$i18n.t('fillInRequiredFields') as string)
       )
       return
     }
@@ -303,12 +299,8 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        this.$i18n.t('Place') as string,
-        new Error(
-          this.$i18n.t(
-            'A network error has occurred. Please, try again.'
-          ) as string
-        )
+        this.$i18n.t('placeError') as string,
+        new Error(this.$i18n.t('networkError') as string)
       )
       return
     }
@@ -332,12 +324,8 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        this.$i18n.t('Place') as string,
-        new Error(
-          this.$i18n.t(
-            'A network error has occurred. Please, try again.'
-          ) as string
-        )
+        this.$i18n.t('placeError') as string,
+        new Error(this.$i18n.t('networkError') as string)
       )
       return
     }
@@ -370,7 +358,7 @@ export default class ProfessionalPlaces extends Vue {
   }
 
   get placeFormTitle(): string {
-    return this.isPlaceFormEditionMode ? 'modifyplace' : 'crea'
+    return this.placeFormMode ? 'modifyPlace' : 'createPlace'
   }
 }
 </script>

@@ -19,10 +19,10 @@
         <b-navbar-nav>
           <template v-if="role != null">
             <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
-              {{ $t('my-check-ins') }}
+              {{ $t('myCheckIns') }}
             </b-nav-item>
             <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
-              {{ $t('my-profile') }}
+              {{ $t('myProfile') }}
             </b-nav-item>
           </template>
           <template v-if="role === 'Professional'">
@@ -41,7 +41,7 @@
           </template>
 
           <template v-else>
-            <b-nav-text> {{ $t('login-as') }} </b-nav-text>
+            <b-nav-text> {{ $t('loginAs') }} </b-nav-text>
 
             <b-nav-item :to="'/' + $i18n.locale + '/login'">
               {{ $t('user') }}
@@ -77,23 +77,23 @@
 {
   "en": {
     "legal":"Legal Notices",
-    "my-check-ins":"My Check-ins",
-    "my-profile":"My Profile",
+    "myCheckIns":"My Check-ins",
+    "myProfile":"My Profile",
     "places":"Places",
     "infections":"Infections",
     "logout":"Logout",
-    "login-as":"Login as:",
+    "loginAs":"Login as:",
     "professional":"Professional",
     "user":"User"
   },
   "fr": {
     "legal":"Mentions légales",
-    "my-check-ins":"Mes Check-ins",
-    "my-profile":"Mon Profil",
+    "myCheckIns":"Mes Check-ins",
+    "myProfile":"Mon Profil",
     "places":"Lieux",
     "infections":"Infections",
     "logout":"Se déconnecter",
-    "login-as":"Connexion :",
+    "loginAs":"Connexion :",
     "professional":"Professionel",
     "user":"Utilisateur"
   }
