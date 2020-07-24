@@ -25,7 +25,7 @@
 
       <b-button
         class="no-print my-3"
-        @click="PrintPage"
+        @click="printPage"
         variant="primary"
         block
       >
@@ -125,7 +125,7 @@ export default class PlaceDetail extends Vue {
     this.description = `${this.place?.description}`
   }
 
-  PrintPage() {
+  printPage() {
     window.print()
   }
 
