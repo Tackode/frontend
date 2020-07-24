@@ -110,7 +110,8 @@
     "retry":"Please, fix the error and retry",
     "inuse":"Is the camera already in use?",
     "over":"Installed cameras are not suitable",
-    "stream":"Stream API is not supported in this browser"
+    "stream":"Stream API is not supported in this browser",
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
   },
   "fr": {
     "back":"Retour à la page d'accueil",
@@ -135,7 +136,9 @@
     "retry":"Corrigez l'erreur et réessayez",
     "inuse":"Votre caméra est déjà utilisée ?",
     "over":"La caméra installée n'est pas compatible",
-    "stream":"La vidéo n'est pas supportée sur votre appareil"
+    "stream":"La vidéo n'est pas supportée sur votre appareil",
+    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+
   }
 }
 </i18n>
@@ -228,7 +231,7 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error('A network error occured. Please, try again.')
+          new Error(this.$i18n.t('A network error occured. Please, try again.') as string)
         )
         return
       }
@@ -249,7 +252,7 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error('A network error occured. Please, try again.')
+          new Error(this.$i18n.t('A network error occured. Please, try again.') as string)
         )
         return
       }

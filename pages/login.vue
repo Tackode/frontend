@@ -32,7 +32,8 @@
     "log":"Login",
     "nevershare":"We'll never share your email with anyone else.",
     "email":"Enter your email",
-    "add":"Email address"
+    "add":"Email address",
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
   },
   "fr": {
     "wait":"Chargement en cours...",
@@ -40,7 +41,9 @@
     "log":"Se connecter",
     "nevershare":"Nous ne partagerons jamais votre mail avec autrui.",
     "email":"Entrez votre adresse",
-    "add":"Adresse mail"
+    "add":"Adresse mail",
+    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+
   }
 }
 </i18n>
@@ -77,7 +80,7 @@ export default class Login extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
       )
       return
     }

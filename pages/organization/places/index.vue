@@ -151,7 +151,8 @@
     "delete":"Delete",
     "qr-code":"QR Code",
     "actions": "Actions",
-    "subtitle":"Generate a QR Code for this new place"
+    "subtitle":"Generate a QR Code for this new place",
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
   },
   "fr": {
     "place":"Vos Adresses",
@@ -175,7 +176,8 @@
     "delete":"Supprimer",
     "qr-code":"QR Code",
     "actions": "Actions",
-    "subtitle":"Générez un QR Code pour ce nouveau lieu"
+    "subtitle":"Générez un QR Code pour ce nouveau lieu",
+    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
   }
 }
 </i18n>
@@ -283,7 +285,7 @@ export default class ProfessionalPlaces extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
       )
       return
     }
@@ -308,7 +310,7 @@ export default class ProfessionalPlaces extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
       )
       return
     }

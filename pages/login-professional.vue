@@ -43,7 +43,9 @@
     "email":"Enter your email",
     "add":"Email address",
     "org":"Organization name",
-    "or":"Enter your organization name"
+    "or":"Enter your organization name",
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
+
   },
   "fr": {
     "wait":"Chargement en cours...",
@@ -53,7 +55,9 @@
     "email":"Entrez votre adresse",
     "add":"Adresse mail",
     "org":"Nom d'entreprise",
-    "or":"Nom de votre entreprise"
+    "or":"Nom de votre entreprise",
+    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+
   }
 }
 </i18n>
@@ -91,7 +95,7 @@ export default class LoginProfessional extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
       )
       return
     }

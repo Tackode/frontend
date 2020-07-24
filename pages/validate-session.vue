@@ -13,11 +13,15 @@
 {
   "en": {
     "validate-device":"Validate Device",
-    "validation-failed":"Fail to connect you. Please, retry to connect. "
+    "validation-failed":"Fail to connect you. Please, retry to connect. ",
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again.",
+    "Parameters are missing to connect. Please, click on the link that was received in the login email.":"Parameters are missing to connect. Please, click on the link that was received in the login email."
   },
   "fr": {
     "validate-device":"Appareil Validé",
-    "validation-failed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter."
+    "validation-failed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
+    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "Parameters are missing to connect. Please, click on the link that was received in the login email.":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion."
   }
 }
 </i18n>
@@ -53,7 +57,7 @@ export default class ValidateDevice extends Vue {
         this.$bvToast,
         'Connexion',
         new Error(
-          'Parameters are missing to connect. Please, click on the link that was received in the login email.'
+          this.$i18n.t('Parameters are missing to connect. Please, click on the link that was received in the login email.') as string
         )
       )
       return
@@ -68,7 +72,7 @@ export default class ValidateDevice extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error('A network error has occurred. Please, try again.')
+        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
       )
       this.state = ValidateState.FAILURE
       return
