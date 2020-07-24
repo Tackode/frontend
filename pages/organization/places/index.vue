@@ -152,7 +152,9 @@
     "qr-code":"QR Code",
     "actions": "Actions",
     "subtitle":"Generate a QR Code for this new place",
-    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
+    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again.",
+    "Please fill in the required fields.":"Please fill in the required fields.",
+    "Place":"Place"
   },
   "fr": {
     "place":"Vos Adresses",
@@ -177,7 +179,9 @@
     "qr-code":"QR Code",
     "actions": "Actions",
     "subtitle":"Générez un QR Code pour ce nouveau lieu",
-    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "A network error has occurred. Please, try again.":"Une erreur réseau s'est produite. Veuillez réessayer.",
+    "Please fill in the required fields.":"Veuillez remplir tous les champs requis",
+    "Place":"Lieu"
   }
 }
 </i18n>
@@ -243,8 +247,12 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Connexion',
-        new Error("Une erreur réseau s'est produite. Veuillez réessayer.")
+        this.$i18n.t('Place') as string,
+        new Error(
+          this.$i18n.t(
+            'A network error has occurred. Please, try again.'
+          ) as string
+        )
       )
     }
   }
@@ -270,6 +278,18 @@ export default class ProfessionalPlaces extends Vue {
         password: this.$store.getters['session/token'],
       },
     }
+    
+    if (
+      this.placeFormValues.name === '' ||
+      this.placeFormValues.averageDuration <= 0
+    ) {
+      showError(
+        this.$bvToast,
+        this.$i18n.t('Place') as string,
+        new Error(this.$i18n.t('Please fill in the required fields.') as string)
+      )
+      return
+    }
 
     try {
       if (this.placeFormMode) {
@@ -284,8 +304,12 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Connexion',
-        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
+        this.$i18n.t('Place') as string,
+        new Error(
+          this.$i18n.t(
+            'A network error has occurred. Please, try again.'
+          ) as string
+        )
       )
       return
     }
@@ -309,8 +333,12 @@ export default class ProfessionalPlaces extends Vue {
     } catch (error) {
       showError(
         this.$bvToast,
-        'Connexion',
-        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
+        this.$i18n.t('Place') as string,
+        new Error(
+          this.$i18n.t(
+            'A network error has occurred. Please, try again.'
+          ) as string
+        )
       )
       return
     }

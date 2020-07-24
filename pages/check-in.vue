@@ -210,7 +210,10 @@ export default class CheckIn extends Vue {
       return
     }
 
-    if (this.$store.getters['session/login'] !== null) {
+    if (
+      this.$store.getters['session/login'] !== null &&
+      this.$store.getters['session/localEmail'] === this.email
+    ) {
       try {
         await this.$axios.$post(
           '/checkin',
@@ -231,7 +234,11 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error(this.$i18n.t('A network error occured. Please, try again.') as string)
+          new Error(
+            this.$i18n.t(
+              'A network error has occurred. Please, try again.'
+            ) as string
+          )
         )
         return
       }
@@ -252,7 +259,11 @@ export default class CheckIn extends Vue {
         showError(
           this.$bvToast,
           'Checkin',
-          new Error(this.$i18n.t('A network error occured. Please, try again.') as string)
+          new Error(
+            this.$i18n.t(
+              'A network error has occurred. Please, try again.'
+            ) as string
+          )
         )
         return
       }
