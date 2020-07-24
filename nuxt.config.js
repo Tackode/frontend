@@ -115,19 +115,22 @@ export default {
     extend(_config, _ctx) {},
   },
   render: {
-    csp: {
-      reportOnly: true,
-      hashAlgorithm: 'sha256',
-      policies: {
-        'default-src': ["'self'"],
-        'img-src': ['https:'],
-        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS],
-        'style-src': ["'self'", PRIMARY_HOSTS],
-        'script-src': ["'self'", PRIMARY_HOSTS],
-        'form-action': ["'self'"],
-        'frame-ancestors': ["'none'"],
-        'object-src': ["'none'"],
-      },
-    },
+    csp:
+      process.env.NODE_ENV !== 'production'
+        ? false
+        : {
+            reportOnly: true,
+            hashAlgorithm: 'sha256',
+            policies: {
+              'default-src': ["'self'"],
+              'img-src': ['https:'],
+              'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS],
+              'style-src': ["'self'", PRIMARY_HOSTS],
+              'script-src': ["'self'", PRIMARY_HOSTS],
+              'form-action': ["'self'"],
+              'frame-ancestors': ["'none'"],
+              'object-src': ["'none'"],
+            },
+          },
   },
 }
