@@ -95,7 +95,7 @@
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
     "potentialContactsWithInfected": "Contacts potentiels avec une personne infectée",
-    "myCheckIns": "Mes visites",
+    "myCheckIns": "Mes Visites",
     "organization": "Organisation",
     "place": "Lieu visité",
     "time": "Horaire",

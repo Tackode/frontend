@@ -88,7 +88,7 @@
   },
   "fr": {
     "legal":"Mentions légales",
-    "myCheckIns":"Mes Check-ins",
+    "myCheckIns":"Mes Visites",
     "myProfile":"Mon Profil",
     "places":"Lieux",
     "infections":"Infections",
