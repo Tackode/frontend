@@ -228,7 +228,11 @@ export default class ProfilePage extends Vue {
         this.$i18n.t('successfullyUpdated') as string
       )
     } catch (error) {
-      showError(this.$bvToast, 'Profile', new Error('networkError'))
+      showError(
+        this.$bvToast,
+        'Profile',
+        new Error(this.$i18n.t('networkError') as string)
+      )
     }
   }
 
