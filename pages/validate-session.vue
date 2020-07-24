@@ -57,7 +57,9 @@ export default class ValidateDevice extends Vue {
         this.$bvToast,
         'Connexion',
         new Error(
-          this.$i18n.t('Parameters are missing to connect. Please, click on the link that was received in the login email.') as string
+          this.$i18n.t(
+            'Parameters are missing to connect. Please, click on the link that was received in the login email.'
+          ) as string
         )
       )
       return
@@ -72,7 +74,11 @@ export default class ValidateDevice extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
+        new Error(
+          this.$i18n.t(
+            'A network error has occurred. Please, try again.'
+          ) as string
+        )
       )
       this.state = ValidateState.FAILURE
       return

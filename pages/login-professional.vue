@@ -95,7 +95,11 @@ export default class LoginProfessional extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(this.$i18n.t('A network error has occurred. Please, try again.') as string)
+        new Error(
+          this.$i18n.t(
+            'A network error has occurred. Please, try again.'
+          ) as string
+        )
       )
       return
     }

@@ -278,7 +278,7 @@ export default class ProfessionalPlaces extends Vue {
         password: this.$store.getters['session/token'],
       },
     }
-    
+
     if (
       this.placeFormValues.name === '' ||
       this.placeFormValues.averageDuration <= 0

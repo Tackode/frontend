@@ -132,7 +132,6 @@
     "over":"La caméra installée n'est pas compatible",
     "stream":"La vidéo n'est pas supportée sur votre appareil",
     "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
-
   }
 }
 </i18n>
