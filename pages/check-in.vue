@@ -106,7 +106,8 @@
     "inUse":"Is the camera already in use?",
     "notSuitable":"Installed cameras are not suitable",
     "streamAPINotSupported":"Stream API is not supported in this browser",
-    "networkError":"A network error has occurred. Please, try again."
+    "networkError":"A network error has occurred. Please, try again.",
+    "errorUnknown":"Unknown error"
   },
   "fr": {
     "back":"Retour à la page d'accueil",
@@ -131,7 +132,8 @@
     "inUse":"Votre caméra est déjà utilisée ?",
     "notSuitable":"La caméra installée n'est pas compatible",
     "streamAPINotSupported":"La vidéo n'est pas supportée sur votre appareil",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "errorUnknown":"Erreur inconnue"
 
   }
 }
@@ -285,6 +287,9 @@ export default class CheckIn extends Vue {
       } else if (error.name === 'StreamApiNotSupportedError') {
         this.error = 'streamAPINotSupported'
         this.retry = 'retryDevice'
+      } else {
+        this.error = 'errorUnknown'
+        this.retry = 'retry'
       }
     }
   }
