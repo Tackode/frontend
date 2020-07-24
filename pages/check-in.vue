@@ -2,7 +2,7 @@
   <div class="wrapped-container c-medium c-center my-3">
     <div v-if="state === CheckinState.SCANNING">
       <h2>{{ $t('scan') }}</h2>
-      <qrcode-stream class="full-screen" @decode="onDecode" @init="onInit" />
+      <qrcode-stream @decode="onDecode" @init="onInit" />
     </div>
     <p v-else-if="state === CheckinState.LOADING">
       {{ $t('wait') }}

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="title">
-      <h1 class="sr-only">{{ $t('covidjournal') }}</h1>
+      <h1 class="sr-only">{{ $t('covidJournal') }}</h1>
       <img
         alt="Covid Journal"
         class="img-fluid logo"
@@ -67,7 +67,7 @@
     "register":"Register a place to be notified when an infection is reported",
     "introduction":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
-    "covidjournal": "Welcome to Covid-Journal",
+    "covidJournal": "Welcome to Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people.",
     "log": "Loggin In",
     "logout":"Log Out",
