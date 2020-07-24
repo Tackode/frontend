@@ -120,7 +120,7 @@
         :cancel-title="$t('cancel')"
         @ok="deletePlace"
       >
-        {{ $t('deletePlace') }}
+        {{ $t('deletePlaceAsk') }}
       </b-modal>
     </div>
   </div>
@@ -143,7 +143,7 @@
     "create":"Create place",
     "deletePlace":"Delete Place",
     "modifyPlace":"Place Modification",
-    "deletePlace":"Do you really want to delete this place ?",
+    "deletePlaceAsk":"Do you really want to delete this place ?",
     "createPlace":"Place Creation",
     "placeName":"Place Name",
     "durationOnSite":"Average Duration",
@@ -170,7 +170,7 @@
     "create":"Créer le lieu",
     "deletePlace":"Supprimer le lieu",
     "modifyPlace":"Modification du lieu",
-    "deletePlace":"Voulez-vous vraiment supprimer ce lieu ?",
+    "deletePlaceAsk":"Voulez-vous vraiment supprimer ce lieu ?",
     "createPlace":"Création du lieu",
     "placeName":"Nom du lieu",
     "durationOnSite":"Durée moyenne sur place",

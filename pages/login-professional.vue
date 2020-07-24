@@ -15,12 +15,15 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group :label="$t('org')" label-for="login-organization-name">
+      <b-form-group
+        :label="$t('organizationName')"
+        label-for="login-organization-name"
+      >
         <b-form-input
           id="login-organization-name"
           v-model="organizationName"
           required
-          :placeholder="$t('or')"
+          :placeholder="$t('enterOrganizationName')"
         ></b-form-input>
       </b-form-group>
 
@@ -28,7 +31,7 @@
         {{ $t('log') }}
       </b-button>
     </b-form>
-    <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emai') }}</p>
+    <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emailSent') }}</p>
     <p v-else-if="state === LoginState.LOADING">{{ $t('wait') }}</p>
   </div>
 </template>
@@ -37,26 +40,26 @@
 {
   "en": {
     "wait":"Loading. Please wait...",
-    "emai":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
+    "emailSent":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
     "log":"Login",
     "neverShare":"We'll never share your email with anyone else.",
     "email":"Enter your email",
     "add":"Email address",
-    "org":"Organization name",
-    "or":"Enter your organization name",
-    "A network error has occurred. Please, try again.":"A network error has occurred. Please, try again."
+    "organizationName":"Organization name",
+    "enterOrganizationName":"Enter your organization name",
+    "networkError":"A network error has occurred. Please, try again."
 
   },
   "fr": {
     "wait":"Chargement en cours...",
-    "emai":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
+    "emailSent":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "log":"Se connecter",
     "neverShare":"Nous ne partagerons pas votre email.",
     "email":"Entrez votre adresse",
     "add":"Adresse mail",
-    "org":"Nom d'entreprise",
-    "or":"Nom de votre entreprise",
-    "A network error has occurred. Please, try again.":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "organizationName":"Nom d'entreprise",
+    "enterOrganizationName":"Nom de votre entreprise",
+    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
 
   }
 }
@@ -95,11 +98,7 @@ export default class LoginProfessional extends Vue {
       showError(
         this.$bvToast,
         'Connexion',
-        new Error(
-          this.$i18n.t(
-            'A network error has occurred. Please, try again.'
-          ) as string
-        )
+        new Error(this.$i18n.t('networkError') as string)
       )
       return
     }
