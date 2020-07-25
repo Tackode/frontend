@@ -77,6 +77,7 @@ export default class Login extends Vue {
         organizationName: null,
       })
     } catch (error) {
+      this.state = LoginState.IDLE
       showError(
         this.$bvToast,
         'Connexion',
