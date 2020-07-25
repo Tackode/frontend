@@ -3,6 +3,7 @@
     <p v-if="state === PlaceState.LOADING">
       {{ $t('wait') }}
     </p>
+
     <div v-else-if="state === PlaceState.NOTFOUND">
       <p>
         {{ $t('nex') }}
@@ -15,6 +16,7 @@
         {{ $t('back') }}
       </nuxt-link>
     </div>
+
     <div v-else-if="state === PlaceState.LOADED">
       <nuxt-link
         class="no-print"
@@ -36,7 +38,7 @@
         <PlaceView :data="place" />
 
         <qrcode
-          class="align-self-center"
+          class="qrcode"
           :value="qrCodeUrl"
           :options="{ width: 400 }"
         ></qrcode>
@@ -48,6 +50,8 @@
             alt="Covid Journal"
             class="img-fluid logo"
             src="~/assets/images/logo-covid-journal-print.png"
+            width="400"
+            height="68"
           />
         </div>
       </template>
@@ -136,20 +140,19 @@ export default class PlaceDetail extends Vue {
 </script>
 
 <style lang="scss">
-.footer {
-  padding: 20px;
-
-  .logo {
-    height: 70px;
-  }
-}
-
 .info {
   font-size: 1.5rem;
 }
 
-.print-only {
-  display: none;
+.footer {
+  padding: 20px;
+}
+
+@media (max-width: 500px) {
+  canvas {
+    width: 280px !important;
+    height: 280px !important;
+  }
 }
 
 @media print {
@@ -165,10 +168,6 @@ export default class PlaceDetail extends Vue {
   canvas {
     width: 560px !important;
     height: 560px !important;
-  }
-
-  .print-only {
-    display: block;
   }
 }
 </style>
