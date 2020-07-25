@@ -4,15 +4,18 @@
       <h2>{{ $t('scan') }}</h2>
       <qrcode-stream @decode="onDecode" @init="onInit" />
     </div>
+
     <p v-else-if="state === CheckinState.LOADING">
       {{ $t('wait') }}
     </p>
+
     <div v-else-if="state === CheckinState.NOTFOUND">
       <p>{{ $t('notExists') }}</p>
       <nuxt-link class="no-print" :to="'/' + $i18n.locale">
         {{ $t('back') }}
       </nuxt-link>
     </div>
+
     <div v-else-if="state === CheckinState.LOADED">
       <PlaceView :data="place" />
       <b-card class="my-3">
@@ -65,15 +68,19 @@
         </b-form>
       </b-card>
     </div>
+
     <p v-else-if="state === CheckinState.CHECKMAIL">
       {{ $t('emailMailbox') }}
     </p>
+
     <div v-else-if="state === CheckinState.ERROR">
       <h2>{{ $t('scanImpossible') }}</h2>
-      <br />
-      <b> {{ $t(error) }}</b>
+
+      <p>
+        <b>{{ $t(error) }}</b>
+      </p>
       <p>{{ $t(retry) }}</p>
-      <br />
+
       <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
         {{ $t('back') }}
       </nuxt-link>
