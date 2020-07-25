@@ -5,33 +5,35 @@
     <div v-if="infectedcheckins.length > 0">
       <h2>{{ $t('potentialContactsWithInfected') }}</h2>
 
-      <b-table
-        striped
-        bordered
-        hover
-        head-variant="dark"
-        variant="light"
-        :fields="fields"
-        :items="infectedcheckins"
-      >
-        <template v-slot:cell(organization)="data">
-          <div class="red">{{ data.item.place.organization.name }}</div>
-        </template>
+      <div class="table-responsive">
+        <b-table
+          striped
+          bordered
+          hover
+          head-variant="dark"
+          variant="light"
+          :fields="fields"
+          :items="infectedcheckins"
+        >
+          <template v-slot:cell(organization)="data">
+            <div class="red">{{ data.item.place.organization.name }}</div>
+          </template>
 
-        <template v-slot:cell(place_name)="data">
-          <div class="red">{{ data.item.place.name }}</div>
-        </template>
+          <template v-slot:cell(place_name)="data">
+            <div class="red">{{ data.item.place.name }}</div>
+          </template>
 
-        <template v-slot:cell(time)="data">
-          <div class="red">
-            {{ data.item.startTimestamp | formatDateTime }}
-          </div>
-        </template>
+          <template v-slot:cell(time)="data">
+            <div class="red">
+              {{ data.item.startTimestamp | formatDateTime }}
+            </div>
+          </template>
 
-        <template v-slot:cell(duration)="data">
-          <div class="red">{{ data.item.duration }} minutes</div>
-        </template>
-      </b-table>
+          <template v-slot:cell(duration)="data">
+            <div class="red">{{ data.item.duration }} minutes</div>
+          </template>
+        </b-table>
+      </div>
     </div>
 
     <h2>{{ $t('myCheckIns') }}</h2>
@@ -44,32 +46,33 @@
       :url="'/' + $i18n.locale + '/check-in'"
     />
 
-    <b-table
-      v-if="checkins.length > 0"
-      striped
-      bordered
-      hover
-      head-variant="dark"
-      variant="light"
-      :fields="fields"
-      :items="checkins"
-    >
-      <template v-slot:cell(organization)="data">
-        {{ data.item.place.organization.name }}
-      </template>
+    <div v-if="checkins.length > 0" class="table-responsive">
+      <b-table
+        striped
+        bordered
+        hover
+        head-variant="dark"
+        variant="light"
+        :fields="fields"
+        :items="checkins"
+      >
+        <template v-slot:cell(organization)="data">
+          {{ data.item.place.organization.name }}
+        </template>
 
-      <template v-slot:cell(place_name)="data">
-        {{ data.item.place.name }}
-      </template>
+        <template v-slot:cell(place_name)="data">
+          {{ data.item.place.name }}
+        </template>
 
-      <template v-slot:cell(time)="data">
-        {{ data.item.startTimestamp | formatDateTime }}
-      </template>
+        <template v-slot:cell(time)="data">
+          {{ data.item.startTimestamp | formatDateTime }}
+        </template>
 
-      <template v-slot:cell(duration)="data">
-        {{ data.item.duration }} minutes
-      </template>
-    </b-table>
+        <template v-slot:cell(duration)="data">
+          {{ data.item.duration }} minutes
+        </template>
+      </b-table>
+    </div>
 
     <p v-else>
       {{ $t('noCheckIn') }}
