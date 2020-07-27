@@ -7,7 +7,7 @@ Vue.filter('formatDate', function (value: string) {
   }
 
   try {
-    return format(new Date(value.substring(0, 10)), 'dd/MM/yyyy')
+    return format(new Date(value), 'dd/MM/yyyy')
   } catch {
     return value
   }

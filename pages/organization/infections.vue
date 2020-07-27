@@ -75,12 +75,19 @@
               label-align-sm="right"
               label-for="start-date"
             >
-              <b-form-input
-                id="start-date"
-                type="date"
-                v-model="infectionCreation.startDate"
-                placeholder="MM/DD/YYYY"
-              ></b-form-input>
+              <div class="phone">
+                <b-form-input
+                  id="start-date"
+                  type="date"
+                  v-model="infectionCreation.startDate"
+                  placeholder="MM/DD/YYYY"
+                ></b-form-input>
+              </div>
+              <div class="computer">
+                <client-only>
+                  <date-picker v-model="infectionCreation.startDate" />
+                </client-only>
+              </div>
             </b-form-group>
 
             <b-form-group
@@ -93,7 +100,7 @@
                 id="start-time"
                 type="time"
                 v-model="infectionCreation.startTime"
-                placeholder="12:00:00"
+                placeholder="12:00"
               ></b-form-input>
             </b-form-group>
           </b-form-group>
@@ -113,12 +120,22 @@
               label-align-sm="right"
               label-for="end-date"
             >
-              <b-form-input
-                id="end-date"
-                type="date"
-                placeholder="MM/DD/YYYY"
-                v-model="infectionCreation.endDate"
-              ></b-form-input>
+              <div class="phone">
+                <b-form-input
+                  id="end-date"
+                  type="date"
+                  placeholder="MM/DD/YYYY"
+                  v-model="infectionCreation.endDate"
+                ></b-form-input>
+              </div>
+              <div class="computer">
+                <client-only>
+                  <date-picker
+                    type="date"
+                    v-model="infectionCreation.endDate"
+                  />
+                </client-only>
+              </div>
             </b-form-group>
 
             <b-form-group
@@ -130,7 +147,7 @@
               <b-form-input
                 id="end-time"
                 type="time"
-                placeholder="12:00:00"
+                placeholder="12:00"
                 v-model="infectionCreation.endTime"
               ></b-form-input>
             </b-form-group>
@@ -342,11 +359,15 @@ export default class ProfessionalInfections extends Vue {
     }
 
     const startDate = new Date(
-      `${this.infectionCreation.startDate} ${this.infectionCreation.startTime}`
+      `${new Date(this.infectionCreation.startDate).toDateString()} ${
+        this.infectionCreation.startTime
+      }`
     )
 
     const endDate = new Date(
-      `${this.infectionCreation.endDate} ${this.infectionCreation.endTime}`
+      `${new Date(this.infectionCreation.endDate).toDateString()} ${
+        this.infectionCreation.endTime
+      }`
     )
     const distance = endDate.getTime() - startDate.getTime()
 
@@ -440,4 +461,15 @@ export default class ProfessionalInfections extends Vue {
 }
 </script>
 
-<style></style>
+<style>
+@media only screen and (max-width: 768px) {
+  .computer {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .phone {
+    display: none;
+  }
+}
+</style>

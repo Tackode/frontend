@@ -45,6 +45,7 @@ export default {
   plugins: [
     '~plugins/formatters',
     '~plugins/qrcode',
+    { src: '~plugins/vcalendar', mode: 'client' },
     '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
     { src: '~/plugins/axios', mode: 'client' },
