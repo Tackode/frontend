@@ -200,7 +200,7 @@
     "noAffectedPlace":"Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
     "startDateNotDefined":"La date d'arrivée n'a pas été définie.",
     "endDateNotDefined":"La date de départ n'a pas été définie.",
-    "endDateBeforeStartDate":"La date de fin est avant la date de début.",
+    "endDateBeforeStartDate":"La date de fin est avant ou égale à la date de début.",
     "noInfectionInTheFuture":"Vous ne pouvez pas déclarer dans le futur.",
     "maximumTime":"Durée maximale sur place : 12 heures",
     "networkError":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
@@ -350,7 +350,7 @@ export default class ProfessionalInfections extends Vue {
     )
     const distance = endDate.getTime() - startDate.getTime()
 
-    if (distance < 0) {
+    if (distance <= 0) {
       showError(
         this.$bvToast,
         this.$i18n.t('Error') as string,
