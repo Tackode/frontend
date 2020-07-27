@@ -96,12 +96,30 @@
               label-align-sm="right"
               label-for="start-time"
             >
-              <b-form-input
-                id="start-time"
-                type="time"
-                v-model="infectionCreation.startTime"
-                placeholder="12:00"
-              ></b-form-input>
+              <div class="phone">
+                <b-form-input
+                  id="start-time"
+                  type="time"
+                  v-model="infectionCreation.startTime"
+                  placeholder="12:00"
+                ></b-form-input>
+              </div>
+              <div class="computer">
+                <b-input-group class="mb-3">
+                  <b-form-input
+                    v-model="infectionCreation.startTime"
+                    type="text"
+                    placeholder="12:00"
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-form-timepicker
+                      v-model="infectionCreation.startTime"
+                      button-only
+                      right
+                    ></b-form-timepicker>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
             </b-form-group>
           </b-form-group>
         </b-card>
@@ -144,12 +162,30 @@
               label-align-sm="right"
               label-for="end-time"
             >
-              <b-form-input
-                id="end-time"
-                type="time"
-                placeholder="12:00"
-                v-model="infectionCreation.endTime"
-              ></b-form-input>
+              <div class="phone">
+                <b-form-input
+                  id="end-time"
+                  type="time"
+                  placeholder="12:00"
+                  v-model="infectionCreation.endTime"
+                ></b-form-input>
+              </div>
+              <div class="computer">
+                <b-input-group class="mb-3">
+                  <b-form-input
+                    v-model="infectionCreation.endTime"
+                    type="text"
+                    placeholder="12:00"
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-form-timepicker
+                      v-model="infectionCreation.endTime"
+                      button-only
+                      right
+                    ></b-form-timepicker>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
             </b-form-group>
           </b-form-group>
         </b-card>
