@@ -10,6 +10,8 @@ $btn-font-weight: 700;
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';
 
+@import 'vue2-timepicker/dist/VueTimepicker.css';
+
 h2 {
   margin-bottom: 1.5rem;
 }

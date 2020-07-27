@@ -100,25 +100,14 @@
                 <b-form-input
                   id="start-time"
                   type="time"
-                  v-model="infectionCreation.startTime"
                   placeholder="12:00"
+                  v-model="infectionCreation.startTime"
                 ></b-form-input>
               </div>
               <div class="computer">
-                <b-input-group class="mb-3">
-                  <b-form-input
-                    v-model="infectionCreation.startTime"
-                    type="text"
-                    placeholder="12:00"
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-form-timepicker
-                      v-model="infectionCreation.startTime"
-                      button-only
-                      right
-                    ></b-form-timepicker>
-                  </b-input-group-append>
-                </b-input-group>
+                <vue-timepicker
+                  v-model="infectionCreation.startTime"
+                ></vue-timepicker>
               </div>
             </b-form-group>
           </b-form-group>
@@ -171,20 +160,9 @@
                 ></b-form-input>
               </div>
               <div class="computer">
-                <b-input-group class="mb-3">
-                  <b-form-input
-                    v-model="infectionCreation.endTime"
-                    type="text"
-                    placeholder="12:00"
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-form-timepicker
-                      v-model="infectionCreation.endTime"
-                      button-only
-                      right
-                    ></b-form-timepicker>
-                  </b-input-group-append>
-                </b-input-group>
+                <vue-timepicker
+                  v-model="infectionCreation.endTime"
+                ></vue-timepicker>
               </div>
             </b-form-group>
           </b-form-group>

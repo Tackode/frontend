@@ -46,6 +46,7 @@ export default {
     '~plugins/formatters',
     '~plugins/qrcode',
     { src: '~plugins/vcalendar', mode: 'client' },
+    '~plugins/vue2picker',
     '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
     { src: '~/plugins/axios', mode: 'client' },
