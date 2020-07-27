@@ -85,7 +85,10 @@
               </div>
               <div class="computer">
                 <client-only>
-                  <date-picker v-model="infectionCreation.startDate" />
+                  <date-picker
+                    id="start-date"
+                    v-model="infectionCreation.startDate"
+                  />
                 </client-only>
               </div>
             </b-form-group>
@@ -106,6 +109,7 @@
               </div>
               <div class="computer">
                 <vue-timepicker
+                  id="start-time"
                   v-model="infectionCreation.startTime"
                 ></vue-timepicker>
               </div>
@@ -138,6 +142,7 @@
               <div class="computer">
                 <client-only>
                   <date-picker
+                    id="end-date"
                     type="date"
                     v-model="infectionCreation.endDate"
                   />
@@ -161,6 +166,7 @@
               </div>
               <div class="computer">
                 <vue-timepicker
+                  id="end-time"
                   v-model="infectionCreation.endTime"
                 ></vue-timepicker>
               </div>
