@@ -4,7 +4,7 @@
       class="phone"
       :id="id"
       type="date"
-      :value="value ? value.toDateString() : null"
+      :value="value ? getFormattedDate(value) : null"
       @input="updateValueString"
       placeholder="MM/DD/YYYY"
     ></b-form-input>
@@ -38,6 +38,17 @@ export default class DatePicker extends Vue {
   @Emit('input')
   updateValueString(value: string) {
     return new Date(value)
+  }
+
+  // format to YYYY-MM-DD
+  getFormattedDate(date: Date) {
+    let month = (1 + date.getMonth()).toString()
+    month = month.length > 1 ? month : '0' + month
+
+    let day = date.getDate().toString()
+    day = day.length > 1 ? day : '0' + day
+
+    return date.getFullYear() + '-' + month + '-' + day
   }
 }
 </script>
