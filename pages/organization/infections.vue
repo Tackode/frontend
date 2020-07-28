@@ -75,22 +75,10 @@
               label-align-sm="right"
               label-for="start-date"
             >
-              <div class="phone">
-                <b-form-input
-                  id="start-date"
-                  type="date"
-                  v-model="infectionCreation.startDate"
-                  placeholder="MM/DD/YYYY"
-                ></b-form-input>
-              </div>
-              <div class="computer">
-                <client-only>
-                  <date-picker
-                    id="start-date"
-                    v-model="infectionCreation.startDate"
-                  />
-                </client-only>
-              </div>
+              <DatePicker
+                id="start-date"
+                v-model="infectionCreation.startDate"
+              />
             </b-form-group>
 
             <b-form-group
@@ -99,20 +87,10 @@
               label-align-sm="right"
               label-for="start-time"
             >
-              <div class="phone">
-                <b-form-input
-                  id="start-time"
-                  type="time"
-                  placeholder="12:00"
-                  v-model="infectionCreation.startTime"
-                ></b-form-input>
-              </div>
-              <div class="computer">
-                <vue-timepicker
-                  id="start-time"
-                  v-model="infectionCreation.startTime"
-                ></vue-timepicker>
-              </div>
+              <TimePicker
+                id="start-time"
+                v-model="infectionCreation.startTime"
+              />
             </b-form-group>
           </b-form-group>
         </b-card>
@@ -131,23 +109,7 @@
               label-align-sm="right"
               label-for="end-date"
             >
-              <div class="phone">
-                <b-form-input
-                  id="end-date"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  v-model="infectionCreation.endDate"
-                ></b-form-input>
-              </div>
-              <div class="computer">
-                <client-only>
-                  <date-picker
-                    id="end-date"
-                    type="date"
-                    v-model="infectionCreation.endDate"
-                  />
-                </client-only>
-              </div>
+              <DatePicker id="end-date" v-model="infectionCreation.endDate" />
             </b-form-group>
 
             <b-form-group
@@ -156,20 +118,7 @@
               label-align-sm="right"
               label-for="end-time"
             >
-              <div class="phone">
-                <b-form-input
-                  id="end-time"
-                  type="time"
-                  placeholder="12:00"
-                  v-model="infectionCreation.endTime"
-                ></b-form-input>
-              </div>
-              <div class="computer">
-                <vue-timepicker
-                  id="end-time"
-                  v-model="infectionCreation.endTime"
-                ></vue-timepicker>
-              </div>
+              <TimePicker id="end-time" v-model="infectionCreation.endTime" />
             </b-form-group>
           </b-form-group>
         </b-card>
@@ -252,6 +201,8 @@ import Component from 'vue-class-component'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'
+import TimePicker from '~/components/TimePicker.vue'
+import DatePicker from '~/components/DatePicker.vue'
 
 interface Infection {
   placesIds: String[]
@@ -267,15 +218,17 @@ interface Infection {
 
 interface InfectionCreation {
   placesIds: String[]
-  startDate: string
+  startDate: Date | null
   startTime: string
-  endDate: string
+  endDate: Date | null
   endTime: string
 }
 
 @Component({
   components: {
     BigActionButton,
+    DatePicker,
+    TimePicker,
   },
 })
 export default class ProfessionalInfections extends Vue {
@@ -289,9 +242,9 @@ export default class ProfessionalInfections extends Vue {
   infections: Infection[] = []
   infectionCreation: InfectionCreation = {
     placesIds: [],
-    startDate: '',
+    startDate: null,
     startTime: '',
-    endDate: '',
+    endDate: null,
     endTime: '',
   }
 
@@ -332,9 +285,9 @@ export default class ProfessionalInfections extends Vue {
   resetModal() {
     this.infectionCreation = {
       placesIds: [],
-      startDate: '',
+      startDate: null,
       startTime: '',
-      endDate: '',
+      endDate: null,
       endTime: '',
     }
   }
@@ -356,7 +309,7 @@ export default class ProfessionalInfections extends Vue {
 
     if (
       this.infectionCreation.startTime === '' ||
-      this.infectionCreation.startDate === ''
+      this.infectionCreation.startDate == null
     ) {
       showError(
         this.$bvToast,
@@ -368,7 +321,7 @@ export default class ProfessionalInfections extends Vue {
 
     if (
       this.infectionCreation.endTime === '' ||
-      this.infectionCreation.endDate === ''
+      this.infectionCreation.endDate == null
     ) {
       showError(
         this.$bvToast,
@@ -379,13 +332,13 @@ export default class ProfessionalInfections extends Vue {
     }
 
     const startDate = new Date(
-      `${new Date(this.infectionCreation.startDate).toDateString()} ${
+      `${this.infectionCreation.startDate.toDateString()} ${
         this.infectionCreation.startTime
       }`
     )
 
     const endDate = new Date(
-      `${new Date(this.infectionCreation.endDate).toDateString()} ${
+      `${this.infectionCreation.endDate.toDateString()} ${
         this.infectionCreation.endTime
       }`
     )
@@ -481,15 +434,4 @@ export default class ProfessionalInfections extends Vue {
 }
 </script>
 
-<style>
-@media only screen and (max-width: 768px) {
-  .computer {
-    display: none;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .phone {
-    display: none;
-  }
-}
-</style>
+<style></style>
