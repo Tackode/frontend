@@ -28,20 +28,20 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary" block>
-        {{ $t('log') }}
+        {{ $t('login') }}
       </b-button>
     </b-form>
     <p v-else-if="state === LoginState.CHECK_EMAIL">{{ $t('emailSent') }}</p>
-    <p v-else-if="state === LoginState.LOADING">{{ $t('wait') }}</p>
+    <p v-else-if="state === LoginState.LOADING">{{ $t('pleaseWait') }}</p>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
-    "wait":"Loading. Please wait...",
+    "pleaseWait":"Loading. Please wait...",
     "emailSent":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
-    "log":"Login",
+    "login":"Login",
     "neverShare":"We'll never share your email with anyone else.",
     "enterEmail":"Enter your email",
     "email":"Email Address",
@@ -51,9 +51,9 @@
 
   },
   "fr": {
-    "wait":"Chargement en cours...",
+    "pleaseWait":"Chargement en cours...",
     "emailSent":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
-    "log":"Se connecter",
+    "login":"Se connecter",
     "neverShare":"Nous ne partagerons pas votre email.",
     "enterEmail":"Entrez votre adresse",
     "email":"Adresse mail",

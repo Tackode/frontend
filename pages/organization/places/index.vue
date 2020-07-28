@@ -1,7 +1,7 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
     <p v-if="state === PlaceState.LOADING">
-      {{ $t('wait') }}
+      {{ $t('pleaseWait') }}
     </p>
     <div v-else-if="state === PlaceState.LOADED">
       <h2>{{ $t('place') }}</h2>
@@ -130,7 +130,7 @@
 {
   "en": {
     "place":"Your Places",
-    "wait": "Loading. Please wait...",
+    "pleaseWait": "Loading. Please wait...",
     "addPlace":"Add a new place open to the public",
     "noPlace":"You don't have any places for now. Please, create a place to begin.",
     "showQR":"Show QRCode",
@@ -156,7 +156,7 @@
   },
   "fr": {
     "place":"Vos lieux",
-    "wait": "Chargement en cours...",
+    "pleaseWait": "Chargement en cours...",
     "addPlace":"Ajoutez un nouveau lieu ouvert au public",
     "noPlace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
     "showQR":"Afficher QRCode",

@@ -6,7 +6,7 @@
     </div>
 
     <p v-else-if="state === CheckinState.LOADING">
-      {{ $t('wait') }}
+      {{ $t('pleaseWait') }}
     </p>
 
     <div v-else-if="state === CheckinState.NOTFOUND">
@@ -95,7 +95,7 @@
     "notExists":"This place does not exist.",
     "stay":"If you stay more than",
     "reconnect":"minutes, please, recheckin.",
-    "wait":"Loading. Please wait...",
+    "pleaseWait":"Loading. Please wait...",
     "emailMailbox":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
     "neverShare":"We'll never share your email with anyone else.",
     "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
@@ -121,7 +121,7 @@
     "notExists":"Ce lieu n'existe plus.",
     "stay":"Si vous restez plus de",
     "reconnect":"minutes, veuillez vous réenregistrer.",
-    "wait":"Chargement en cours...",
+    "pleaseWait":"Chargement en cours...",
     "emailMailbox":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
     "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
     "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",

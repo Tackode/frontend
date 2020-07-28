@@ -42,16 +42,16 @@
       <hr />
 
       <template v-if="role == null">
-        <h2>{{ $t('log') }}</h2>
+        <h2>{{ $t('login') }}</h2>
         <BigActionButton
           class="mb-3"
-          :title="$t('proLog')"
+          :title="$t('proLogin')"
           :subtitle="$t('introduction')"
           image="pro"
           :url="'/' + $i18n.locale + '/login-professional'"
         />
         <BigActionButton
-          :title="$t('userLog')"
+          :title="$t('userLogin')"
           :subtitle="$t('places')"
           image="perso"
           :url="'/' + $i18n.locale + '/login'"
@@ -69,12 +69,12 @@
     "subtitle":"Manage your organization and corresponding places.",
     "covidJournal": "Welcome to Covid-Journal",
     "summary": "Check-in and be notified of potential contact with infected people.",
-    "log": "Loggin In",
+    "login": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
-    "proLog":"You welcome the public and you want to offer Covid-Journal to your visitors",
-    "userLog":"You want to know if you have crossed an infected person",
+    "proLogin":"You welcome the public and you want to offer Covid-Journal to your visitors",
+    "userLogin":"You want to know if you have crossed an infected person",
     "places":"Manage your places and your profile"
   },
   "fr": {
@@ -83,12 +83,12 @@
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidJournal": "Bienvenue sur Covid-Journal",
     "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-    "log": "Connexion",
+    "login": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "proLog":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
-    "userLog":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
+    "proLogin":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "userLogin":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
     "places":"Gérez vos lieux de passages et votre profil."
   }
 }

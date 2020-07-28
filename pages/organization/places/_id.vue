@@ -1,7 +1,7 @@
 <template>
   <div class="wrapped-container c-medium c-center my-3">
     <p v-if="state === PlaceState.LOADING">
-      {{ $t('wait') }}
+      {{ $t('pleaseWait') }}
     </p>
 
     <div v-else-if="state === PlaceState.NOTFOUND">
@@ -66,7 +66,7 @@
     "print":"Print the page",
     "flash":"Flash this QR Code to be informed of an infection",
     "nex":"This place does not exist.",
-    "wait":"Loading. Please wait..."
+    "pleaseWait":"Loading. Please wait..."
 
   },
   "fr": {
@@ -74,7 +74,7 @@
     "print":"Imprimer",
     "flash":"Flashez le QR Code pour être informé d'une infection",
     "nex":"Ce lieu n'existe plus.",
-    "wait":"Chargement en cours..."
+    "pleaseWait":"Chargement en cours..."
   }
 }
 </i18n>

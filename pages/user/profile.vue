@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped-container c-small c-center my-3">
-    <p v-if="state === ProfileState.LOADING">{{ $t('wait') }}</p>
+    <p v-if="state === ProfileState.LOADING">{{ $t('pleaseWait') }}</p>
     <template v-else-if="state === ProfileState.LOADED">
       <h2>{{ $t('myProfile') }}</h2>
       <div v-if="profile">
@@ -89,7 +89,7 @@
 {
   "en": {
     "charge":"Loading impossible. Cannot find your profile",
-    "wait": "Loading. Please wait...",
+    "pleaseWait": "Loading. Please wait...",
     "myProfile": "My Profile",
     "deleteProfileValidation": "Do you really want to delete your profile?",
     "deleteProfile": "Delete profile",
@@ -110,7 +110,7 @@
   },
   "fr": {
     "charge":"Chargement impossible. Profil Introuvable.",
-    "wait": "Chargement en cours...",
+    "pleaseWait": "Chargement en cours...",
     "myProfile": "Mon Profil",
     "deleteProfileValidation": "Voulez-vous vraiment supprimer votre profil ?",
     "deleteProfile": "Supprimer le profil",
