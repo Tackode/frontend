@@ -120,17 +120,17 @@ export default {
       process.env.NODE_ENV !== 'production'
         ? false
         : {
-            reportOnly: true,
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
               'img-src': ['https:'],
               'worker-src': ["'self'", `blob:`],
-              'style-src': ["'self'"],
+              'style-src': ["'self'", "'unsafe-inline'"],
               'script-src': ["'self'"],
               'form-action': ["'self'"],
               'frame-ancestors': ["'none'"],
               'object-src': ["'none'"],
+              'connect-src': [`api.covid-journal.org`, `covid-journal.org`],
             },
           },
   },
