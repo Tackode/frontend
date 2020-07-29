@@ -127,7 +127,10 @@ export default {
               'img-src': ['https:'],
               'worker-src': ["'self'", `blob:`],
               'style-src': ["'self'", "'unsafe-inline'"],
-              'script-src': ["'self'"],
+              'script-src': [
+                "'self'",
+                'https://webrtc.github.io/adapter/adapter-7.6.3.js',
+              ],
               'form-action': ["'self'"],
               'frame-ancestors': ["'none'"],
               'object-src': ["'none'"],
