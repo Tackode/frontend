@@ -5,7 +5,7 @@ dotenv.config()
 
 console.log('API_URL:', process.env.API_URL)
 console.log('CSP:', process.env.CSP)
-const PRIMARY_HOSTS = `api.covid-journal.org`
+const PRIMARY_HOSTS = `covid-journal.org`
 
 export default {
   mode: 'universal',
