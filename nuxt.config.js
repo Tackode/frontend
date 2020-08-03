@@ -120,11 +120,10 @@ export default {
       process.env.NODE_ENV !== 'production'
         ? false
         : {
-            reportOnly: true,
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
-              'img-src': ['https:', 'http://www.w3.org/2000/svg'],
+              'img-src': ['https:'],
               'worker-src': ["'self'", `blob:`],
               'style-src': ["'self'", "'unsafe-inline'"],
               'script-src': [
