@@ -124,7 +124,7 @@ export default {
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
-              'img-src': ['https:', 'data:image/svg+xml;charset=utf-8,%3Csvg'],
+              'img-src': ['https:', 'data:'],
               'worker-src': ["'self'", `blob:`],
               'style-src': ["'self'", "'unsafe-inline'"],
               'script-src': [
