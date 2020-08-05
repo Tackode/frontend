@@ -37,9 +37,15 @@ export default {
       },
       { hid: 'og:site_name', name: 'og:site_name', content: 'Covid-Journal' },
       {
+        hid: 'og:description',
+        name: 'og:description',
+        content:
+          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+      },
+      {
         hid: 'og:image',
         name: 'og:image',
-        content: `~assets/images/logo-covid-journal-print.png`,
+        content: `https://covid-journal.org/_nuxt/img/logo-covid-journal-print.3d963fb.png`,
       },
       { name: 'msapplication-TileColor', content: '#5299d3' },
     ],
@@ -135,7 +141,6 @@ export default {
       process.env.NODE_ENV !== 'production'
         ? false
         : {
-            reportOnly: true,
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
