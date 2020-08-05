@@ -44,8 +44,18 @@
       exerce ce droit par mail :
       <a href="mailto:contact@creatiwity.net">contact@creatiwity.net</a>
     </p>
+    <h5>ARTICLE 5 : DONNÉES PERSONNELLES</h5>
+    <P>
+      En disposant d'un compte, l'Utilisateur permet le stockage de :
+      <ul class="text-left">
+        <li>Son email : si coché dans le profil</li>
+        <li>La liste de ses Check-Ins des 30 derniers jours</li>
+      </ul>
+      Les Professionels permettent de plus le stockage de liste de leurs lieux
+      et des évènements qu'ils ont déclaré.
+    </P>
 
-    <h5>ARTICLE 5 : COOKIES</h5>
+    <h5>ARTICLE 6 : COOKIES</h5>
     <p>
       L’Utilisateur est informé que lors de ses visites sur le site, un cookie
       peut s’installer automatiquement sur son logiciel de navigation. En
@@ -81,5 +91,8 @@ export default class Legal extends Vue {}
 <style lang="scss">
 .legal-notice p {
   text-align: justify;
+}
+ul {
+  margin: 0;
 }
 </style>
