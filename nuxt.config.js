@@ -36,6 +36,11 @@ export default {
         content: 'Bienvenue sur Covid-Journal !',
       },
       { hid: 'og:site_name', name: 'og:site_name', content: 'Covid-Journal' },
+      {
+        hid: 'og:image',
+        name: 'og:image',
+        content: `~assets/images/logo-covid-journal-print.png`,
+      },
       { name: 'msapplication-TileColor', content: '#5299d3' },
     ],
     link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
