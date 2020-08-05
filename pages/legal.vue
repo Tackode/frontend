@@ -48,11 +48,11 @@
     <P>
       En disposant d'un compte, l'Utilisateur permet le stockage de :
       <ul class="text-left">
-        <li>Son email : si coché dans le profil</li>
-        <li>La liste de ses Check-Ins des 30 derniers jours</li>
+        <li>Son email, si coché dans le profil</li>
+        <li>La liste de ses check-ins des 30 derniers jours</li>
       </ul>
-      Les Professionels permettent de plus le stockage de liste de leurs lieux
-      et des évènements qu'ils ont déclaré.
+      Les comptes Professionels permettent de plus le stockage de la liste de
+      leurs lieux et des évènements qu'ils y ont déclaré.
     </P>
 
     <h5>ARTICLE 6 : COOKIES</h5>
