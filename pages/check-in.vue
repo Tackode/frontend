@@ -114,7 +114,11 @@
     "notSuitable":"Installed cameras are not suitable",
     "streamAPINotSupported":"Stream API is not supported in this browser",
     "networkError":"A network error has occurred. Please, try again.",
-    "errorUnknown":"Unknown error"
+    "errorUnknown":"Unknown error",
+    "titlePage":"Covid Journal - Checkin",
+    "notFound":"Covid Journal - Unknown place",
+    "errorTitle":"Covid Journal - Error",
+    "scanTitle":"Covid Journal - Scanning"
   },
   "fr": {
     "back":"Retour à la page d'accueil",
@@ -140,7 +144,11 @@
     "notSuitable":"La caméra installée n'est pas compatible",
     "streamAPINotSupported":"La vidéo n'est pas supportée sur votre appareil",
     "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "errorUnknown":"Erreur inconnue"
+    "errorUnknown":"Erreur inconnue",
+    "titlePage":"Covid Journal - Checkin",
+    "notFound":"Covid Journal - Lieu inconnu",
+    "errorTitle":"Covid Journal - Erreur",
+    "scanTitle":"Covid Journal - Scan en cours"
 
   }
 }
@@ -181,6 +189,7 @@ export default class CheckIn extends Vue {
   CheckinState = CheckinState
 
   async mounted() {
+    document.title = this.$i18n.t('titlePage') as string
     const placeId = this.$route.query.placeId
 
     if (
@@ -200,10 +209,12 @@ export default class CheckIn extends Vue {
       this.place = await this.$axios.$get(`/place/${placeId}`)
     } catch (error) {
       this.state = CheckinState.NOTFOUND
+      document.title = this.$i18n.t('notFound') as string
       return
     }
     this.duration = `${this.place?.averageDuration}`
     this.state = CheckinState.LOADED
+    document.title = `Covid Journal - ${this.place?.name}`
   }
 
   async handleSubmit(e: Event) {
@@ -273,9 +284,11 @@ export default class CheckIn extends Vue {
 
   async onInit(promise: any) {
     try {
+      document.title = this.$i18n.t('scanTitle') as string
       await promise
     } catch (error) {
       this.state = CheckinState.ERROR
+      document.title = this.$i18n.t('errorTitle') as string
       if (error.name === 'NotAllowedError') {
         this.error = 'notAllowed'
         this.retry = 'retryOperation'

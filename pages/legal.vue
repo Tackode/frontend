@@ -72,10 +72,12 @@
 <i18n>
 {
   "en": {
-    "legalNotices":"Legal Notices"
+    "legalNotices":"Legal Notices",
+    "titlePage":"Covid Journal - Legal Notices"
   },
   "fr": {
-    "legalNotices":"Mentions légales"
+    "legalNotices":"Mentions légales",
+    "titlePage":"Covid Journal - Mentions légales"
   }
 }
 </i18n>
@@ -85,7 +87,11 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class Legal extends Vue {}
+export default class Legal extends Vue {
+  mounted() {
+    document.title = this.$i18n.t('titlePage') as string
+  }
+}
 </script>
 
 <style lang="scss">

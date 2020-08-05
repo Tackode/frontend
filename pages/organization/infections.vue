@@ -158,7 +158,8 @@
     "noInfectionInTheFuture":"You cannot declare in the future",
     "maximumTime":"maximumTime",
     "networkError":"networkError",
-    "Error":"Error"
+    "Error":"Error",
+    "titlePage":"Covid Journal - Infections"
   },
   "fr": {
     "infection":"Déclarer une infection",
@@ -190,7 +191,8 @@
     "noInfectionInTheFuture":"Vous ne pouvez pas déclarer dans le futur.",
     "maximumTime":"Durée maximale sur place : 12 heures",
     "networkError":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
-    "Error":"Erreur"
+    "Error":"Erreur",
+    "titlePage":"Covid Journal - Infections"
   }
 }
 </i18n>
@@ -249,6 +251,7 @@ export default class ProfessionalInfections extends Vue {
   }
 
   mounted() {
+    document.title = this.$i18n.t('titlePage') as string
     this.loadData()
   }
 

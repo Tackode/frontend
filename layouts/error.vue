@@ -18,7 +18,8 @@
     "homePage":"Home page",
     "error404":"Error 404",
     "errorOccurred":"An error occurred.",
-    "tryAgain":"Try again later"
+    "tryAgain":"Try again later",
+    "titlePage":"Covid Journal - Error"
 
   },
   "fr": {
@@ -26,12 +27,16 @@
     "homePage":"Retour à la page d'accueil",
     "error404":"Erreur 404",
     "errorOccurred":"Une erreur est survenue.",
-    "tryAgain":"Veuillez réessayer ultérieurement"
+    "tryAgain":"Veuillez réessayer ultérieurement",
+    "titlePage":"Covid Journal - Erreur"
   }
 }
 </i18n>
 <script>
 export default {
   props: ['error'],
+  mounted() {
+    document.title = this.$i18n.t('titlePage')
+  },
 }
 </script>

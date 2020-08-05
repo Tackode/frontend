@@ -95,7 +95,8 @@
     "time": "Time",
     "duration": "Duration",
     "noCheckIn": "You don't have any check-in for now.",
-    "networkError":"A network error has occurred. Please, try again."
+    "networkError":"A network error has occurred. Please, try again.",
+    "titlePage":"Covid Journal - My Check-ins "
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
@@ -107,7 +108,8 @@
     "time": "Horaire",
     "duration": "Durée",
     "noCheckIn": "Vous n'avez aucune visite enregistrée pour l'instant.",
-    "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer."
+    "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
+    "titlePage":"Covid Journal - Mon Visites"
   }
 }
 </i18n>
@@ -137,6 +139,7 @@ export default class CheckIns extends Vue {
 
   async mounted() {
     // Load checkins
+    document.title = this.$i18n.t('titlePage') as string
     try {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {

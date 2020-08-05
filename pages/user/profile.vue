@@ -106,7 +106,8 @@
     "networkError":"A network error has occurred in posting. Please, try again.",
     "networkErrorLoading":"A network error occurred while loading the profile. Please, try Again.",
     "profileDeleted":"Your profile has been deleted.",
-    "networkErrorDeleting":"A network error has occurred in deleting profile. Please, try again."
+    "networkErrorDeleting":"A network error has occurred in deleting profile. Please, try again.",
+    "titlePage":"Covid Journal - My Profile"
   },
   "fr": {
     "charge":"Chargement impossible. Profil Introuvable.",
@@ -127,7 +128,8 @@
     "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
     "networkErrorLoading":"Une erreur réseau est apparue pendant le chargement du profil. S'il vous plaît, réessayer.",
     "profileDeleted":"Votre profil a bien été supprimé",
-    "networkErrorDeleting":"Une erreur réseau est survenue en supprimant le profil. S'il vous plait réessayer"
+    "networkErrorDeleting":"Une erreur réseau est survenue en supprimant le profil. S'il vous plait réessayer",
+    "titlePage":"Covid Journal - Mon Profil"
   }
 }
 </i18n>
@@ -155,6 +157,7 @@ export default class ProfilePage extends Vue {
   ProfileState = ProfileState
 
   async mounted() {
+    document.title = this.$i18n.t('titlePage') as string
     if (
       !this.$store.getters['session/localEmail'] &&
       this.$store.getters['session/email']

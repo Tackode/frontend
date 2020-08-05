@@ -75,7 +75,8 @@
     "scan": "Scan the QR Code of the place where you are",
     "proLogin":"You welcome the public and you want to offer Covid-Journal to your visitors",
     "userLogin":"You want to know if you have crossed an infected person",
-    "places":"Manage your places and your profile"
+    "places":"Manage your places and your profile",
+    "titlePage":"Covid Journal - Homepage"
   },
   "fr": {
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
@@ -89,7 +90,8 @@
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
     "proLogin":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
     "userLogin":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
-    "places":"Gérez vos lieux de passages et votre profil."
+    "places":"Gérez vos lieux de passages et votre profil.",
+    "titlePage":"Covid Journal - Page d'accueil"
   }
 }
 </i18n>
@@ -108,6 +110,7 @@ export default class Home extends Vue {
   role: string | null = null
 
   mounted() {
+    document.title = this.$i18n.t('titlePage') as string
     this.role = this.$store.getters['session/role']
 
     this.$store.watch(

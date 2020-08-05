@@ -127,6 +127,7 @@ export default class PlaceDetail extends Vue {
     this.organization = `${this.place?.organization?.name}`
     this.name = `${this.place?.name}`
     this.description = `${this.place?.description}`
+    document.title = 'Covid Journal - ' + this.name
   }
 
   printPage() {

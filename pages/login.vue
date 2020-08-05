@@ -33,7 +33,8 @@
     "neverShare":"We'll never share your email with anyone else.",
     "enterEmail":"Enter your email",
     "email":"Email address",
-    "networkError":"A network error has occurred. Please, try again."
+    "networkError":"A network error has occurred. Please, try again.",
+    "titlePage":"Covid Journal - Login"
   },
   "fr": {
     "pleaseWait":"Chargement en cours...",
@@ -42,7 +43,8 @@
     "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
     "enterEmail":"Entrez votre adresse",
     "email":"Adresse mail",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "titlePage":"Covid Journal - Se connecter"
 
   }
 }
@@ -66,6 +68,10 @@ export default class Login extends Vue {
 
   // Bind enum for Vue
   LoginState = LoginState
+
+  mounted() {
+    document.title = this.$i18n.t('titlePage') as string
+  }
 
   async handleSubmit(e: Event) {
     e.preventDefault()

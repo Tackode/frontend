@@ -152,7 +152,8 @@
     "subtitle":"Generate a QR Code for this new place",
     "networkError":"A network error has occurred. Please, try again.",
     "fillInRequiredFields":"Please fill in the required fields.",
-    "placeError":"Place"
+    "placeError":"Place",
+    "titlePage":"Covid Journal - My Places"
   },
   "fr": {
     "place":"Vos lieux",
@@ -178,7 +179,8 @@
     "subtitle":"Générez un QR Code pour ce nouveau lieu",
     "networkError":"Une erreur réseau s'est produite. Veuillez réessayer.",
     "fillInRequiredFields":"Veuillez remplir tous les champs requis",
-    "placeError":"Lieu"
+    "placeError":"Lieu",
+    "titlePage":"Covid Journal - Mes Lieux"
   }
 }
 </i18n>
@@ -229,6 +231,7 @@ export default class ProfessionalPlaces extends Vue {
   PlaceState = PlaceState
 
   mounted() {
+    document.title = this.$i18n.t('titlePage') as string
     this.loadData()
     this.state = PlaceState.LOADED
   }

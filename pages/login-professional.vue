@@ -47,7 +47,8 @@
     "email":"Email Address",
     "organizationName":"Organization name",
     "enterOrganizationName":"Enter your organization name",
-    "networkError":"A network error has occurred. Please, try again."
+    "networkError":"A network error has occurred. Please, try again.",
+    "titlePage":"Covid Journal - Login"
 
   },
   "fr": {
@@ -59,7 +60,8 @@
     "email":"Adresse mail",
     "organizationName":"Nom d'entreprise",
     "enterOrganizationName":"Nom de votre entreprise",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "titlePage":"Covid Journal - Se connecter"
 
   }
 }
@@ -84,6 +86,10 @@ export default class LoginProfessional extends Vue {
 
   // Bind enum for Vue
   LoginState = LoginState
+
+  mounted() {
+    document.title = this.$i18n.t('titlePage') as string
+  }
 
   async handleSubmit(e: Event) {
     e.preventDefault()

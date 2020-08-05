@@ -15,13 +15,15 @@
     "validateDevice":"Validate Device",
     "validationFailed":"Fail to connect you. Please, retry to connect. ",
     "networkError":"A network error has occurred. Please, try again.",
-    "parametersMissing":"Parameters are missing to connect. Please, click on the link that was received in the login email."
+    "parametersMissing":"Parameters are missing to connect. Please, click on the link that was received in the login email.",
+    "titlePage":"Covid Journal - Validation in progress"
   },
   "fr": {
     "validateDevice":"Appareil Validé",
     "validationFailed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
     "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "parametersMissing":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion."
+    "parametersMissing":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
+    "titlePage":"Covid Journal - Validation en cours"
   }
 }
 </i18n>
@@ -49,6 +51,7 @@ export default class ValidateDevice extends Vue {
 
   async mounted() {
     // Retrieve device & session
+    document.title = this.$i18n.t('titlePage') as string
     const sessionId = this.$route.query.sessionId
     const token = this.$route.query.token
 
