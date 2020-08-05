@@ -25,8 +25,18 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content:
+          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
       },
+      { hid: 'og:type', name: 'og:type', content: 'website' },
+      { hid: 'og:url', name: 'og:url', content: process.env.WEBSITE_URL },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Bienvenue sur Covid-Journal !',
+      },
+      { hid: 'og:site_name', name: 'og:site_name', content: 'Covid-Journal' },
+      { name: 'msapplication-TileColor', content: '#5299d3' },
     ],
     link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
   },
