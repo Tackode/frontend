@@ -61,7 +61,10 @@
         </template>
 
         <template v-slot:cell(place_name)="data">
-          {{ data.item.place.name }}
+          <div v-b-tooltip.hover :title="data.item.place.description">
+            {{ data.item.place.name }}
+            <b-icon icon="info-circle"></b-icon>
+          </div>
         </template>
 
         <template v-slot:cell(time)="data">
