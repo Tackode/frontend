@@ -214,7 +214,7 @@ export default class CheckIn extends Vue {
     }
     this.duration = `${this.place?.averageDuration}`
     this.state = CheckinState.LOADED
-    document.title = `Covid Journal - ${this.place?.name}`
+    document.title = `${this.place?.name} - Covid Journal`
   }
 
   async handleSubmit(e: Event) {
