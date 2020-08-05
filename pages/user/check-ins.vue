@@ -109,7 +109,7 @@
     "duration": "Durée",
     "noCheckIn": "Vous n'avez aucune visite enregistrée pour l'instant.",
     "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
-    "titlePage":"Covid Journal - Mon Visites"
+    "titlePage":"Covid Journal - Mes Visites"
   }
 }
 </i18n>
