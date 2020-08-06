@@ -29,7 +29,6 @@ export default {
           "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
       },
       { hid: 'og:type', name: 'og:type', content: 'website' },
-      { hid: 'og:url', name: 'og:url', content: process.env.WEBSITE_URL },
       {
         hid: 'og:title',
         name: 'og:title',
@@ -141,6 +140,7 @@ export default {
       process.env.NODE_ENV !== 'production'
         ? false
         : {
+            reportOnly: true,
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
