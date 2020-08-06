@@ -150,6 +150,7 @@ export default {
               'script-src': [
                 "'self'",
                 'https://webrtc.github.io/adapter/adapter-7.6.3.js',
+                'https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js',
               ],
               'form-action': ["'self'"],
               'frame-ancestors': ["'none'"],
