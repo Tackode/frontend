@@ -140,7 +140,6 @@ export default {
       process.env.NODE_ENV !== 'production'
         ? false
         : {
-            reportOnly: true,
             hashAlgorithm: 'sha256',
             policies: {
               'default-src': ["'self'"],
