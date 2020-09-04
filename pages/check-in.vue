@@ -287,6 +287,9 @@ export default class CheckIn extends Vue {
       document.title = this.$i18n.t('scanTitle') as string
       await promise
     } catch (error) {
+      if (error == 'TypeError: r.getCapabilities is not a function') {
+        return
+      }
       this.state = CheckinState.ERROR
       document.title = this.$i18n.t('errorTitle') as string
       if (error.name === 'NotAllowedError') {
@@ -308,7 +311,7 @@ export default class CheckIn extends Vue {
         this.error = 'streamAPINotSupported'
         this.retry = 'retryDevice'
       } else {
-        this.error = 'errorUnknown'
+        this.error = error
         this.retry = 'retry'
       }
     }
