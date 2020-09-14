@@ -39,8 +39,8 @@
       id="infection-creation-modal"
       size="lg"
       :title="$t('infectionDeclarationTitle')"
-      :okTitle="$t('declare')"
-      :cancelTitle="$t('cancel')"
+      :ok-title="$t('declare')"
+      :cancel-title="$t('cancel')"
       @ok="handleModalOk"
       @hidden="resetModal"
     >

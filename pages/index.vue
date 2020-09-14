@@ -8,22 +8,25 @@
         src="~/assets/images/logo-covid-journal-big.png"
         srcset="
           ~/assets/images/logo-covid-journal-big.png    1x,
-          ~/assets/images/logo-covid-journal-big@2x.png 2x
+          ~/assets/images/logo-covid-journal-big@2x.png 2x,
+          ~/assets/images/logo-covid-journal-big@3x.png 3x
         "
       />
-      <p>{{ $t('summary') }}</p>
+      <p class="mt-2">{{ $t('summary') }}</p>
     </div>
 
     <p class="image-caption">
       Photo by
       <a
         href="https://unsplash.com/@jonwaits?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        target="_blank"
       >
         Jonathan Nguyen
       </a>
       on
       <a
         href="https://unsplash.com/s/photos/covid-restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        target="_blank"
       >
         Unsplash
       </a>
@@ -68,7 +71,7 @@
     "introduction":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
     "covidJournal": "Welcome to Covid-Journal",
-    "summary": "Check-in and be notified of potential contact with infected people.",
+    "summary": "Check-in by scanning a QR Code and be notified of potential contact with infected people.",
     "login": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
@@ -83,7 +86,7 @@
     "introduction":"Gérez votre organisation et les lieux correspondants.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
     "covidJournal": "Bienvenue sur Covid-Journal",
-    "summary": "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+    "summary": "Enregistrez votre passage dans un établissement grâce à un QR Code et soyez notifié d'un contact potentiel avec une personne infectée",
     "login": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
@@ -133,7 +136,9 @@ export default class Home extends Vue {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 24px;
+  margin: 24px 24px 0;
+  border-radius: 4px;
 
   .logo {
     max-width: 500px;
@@ -144,6 +149,7 @@ export default class Home extends Vue {
     color: white;
     max-width: 600px;
     font-size: 1.1em;
+    text-shadow: 0 3px 6px #000;
 
     @media (min-width: 768px) {
       font-size: 1.5em;
@@ -153,6 +159,12 @@ export default class Home extends Vue {
 
 .image-caption {
   font-size: 8px;
+  margin: 0 24px 24px;
+
+  &,
+  a {
+    color: #444444;
+  }
 }
 
 .image-caption,

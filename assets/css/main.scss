@@ -1,11 +1,24 @@
 @use '../fonts/fonts';
 
-$primary: #5299d3;
-$secondary: #3c3c3c;
+$primary: #ff5a5f;
+$secondary: #444444;
+$default: #ffffff;
+$light: #f4f4f4;
+$dark: #1e1e1e;
+
+$body-bg: $light;
+$body-color: $dark;
+
+$border-radius: 4px;
+$border-radius-lg: 8px;
+$border-radius-sm: 4px;
+
 $headings-font-family: 'PT Sans', sans-serif;
 $headings-font-weight: 700;
 $btn-font-family: 'PT Sans', sans-serif;
 $btn-font-weight: 700;
+
+$navbar-light-color: #1e1e1e;
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';

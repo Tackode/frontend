@@ -32,11 +32,20 @@
   }
 }
 </i18n>
-<script>
-export default {
-  props: ['error'],
+<script type="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+const ErrorLayoutProps = Vue.extend({
+  props: {
+    error: Object,
+  },
+})
+
+@Component
+export default class ErrorLayout extends ErrorLayoutProps {
   mounted() {
     document.title = this.$i18n.t('titlePage')
-  },
+  }
 }
 </script>

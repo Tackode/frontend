@@ -1,14 +1,15 @@
 <template>
   <div class="wrapper">
-    <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
+    <b-navbar :sticky="true" toggleable="lg" type="light" variant="light">
       <b-navbar-brand :to="'/' + $i18n.locale + '/'">
         <img
           src="~/assets/images/logo-covid-journal.png"
           srcset="
             ~/assets/images/logo-covid-journal.png    1x,
             ~/assets/images/logo-covid-journal@2x.png 2x
+            ~/assets/images/logo-covid-journal@3x.png 3x
           "
-          width="160"
+          width="230"
           class="d-inline-block align-top"
         />
       </b-navbar-brand>
@@ -110,7 +111,6 @@ export default class DefaultLayout extends Vue {
   $i18n: any
 
   created() {
-    // Init store
     this.$store.dispatch('session/init')
   }
 
@@ -134,3 +134,9 @@ export default class DefaultLayout extends Vue {
   }
 }
 </script>
+
+<style>
+.navbar {
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.25);
+}
+</style>

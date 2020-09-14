@@ -287,7 +287,7 @@ export default class CheckIn extends Vue {
       document.title = this.$i18n.t('scanTitle') as string
       await promise
     } catch (error) {
-      if (error == 'TypeError: r.getCapabilities is not a function') {
+      if (error === 'TypeError: r.getCapabilities is not a function') {
         return
       }
       this.state = CheckinState.ERROR
