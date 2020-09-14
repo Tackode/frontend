@@ -30,7 +30,7 @@
     "bootstrap-vue": "^2.16.0",
     "date-fns": "^2.15.0",
     "nuxt-env": "^0.1.0",
-    "nuxt-i18n": "^6.13.2",
+    "nuxt-i18n": "^6.15.1",
     "nuxt-start": "^2.14.0",
     "v-calendar": "^1.0.8",
     "vue-class-component": "^7.2.5",
