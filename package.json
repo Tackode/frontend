@@ -61,7 +61,7 @@
     "sass-loader": "^10.0.2",
     "stylelint": "^13.7.1",
     "ts-jest": "^26.3.0",
-    "vue-jest": "^4.0.0-0"
+    "vue-jest": "^4.0.0-rc.0"
   },
   "resolutions": {
     "core-js": "2.6.11"
