@@ -7,7 +7,6 @@ console.log('API_URL:', process.env.API_URL)
 console.log('CSP:', process.env.CSP)
 
 export default {
-  mode: 'universal',
   dev: process.env.NODE_ENV !== 'production',
   /*
    ** Headers of the page
