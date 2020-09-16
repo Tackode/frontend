@@ -45,7 +45,7 @@
             <b-nav-item :to="'/' + $i18n.locale + '/login'">
               {{ $t('log-in') }}
             </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/signin'">
+            <b-nav-item :to="'/' + $i18n.locale + '/signup'">
               {{ $t('sign-in') }}
             </b-nav-item>
           </template>
@@ -139,7 +139,13 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-@Component
+@Component({
+  head(this: DefaultLayout) {
+    return {
+      titleTemplate: 'Covid-Journal - %s',
+    }
+  },
+})
 export default class DefaultLayout extends Vue {
   role: string | null = null
   $i18n: any
