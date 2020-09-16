@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container c-center c-medium my-3">
+  <div class="wrapped-container c-center c-large my-3">
     <div v-if="error.statusCode === 404">
       <h2>{{ $t('notFound') }}</h2>
       <p>{{ $t('error404') }}</p>

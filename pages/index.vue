@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div class="title">
-      <h1 class="sr-only">{{ $t('covidJournal') }}</h1>
+      <h1 class="sr-only">Covid-Journal</h1>
       <img
-        alt="Covid Journal"
+        alt="Covid-Journal"
         class="img-fluid logo"
         src="~/assets/images/logo-covid-journal-big.png"
         srcset="
@@ -12,7 +12,7 @@
           ~/assets/images/logo-covid-journal-big@3x.png 3x
         "
       />
-      <p class="mt-2">{{ $t('summary') }}</p>
+      <p class="d-none d-md-block">{{ $t('summary') }}</p>
     </div>
 
     <p class="image-caption">
@@ -33,33 +33,85 @@
     </p>
 
     <div class="wrapped-container c-medium mb-3">
-      <h2>{{ $t('checkin') }}</h2>
+      <p class="d-md-none">{{ $t('summary') }}</p>
 
-      <BigActionButton
-        :title="$t('register')"
-        :subtitle="$t('scan')"
-        image="qr-code"
-        :url="'/' + $i18n.locale + '/check-in'"
-      />
+      <h2>{{ $t('how-does-it-work') }}</h2>
 
-      <hr />
+      <b-row cols="2" class="presentation-block">
+        <b-col align-self="end" class="text-left">
+          <h3>{{ $t('step-1-title') }}</h3>
+          <p>{{ $t('step-1') }}</p>
+          <b-button
+            variant="default"
+            block
+            :href="'/' + $i18n.locale + '/organization/places'"
+          >
+            {{ $t('create-qr-code') }}
+          </b-button>
+        </b-col>
+        <b-col>
+          <img
+            class="img-fluid"
+            :alt="$t('step-1-title')"
+            src="~/assets/images/step-1.png"
+            srcset="
+              ~/assets/images/step-1.png    1x,
+              ~/assets/images/step-1@2x.png 2x,
+              ~/assets/images/step-1@3x.png 3x
+            "
+          />
+        </b-col>
+      </b-row>
 
-      <template v-if="role == null">
-        <h2>{{ $t('login') }}</h2>
-        <BigActionButton
-          class="mb-3"
-          :title="$t('proLogin')"
-          :subtitle="$t('introduction')"
-          image="pro"
-          :url="'/' + $i18n.locale + '/login-professional'"
-        />
-        <BigActionButton
-          :title="$t('userLogin')"
-          :subtitle="$t('places')"
-          image="perso"
-          :url="'/' + $i18n.locale + '/login'"
-        />
-      </template>
+      <b-row cols="2" class="presentation-block">
+        <b-col>
+          <img
+            class="img-fluid"
+            :alt="$t('step-2-title')"
+            src="~/assets/images/step-2.png"
+            srcset="
+              ~/assets/images/step-2.png    1x,
+              ~/assets/images/step-2@2x.png 2x,
+              ~/assets/images/step-2@3x.png 3x
+            "
+          />
+        </b-col>
+        <b-col align-self="end" class="text-left">
+          <h3>{{ $t('step-2-title') }}</h3>
+          <p>{{ $t('step-2') }}</p>
+          <b-button
+            variant="default"
+            block
+            :href="'/' + $i18n.locale + '/check-in'"
+          >
+            {{ $t('scan-qr-code') }}
+          </b-button>
+        </b-col>
+      </b-row>
+
+      <b-row cols="2" class="presentation-block">
+        <b-col align-self="end" class="text-left">
+          <h3>{{ $t('step-3-title') }}</h3>
+          <p>{{ $t('step-3') }}</p>
+        </b-col>
+        <b-col>
+          <img
+            class="img-fluid"
+            :alt="$t('step-3-title')"
+            src="~/assets/images/step-3.png"
+            srcset="
+              ~/assets/images/step-3.png    1x,
+              ~/assets/images/step-3@2x.png 2x,
+              ~/assets/images/step-3@3x.png 3x
+            "
+          />
+        </b-col>
+      </b-row>
+
+      <h2>{{ $t('how-much-does-it-cost') }}</h2>
+
+      <p class="text-justify">{{ $t('cost-paragraph-1') }}</p>
+      <p class="text-justify">{{ $t('cost-paragraph-2') }}</p>
     </div>
   </div>
 </template>
@@ -67,11 +119,23 @@
 <i18n>
 {
   "en": {
+    "summary": "Check-in by scanning a QR Code and be notified of potential contact with infected people.",
+    "how-does-it-work": "How does it work?",
+    "how-much-does-it-cost": "How much does it cost?",
+    "step-1-title": "Step 1",
+    "step-1": "The owner creates a QR Code, which he then makes available to his customers",
+    "create-qr-code": "Create a QR Code",
+    "step-2-title": "Step 2",
+    "step-2": "You scan the QR Code using your smartphone's camera or using the dedicated page of this site",
+    "scan-qr-code": "Scan a QR Code",
+    "step-3-title": "Step 3",
+    "step-3": "You are notified by email if you have met a person infected with Covid-19 in this establishment",
+    "cost-paragraph-1": "The coronavirus is eveyone's business, which means each of us must make an effort so that we can all come out of this global pandemic together.",
+    "cost-paragraph-2": "It is for this reason that we have decided for the moment to offer our application free of charge to all people who wish to use it and thus allow as many people as possible to be able to go out and enjoy it in complete safety!",
+
     "register":"Register a place to be notified when an infection is reported",
     "introduction":"Manage your organization and the corresponding places",
     "subtitle":"Manage your organization and corresponding places.",
-    "covidJournal": "Welcome to Covid-Journal",
-    "summary": "Check-in by scanning a QR Code and be notified of potential contact with infected people.",
     "login": "Loggin In",
     "logout":"Log Out",
     "checkin" : "Check in a place",
@@ -82,11 +146,23 @@
     "titlePage":"Covid Journal - Homepage"
   },
   "fr": {
+    "summary": "Enregistrez votre passage dans un établissement grâce à un QR Code et soyez notifié d'un contact potentiel avec une personne infectée",
+    "how-does-it-work": "Comment ça marche ?",
+    "how-much-does-it-cost": "Combien ça coûte ?",
+    "step-1-title": "Étape 1",
+    "step-1": "Le propriétaire de l'établissement crée un QR Code, qu'il met ensuite à la disposition de ses clients",
+    "create-qr-code": "Créer un QR Code",
+    "step-2-title": "Étape 2",
+    "step-2": "Vous scannez le QR Code depuis la caméra de votre téléphone ou depuis la page dédié sur notre site",
+    "scan-qr-code": "Scanner un QR Code",
+    "step-3-title": "Étape 3",
+    "step-3": "Vous êtes notifié par mail si vous avez croisé une personne infectée par le Covid-19 dans cet établissement",
+    "cost-paragraph-1": "Le coronavirus est l'affaire de tous, ce qui signifie que chacun d'entre nous doit faire un effort pour que nous puissions sortir tous ensemble de cette pandémie mondiale.",
+    "cost-paragraph-2": "C'est pour cette raison que nous avons décidé pour le moment d'offrir gratuitement notre application à toutes les personnes qui souhaitent en profiter et de permettre ainsi à un maximum de personne de pouvoir sortir et profiter en toute sécurité !",
+
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
     "introduction":"Gérez votre organisation et les lieux correspondants.",
     "subtitle":"Gérer votre organisation et les lieux correspondants.",
-    "covidJournal": "Bienvenue sur Covid-Journal",
-    "summary": "Enregistrez votre passage dans un établissement grâce à un QR Code et soyez notifié d'un contact potentiel avec une personne infectée",
     "login": "Connexion",
     "logout":"Se déconnecter",
     "checkin" : "Enregistrer son passage",
@@ -128,7 +204,8 @@ export default class Home extends Vue {
 
 <style lang="scss">
 .title {
-  height: 30vh;
+  height: 15vh;
+  min-height: 150px;
   background-image: url('~assets/images/background.jpg');
   background-size: cover;
   text-align: center;
@@ -140,9 +217,15 @@ export default class Home extends Vue {
   margin: 24px 24px 0;
   border-radius: 4px;
 
+  @media (min-width: 768px) {
+    height: 30vh;
+    min-height: 300px;
+  }
+
   .logo {
     max-width: 500px;
     width: 80vw;
+    margin-bottom: 0.5rem;
   }
 
   p {
@@ -170,5 +253,9 @@ export default class Home extends Vue {
 .image-caption,
 .checkin {
   margin-bottom: 2em;
+}
+
+.presentation-block {
+  margin-bottom: 3rem;
 }
 </style>

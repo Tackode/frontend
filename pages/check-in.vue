@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container c-medium c-center my-3">
+  <div class="wrapped-container c-large c-center my-3">
     <div v-if="state === CheckinState.SCANNING">
       <h2>{{ $t('scan') }}</h2>
       <qrcode-stream @decode="onDecode" @init="onInit" />

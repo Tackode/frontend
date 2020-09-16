@@ -20,10 +20,10 @@
         <b-navbar-nav>
           <template v-if="role != null">
             <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
-              {{ $t('myCheckIns') }}
+              {{ $t('my-check-ins') }}
             </b-nav-item>
             <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
-              {{ $t('myProfile') }}
+              {{ $t('my-profile') }}
             </b-nav-item>
           </template>
           <template v-if="role === 'Professional'">
@@ -42,19 +42,13 @@
           </template>
 
           <template v-else>
-            <b-nav-text> {{ $t('loginAs') }} </b-nav-text>
-
             <b-nav-item :to="'/' + $i18n.locale + '/login'">
-              {{ $t('user') }}
+              {{ $t('log-in') }}
             </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/login-professional'">
-              {{ $t('professional') }}
+            <b-nav-item :to="'/' + $i18n.locale + '/signin'">
+              {{ $t('sign-in') }}
             </b-nav-item>
           </template>
-
-          <b-nav-item :to="'/' + $i18n.locale + '/legal'">
-            {{ $t('legal') }}
-          </b-nav-item>
 
           <b-nav-item
             v-for="locale in $i18n.locales"
@@ -71,32 +65,72 @@
     <div class="main-container">
       <nuxt />
     </div>
+
+    <b-navbar tag="footer" :sticky="true" type="dark" variant="dark">
+      <b-navbar-nav>
+        <b-nav-item :to="'/' + $i18n.locale + '/legal'">
+          {{ $t('legal-notices') }}
+        </b-nav-item>
+        <b-nav-item href="https://facebook.com">
+          <img
+            src="~/assets/images/facebook.png"
+            srcset="
+              ~/assets/images/facebook.png    1x,
+              ~/assets/images/facebook@2x.png 2x
+              ~/assets/images/facebook@3x.png 3x
+            "
+          />
+        </b-nav-item>
+        <b-nav-item href="https://instagram.com">
+          <img
+            src="~/assets/images/instagram.png"
+            srcset="
+              ~/assets/images/instagram.png    1x,
+              ~/assets/images/instagram@2x.png 2x
+              ~/assets/images/instagram@3x.png 3x
+            "
+          />
+        </b-nav-item>
+        <b-nav-item href="https://twitter.com">
+          <img
+            src="~/assets/images/twitter.png"
+            srcset="
+              ~/assets/images/twitter.png    1x,
+              ~/assets/images/twitter@2x.png 2x
+              ~/assets/images/twitter@3x.png 3x
+            "
+          />
+        </b-nav-item>
+      </b-navbar-nav>
+
+      <b-navbar-nav class="ml-auto">
+        <b-nav-text>&copy; 2020 Covid-Journal</b-nav-text>
+      </b-navbar-nav>
+    </b-navbar>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
-    "legal":"Legal Notices",
-    "myCheckIns":"My Check-ins",
-    "myProfile":"My Profile",
+    "legal-notices":"Legal Notices",
+    "my-check-ins":"My Check-ins",
+    "my-profile":"My Profile",
     "places":"Places",
     "infections":"Infections",
     "logout":"Logout",
-    "loginAs":"Login as:",
-    "professional":"Professional",
-    "user":"User"
+    "log-in":"Log in",
+    "sign-in":"Sign in"
   },
   "fr": {
-    "legal":"Mentions légales",
-    "myCheckIns":"Mes Visites",
-    "myProfile":"Mon Profil",
+    "legal-notices":"Mentions légales",
+    "my-check-ins":"Mes Visites",
+    "my-profile":"Mon Profil",
     "places":"Lieux",
     "infections":"Infections",
     "logout":"Se déconnecter",
-    "loginAs":"Connexion :",
-    "professional":"Professionel",
-    "user":"Utilisateur"
+    "log-in":"Se connecter",
+    "sign-in":"S'inscrire"
   }
 }
 </i18n>
@@ -138,5 +172,9 @@ export default class DefaultLayout extends Vue {
 <style>
 .navbar {
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.25);
+}
+
+footer.navbar {
+  bottom: 0;
 }
 </style>

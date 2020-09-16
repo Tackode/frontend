@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container c-medium my-3 legal-notice">
+  <div class="wrapped-container c-large my-3 legal-notice">
     <h2>{{ $t('legalNotices') }}</h2>
     <p>En vigueur au 10/07/2020</p>
     <p>
