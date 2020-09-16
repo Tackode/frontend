@@ -25,7 +25,7 @@
           switch
           size="lg"
         >
-          Vous représentez une société
+          {{ $t('representOrganization') }}
         </b-form-checkbox>
 
         <b-form-group
@@ -54,10 +54,9 @@
       </p>
     </b-col>
     <b-col class="text">
-      <p class="title-1">Bienvenue !</p>
+      <p class="title-1">{{ $t('welcome') }}</p>
       <p class="description">
-        L’application Covid-Journal vous permet d’être tenu informé si vous avez
-        croisé une personne infectée
+        {{ $t('appDescription') }}
       </p>
     </b-col>
   </b-row>
@@ -74,7 +73,10 @@
     "email": "Email Address",
     "organizationName": "Organization name",
     "enterOrganizationName": "Enter your organization name",
-    "networkError": "A network error has occurred. Please, try again."
+    "networkError": "A network error has occurred. Please, try again.",
+    "welcome": "Welcome !",
+    "appDescription": "Covid-Journal allows you to be kept informed whether you met someone infected",
+    "representOrganization": "You represent a company"
   },
   "fr": {
     "loading": "Chargement en cours...",
@@ -85,7 +87,10 @@
     "email": "Adresse mail",
     "organizationName": "Nom d'entreprise",
     "enterOrganizationName": "Nom de votre entreprise",
-    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer."
+    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "welcome": "Bienvenue !",
+    "appDescription": "L’application Covid-Journal vous permet d’être tenu informé si vous avez croisé une personne infectée",
+    "representOrganization": "Vous représentez une société"
   }
 }
 </i18n>
