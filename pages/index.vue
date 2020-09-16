@@ -177,7 +177,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({

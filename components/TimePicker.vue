@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop, Model, Emit } from 'vue-property-decorator'
+import { Component, Prop, Model, Emit } from 'nuxt-property-decorator'
 
 @Component
 export default class DatePicker extends Vue {

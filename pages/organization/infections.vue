@@ -199,7 +199,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'

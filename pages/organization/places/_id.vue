@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import { Place } from '../../../types/Place'
 import PlaceView from '../../../components/PlaceView.vue'
 

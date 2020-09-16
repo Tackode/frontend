@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 
 // Define the props by using Vue's canonical way.
 const PlaceViewProps = Vue.extend({
