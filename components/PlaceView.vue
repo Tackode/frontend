@@ -25,7 +25,7 @@ export default class PlaceView extends PlaceViewProps {}
 .place {
   .organization,
   .name {
-    font-family: 'PT Sans', sans-serif;
+    font-family: $headings-font-family;
     font-weight: 700;
     font-size: 1.7rem;
   }
