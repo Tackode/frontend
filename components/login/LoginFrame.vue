@@ -1,11 +1,11 @@
 <template>
-  <div class="login-frame">
-    <div v-if="state === LoginState.IDLE">
-      <b-row class="sign-row" cols="1" cols-sm="1" cols-md="1" cols-lg="2">
-        <b-col class="form">
-          <b-form @submit="handleSubmit">
-            <h1>{{ mode === 'login' ? 'Connexion' : 'Inscription' }}</h1>
+  <div v-if="state === LoginState.IDLE">
+    <div class="wrapped-container c-large c-center my-3">
+      <DecoratedCard image="login-drawing" :title="$t(mode)">
+        <b-form @submit="handleSubmit" class="form-container">
+          <h1>{{ $t(mode) }}</h1>
 
+          <div class="text-left">
             <b-form-group
               :label="$t('email')"
               label-for="login-email"
@@ -26,6 +26,7 @@
               name="check-button"
               switch
               size="lg"
+              class="professional-switch"
             >
               {{ $t('representOrganization') }}
             </b-form-checkbox>
@@ -42,41 +43,30 @@
                 :placeholder="$t('enterOrganizationName')"
               ></b-form-input>
             </b-form-group>
+          </div>
 
-            <b-button type="submit" variant="primary" block>
-              {{ $t('login') }}
-            </b-button>
-          </b-form>
-        </b-col>
-        <b-col class="text">
+          <b-button type="submit" variant="primary" block>
+            {{ $t('login-action') }}
+          </b-button>
+        </b-form>
+
+        <template v-slot:decoration>
           <p class="title-1">{{ $t('welcome') }}</p>
           <p class="description">
             {{ $t('appDescription') }}
           </p>
-        </b-col>
-      </b-row>
+        </template>
+      </DecoratedCard>
     </div>
+  </div>
 
-    <b-row
-      class="email-sent"
-      cols="1"
-      v-else-if="state === LoginState.CHECK_EMAIL"
-    >
-      <img
-        src="~/assets/images/email-sent.png"
-        srcset="
-              ~/assets/images/email-sent.png    1x,
-              ~/assets/images/email-sent@2x.png 2x
-              ~/assets/images/email-sent@3x.png 3x
-            "
-      />
-      <p class="title-2">{{ $t('checkMail') }}</p>
-      <p>
-        {{ $t('emailSent', { email }) }}
-      </p>
-    </b-row>
+  <EmailSent v-else-if="state === LoginState.CHECK_EMAIL" :email="email" />
 
-    <p v-else-if="state === LoginState.LOADING">
+  <div
+    v-else-if="state === LoginState.LOADING"
+    class="wrapped-container c-small c-center my-3"
+  >
+    <p>
       {{ $t('loading') }}
     </p>
   </div>
@@ -85,9 +75,10 @@
 <i18n>
 {
   "en": {
-    "loading": "Loading. Please wait...",
-    "emailSent": "An email has been sent to your mailbox {email}. Please, click on the connection link in the mail.",
     "login": "Login",
+    "signup": "Signup",
+    "loading": "Loading. Please wait...",
+    "login-action": "Login",
     "neverShare": "We'll never share your email with anyone else.",
     "enterEmail": "Enter your email",
     "email": "Email Address",
@@ -96,13 +87,13 @@
     "networkError": "A network error has occurred. Please, try again.",
     "welcome": "Welcome !",
     "appDescription": "Covid-Journal allows you to be kept informed whether you met someone infected",
-    "representOrganization": "You represent a company",
-    "checkMail": "Check your mails"
+    "representOrganization": "You represent a company"
   },
   "fr": {
+    "login": "Connexion",
+    "signup": "Inscription",
     "loading": "Chargement en cours...",
-    "emailSent": "Nous venons de vous envoyer un mail à l’adresse {email}. Il possède un lien magique qui vous connectera automatiquement !",
-    "login": "Se connecter",
+    "login-action": "Se connecter",
     "neverShare": "Nous ne partagerons pas votre email.",
     "enterEmail": "Entrez votre adresse",
     "email": "Adresse mail",
@@ -111,8 +102,7 @@
     "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
     "welcome": "Bienvenue !",
     "appDescription": "L’application Covid-Journal vous permet d’être tenu informé si vous avez croisé une personne infectée",
-    "representOrganization": "Vous représentez une société",
-    "checkMail": "Vérifier vos mails"
+    "representOrganization": "Vous représentez une société"
   }
 }
 </i18n>
@@ -128,7 +118,12 @@ enum LoginState {
   LOADING,
 }
 
-@Component
+@Component({
+  components: {
+    DecoratedCard: () => import('../DecoratedCard.vue'),
+    EmailSent: () => import('../EmailSent.vue'),
+  },
+})
 export default class LoginFrame extends Vue {
   @Prop({ type: String, required: true }) readonly mode!: string
 
@@ -172,108 +167,39 @@ export default class LoginFrame extends Vue {
 </script>
 
 <style lang="scss">
-.login-frame {
-  .sign-row {
-    margin-top: 100px;
-    box-shadow: 0 2px 35px 0 rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+.form-container .professional-switch label.custom-control-label {
+  font-size: 1rem;
+  line-height: 1.8rem;
+}
+</style>
 
-    .form {
-      padding: 25px;
-      color: #444444;
+<style lang="scss" scoped>
+.form-container {
+  .custom-control {
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
 
-      form {
-        padding: 120px 60px 175px 60px;
-        background: white;
-        border-radius: 8px;
+  h1 {
+    margin-bottom: 30px;
+  }
 
-        .custom-control {
-          margin-bottom: 25px;
-          margin-top: 25px;
-        }
-
-        h1 {
-          margin-bottom: 30px;
-        }
-
-        .form-group {
-          label {
-            text-align: left;
-          }
-
-          .text-muted {
-            text-align: left;
-          }
-        }
-
-        button {
-          margin-top: 25px;
-        }
-      }
+  .form-group {
+    label {
+      text-align: left;
     }
 
-    .text {
-      padding: 50px 15px;
-      background: white;
-      color: #444444;
-      background-image: image-set(
-        '~assets/images/login-drawing.png' 1x,
-        '~assets/images/login-drawing@2x.png' 2x,
-        '~assets/images/login-drawing@3x.png' 3x
-      );
-      background-repeat: no-repeat;
-      background-position: bottom;
-      border-radius: 8px;
-
-      .description {
-        font-size: 1.5rem;
-        line-height: normal;
-      }
-    }
-
-    @media (max-width: 991.98px) {
-      margin: 0 25px 0px 25px;
-
-      .form {
-        padding: 0;
-
-        form {
-          padding: 25px 15px 25px 15px;
-        }
-      }
-
-      .text {
-        min-height: 325px;
-
-        p {
-          display: none;
-        }
-      }
-    }
-
-    @media (max-width: 575.98px) {
-      margin: 0;
+    .text-muted {
+      text-align: left;
     }
   }
 
-  .email-sent {
-    margin-top: 100px;
-    padding: 25px 15px;
-    background: white;
-    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+  .professional-switch label {
+    font-size: 1rem;
+  }
 
-    img {
-      object-fit: contain;
-    }
-
-    @media (max-width: 991.98px) {
-      margin: 0 25px 0px 25px;
-    }
-
-    @media (max-width: 575.98px) {
-      margin: 0;
-    }
+  button {
+    margin-top: 25px;
   }
 }
 </style>

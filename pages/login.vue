@@ -1,7 +1,5 @@
 <template>
-  <div class="wrapped-container c-large c-center my-3">
-    <LoginFrame mode="login"></LoginFrame>
-  </div>
+  <LoginFrame mode="login"></LoginFrame>
 </template>
 
 <i18n>
@@ -31,5 +29,3 @@ import { Component } from 'nuxt-property-decorator'
 })
 export default class Login extends Vue {}
 </script>
-
-<style></style>

@@ -1,14 +1,11 @@
 <template>
-  <div class="wrapped-container c-large c-center my-3">
-    <LoginFrame mode="signup"></LoginFrame>
-  </div>
+  <LoginFrame mode="signup"></LoginFrame>
 </template>
 
 <i18n>
 {
   "en": {
     "titlePage": "Signup"
-
   },
   "fr": {
     "titlePage": "Inscription"
@@ -32,5 +29,3 @@ import { Component } from 'nuxt-property-decorator'
 })
 export default class Signup extends Vue {}
 </script>
-
-<style></style>
