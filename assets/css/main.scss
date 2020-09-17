@@ -1,36 +1,8 @@
-@use '../fonts/fonts';
-
-$primary: #ff5a5f;
-$secondary: #444444;
-$default: #ffffff;
-$light: #f4f4f4;
-$dark: #1e1e1e;
-
-$theme-colors: (
-  'default': $default,
-);
-
-$body-bg: $light;
-$body-color: $dark;
-
-$border-radius: 4px;
-$border-radius-lg: 8px;
-$border-radius-sm: 4px;
-
-$h2-font-size: 2.5rem;
-
-$headings-font-family: 'PT Sans', sans-serif;
-$headings-font-weight: 700;
-$btn-font-family: 'PT Sans', sans-serif;
-$btn-font-weight: 700;
-
-$navbar-light-color: #1e1e1e;
-$navbar-dark-color: #ffffff;
-
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';
-
 @import 'vue2-timepicker/dist/VueTimepicker.css';
+
+@use './fonts';
 
 html,
 body,
@@ -85,7 +57,7 @@ h3,
       }
 
       &.c-medium {
-        max-width: 520px;
+        max-width: 770px;
       }
 
       &.c-small {
@@ -123,6 +95,15 @@ footer {
 .hoverable-card:hover,
 .hoverable-card:active {
   box-shadow: 1px 1px 4px theme-color-level(primary, -10);
+}
+
+.card {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 15px;
+
+  &.card-content {
+    padding: 15px;
+  }
 }
 
 .bg-dark {
