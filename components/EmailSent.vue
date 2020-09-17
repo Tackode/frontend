@@ -1,21 +1,19 @@
 <template>
-  <div class="wrapped-container c-small c-center my-3">
-    <Card>
-      <img
-        class="img-fluid"
-        src="~/assets/images/email-sent.png"
-        srcset="
+  <Card>
+    <img
+      class="img-fluid"
+      src="~/assets/images/email-sent.png"
+      srcset="
               ~/assets/images/email-sent.png    1x,
               ~/assets/images/email-sent@2x.png 2x
               ~/assets/images/email-sent@3x.png 3x
             "
-      />
-      <p class="title-2">{{ $t('checkMail') }}</p>
-      <p>
-        {{ $t('emailSent', { email }) }}
-      </p>
-    </Card>
-  </div>
+    />
+    <p class="title-2">{{ $t('checkMail') }}</p>
+    <p>
+      {{ $t('emailSent', { email }) }}
+    </p>
+  </Card>
 </template>
 
 <i18n>

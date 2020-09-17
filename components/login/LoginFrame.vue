@@ -60,7 +60,12 @@
     </div>
   </div>
 
-  <EmailSent v-else-if="state === LoginState.CHECK_EMAIL" :email="email" />
+  <div
+    v-else-if="state === LoginState.CHECK_EMAIL"
+    class="wrapped-container c-small c-center my-3"
+  >
+    <EmailSent :email="email" />
+  </div>
 
   <div
     v-else-if="state === LoginState.LOADING"

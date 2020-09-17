@@ -1,6 +1,9 @@
 <template>
-  <div class="wrapped-container c-large c-center my-3">
-    <div v-if="state === CheckinState.SCANNING">
+  <div>
+    <div
+      v-if="state === CheckinState.SCANNING"
+      class="wrapped-container c-large c-center my-3"
+    >
       <h2>{{ $t('scan') }}</h2>
       <qrcode-stream @decode="onDecode" @init="onInit" />
     </div>
@@ -9,19 +12,24 @@
       {{ $t('pleaseWait') }}
     </p>
 
-    <div v-else-if="state === CheckinState.NOTFOUND">
+    <div
+      v-if="state === CheckinState.NOTFOUND"
+      class="wrapped-container c-small c-center my-3"
+    >
       <p>{{ $t('notExists') }}</p>
       <nuxt-link class="no-print" :to="'/' + $i18n.locale">
         {{ $t('back') }}
       </nuxt-link>
     </div>
 
-    <div v-else-if="state === CheckinState.LOADED">
+    <div
+      v-if="state === CheckinState.LOADED"
+      class="wrapped-container c-small c-center my-3"
+    >
       <PlaceView :data="place" />
-      <b-card class="my-3">
+      <Card class="my-3 text-left">
         <b-form @submit="handleSubmit">
           <b-form-group
-            v-if="$store.getters['session/localEmail'] !== null"
             :label="$t('email')"
             label-for="login-email"
             :description="$t('neverShare')"
@@ -30,48 +38,48 @@
               id="login-email"
               v-model="email"
               type="email"
-              readonly
+              :readonly="!needEmailInput"
+              :required="needEmailInput"
               :placeholder="$t('enterEmail')"
             ></b-form-input>
           </b-form-group>
-
-          <b-form-group
-            v-else
-            :label="$t('email')"
-            label-for="login-email"
-            :description="$t('neverShare')"
-          >
-            <b-form-input
-              id="login-email"
-              v-model="email"
-              type="email"
-              required
-              :placeholder="$t('enterEmail')"
-            ></b-form-input>
-          </b-form-group>
-
-          <b-form-group>
-            <b-form-checkbox
-              v-model="storeEmail"
-              :value="true"
-              :unchecked-value="false"
-            >
-              {{ $t('store') }}
-            </b-form-checkbox>
-          </b-form-group>
-
-          <p>{{ $t('stay') }} {{ duration }} {{ $t('reconnect') }}</p>
 
           <b-button type="submit" variant="primary" block>
             {{ $t('submit') }}
           </b-button>
         </b-form>
-      </b-card>
+      </Card>
     </div>
 
-    <p v-else-if="state === CheckinState.CHECKMAIL">
-      {{ $t('emailMailbox') }}
-    </p>
+    <div
+      v-if="state === CheckinState.CHECKMAIL"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <PlaceView :data="place" />
+      <EmailSent :email="email" />
+    </div>
+
+    <div
+      v-if="state === CheckinState.FINISH"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <PlaceView :data="place" />
+      <Card>
+        <p class="title-1">{{ $t('thankYou') }}</p>
+        <p>
+          {{ $t('saferWorld') }}
+        </p>
+        <img
+          class="img-fluid"
+          src="~/assets/images/thank-you.png"
+          srcset="
+              ~/assets/images/thank-you.png    1x,
+              ~/assets/images/thank-you@2x.png 2x
+              ~/assets/images/thank-you@3x.png 3x
+            "
+        />
+      </Card>
+    </div>
 
     <div v-else-if="state === CheckinState.ERROR">
       <h2>{{ $t('scanImpossible') }}</h2>
@@ -93,15 +101,11 @@
     "en": {
     "back":"Back to home page",
     "notExists":"This place does not exist.",
-    "stay":"If you stay more than",
-    "reconnect":"minutes, please, recheckin.",
     "pleaseWait":"Loading. Please wait...",
-    "emailMailbox":"An email has been sent to your mailbox. Please, click on the connection link in the mail.",
-    "neverShare":"We'll never share your email with anyone else.",
-    "store":"Store my email address to be warned whenever a contact was infected by the Covid-19.",
     "submit":"Do a Checkin-In",
     "email":"Email address*",
     "enterEmail":"Enter your email",
+    "neverShare":"We'll never share your email with anyone else.",
     "scan":"Scan a QR Code",
     "scanImpossible":"Scan Impossible",
     "retryDevice":"Retry with a compatible device",
@@ -118,20 +122,18 @@
     "titlePage":"Covid Journal - Checkin",
     "notFound":"Covid Journal - Unknown place",
     "errorTitle":"Covid Journal - Error",
-    "scanTitle":"Covid Journal - Scanning"
+    "scanTitle":"Covid Journal - Scanning",
+    "thankYou": "Thank you!",
+    "saferWorld": "You have contributed to make this world a better place for everyone"
   },
   "fr": {
     "back":"Retour à la page d'accueil",
     "notExists":"Ce lieu n'existe plus.",
-    "stay":"Si vous restez plus de",
-    "reconnect":"minutes, veuillez vous réenregistrer.",
     "pleaseWait":"Chargement en cours...",
-    "emailMailbox":"Un e-mail a été envoyé dans votre boîte mail. Veuillez cliquer sur le lien dans l'e-mail pour vous connecter.",
-    "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
-    "store":"Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
     "submit":"Valider le Check-In",
     "email":"Adresse mail*",
     "enterEmail":"Entrer votre mail",
+    "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
     "scan":"Scanner un QR Code",
     "scanImpossible":"Scan Impossible",
     "retryDevice":"Reéssayer avec un appareil compatible",
@@ -148,8 +150,9 @@
     "titlePage":"Covid Journal - Checkin",
     "notFound":"Covid Journal - Lieu inconnu",
     "errorTitle":"Covid Journal - Erreur",
-    "scanTitle":"Covid Journal - Scan en cours"
-
+    "scanTitle":"Covid Journal - Scan en cours",
+    "thankYou": "Merci !",
+    "saferWorld": "Vous avez contribué à faire de cet endroit un lieu plus sûr pour tout le monde"
   }
 }
 </i18n>
@@ -159,7 +162,6 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
-import PlaceView from '../components/PlaceView.vue'
 
 enum CheckinState {
   SCANNING,
@@ -173,13 +175,16 @@ enum CheckinState {
 
 @Component({
   components: {
-    PlaceView,
+    PlaceView: () => import('~/components/PlaceView.vue'),
+    Card: () => import('~/components/Card.vue'),
+    EmailSent: () => import('~/components/EmailSent.vue'),
   },
 })
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   duration: string = ''
+  needEmailInput = this.$store.getters['session/localEmail'] == null
   email: string | null = this.$store.getters['session/localEmail']
   error: string = ''
   storeEmail = true
@@ -224,26 +229,24 @@ export default class CheckIn extends Vue {
       return
     }
 
+    const data = {
+      placeId: this.place.id,
+      email: this.email,
+      storeEmail: true,
+      duration: parseInt(this.duration),
+    }
+
     if (
       this.$store.getters['session/login'] !== null &&
       this.$store.getters['session/localEmail'] === this.email
     ) {
       try {
-        await this.$axios.$post(
-          '/checkin',
-          {
-            placeId: this.place.id,
-            email: this.email,
-            storeEmail: this.storeEmail,
-            duration: parseInt(this.duration),
+        await this.$axios.$post('/checkin', data, {
+          auth: {
+            username: this.$store.getters['session/login'],
+            password: this.$store.getters['session/token'],
           },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token'],
-            },
-          }
-        )
+        })
       } catch (error) {
         showError(
           this.$bvToast,
@@ -256,15 +259,9 @@ export default class CheckIn extends Vue {
       this.$store.dispatch('session/setLocalEmail', this.email)
 
       this.state = CheckinState.FINISH
-      this.$router.replace('/' + this.$i18n.locale + '/user/check-ins')
     } else {
       try {
-        await this.$axios.$post('/checkin', {
-          placeId: this.place.id,
-          email: this.email,
-          storeEmail: this.storeEmail,
-          duration: parseInt(this.duration),
-        })
+        await this.$axios.$post('/checkin', data)
       } catch (error) {
         showError(
           this.$bvToast,
@@ -318,5 +315,3 @@ export default class CheckIn extends Vue {
   }
 }
 </script>
-
-<style></style>

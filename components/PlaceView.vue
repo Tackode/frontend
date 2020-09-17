@@ -1,9 +1,9 @@
 <template>
-  <b-card class="place">
+  <Card class="place">
     <p class="organization">{{ data.organization.name }}</p>
     <p class="name">{{ data.name }}</p>
     <p class="description">{{ data.description }}</p>
-  </b-card>
+  </Card>
 </template>
 
 <script lang="ts">
@@ -17,7 +17,11 @@ const PlaceViewProps = Vue.extend({
   },
 })
 
-@Component
+@Component({
+  components: {
+    Card: () => import('~/components/Card.vue'),
+  },
+})
 export default class PlaceView extends PlaceViewProps {}
 </script>
 
@@ -36,7 +40,7 @@ export default class PlaceView extends PlaceViewProps {}
   }
 
   .name {
-    color: #777;
+    color: $primary;
     margin-top: -7px;
   }
 
