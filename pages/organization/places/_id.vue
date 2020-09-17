@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapped-container c-large c-center my-3">
+  <div class="place-detail wrapped-container c-medium c-center my-3">
     <p v-if="state === PlaceState.LOADING">
       {{ $t('pleaseWait') }}
     </p>
 
     <div v-else-if="state === PlaceState.NOTFOUND">
       <p>
-        {{ $t('nex') }}
+        {{ $t('placeNotFound') }}
       </p>
 
       <nuxt-link
@@ -18,43 +18,64 @@
     </div>
 
     <div v-else-if="state === PlaceState.LOADED">
-      <nuxt-link
-        class="no-print"
-        :to="'/' + $i18n.locale + '/organization/places/'"
-      >
-        {{ $t('back') }}
-      </nuxt-link>
-
-      <b-button
-        class="no-print my-3"
-        @click="printPage"
-        variant="primary"
-        block
-      >
-        {{ $t('print') }}
-      </b-button>
-
-      <template v-if="place">
-        <PlaceView :data="place" />
-
-        <qrcode
-          class="qrcode"
-          :value="qrCodeUrl"
-          :options="{ width: 400 }"
-        ></qrcode>
-
-        <p class="info">{{ $t('flash') }}</p>
-
-        <div class="footer">
-          <img
-            alt="Covid Journal"
-            class="img-fluid logo"
-            src="~/assets/images/logo-covid-journal-print.png"
-            width="400"
-            height="68"
-          />
+      <div class="row no-print">
+        <div class="col-6 text-left link-back">
+          <nuxt-link :to="'/' + $i18n.locale + '/organization/places/'">
+            <img
+              src="~/assets/images/back.png"
+              srcset="
+              ~/assets/images/back.png    1x,
+              ~/assets/images/back@2x.png 2x
+              ~/assets/images/back@3x.png 3x
+            "
+            />
+            {{ $t('back') }}
+          </nuxt-link>
         </div>
-      </template>
+        <div class="col-6">
+          <b-button class="my-3" @click="printPage" variant="primary" block>
+            {{ $t('print') }}
+          </b-button>
+        </div>
+      </div>
+
+      <div class="card card-place">
+        <template v-if="place">
+          <PlaceView :data="place" />
+
+          <div class="text-center">
+            <qrcode
+              class="qrcode"
+              :value="qrCodeUrl"
+              :options="{ width: 400 }"
+            />
+            <br />
+            <img
+              class="img-fluid"
+              src="~/assets/images/scan-me.png"
+              srcset="
+              ~/assets/images/scan-me.png    1x,
+              ~/assets/images/scan-me@2x.png 2x
+              ~/assets/images/scan-me@3x.png 3x
+            "
+            />
+          </div>
+
+          <br />
+
+          <p class="info">{{ $t('flash') }}</p>
+
+          <div class="footer">
+            <img
+              alt="Covid Journal"
+              class="img-fluid logo"
+              src="~/assets/images/logo-covid-journal-print.png"
+              width="400"
+              height="68"
+            />
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -65,15 +86,14 @@
     "back":"Back",
     "print":"Print the page",
     "flash":"Flash this QR Code to be informed of an infection",
-    "nex":"This place does not exist.",
+    "placeNotFound":"This place does not exist.",
     "pleaseWait":"Loading. Please wait..."
-
   },
   "fr": {
     "back":"Retour",
     "print":"Imprimer",
     "flash":"Flashez le QR Code pour être informé d'une infection",
-    "nex":"Ce lieu n'existe plus.",
+    "placeNotFound":"Ce lieu n'existe plus.",
     "pleaseWait":"Chargement en cours..."
   }
 }
@@ -141,18 +161,36 @@ export default class PlaceDetail extends Vue {
 </script>
 
 <style lang="scss">
-.info {
-  font-size: 1.5rem;
-}
+.place-detail {
+  .link-back {
+    padding-top: 20px;
 
-.footer {
-  padding: 20px;
+    img {
+      vertical-align: initial;
+    }
+  }
+
+  .card-place {
+    text-align: center;
+
+    .card {
+      box-shadow: none;
+    }
+
+    .info {
+      font-size: 1.5rem;
+    }
+
+    .footer {
+      padding: 20px;
+    }
+  }
 }
 
 @media (max-width: 500px) {
   canvas {
-    width: 280px !important;
-    height: 280px !important;
+    width: 240px !important;
+    height: 240px !important;
   }
 }
 
@@ -161,9 +199,19 @@ export default class PlaceDetail extends Vue {
     font-size: 25px;
   }
 
+  footer,
+  .footer-push {
+    display: none;
+  }
+
   .no-print,
   .no-print * {
     display: none !important;
+  }
+
+  .place-detail {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   canvas {
