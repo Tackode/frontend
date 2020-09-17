@@ -73,7 +73,11 @@
         <b-nav-item :to="'/' + $i18n.locale + '/legal'">
           {{ $t('legal-notices') }}
         </b-nav-item>
-        <b-nav-item href="https://facebook.com">
+        <b-nav-item
+          href="https://www.facebook.com/Creatiwity"
+          target="_blank"
+          class="footer-icon"
+        >
           <img
             src="~/assets/images/facebook.png"
             srcset="
@@ -83,17 +87,11 @@
             "
           />
         </b-nav-item>
-        <b-nav-item href="https://instagram.com">
-          <img
-            src="~/assets/images/instagram.png"
-            srcset="
-              ~/assets/images/instagram.png    1x,
-              ~/assets/images/instagram@2x.png 2x
-              ~/assets/images/instagram@3x.png 3x
-            "
-          />
-        </b-nav-item>
-        <b-nav-item href="https://twitter.com">
+        <b-nav-item
+          href="https://twitter.com/CreatiwitySAS"
+          target="_blank"
+          class="footer-icon"
+        >
           <img
             src="~/assets/images/twitter.png"
             srcset="

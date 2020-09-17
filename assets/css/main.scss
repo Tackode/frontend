@@ -102,15 +102,22 @@ h3,
 // Footer positioning logic
 .main-container {
   min-height: 100%;
-  margin-bottom: -80px;
+  margin-bottom: -52px;
 
   .footer-push {
-    height: 80px;
+    height: 52px;
   }
 }
 
 footer {
-  min-height: 80px;
+  min-height: 52px;
+
+  .footer-icon {
+    a {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
 }
 
 .hoverable-card:hover,
