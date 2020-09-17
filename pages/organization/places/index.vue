@@ -194,13 +194,6 @@ interface PlaceFormValues {
   },
 })
 export default class ProfessionalPlaces extends Vue {
-  fields = [
-    { key: 'place_name', label: this.translate('placeName') },
-    { key: 'average_duration', label: this.translate('durationOnSite') },
-    { key: 'qr_code', label: this.translate('qrCode') },
-    { key: 'actions', label: this.translate('actions') },
-  ]
-
   places: Place[] = []
   placeId: string = ''
   isPlaceFormEditionMode: Boolean = false

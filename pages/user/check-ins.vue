@@ -2,47 +2,6 @@
   <div class="wrapped-container c-center c-large my-3">
     <h1 class="sr-only">{{ $t('myCheckIns') }}</h1>
 
-    <div v-if="infectedcheckins.length > 0">
-      <h2>{{ $t('potentialContactsWithInfected') }}</h2>
-
-      <div class="table-responsive">
-        <b-table
-          striped
-          bordered
-          hover
-          head-variant="dark"
-          variant="light"
-          :fields="fields"
-          :items="infectedcheckins"
-        >
-          <template v-slot:cell(organization)="data">
-            <div class="red">{{ data.item.place.organization.name }}</div>
-          </template>
-
-          <template v-slot:cell(place_name)="data">
-            <div
-              class="red"
-              v-b-tooltip.hover
-              :title="data.item.place.description"
-            >
-              {{ data.item.place.name }}
-              <b-icon icon="info-circle"></b-icon>
-            </div>
-          </template>
-
-          <template v-slot:cell(time)="data">
-            <div class="red">
-              {{ data.item.startTimestamp | formatDateTime }}
-            </div>
-          </template>
-
-          <template v-slot:cell(duration)="data">
-            <div class="red">{{ data.item.duration }} minutes</div>
-          </template>
-        </b-table>
-      </div>
-    </div>
-
     <h2>{{ $t('myCheckIns') }}</h2>
 
     <BigActionButton
@@ -53,35 +12,12 @@
       :url="'/' + $i18n.locale + '/check-in'"
     />
 
-    <div v-if="checkins.length > 0" class="table-responsive">
-      <b-table
-        striped
-        bordered
-        hover
-        head-variant="dark"
-        variant="light"
-        :fields="fields"
-        :items="checkins"
-      >
-        <template v-slot:cell(organization)="data">
-          {{ data.item.place.organization.name }}
-        </template>
-
-        <template v-slot:cell(place_name)="data">
-          <div v-b-tooltip.hover :title="data.item.place.description">
-            {{ data.item.place.name }}
-            <b-icon icon="info-circle"></b-icon>
-          </div>
-        </template>
-
-        <template v-slot:cell(time)="data">
-          {{ data.item.startTimestamp | formatDateTime }}
-        </template>
-
-        <template v-slot:cell(duration)="data">
-          {{ data.item.duration }} minutes
-        </template>
-      </b-table>
+    <div v-if="checkins.length > 0" class="checkins-list">
+      <CardCheckin
+        v-for="checkin in checkins"
+        :key="checkin.id"
+        :checkin="checkin"
+      />
     </div>
 
     <p v-else>
@@ -127,26 +63,21 @@ import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
 import BigActionButton from '~/components/BigActionButton.vue'
+import CardCheckin from '~/components/card-checkin/CardCheckin.vue'
 
 @Component({
   components: {
     BigActionButton,
+    CardCheckin,
   },
 })
 export default class CheckIns extends Vue {
-  fields = [
-    { key: 'organization', label: this.tr('organization') },
-    { key: 'place_name', label: this.tr('place') },
-    { key: 'time', label: this.tr('time') },
-    { key: 'duration', label: this.tr('duration') },
-  ]
-
   checkins: Checkin[] = []
-  infectedcheckins: Checkin[] = []
 
   async mounted() {
     // Load checkins
     document.title = this.$i18n.t('titlePage') as string
+
     try {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {
@@ -161,12 +92,6 @@ export default class CheckIns extends Vue {
         new Error(this.$i18n.t('networkError') as string)
       )
     }
-
-    this.checkins.forEach((checkin) => {
-      if (checkin.potentialInfection) {
-        this.infectedcheckins.push(checkin)
-      }
-    })
   }
 
   tr(ind: string) {
@@ -175,8 +100,4 @@ export default class CheckIns extends Vue {
 }
 </script>
 
-<style>
-.red {
-  color: red;
-}
-</style>
+<style></style>
