@@ -1,10 +1,14 @@
 <template>
-  <div class="wrapped-container c-small c-center my-3">
-    <p v-if="state === ProfileState.LOADING">{{ $t('pleaseWait') }}</p>
+  <div class="wrapped-container c-large c-center my-3">
+    <p v-if="state === ProfileState.LOADING">
+      {{ $t('pleaseWait') }}
+    </p>
+
     <template v-else-if="state === ProfileState.LOADED">
-      <h2>{{ $t('myProfile') }}</h2>
-      <div v-if="profile">
-        <b-form @submit="handleAddEmail">
+      <DecoratedCard image="profile-drawing" title="">
+        <h1>{{ $t('myProfile') }}</h1>
+
+        <b-form @submit="handleAddEmail" class="text-left">
           <b-form-group
             v-if="$store.getters['session/localEmail'] !== null"
             id="form-email"
@@ -64,13 +68,16 @@
           </b-button>
         </b-form>
 
-        <hr />
-
-        <b-button v-b-modal.place-delete-modal block variant="secondary">
+        <b-button
+          v-b-modal.place-delete-modal
+          block
+          variant="link"
+          class="mt-3"
+        >
           {{ $t('deleteProfile') }}
         </b-button>
-      </div>
-      <b v-else>{{ $t('charge') }}</b>
+      </DecoratedCard>
+
       <b-modal
         id="place-delete-modal"
         :title="$t('deleteProfile')"
@@ -88,7 +95,6 @@
 <i18n>
 {
   "en": {
-    "charge":"Loading impossible. Cannot find your profile",
     "pleaseWait": "Loading. Please wait...",
     "myProfile": "My Profile",
     "deleteProfileValidation": "Do you really want to delete your profile?",
@@ -110,14 +116,13 @@
     "titlePage":"Covid Journal - My Profile"
   },
   "fr": {
-    "charge":"Chargement impossible. Profil Introuvable.",
     "pleaseWait": "Chargement en cours...",
     "myProfile": "Mon Profil",
     "deleteProfileValidation": "Voulez-vous vraiment supprimer votre profil ?",
     "deleteProfile": "Supprimer le profil",
     "delete": "Supprimer",
     "cancel": "Annuler",
-    "storeEmailCheckbox": "Conserver mon adresse email pour être informé si un contact est infecté par le Covid.",
+    "storeEmailCheckbox": "Je souhaite être notifié par mail si j’ai croisé une personne infectée.",
     "submit": "Valider",
     "myOrganization": "Mon organisation",
     "email": "Adresse mail*",
@@ -145,7 +150,11 @@ enum ProfileState {
   LOADED,
 }
 
-@Component({})
+@Component({
+  components: {
+    DecoratedCard: () => import('../../components/DecoratedCard.vue'),
+  },
+})
 export default class ProfilePage extends Vue {
   state: ProfileState = ProfileState.LOADING
   role: string | null = null
@@ -165,6 +174,7 @@ export default class ProfilePage extends Vue {
       this.email = this.$store.getters['session/email']
       this.$store.dispatch('session/sendLocalEmail', this.email)
     }
+
     this.role = this.$store.getters['session/role']
 
     try {
@@ -240,6 +250,8 @@ export default class ProfilePage extends Vue {
   }
 
   async deleteProfile() {
+    this.$bvModal.hide('place-delete-modal')
+
     try {
       await this.$axios.$delete('/profile', {
         auth: {
@@ -247,21 +259,23 @@ export default class ProfilePage extends Vue {
           password: this.$store.getters['session/token'],
         },
       })
-      this.$bvModal.hide('place-delete-modal')
-      this.$store.dispatch('session/logout')
-      this.$router.replace('/' + this.$i18n.locale)
-      showSuccess(
-        this.$bvToast,
-        this.$i18n.t('profile') as string,
-        this.$i18n.t('profileDeleted') as string
-      )
     } catch (error) {
       showError(
         this.$bvToast,
         this.$i18n.t('profile') as string,
         new Error(this.$i18n.t('networkErrorDeleting') as string)
       )
+      return
     }
+
+    showSuccess(
+      this.$bvToast,
+      this.$i18n.t('profile') as string,
+      this.$i18n.t('profileDeleted') as string
+    )
+
+    this.$store.dispatch('session/logout')
+    this.$router.replace('/' + this.$i18n.locale)
   }
 }
 </script>
