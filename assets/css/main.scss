@@ -32,6 +32,14 @@ $navbar-dark-color: #ffffff;
 
 @import 'vue2-timepicker/dist/VueTimepicker.css';
 
+html,
+body,
+#__nuxt,
+#__layout,
+.wrapper {
+  height: 100%;
+}
+
 h1,
 .title-1 {
   font-size: 2.5rem;
@@ -89,6 +97,20 @@ h3,
       }
     }
   }
+}
+
+// Footer positioning logic
+.main-container {
+  min-height: 100%;
+  margin-bottom: -80px;
+
+  .footer-push {
+    height: 80px;
+  }
+}
+
+footer {
+  min-height: 80px;
 }
 
 .hoverable-card:hover,

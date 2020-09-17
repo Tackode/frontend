@@ -1,72 +1,74 @@
 <template>
   <div class="wrapper">
-    <b-navbar :sticky="true" toggleable="lg" type="light" variant="light">
-      <b-navbar-brand :to="'/' + $i18n.locale + '/'">
-        <img
-          src="~/assets/images/logo-covid-journal.png"
-          srcset="
+    <div class="main-container">
+      <b-navbar :sticky="true" toggleable="lg" type="light" variant="light">
+        <b-navbar-brand :to="'/' + $i18n.locale + '/'">
+          <img
+            src="~/assets/images/logo-covid-journal.png"
+            srcset="
             ~/assets/images/logo-covid-journal.png    1x,
             ~/assets/images/logo-covid-journal@2x.png 2x
             ~/assets/images/logo-covid-journal@3x.png 3x
           "
-          width="230"
-          class="d-inline-block align-top"
-        />
-      </b-navbar-brand>
+            width="230"
+            class="d-inline-block align-top"
+          />
+        </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <template v-if="role != null">
-            <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
-              {{ $t('my-check-ins') }}
-            </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
-              {{ $t('my-profile') }}
-            </b-nav-item>
-          </template>
-          <template v-if="role === 'Professional'">
-            <b-nav-item :to="'/' + $i18n.locale + '/organization/places'">
-              {{ $t('places') }}
-            </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/organization/infections'">
-              {{ $t('infections') }}
-            </b-nav-item>
-          </template>
-        </b-navbar-nav>
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <template v-if="role != null">
+              <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
+                {{ $t('my-check-ins') }}
+              </b-nav-item>
+              <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
+                {{ $t('my-profile') }}
+              </b-nav-item>
+            </template>
+            <template v-if="role === 'Professional'">
+              <b-nav-item :to="'/' + $i18n.locale + '/organization/places'">
+                {{ $t('places') }}
+              </b-nav-item>
+              <b-nav-item :to="'/' + $i18n.locale + '/organization/infections'">
+                {{ $t('infections') }}
+              </b-nav-item>
+            </template>
+          </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto">
-          <template v-if="role">
-            <b-nav-item @click="logout"> {{ $t('logout') }} </b-nav-item>
-          </template>
+          <b-navbar-nav class="ml-auto">
+            <template v-if="role">
+              <b-nav-item @click="logout"> {{ $t('logout') }} </b-nav-item>
+            </template>
 
-          <template v-else>
-            <b-nav-item :to="'/' + $i18n.locale + '/login'">
-              {{ $t('log-in') }}
+            <template v-else>
+              <b-nav-item :to="'/' + $i18n.locale + '/login'">
+                {{ $t('log-in') }}
+              </b-nav-item>
+              <b-nav-item :to="'/' + $i18n.locale + '/signup'">
+                {{ $t('sign-in') }}
+              </b-nav-item>
+            </template>
+
+            <b-nav-item
+              v-for="locale in $i18n.locales"
+              v-if="locale.code !== $i18n.locale"
+              :key="locale.code"
+              :to="switchLocalePath(locale.code)"
+            >
+              {{ locale.name }}
             </b-nav-item>
-            <b-nav-item :to="'/' + $i18n.locale + '/signup'">
-              {{ $t('sign-in') }}
-            </b-nav-item>
-          </template>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
 
-          <b-nav-item
-            v-for="locale in $i18n.locales"
-            v-if="locale.code !== $i18n.locale"
-            :key="locale.code"
-            :to="switchLocalePath(locale.code)"
-          >
-            {{ locale.name }}
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-
-    <div class="main-container">
       <nuxt />
+
+      <div class="footer-push"></div>
     </div>
 
-    <b-navbar tag="footer" :sticky="true" type="dark" variant="dark">
+    <b-navbar tag="footer" type="dark" variant="dark">
       <b-navbar-nav>
         <b-nav-item :to="'/' + $i18n.locale + '/legal'">
           {{ $t('legal-notices') }}
