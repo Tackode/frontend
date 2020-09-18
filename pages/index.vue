@@ -18,14 +18,14 @@
     <p class="image-caption">
       Photo by
       <a
-        href="https://unsplash.com/@jonwaits?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        href="https://unsplash.com/@itshoobastank?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
         target="_blank"
       >
-        Jonathan Nguyen
+        Shirota Yuri
       </a>
       on
       <a
-        href="https://unsplash.com/s/photos/covid-restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        href="https://unsplash.com?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
         target="_blank"
       >
         Unsplash
