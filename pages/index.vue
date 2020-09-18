@@ -18,14 +18,14 @@
     <p class="image-caption">
       Photo by
       <a
-        href="https://unsplash.com/@jonwaits?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        href="https://unsplash.com/@itshoobastank?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
         target="_blank"
       >
-        Jonathan Nguyen
+        Shirota Yuri
       </a>
       on
       <a
-        href="https://unsplash.com/s/photos/covid-restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        href="https://unsplash.com?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
         target="_blank"
       >
         Unsplash
@@ -158,7 +158,7 @@
     "step-3-title": "Étape 3",
     "step-3": "Vous êtes notifié par mail si vous avez croisé une personne infectée par le Covid-19 dans cet établissement",
     "cost-paragraph-1": "Le coronavirus est l'affaire de tous, ce qui signifie que chacun d'entre nous doit faire un effort pour que nous puissions sortir tous ensemble de cette pandémie mondiale.",
-    "cost-paragraph-2": "C'est pour cette raison que nous avons décidé pour le moment d'offrir gratuitement notre application à toutes les personnes qui souhaitent en profiter et de permettre ainsi à un maximum de personne de pouvoir sortir et profiter en toute sécurité !",
+    "cost-paragraph-2": "C'est pour cette raison que nous avons décidé pour le moment d'offrir gratuitement notre application à toutes les personnes qui souhaitent en profiter et de permettre ainsi à un maximum de personnes de pouvoir sortir et profiter en toute sécurité !",
 
     "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
     "introduction":"Gérez votre organisation et les lieux correspondants.",
@@ -178,11 +178,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
-import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({
   components: {
-    BigActionButton,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
   },
 })
 export default class Home extends Vue {

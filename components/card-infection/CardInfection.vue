@@ -28,7 +28,7 @@
         </p>
         <p>
           <strong>{{ $t('endDate') }}</strong>
-          {{ infection.startTimestamp | formatDateTime }}
+          {{ infection.endTimestamp | formatDateTime }}
         </p>
       </div>
     </div>
