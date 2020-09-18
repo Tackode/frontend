@@ -149,8 +149,7 @@ export default class LoginFrame extends Vue {
       await this.$axios.$post('/login', {
         email: this.email,
         role: this.professional ? 'Professional' : 'Public',
-        organizationName:
-          this.mode === 'Professional' ? this.organizationName : null,
+        organizationName: this.professional ? this.organizationName : null,
         fallbackOnSignUp: this.mode === 'signup',
       })
     } catch (error) {
