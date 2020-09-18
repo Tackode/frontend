@@ -21,6 +21,10 @@
         <h2 class="place-name">{{ checkin.place.name }}</h2>
         <p class="place-description">{{ checkin.place.description }}</p>
         <hr />
+        <p>
+          <strong>Date :</strong>
+          {{ checkin.startTimestamp | formatDateTime }}
+        </p>
         <p><strong>Durée :</strong> {{ checkin.place.averageDuration }} min</p>
       </div>
     </div>
