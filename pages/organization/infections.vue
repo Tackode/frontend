@@ -13,36 +13,19 @@
 
     <p v-else>{{ $t('noPlaceInfection') }}</p>
 
-    <b-table
-      v-if="infections.length > 0"
-      striped
-      bordered
-      hover
-      head-variant="dark"
-      variant="light"
-      :fields="fields"
-      :items="infections"
-    >
-      <template v-slot:cell(infected_places)="data">
-        {{ getPlacesNameWithIds(data.item.placesIds) }}
-      </template>
-
-      <template v-slot:cell(start_date)="data">
-        {{ data.item.startTimestamp | formatDateTime }}
-      </template>
-      <template v-slot:cell(end_date)="data">
-        {{ data.item.endTimestamp | formatDateTime }}
-      </template>
-    </b-table>
+    <div class="infections-list">
+      <CardInfection
+        v-for="infection in infections"
+        :key="infection.id"
+        :infection="infection"
+        :places="places"
+      />
+    </div>
 
     <b-modal
       id="infection-creation-modal"
       size="lg"
       :title="$t('infectionDeclarationTitle')"
-      :ok-title="$t('declare')"
-      :cancel-title="$t('cancel')"
-      @ok="handleModalOk"
-      @hidden="resetModal"
     >
       <b-form @submit.stop.prevent="handleInfectionSubmit">
         <b-form-group id="infectionPlaces" :label="$t('concernedPlaces')">
@@ -123,6 +106,23 @@
           </b-form-group>
         </b-card>
       </b-form>
+
+      <template v-slot:modal-footer>
+        <div class="w-100">
+          <div class="float-left">
+            <b-button variant="secondary" @click="resetModal">
+              {{ $t('cancel') }}
+            </b-button>
+          </div>
+          <b-button
+            variant="primary"
+            class="float-right"
+            @click="handleModalOk"
+          >
+            {{ $t('declare') }}
+          </b-button>
+        </div>
+      </template>
     </b-modal>
   </div>
 </template>
@@ -135,11 +135,8 @@
     "noPlaceInfection":"No place to declare an infection",
     "validate":"Validate",
     "infectedPlace":"Infected Place",
-    "startDay":"Start Date",
-    "endDate":"End Date",
     "delplace":"Deleted Place",
     "subtitle":"Record an infection to automatically notify your visitors",
-
     "infectionDeclarationTitle": "New infection declaration",
     "concernedPlaces": "Concerned places",
     "infectionMaxPeriodInfo": "Maximum duration on site: 12 hours.",
@@ -168,11 +165,8 @@
     "validate":"Valider",
     "modify":"Modifier",
     "infectedPlace":"Lieux Infectés",
-    "startDay":"Date de début",
-    "endDate":"Date de fin",
     "delplace":"Lieu supprimé",
     "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs.",
-
     "infectionDeclarationTitle": "Déclarer une nouvelle infection",
     "concernedPlaces": "Lieux concernés",
     "infectionMaxPeriodInfo": "Durée maximale sur place : 12 heures.",
@@ -199,55 +193,34 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
+import { Infection, InfectionCreation } from '../../types/Infection'
 import BigActionButton from '~/components/BigActionButton.vue'
 import TimePicker from '~/components/TimePicker.vue'
 import DatePicker from '~/components/DatePicker.vue'
-
-interface Infection {
-  placesIds: String[]
-  name: String[]
-  organization: string
-  startDate: string
-  startTime: string
-  startTimestamp: string
-  endDate: string
-  endTime: string
-  endTimestamp: string
-}
-
-interface InfectionCreation {
-  placesIds: String[]
-  startDate: Date | null
-  startTime: string
-  endDate: Date | null
-  endTime: string
-}
+import CardInfection from '~/components/card-infection/CardInfection.vue'
 
 @Component({
   components: {
     BigActionButton,
     DatePicker,
     TimePicker,
+    CardInfection,
   },
 })
 export default class ProfessionalInfections extends Vue {
-  fields = [
-    { key: 'infected_places', label: this.tr('infectedPlace') },
-    { key: 'start_date', label: this.tr('startDay') },
-    { key: 'end_date', label: this.tr('endDate') },
-  ]
-
   places: Place[] = []
   infections: Infection[] = []
   infectionCreation: InfectionCreation = {
     placesIds: [],
     startDate: null,
     startTime: '',
+    startTimestamp: '',
     endDate: null,
     endTime: '',
+    endTimestamp: '',
   }
 
   mounted() {
@@ -286,12 +259,16 @@ export default class ProfessionalInfections extends Vue {
   }
 
   resetModal() {
+    this.$bvModal.hide('infection-creation-modal')
+
     this.infectionCreation = {
       placesIds: [],
       startDate: null,
       startTime: '',
+      startTimestamp: '',
       endDate: null,
       endTime: '',
+      endTimestamp: '',
     }
   }
 
@@ -410,29 +387,6 @@ export default class ProfessionalInfections extends Vue {
 
   tr(ind: string) {
     return this.$i18n.t(ind)
-  }
-
-  getPlacesNameWithIds(ids: string[]): string {
-    let result = ''
-
-    const placesWithIds: any = {}
-    this.places.forEach((place) => {
-      placesWithIds[place.id] = place
-    })
-
-    ids.forEach((id) => {
-      if (id in placesWithIds) {
-        result += placesWithIds[id].name + ', '
-      } else {
-        result += this.$i18n.t('delplace') + ', '
-      }
-    })
-
-    if (result.length > 0) {
-      result = result.substring(0, result.length - 2)
-    }
-
-    return result
   }
 }
 </script>

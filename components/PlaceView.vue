@@ -1,14 +1,14 @@
 <template>
-  <b-card class="place">
+  <Card class="place">
     <p class="organization">{{ data.organization.name }}</p>
     <p class="name">{{ data.name }}</p>
     <p class="description">{{ data.description }}</p>
-  </b-card>
+  </Card>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 
 // Define the props by using Vue's canonical way.
 const PlaceViewProps = Vue.extend({
@@ -17,7 +17,11 @@ const PlaceViewProps = Vue.extend({
   },
 })
 
-@Component
+@Component({
+  components: {
+    Card: () => import('~/components/Card.vue'),
+  },
+})
 export default class PlaceView extends PlaceViewProps {}
 </script>
 
@@ -25,7 +29,7 @@ export default class PlaceView extends PlaceViewProps {}
 .place {
   .organization,
   .name {
-    font-family: 'PT Sans', sans-serif;
+    font-family: $headings-font-family;
     font-weight: 700;
     font-size: 1.7rem;
   }
@@ -36,7 +40,7 @@ export default class PlaceView extends PlaceViewProps {}
   }
 
   .name {
-    color: #777;
+    color: $primary;
     margin-top: -7px;
   }
 

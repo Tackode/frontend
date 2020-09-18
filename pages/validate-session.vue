@@ -31,7 +31,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import { showError } from '../helpers/alerts'
 
 Vue.use(VueI18n)

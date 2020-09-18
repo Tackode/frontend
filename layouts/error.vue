@@ -34,7 +34,7 @@
 </i18n>
 <script type="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 
 const ErrorLayoutProps = Vue.extend({
   props: {

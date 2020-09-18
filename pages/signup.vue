@@ -1,14 +1,14 @@
 <template>
-  <LoginFrame mode="login"></LoginFrame>
+  <LoginFrame mode="signup"></LoginFrame>
 </template>
 
 <i18n>
 {
   "en": {
-    "titlePage": "Login"
+    "titlePage": "Signup"
   },
   "fr": {
-    "titlePage": "Connexion"
+    "titlePage": "Inscription"
   }
 }
 </i18n>
@@ -21,11 +21,11 @@ import { Component } from 'nuxt-property-decorator'
   components: {
     LoginFrame: () => import('../components/login/LoginFrame.vue'),
   },
-  head(this: Login) {
+  head(this: Signup) {
     return {
       title: this.$i18n.t('titlePage') as string,
     }
   },
 })
-export default class Login extends Vue {}
+export default class Signup extends Vue {}
 </script>

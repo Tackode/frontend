@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapped-container c-center c-large my-3">
+  <div class="wrapped-container c-medium my-3">
     <p v-if="state === PlaceState.LOADING">
       {{ $t('pleaseWait') }}
     </p>
@@ -14,68 +14,36 @@
         image="place"
       />
 
-      <b-table
-        v-if="places.length > 0"
-        striped
-        bordered
-        hover
-        head-variant="dark"
-        variant="light"
-        :fields="fields"
-        :items="places"
-      >
-        <template v-slot:cell(place_name)="data">
-          {{ data.item.name }}
-        </template>
+      <div v-if="places.length > 0" class="places-list">
+        <CardPlace
+          v-for="place in places"
+          :key="place.id"
+          :place="place"
+          @onEdit="onEditPlace"
+          @onDelete="onDeletePlace"
+        />
+      </div>
+      <div v-else>
+        <div class="card card-content">
+          <p>{{ $t('noPlace') }}</p>
 
-        <template v-slot:cell(average_duration)="data">
-          {{ data.item.averageDuration }} minutes
-        </template>
-
-        <template v-slot:cell(qr_code)="data">
-          <nuxt-link
-            :to="'/' + $i18n.locale + '/organization/places/' + data.item.id"
-          >
-            {{ $t('showQR') }}
-          </nuxt-link>
-        </template>
-        <template v-slot:cell(actions)="data">
-          <b-button
-            v-b-modal.place-creation-modal
-            variant="outline-secondary"
-            class="mb-2"
-            @click="
-              prepacePlaceFormEdition(
-                data.item.id,
-                data.item.name,
-                data.item.description,
-                data.item.averageDuration
-              )
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="~/assets/images/places-empty.png"
+              srcset="
+              ~/assets/images/places-empty.png    1x,
+              ~/assets/images/places-empty@2x.png 2x
+              ~/assets/images/places-empty@3x.png 3x
             "
-          >
-            <b-icon icon="pencil"></b-icon>
-          </b-button>
-
-          <b-button
-            v-b-modal.place-delete-modal
-            variant="outline-secondary"
-            class="mb-2"
-            @click="place = data.item.id"
-          >
-            <b-icon icon="trash"></b-icon>
-          </b-button>
-        </template>
-      </b-table>
-      <p v-else>
-        {{ $t('noPlace') }}
-      </p>
+            />
+          </div>
+        </div>
+      </div>
 
       <b-modal
         id="place-creation-modal"
         :title="$t(placeFormTitle)"
-        :ok-title="isPlaceFormEditionMode ? $t('modify') : $t('create')"
-        :cancel-title="$t('cancel')"
-        @ok="handleModalOk"
         @hidden="prepacePlaceFormCreation"
       >
         <b-form ref="form" @submit.stop.prevent="handlePlaceSubmit">
@@ -110,6 +78,23 @@
             ></b-form-textarea>
           </b-form-group>
         </b-form>
+
+        <template v-slot:modal-footer="{ cancel }">
+          <div class="w-100">
+            <div class="float-left">
+              <b-button variant="secondary" @click="cancel()">
+                {{ $t('cancel') }}
+              </b-button>
+            </div>
+            <b-button
+              variant="primary"
+              class="float-right"
+              @click="handleModalOk"
+            >
+              {{ isPlaceFormEditionMode ? $t('modify') : $t('create') }}
+            </b-button>
+          </div>
+        </template>
       </b-modal>
 
       <b-modal
@@ -132,8 +117,7 @@
     "place":"Your Places",
     "pleaseWait": "Loading. Please wait...",
     "addPlace":"Add a new place open to the public",
-    "noPlace":"You don't have any places for now. Please, create a place to begin.",
-    "showQR":"Show QRCode",
+    "noPlace":"You don't have any places for now. You can start by creating one!",
     "nameMandatory":"Name*",
     "duration":"Average duration of the stay in minutes*",
     "name":"Nom",
@@ -159,8 +143,7 @@
     "place":"Vos lieux",
     "pleaseWait": "Chargement en cours...",
     "addPlace":"Ajoutez un nouveau lieu ouvert au public",
-    "noPlace":"Vous n'avez pas de lieu pour l'instant. Pour commencer, ajoutez un lieu.",
-    "showQR":"Afficher QRCode",
+    "noPlace":"Vous n’avez pas de lieu pour l’instant. Vous pouvez en ajouter un dès maintenant !",
     "nameMandatory":"Nom*",
     "duration":"Durée moyenne de visite en minutes*",
     "name":"Nom",
@@ -187,10 +170,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 import BigActionButton from '~/components/BigActionButton.vue'
+import CardPlace from '~/components/card-place/CardPlace.vue'
 
 enum PlaceState {
   LOADING,
@@ -206,18 +190,12 @@ interface PlaceFormValues {
 @Component({
   components: {
     BigActionButton,
+    CardPlace,
   },
 })
 export default class ProfessionalPlaces extends Vue {
-  fields = [
-    { key: 'place_name', label: this.translate('placeName') },
-    { key: 'average_duration', label: this.translate('durationOnSite') },
-    { key: 'qr_code', label: this.translate('qrCode') },
-    { key: 'actions', label: this.translate('actions') },
-  ]
-
   places: Place[] = []
-  place: string = ''
+  placeId: string = ''
   isPlaceFormEditionMode: Boolean = false
   selectedUser: Place | null = null
   state: PlaceState = PlaceState.LOADING
@@ -259,7 +237,7 @@ export default class ProfessionalPlaces extends Vue {
       description: null,
       averageDuration: 30,
     }
-    this.place = ''
+    this.placeId = ''
   }
 
   async handleModalOk(e: Event) {
@@ -290,7 +268,7 @@ export default class ProfessionalPlaces extends Vue {
     try {
       if (this.isPlaceFormEditionMode) {
         await this.$axios.$put(
-          '/place/' + this.place,
+          '/place/' + this.placeId,
           this.placeFormValues,
           options
         )
@@ -316,7 +294,7 @@ export default class ProfessionalPlaces extends Vue {
   async deletePlace(e: Event) {
     e.preventDefault()
     try {
-      await this.$axios.$delete('/place/' + this.place, {
+      await this.$axios.$delete('/place/' + this.placeId, {
         auth: {
           username: this.$store.getters['session/login'],
           password: this.$store.getters['session/token'],
@@ -345,17 +323,19 @@ export default class ProfessionalPlaces extends Vue {
     this.resetModal()
   }
 
-  prepacePlaceFormEdition(
-    id: string,
-    name: string,
-    description: string,
-    averageDuration: number
-  ) {
+  onEditPlace(place: Place) {
     this.isPlaceFormEditionMode = true
-    this.place = id
-    this.placeFormValues.name = name
-    this.placeFormValues.description = description
-    this.placeFormValues.averageDuration = averageDuration
+    this.placeId = place.id
+    this.placeFormValues.name = place.name
+    this.placeFormValues.description = place.description
+    this.placeFormValues.averageDuration = place.averageDuration
+
+    this.$bvModal.show('place-creation-modal')
+  }
+
+  onDeletePlace(place: Place) {
+    this.placeId = place.id
+    this.$bvModal.show('place-delete-modal')
   }
 
   get placeFormTitle(): string {

@@ -35,7 +35,7 @@
     <div class="wrapped-container c-medium mb-3">
       <p class="d-md-none">{{ $t('summary') }}</p>
 
-      <h2>{{ $t('how-does-it-work') }}</h2>
+      <h2 class="title-1">{{ $t('how-does-it-work') }}</h2>
 
       <b-row cols="2" class="presentation-block">
         <b-col align-self="end" class="text-left">
@@ -108,7 +108,7 @@
         </b-col>
       </b-row>
 
-      <h2>{{ $t('how-much-does-it-cost') }}</h2>
+      <h2 class="title-1">{{ $t('how-much-does-it-cost') }}</h2>
 
       <p class="text-justify">{{ $t('cost-paragraph-1') }}</p>
       <p class="text-justify">{{ $t('cost-paragraph-2') }}</p>
@@ -177,7 +177,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component } from 'nuxt-property-decorator'
 import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({
