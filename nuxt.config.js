@@ -40,11 +40,6 @@ export default {
         content:
           "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
       },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        content: `https://covid-journal.org/_nuxt/img/logo-covid-journal-print.3d963fb.png`,
-      },
       { name: 'msapplication-TileColor', content: '#5299d3' },
     ],
     link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
