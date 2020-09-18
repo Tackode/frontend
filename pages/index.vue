@@ -178,11 +178,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
-import BigActionButton from '~/components/BigActionButton.vue'
 
 @Component({
   components: {
-    BigActionButton,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
   },
 })
 export default class Home extends Vue {
