@@ -12342,10 +12342,10 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue2-timepicker@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/vue2-timepicker/-/vue2-timepicker-1.1.4.tgz#57eb8a461052461c3d6503ca861bc671e181c39b"
-  integrity sha512-v3ceIfiNN+lhBQcjIbG3CV0wC0dxSRt/P6Eqo35ZkrQfUjWrrpHkqL1dP2vYKZNkwYvYkAK/CKtYHl7QV8ToGQ==
+vue2-timepicker@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/vue2-timepicker/-/vue2-timepicker-1.1.5.tgz#5a93cefb540679772af6ea6cd826a039e2c18827"
+  integrity sha512-jMbw3BhVguuukwfzO7jvS2Ais7zDX/I9OjFO59IZU7cNv9EfxFAcU7MxDK85FwJLsSTm+ZTMIXAZPnGLLrFLwA==
 
 vue@^2.6.11, vue@^2.6.12:
   version "2.6.12"
