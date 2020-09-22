@@ -14,7 +14,7 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,vue,ts}": "yarn lint",
+    "*.{js,vue,ts}": "npm run lint",
     "*.{css,vue}": "stylelint"
   },
   "husky": {
@@ -27,19 +27,19 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.2",
     "bootstrap": "^4.5.2",
-    "bootstrap-vue": "^2.17.1",
+    "bootstrap-vue": "^2.17.3",
     "date-fns": "^2.16.1",
     "nuxt-env": "^0.1.0",
     "nuxt-i18n": "^6.15.1",
     "nuxt-property-decorator": "^2.8.3",
-    "nuxt-start": "^2.14.5",
+    "nuxt-start": "^2.14.6",
     "v-calendar": "^1.0.8",
     "vue-qrcode-reader": "^2.3.13",
-    "vue2-timepicker": "^1.1.4"
+    "vue2-timepicker": "^1.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
-    "@nuxt/types": "^2.14.5",
+    "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/eslint-config-typescript": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
@@ -56,11 +56,11 @@
     "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
     "node-sass": "^4.14.1",
-    "nuxt": "^2.14.5",
+    "nuxt": "^2.14.6",
     "prettier": "^2.1.2",
     "sass-loader": "^10.0.2",
     "stylelint": "^13.7.1",
-    "ts-jest": "^26.3.0",
+    "ts-jest": "^26.4.0",
     "vue-jest": "^4.0.0-0"
   },
   "resolutions": {

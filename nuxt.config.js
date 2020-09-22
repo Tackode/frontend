@@ -122,16 +122,17 @@ export default {
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
-    icons: true,
+    icons: false,
   },
   /*
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(_config, _ctx) {},
+    cache: true,
+    extractCSS: true,
+    hardSource: true,
+    parallel: true,
+    ssr: true,
   },
   render: {
     csp:

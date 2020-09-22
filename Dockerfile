@@ -11,9 +11,7 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY ./package.json ./yarn.lock ./
-
-RUN yarn install --production --frozen-lockfile --non-interactive && yarn cache clean
+COPY ./package.json ./package-lock.json ./node_modules ./
 
 FROM dependencies as start
 
@@ -27,4 +25,4 @@ ENV HOST 0.0.0.0
 
 EXPOSE 4000
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
