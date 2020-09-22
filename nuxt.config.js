@@ -128,9 +128,9 @@ export default {
    ** Build configuration
    */
   build: {
+    extractCSS: true,
     cache: true,
     hardSource: true,
-    parallel: true,
     ssr: true,
   },
   render: {
