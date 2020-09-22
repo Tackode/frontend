@@ -6,7 +6,7 @@
       <div></div>
       <div></div>
     </div>
-    <p class="title-1">{{ $t('loading') }}</p>
+    <p class="title-2">{{ $t('loading') }}</p>
     <p>{{ $t('loadingWait') }}</p>
   </Card>
 </template>
