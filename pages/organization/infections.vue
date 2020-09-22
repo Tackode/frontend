@@ -390,5 +390,3 @@ export default class ProfessionalInfections extends Vue {
   }
 }
 </script>
-
-<style></style>

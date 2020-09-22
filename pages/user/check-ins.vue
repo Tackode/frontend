@@ -99,5 +99,3 @@ export default class CheckIns extends Vue {
   }
 }
 </script>
-
-<style></style>
