@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
-import { Infection } from '../../types/Infection'
+import { Infection } from '~/types/Infection'
 import { Place } from '~/types/Place'
 
 @Component

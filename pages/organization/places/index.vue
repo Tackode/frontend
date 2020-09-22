@@ -193,7 +193,7 @@ interface PlaceFormValues {
 @Component({
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
-    CardPlace: () => import('~/components/card-place/CardPlace.vue'),
+    CardPlace: () => import('~/components/CardPlace.vue'),
     Loader: () => import('~/components/Loader.vue'),
   },
 })

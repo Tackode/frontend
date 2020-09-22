@@ -46,7 +46,7 @@ import { Component, Prop } from 'nuxt-property-decorator'
 import { Checkin } from '~/types/Checkin'
 
 @Component
-export default class CardPlace extends Vue {
+export default class CardCheckin extends Vue {
   @Prop({ type: Object, required: true }) readonly checkin!: Checkin
 }
 </script>

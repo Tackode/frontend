@@ -197,17 +197,13 @@ import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import { Infection, InfectionCreation } from '../../types/Infection'
-import BigActionButton from '~/components/BigActionButton.vue'
-import TimePicker from '~/components/TimePicker.vue'
-import DatePicker from '~/components/DatePicker.vue'
-import CardInfection from '~/components/card-infection/CardInfection.vue'
 
 @Component({
   components: {
-    BigActionButton,
-    DatePicker,
-    TimePicker,
-    CardInfection,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
+    DatePicker: () => import('~/components/DatePicker.vue'),
+    TimePicker: () => import('~/components/TimePicker.vue'),
+    CardInfection: () => import('~/components/CardInfection.vue'),
   },
 })
 export default class ProfessionalInfections extends Vue {

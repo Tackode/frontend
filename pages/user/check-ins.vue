@@ -62,13 +62,11 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
-import BigActionButton from '~/components/BigActionButton.vue'
-import CardCheckin from '~/components/card-checkin/CardCheckin.vue'
 
 @Component({
   components: {
-    BigActionButton,
-    CardCheckin,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
+    CardCheckin: () => import('~/components/CardCheckin.vue'),
   },
 })
 export default class CheckIns extends Vue {
