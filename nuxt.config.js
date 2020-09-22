@@ -129,7 +129,6 @@ export default {
    */
   build: {
     cache: true,
-    extractCSS: true,
     hardSource: true,
     parallel: true,
     ssr: true,
