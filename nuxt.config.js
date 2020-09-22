@@ -128,9 +128,9 @@ export default {
    ** Build configuration
    */
   build: {
-    extractCSS: true,
-    cache: true,
-    hardSource: true,
+    extractCSS: process.env.NODE_ENV === 'production',
+    cache: process.env.NODE_ENV === 'production',
+    hardSource: process.env.NODE_ENV === 'production',
   },
   render: {
     csp:
