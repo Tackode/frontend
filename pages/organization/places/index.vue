@@ -1,9 +1,16 @@
 <template>
-  <div class="wrapped-container c-medium my-3">
-    <p v-if="state === PlaceState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
-    <div v-else-if="state === PlaceState.LOADED">
+  <div>
+    <div
+      v-if="state === PlaceState.LOADING"
+      class="wrapped-container c-small my-3"
+    >
+      <Loader />
+    </div>
+
+    <div
+      v-else-if="state === PlaceState.LOADED"
+      class="wrapped-container c-medium my-3"
+    >
       <h2>{{ $t('place') }}</h2>
 
       <BigActionButton
@@ -115,7 +122,6 @@
 {
   "en": {
     "place":"Your Places",
-    "pleaseWait": "Loading. Please wait...",
     "addPlace":"Add a new place open to the public",
     "noPlace":"You don't have any places for now. You can start by creating one!",
     "nameMandatory":"Name*",
@@ -141,7 +147,6 @@
   },
   "fr": {
     "place":"Vos lieux",
-    "pleaseWait": "Chargement en cours...",
     "addPlace":"Ajoutez un nouveau lieu ouvert au public",
     "noPlace":"Vous n’avez pas de lieu pour l’instant. Vous pouvez en ajouter un dès maintenant !",
     "nameMandatory":"Nom*",
@@ -173,8 +178,6 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
-import BigActionButton from '~/components/BigActionButton.vue'
-import CardPlace from '~/components/card-place/CardPlace.vue'
 
 enum PlaceState {
   LOADING,
@@ -189,8 +192,9 @@ interface PlaceFormValues {
 
 @Component({
   components: {
-    BigActionButton,
-    CardPlace,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
+    CardPlace: () => import('~/components/card-place/CardPlace.vue'),
+    Loader: () => import('~/components/Loader.vue'),
   },
 })
 export default class ProfessionalPlaces extends Vue {
@@ -343,5 +347,3 @@ export default class ProfessionalPlaces extends Vue {
   }
 }
 </script>
-
-<style></style>

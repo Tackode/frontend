@@ -1,7 +1,7 @@
 <template>
   <div class="wrapped-container c-small c-center my-3">
     <div v-if="state === ValidateState.LOADING">
-      {{ $t('validateDevice') }}
+      <Loader />
     </div>
     <p v-else-if="state === ValidateState.FAILURE">
       {{ $t('validationFailed') }}
@@ -12,14 +12,12 @@
 <i18n>
 {
   "en": {
-    "validateDevice":"Validate Device",
     "validationFailed":"Fail to connect you. Please, retry to connect. ",
     "networkError":"A network error has occurred. Please, try again.",
     "parametersMissing":"Parameters are missing to connect. Please, click on the link that was received in the login email.",
     "titlePage":"Covid Journal - Validation in progress"
   },
   "fr": {
-    "validateDevice":"Appareil Validé",
     "validationFailed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
     "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
     "parametersMissing":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
@@ -41,7 +39,11 @@ enum ValidateState {
   FAILURE,
 }
 
-@Component({})
+@Component({
+  components: {
+    Loader: () => import('~/components/Loader.vue'),
+  },
+})
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
   i18n = new VueI18n({})
@@ -85,5 +87,3 @@ export default class ValidateDevice extends Vue {
   }
 }
 </script>
-
-<style></style>

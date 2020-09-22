@@ -1,10 +1,16 @@
 <template>
-  <div class="place-detail wrapped-container c-medium c-center my-3">
-    <p v-if="state === PlaceState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
+  <div>
+    <div
+      v-if="state === PlaceState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
 
-    <div v-else-if="state === PlaceState.NOTFOUND">
+    <div
+      v-else-if="state === PlaceState.NOTFOUND"
+      class="wrapped-container c-small c-center my-3"
+    >
       <p>
         {{ $t('placeNotFound') }}
       </p>
@@ -17,7 +23,10 @@
       </nuxt-link>
     </div>
 
-    <div v-else-if="state === PlaceState.LOADED">
+    <div
+      v-else-if="state === PlaceState.LOADED"
+      class="place-detail wrapped-container c-medium c-center my-3"
+    >
       <div class="row no-print">
         <div class="col-6 text-left link-back">
           <nuxt-link :to="'/' + $i18n.locale + '/organization/places/'">
@@ -86,15 +95,13 @@
     "back":"Back",
     "print":"Print the page",
     "flash":"Flash this QR Code to be informed of an infection",
-    "placeNotFound":"This place does not exist.",
-    "pleaseWait":"Loading. Please wait..."
+    "placeNotFound":"This place does not exist."
   },
   "fr": {
     "back":"Retour",
     "print":"Imprimer",
     "flash":"Flashez le QR Code pour être informé d'une infection",
-    "placeNotFound":"Ce lieu n'existe plus.",
-    "pleaseWait":"Chargement en cours..."
+    "placeNotFound":"Ce lieu n'existe plus."
   }
 }
 </i18n>
@@ -103,7 +110,6 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../../../types/Place'
-import PlaceView from '../../../components/PlaceView.vue'
 
 enum PlaceState {
   LOADING,
@@ -113,7 +119,8 @@ enum PlaceState {
 
 @Component({
   components: {
-    PlaceView,
+    PlaceView: () => import('~/components/PlaceView.vue'),
+    Loader: () => import('~/components/Loader.vue'),
   },
 })
 export default class PlaceDetail extends Vue {

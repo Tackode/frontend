@@ -19,7 +19,7 @@ import { Component } from 'nuxt-property-decorator'
 
 @Component({
   components: {
-    LoginFrame: () => import('../components/login/LoginFrame.vue'),
+    LoginFrame: () => import('../components/LoginFrame.vue'),
   },
   head(this: Login) {
     return {

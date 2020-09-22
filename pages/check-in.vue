@@ -8,9 +8,12 @@
       <qrcode-stream @decode="onDecode" @init="onInit" />
     </div>
 
-    <p v-else-if="state === CheckinState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
+    <div
+      v-if="state === CheckinState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
 
     <div
       v-if="state === CheckinState.NOTFOUND"
@@ -101,7 +104,6 @@
     "en": {
     "back":"Back to home page",
     "notExists":"This place does not exist.",
-    "pleaseWait":"Loading. Please wait...",
     "submit":"Do a Checkin-In",
     "email":"Email address*",
     "enterEmail":"Enter your email",
@@ -129,7 +131,6 @@
   "fr": {
     "back":"Retour à la page d'accueil",
     "notExists":"Ce lieu n'existe plus.",
-    "pleaseWait":"Chargement en cours...",
     "submit":"Valider le Check-In",
     "email":"Adresse mail*",
     "enterEmail":"Entrer votre mail",
@@ -178,6 +179,7 @@ enum CheckinState {
     PlaceView: () => import('~/components/PlaceView.vue'),
     Card: () => import('~/components/Card.vue'),
     EmailSent: () => import('~/components/EmailSent.vue'),
+    Loader: () => import('~/components/Loader.vue'),
   },
 })
 export default class CheckIn extends Vue {

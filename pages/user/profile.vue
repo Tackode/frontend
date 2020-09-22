@@ -1,10 +1,16 @@
 <template>
-  <div class="wrapped-container c-large c-center my-3">
-    <p v-if="state === ProfileState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
+  <div>
+    <div
+      v-if="state === ProfileState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
 
-    <template v-else-if="state === ProfileState.LOADED">
+    <div
+      v-else-if="state === ProfileState.LOADED"
+      class="wrapped-container c-large c-center my-3"
+    >
       <DecoratedCard image="profile-drawing" title="">
         <h1>{{ $t('myProfile') }}</h1>
 
@@ -88,14 +94,13 @@
       >
         {{ $t('deleteProfileValidation') }}
       </b-modal>
-    </template>
+    </div>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
-    "pleaseWait": "Loading. Please wait...",
     "myProfile": "My Profile",
     "deleteProfileValidation": "Do you really want to delete your profile?",
     "deleteProfile": "Delete profile",
@@ -116,7 +121,6 @@
     "titlePage":"Covid Journal - My Profile"
   },
   "fr": {
-    "pleaseWait": "Chargement en cours...",
     "myProfile": "Mon Profil",
     "deleteProfileValidation": "Voulez-vous vraiment supprimer votre profil ?",
     "deleteProfile": "Supprimer le profil",
@@ -152,7 +156,8 @@ enum ProfileState {
 
 @Component({
   components: {
-    DecoratedCard: () => import('../../components/DecoratedCard.vue'),
+    DecoratedCard: () => import('~/components/DecoratedCard.vue'),
+    Loader: () => import('~/components/Loader.vue'),
   },
 })
 export default class ProfilePage extends Vue {
@@ -279,5 +284,3 @@ export default class ProfilePage extends Vue {
   }
 }
 </script>
-
-<style></style>
