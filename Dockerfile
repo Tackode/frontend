@@ -1,26 +1,19 @@
-FROM node:14-alpine as node
+FROM node:14-alpine
 
 RUN apk --update add tzdata && \
   cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
   echo "Europe/Paris" > /etc/timezone && \
   apk del tzdata && rm -rf /var/cache/apk/*
 
-FROM node as dependencies
-
 RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./node_modules ./
-
-FROM dependencies as start
-
-ENV NODE_ENV=production
-
-COPY ./nuxt.config.js ./
-
+COPY ./package.json ./package-lock.json ./nuxt.config.js ./
+COPY ./node_modules ./node_modules/
 COPY ./.nuxt ./.nuxt
 
+ENV NODE_ENV=production
 ENV HOST 0.0.0.0
 
 EXPOSE 4000
