@@ -14,7 +14,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=covidjournal/frontend/covid-journal-frontend
+          DOCKER_IMAGE=covidjournal/covid-journal-frontend
           VERSION=noop
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
