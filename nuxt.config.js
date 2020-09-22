@@ -7,6 +7,7 @@ console.log('API_URL:', process.env.API_URL)
 console.log('CSP:', process.env.CSP)
 
 export default {
+  target: 'server',
   dev: process.env.NODE_ENV !== 'production',
   /*
    ** Headers of the page
@@ -15,7 +16,6 @@ export default {
     host: process.env.HOST,
     port: 4000,
   },
-  telemetry: false,
   head: {
     title: 'Covid Journal',
     meta: [
@@ -131,7 +131,6 @@ export default {
     extractCSS: true,
     cache: true,
     hardSource: true,
-    ssr: true,
   },
   render: {
     csp:
