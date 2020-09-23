@@ -44,7 +44,7 @@
           <b-button
             variant="default"
             block
-            :href="'/' + $i18n.locale + '/organization/places'"
+            :href="'/' + $i18n.locale + '/signup'"
           >
             {{ $t('create-qr-code') }}
           </b-button>
