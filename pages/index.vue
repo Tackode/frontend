@@ -133,17 +133,17 @@
     "cost-paragraph-1": "The coronavirus is eveyone's business, which means each of us must make an effort so that we can all come out of this global pandemic together.",
     "cost-paragraph-2": "It is for this reason that we have decided for the moment to offer our application free of charge to all people who wish to use it and thus allow as many people as possible to be able to go out and enjoy it in complete safety!",
 
-    "register":"Register a place to be notified when an infection is reported",
-    "introduction":"Manage your organization and the corresponding places",
-    "subtitle":"Manage your organization and corresponding places.",
+    "register": "Register a place to be notified when an infection is reported",
+    "introduction": "Manage your organization and the corresponding places",
+    "subtitle": "Manage your organization and corresponding places.",
     "login": "Loggin In",
-    "logout":"Log Out",
+    "logout": "Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
-    "proLogin":"You welcome the public and you want to offer Covid-Journal to your visitors",
-    "userLogin":"You want to know if you have crossed an infected person",
-    "places":"Manage your places and your profile",
-    "titlePage":"Covid Journal - Homepage"
+    "proLogin": "You welcome the public and you want to offer Covid-Journal to your visitors",
+    "userLogin": "You want to know if you have crossed an infected person",
+    "places": "Manage your places and your profile",
+    "titlePage": "Be notified when an infection is reported"
   },
   "fr": {
     "summary": "Enregistrez votre passage dans un établissement grâce à un QR Code et soyez notifié d'un contact potentiel avec une personne infectée",
@@ -160,17 +160,17 @@
     "cost-paragraph-1": "Le coronavirus est l'affaire de tous, ce qui signifie que chacun d'entre nous doit faire un effort pour que nous puissions sortir tous ensemble de cette pandémie mondiale.",
     "cost-paragraph-2": "C'est pour cette raison que nous avons décidé pour le moment d'offrir gratuitement notre application à toutes les personnes qui souhaitent en profiter et de permettre ainsi à un maximum de personnes de pouvoir sortir et profiter en toute sécurité !",
 
-    "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
-    "introduction":"Gérez votre organisation et les lieux correspondants.",
-    "subtitle":"Gérer votre organisation et les lieux correspondants.",
+    "register": "Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
+    "introduction": "Gérez votre organisation et les lieux correspondants.",
+    "subtitle": "Gérer votre organisation et les lieux correspondants.",
     "login": "Connexion",
-    "logout":"Se déconnecter",
+    "logout": "Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "proLogin":"Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
-    "userLogin":"Vous souhaitez savoir si vous avez croisé une personne infectée.",
-    "places":"Gérez vos lieux de passages et votre profil.",
-    "titlePage":"Covid Journal - Page d'accueil"
+    "proLogin": "Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "userLogin": "Vous souhaitez savoir si vous avez croisé une personne infectée.",
+    "places": "Gérez vos lieux de passages et votre profil.",
+    "titlePage": "Soyez informé d'un contact avec une personne contaminée"
   }
 }
 </i18n>
@@ -183,12 +183,16 @@ import { Component } from 'nuxt-property-decorator'
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
   },
+  head(this: Home) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
 })
 export default class Home extends Vue {
   role: string | null = null
 
   mounted() {
-    document.title = this.$i18n.t('titlePage') as string
     this.role = this.$store.getters['session/role']
 
     this.$store.watch(

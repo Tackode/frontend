@@ -29,7 +29,7 @@
 <i18n>
 {
   "en": {
-    "register":"Register a place to be notified when an infection is reported",
+    "register": "Register a place to be notified when an infection is reported",
     "scan" : "Scan the QR Code of the place where you are",
     "potentialContactsWithInfected": "Potential contacts with infected people",
     "myCheckIns": "My Check-ins",
@@ -38,11 +38,11 @@
     "time": "Time",
     "duration": "Duration",
     "noCheckIn": "You don't have any check-in for now.",
-    "networkError":"A network error has occurred. Please, try again.",
-    "titlePage":"Covid Journal - My Check-ins "
+    "networkError": "A network error has occurred. Please, try again.",
+    "titlePage": "My Check-ins"
   },
   "fr": {
-    "register":"Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
+    "register": "Enregistrez un lieu de passage pour être informé en cas de signalement d'une infection.",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
     "potentialContactsWithInfected": "Contacts potentiels avec une personne infectée",
     "myCheckIns": "Mes Visites",
@@ -51,8 +51,8 @@
     "time": "Horaire",
     "duration": "Durée",
     "noCheckIn": "Vous n'avez aucune visite enregistrée pour l'instant.",
-    "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
-    "titlePage":"Covid Journal - Mes Visites"
+    "networkError": "Une erreur réseau est apparue. S'il vous plaît, réessayer.",
+    "titlePage": "Mes visites"
   }
 }
 </i18n>
@@ -68,14 +68,17 @@ import { Checkin } from '../../types/Checkin'
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardCheckin: () => import('~/components/CardCheckin.vue'),
   },
+  head(this: CheckIns) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
 })
 export default class CheckIns extends Vue {
   checkins: Checkin[] = []
 
   async mounted() {
     // Load checkins
-    document.title = this.$i18n.t('titlePage') as string
-
     try {
       this.checkins = await this.$axios.$get('/checkins', {
         auth: {
@@ -90,10 +93,6 @@ export default class CheckIns extends Vue {
         new Error(this.$i18n.t('networkError') as string)
       )
     }
-  }
-
-  tr(ind: string) {
-    return this.$i18n.t(ind)
   }
 }
 </script>

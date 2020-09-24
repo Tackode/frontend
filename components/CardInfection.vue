@@ -38,12 +38,12 @@
 <i18n>
 {
   "en": {
-    "startDay":"Start Date",
-    "endDate":"End Date"
+    "startDay": "Start Date",
+    "endDate": "End Date"
   },
   "fr": {
-    "startDay":"Date de début",
-    "endDate":"Date de fin"
+    "startDay": "Date de début",
+    "endDate": "Date de fin"
   }
 }
 </i18n>

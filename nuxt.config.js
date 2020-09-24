@@ -17,7 +17,7 @@ export default {
     port: 4000,
   },
   head: {
-    title: 'Covid Journal',
+    titleTemplate: '%s - Covid-Journal',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

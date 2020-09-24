@@ -102,56 +102,50 @@
 <i18n>
 {
     "en": {
-    "back":"Back to home page",
-    "notExists":"This place does not exist.",
-    "submit":"Do a Checkin-In",
-    "email":"Email address*",
-    "enterEmail":"Enter your email",
-    "neverShare":"We'll never share your email with anyone else.",
-    "scan":"Scan a QR Code",
-    "scanImpossible":"Scan Impossible",
-    "retryDevice":"Retry with a compatible device",
-    "retryOperation":"Please allow the use of the camera and retry",
-    "noCamera":"You have no camera on this device",
-    "notAllowed":"You need to grant camera access permisson",
-    "secureContext":"Secure context required (HTTPS, localhost)",
-    "retry":"Please, fix the error and retry",
-    "inUse":"Is the camera already in use?",
-    "notSuitable":"Installed cameras are not suitable",
-    "streamAPINotSupported":"Stream API is not supported in this browser",
-    "networkError":"A network error has occurred. Please, try again.",
-    "errorUnknown":"Unknown error",
-    "titlePage":"Covid Journal - Checkin",
-    "notFound":"Covid Journal - Unknown place",
-    "errorTitle":"Covid Journal - Error",
-    "scanTitle":"Covid Journal - Scanning",
+    "back": "Back to home page",
+    "notExists": "This place does not exist.",
+    "submit": "Do a Checkin-In",
+    "email": "Email address*",
+    "enterEmail": "Enter your email",
+    "neverShare": "We'll never share your email with anyone else.",
+    "scan": "Scan a QR Code",
+    "scanImpossible": "Scan Impossible",
+    "retryDevice": "Retry with a compatible device",
+    "retryOperation": "Please allow the use of the camera and retry",
+    "noCamera": "You have no camera on this device",
+    "notAllowed": "You need to grant camera access permisson",
+    "secureContext": "Secure context required (HTTPS, localhost)",
+    "retry": "Please, fix the error and retry",
+    "inUse": "Is the camera already in use?",
+    "notSuitable": "Installed cameras are not suitable",
+    "streamAPINotSupported": "Stream API is not supported in this browser",
+    "networkError": "A network error has occurred. Please, try again.",
+    "errorUnknown": "Unknown error",
+    "titlePage": "Checkin",
     "thankYou": "Thank you!",
     "saferWorld": "You have contributed to make this world a better place for everyone"
   },
   "fr": {
-    "back":"Retour à la page d'accueil",
-    "notExists":"Ce lieu n'existe plus.",
-    "submit":"Valider le Check-In",
-    "email":"Adresse mail*",
-    "enterEmail":"Entrer votre mail",
-    "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
-    "scan":"Scanner un QR Code",
-    "scanImpossible":"Scan Impossible",
-    "retryDevice":"Reéssayer avec un appareil compatible",
-    "retryOperation":"Veuillez autoriser l'accès à la caméra puis réessayer",
-    "noCamera":"Vous n'avez pas de caméra sur cet appareil",
-    "notAllowed":"Vous devez permettre l'accès à la caméra pour scanner",
-    "secureContext":"Contexte sécurisé requis (HTTPS, localhost)",
-    "retry":"Corrigez l'erreur et réessayez",
-    "inUse":"Votre caméra est déjà utilisée ?",
-    "notSuitable":"La caméra installée n'est pas compatible",
-    "streamAPINotSupported":"La vidéo n'est pas supportée sur votre appareil",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "errorUnknown":"Erreur inconnue",
-    "titlePage":"Covid Journal - Checkin",
-    "notFound":"Covid Journal - Lieu inconnu",
-    "errorTitle":"Covid Journal - Erreur",
-    "scanTitle":"Covid Journal - Scan en cours",
+    "back": "Retour à la page d'accueil",
+    "notExists": "Ce lieu n'existe plus.",
+    "submit": "Valider le Check-In",
+    "email": "Adresse mail*",
+    "enterEmail": "Entrer votre mail",
+    "neverShare": "Nous ne partagerons jamais votre mail avec autrui.",
+    "scan": "Scanner un QR Code",
+    "scanImpossible": "Scan Impossible",
+    "retryDevice": "Reéssayer avec un appareil compatible",
+    "retryOperation": "Veuillez autoriser l'accès à la caméra puis réessayer",
+    "noCamera": "Vous n'avez pas de caméra sur cet appareil",
+    "notAllowed": "Vous devez permettre l'accès à la caméra pour scanner",
+    "secureContext": "Contexte sécurisé requis (HTTPS, localhost)",
+    "retry": "Corrigez l'erreur et réessayez",
+    "inUse": "Votre caméra est déjà utilisée ?",
+    "notSuitable": "La caméra installée n'est pas compatible",
+    "streamAPINotSupported": "La vidéo n'est pas supportée sur votre appareil",
+    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "errorUnknown": "Erreur inconnue",
+    "titlePage": "Checkin",
     "thankYou": "Merci !",
     "saferWorld": "Vous avez contribué à faire de cet endroit un lieu plus sûr pour tout le monde"
   }
@@ -181,6 +175,11 @@ enum CheckinState {
     EmailSent: () => import('~/components/EmailSent.vue'),
     Loader: () => import('~/components/Loader.vue'),
   },
+  head(this: CheckIn) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
 })
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
@@ -196,7 +195,6 @@ export default class CheckIn extends Vue {
   CheckinState = CheckinState
 
   async mounted() {
-    document.title = this.$i18n.t('titlePage') as string
     const placeId = this.$route.query.placeId
 
     if (
@@ -216,12 +214,11 @@ export default class CheckIn extends Vue {
       this.place = await this.$axios.$get(`/place/${placeId}`)
     } catch (error) {
       this.state = CheckinState.NOTFOUND
-      document.title = this.$i18n.t('notFound') as string
       return
     }
+
     this.duration = `${this.place?.averageDuration}`
     this.state = CheckinState.LOADED
-    document.title = `${this.place?.name} - Covid Journal`
   }
 
   async handleSubmit(e: Event) {
@@ -283,14 +280,14 @@ export default class CheckIn extends Vue {
 
   async onInit(promise: any) {
     try {
-      document.title = this.$i18n.t('scanTitle') as string
       await promise
     } catch (error) {
       if (error === 'TypeError: r.getCapabilities is not a function') {
         return
       }
+
       this.state = CheckinState.ERROR
-      document.title = this.$i18n.t('errorTitle') as string
+
       if (error.name === 'NotAllowedError') {
         this.error = 'notAllowed'
         this.retry = 'retryOperation'

@@ -92,16 +92,18 @@
 <i18n>
 {
   "en": {
-    "back":"Back",
-    "print":"Print the page",
-    "flash":"Flash this QR Code to be informed of an infection",
-    "placeNotFound":"This place does not exist."
+    "back": "Back",
+    "print": "Print the page",
+    "flash": "Flash this QR Code to be informed of an infection",
+    "placeNotFound": "This place does not exist.",
+    "titlePage": "Place"
   },
   "fr": {
-    "back":"Retour",
-    "print":"Imprimer",
-    "flash":"Flashez le QR Code pour être informé d'une infection",
-    "placeNotFound":"Ce lieu n'existe plus."
+    "back": "Retour",
+    "print": "Imprimer",
+    "flash": "Flashez le QR Code pour être informé d'une infection",
+    "placeNotFound": "Ce lieu n'existe plus.",
+    "titlePage": "Lieu"
   }
 }
 </i18n>
@@ -121,6 +123,11 @@ enum PlaceState {
   components: {
     PlaceView: () => import('~/components/PlaceView.vue'),
     Loader: () => import('~/components/Loader.vue'),
+  },
+  head(this: PlaceDetail) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
   },
 })
 export default class PlaceDetail extends Vue {
@@ -154,7 +161,6 @@ export default class PlaceDetail extends Vue {
     this.organization = `${this.place?.organization?.name}`
     this.name = `${this.place?.name}`
     this.description = `${this.place?.description}`
-    document.title = 'Covid Journal - ' + this.name
   }
 
   printPage() {

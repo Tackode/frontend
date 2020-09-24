@@ -72,12 +72,12 @@
 <i18n>
 {
   "en": {
-    "legalNotices":"Legal Notices",
-    "titlePage":"Covid Journal - Legal Notices"
+    "legalNotices": "Legal Notices",
+    "titlePage": "Legal Notices"
   },
   "fr": {
-    "legalNotices":"Mentions légales",
-    "titlePage":"Covid Journal - Mentions légales"
+    "legalNotices": "Mentions légales",
+    "titlePage": "Mentions légales"
   }
 }
 </i18n>
@@ -86,12 +86,14 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
-@Component
-export default class Legal extends Vue {
-  mounted() {
-    document.title = this.$i18n.t('titlePage') as string
-  }
-}
+@Component({
+  head(this: Legal) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
+})
+export default class Legal extends Vue {}
 </script>
 
 <style lang="scss">

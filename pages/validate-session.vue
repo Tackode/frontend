@@ -12,27 +12,24 @@
 <i18n>
 {
   "en": {
-    "validationFailed":"Fail to connect you. Please, retry to connect. ",
-    "networkError":"A network error has occurred. Please, try again.",
-    "parametersMissing":"Parameters are missing to connect. Please, click on the link that was received in the login email.",
-    "titlePage":"Covid Journal - Validation in progress"
+    "validationFailed": "Fail to connect you. Please, retry to connect. ",
+    "networkError": "A network error has occurred. Please, try again.",
+    "parametersMissing": "Parameters are missing to connect. Please, click on the link that was received in the login email.",
+    "titlePage": "Session validation"
   },
   "fr": {
-    "validationFailed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "parametersMissing":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
-    "titlePage":"Covid Journal - Validation en cours"
+    "validationFailed": "Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
+    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "parametersMissing": "Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
+    "titlePage": "Validation de la session"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from 'vue'
-import VueI18n from 'vue-i18n'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../helpers/alerts'
-
-Vue.use(VueI18n)
 
 enum ValidateState {
   LOADING,
@@ -43,17 +40,20 @@ enum ValidateState {
   components: {
     Loader: () => import('~/components/Loader.vue'),
   },
+  head(this: ValidateDevice) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
 })
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
-  i18n = new VueI18n({})
 
   // Bind enum for Vue
   ValidateState = ValidateState
 
   async mounted() {
     // Retrieve device & session
-    document.title = this.$i18n.t('titlePage') as string
     const sessionId = this.$route.query.sessionId
     const token = this.$route.query.token
 

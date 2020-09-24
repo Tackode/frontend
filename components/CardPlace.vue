@@ -58,10 +58,10 @@
 <i18n>
 {
   "en": {
-    "showQR":"Show QRCode"
+    "showQR": "Show QRCode"
   },
   "fr": {
-    "showQR":"Afficher QRCode"
+    "showQR": "Afficher QRCode"
   }
 }
 </i18n>

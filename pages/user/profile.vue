@@ -112,13 +112,13 @@
     "email": "Email address*",
     "organization": "Organization*",
     "emailPlaceholder": "Your email",
-    "successfullyUpdated":"Your profile was successfully updated.",
-    "profile":"Profile",
-    "networkError":"A network error has occurred in posting. Please, try again.",
-    "networkErrorLoading":"A network error occurred while loading the profile. Please, try Again.",
-    "profileDeleted":"Your profile has been deleted.",
-    "networkErrorDeleting":"A network error has occurred in deleting profile. Please, try again.",
-    "titlePage":"Covid Journal - My Profile"
+    "successfullyUpdated": "Your profile was successfully updated.",
+    "profile": "Profile",
+    "networkError": "A network error has occurred in posting. Please, try again.",
+    "networkErrorLoading": "A network error occurred while loading the profile. Please, try Again.",
+    "profileDeleted": "Your profile has been deleted.",
+    "networkErrorDeleting": "A network error has occurred in deleting profile. Please, try again.",
+    "titlePage": "My Profile"
   },
   "fr": {
     "myProfile": "Mon Profil",
@@ -132,13 +132,13 @@
     "email": "Adresse mail*",
     "organization": "Entreprise*",
     "emailPlaceholder": "Votre adresse mail",
-    "successfullyUpdated":"Votre profil a bien été mis à jour.",
-    "profile":"Profil",
-    "networkError":"Une erreur réseau est apparue. S'il vous plaît, réessayer.",
-    "networkErrorLoading":"Une erreur réseau est apparue pendant le chargement du profil. S'il vous plaît, réessayer.",
-    "profileDeleted":"Votre profil a bien été supprimé",
-    "networkErrorDeleting":"Une erreur réseau est survenue en supprimant le profil. S'il vous plait réessayer",
-    "titlePage":"Covid Journal - Mon Profil"
+    "successfullyUpdated": "Votre profil a bien été mis à jour.",
+    "profile": "Profil",
+    "networkError": "Une erreur réseau est apparue. S'il vous plaît, réessayer.",
+    "networkErrorLoading": "Une erreur réseau est apparue pendant le chargement du profil. S'il vous plaît, réessayer.",
+    "profileDeleted": "Votre profil a bien été supprimé",
+    "networkErrorDeleting": "Une erreur réseau est survenue en supprimant le profil. S'il vous plait réessayer",
+    "titlePage": "Mon profil"
   }
 }
 </i18n>
@@ -159,6 +159,11 @@ enum ProfileState {
     DecoratedCard: () => import('~/components/DecoratedCard.vue'),
     Loader: () => import('~/components/Loader.vue'),
   },
+  head(this: ProfilePage) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
 })
 export default class ProfilePage extends Vue {
   state: ProfileState = ProfileState.LOADING
@@ -171,7 +176,6 @@ export default class ProfilePage extends Vue {
   ProfileState = ProfileState
 
   async mounted() {
-    document.title = this.$i18n.t('titlePage') as string
     if (
       !this.$store.getters['session/localEmail'] &&
       this.$store.getters['session/email']

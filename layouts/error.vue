@@ -14,25 +14,26 @@
 <i18n>
 {
   "en": {
-    "notFound":"This page could not be found.",
-    "homePage":"Home page",
-    "error404":"Error 404",
-    "errorOccurred":"An error occurred.",
-    "tryAgain":"Try again later",
-    "titlePage":"Covid Journal - Error"
+    "notFound": "This page could not be found.",
+    "homePage": "Home page",
+    "error404": "Error 404",
+    "errorOccurred": "An error occurred.",
+    "tryAgain": "Try again later",
+    "titlePage": "Error"
 
   },
   "fr": {
-    "notFound":"Cette page n'existe pas.",
-    "homePage":"Retour à la page d'accueil",
-    "error404":"Erreur 404",
-    "errorOccurred":"Une erreur est survenue.",
-    "tryAgain":"Veuillez réessayer ultérieurement",
-    "titlePage":"Covid Journal - Erreur"
+    "notFound": "Cette page n'existe pas.",
+    "homePage": "Retour à la page d'accueil",
+    "error404": "Erreur 404",
+    "errorOccurred": "Une erreur est survenue.",
+    "tryAgain": "Veuillez réessayer ultérieurement",
+    "titlePage": "Erreur"
   }
 }
 </i18n>
-<script type="ts">
+
+<script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
@@ -42,10 +43,12 @@ const ErrorLayoutProps = Vue.extend({
   },
 })
 
-@Component
-export default class ErrorLayout extends ErrorLayoutProps {
-  mounted() {
-    document.title = this.$i18n.t('titlePage')
-  }
-}
+@Component({
+  head(this: ErrorLayout) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
+})
+export default class ErrorLayout extends ErrorLayoutProps {}
 </script>

@@ -113,24 +113,24 @@
 <i18n>
 {
   "en": {
-    "legal-notices":"Legal Notices",
-    "my-check-ins":"My Check-ins",
-    "my-profile":"My Profile",
-    "places":"Places",
-    "infections":"Infections",
-    "logout":"Logout",
-    "log-in":"Log in",
-    "sign-in":"Sign in"
+    "legal-notices": "Legal Notices",
+    "my-check-ins": "My Check-ins",
+    "my-profile": "My Profile",
+    "places": "Places",
+    "infections": "Infections",
+    "logout": "Logout",
+    "log-in": "Log in",
+    "sign-in": "Sign in"
   },
   "fr": {
-    "legal-notices":"Mentions légales",
-    "my-check-ins":"Mes Visites",
-    "my-profile":"Mon Profil",
-    "places":"Lieux",
-    "infections":"Infections",
-    "logout":"Se déconnecter",
-    "log-in":"Se connecter",
-    "sign-in":"S'inscrire"
+    "legal-notices": "Mentions légales",
+    "my-check-ins": "Mes Visites",
+    "my-profile": "Mon Profil",
+    "places": "Lieux",
+    "infections": "Infections",
+    "logout": "Se déconnecter",
+    "log-in": "Se connecter",
+    "sign-in": "S'inscrire"
   }
 }
 </i18n>
@@ -139,13 +139,7 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
-@Component({
-  head(this: DefaultLayout) {
-    return {
-      titleTemplate: 'Covid-Journal - %s',
-    }
-  },
-})
+@Component({})
 export default class DefaultLayout extends Vue {
   role: string | null = null
   $i18n: any
