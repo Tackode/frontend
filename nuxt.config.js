@@ -117,11 +117,23 @@ export default {
         },
       },
     ],
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
   ],
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
     icons: true,
+  },
+  sitemap: {
+    hostname: process.env.FRONT_URL,
+    i18n: true,
+    exclude: ['/validate-session', '/user/**', '/organization/**'],
+  },
+  robots: {
+    UserAgent: '*',
+    Disallow: ['/validate-session', '/user', '/organization'],
+    Sitemap: '/sitemap.xml',
   },
   /*
    ** Build configuration
