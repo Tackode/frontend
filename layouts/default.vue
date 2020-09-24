@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="main-container">
       <b-navbar :sticky="true" toggleable="lg" type="light" variant="light">
-        <b-navbar-brand :to="'/' + $i18n.locale + '/'">
+        <b-navbar-brand :to="localePath('/')">
           <img
             src="~/assets/images/logo-covid-journal.png"
             srcset="
@@ -20,18 +20,18 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <template v-if="role != null">
-              <b-nav-item :to="'/' + $i18n.locale + '/user/check-ins'">
+              <b-nav-item :to="localePath('/user/check-ins')">
                 {{ $t('my-check-ins') }}
               </b-nav-item>
-              <b-nav-item :to="'/' + $i18n.locale + '/user/profile'">
+              <b-nav-item :to="localePath('/user/profile')">
                 {{ $t('my-profile') }}
               </b-nav-item>
             </template>
             <template v-if="role === 'Professional'">
-              <b-nav-item :to="'/' + $i18n.locale + '/organization/places'">
+              <b-nav-item :to="localePath('/organization/places')">
                 {{ $t('places') }}
               </b-nav-item>
-              <b-nav-item :to="'/' + $i18n.locale + '/organization/infections'">
+              <b-nav-item :to="localePath('/organization/infections')">
                 {{ $t('infections') }}
               </b-nav-item>
             </template>
@@ -43,22 +43,23 @@
             </template>
 
             <template v-else>
-              <b-nav-item :to="'/' + $i18n.locale + '/login'">
+              <b-nav-item :to="localePath('/login')">
                 {{ $t('log-in') }}
               </b-nav-item>
-              <b-nav-item :to="'/' + $i18n.locale + '/signup'">
+              <b-nav-item :to="localePath('/signup')">
                 {{ $t('sign-in') }}
               </b-nav-item>
             </template>
 
-            <b-nav-item
-              v-for="locale in $i18n.locales"
-              v-if="locale.code !== $i18n.locale"
-              :key="locale.code"
-              :to="switchLocalePath(locale.code)"
-            >
-              {{ locale.name }}
-            </b-nav-item>
+            <b-nav-item-dropdown :text="$i18n.t('lang')" right>
+              <b-dropdown-item
+                v-for="locale in $i18n.locales"
+                :key="locale.code"
+                :disabled="locale.code === $i18n.locale"
+                :to="switchLocalePath(locale.code)"
+                >{{ locale.name }}</b-dropdown-item
+              >
+            </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -70,7 +71,7 @@
 
     <b-navbar tag="footer" type="dark" variant="dark">
       <b-navbar-nav>
-        <b-nav-item :to="'/' + $i18n.locale + '/legal'">
+        <b-nav-item :to="localePath('/legal')">
           {{ $t('legal-notices') }}
         </b-nav-item>
         <b-nav-item
@@ -120,7 +121,8 @@
     "infections": "Infections",
     "logout": "Logout",
     "log-in": "Log in",
-    "sign-in": "Sign in"
+    "sign-in": "Sign in",
+    "lang": "Lang"
   },
   "fr": {
     "legal-notices": "Mentions légales",
@@ -130,7 +132,8 @@
     "infections": "Infections",
     "logout": "Se déconnecter",
     "log-in": "Se connecter",
-    "sign-in": "S'inscrire"
+    "sign-in": "S'inscrire",
+    "lang": "Langue"
   }
 }
 </i18n>
@@ -139,10 +142,13 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
-@Component({})
+@Component({
+  head(this: DefaultLayout) {
+    return this.$nuxtI18nSeo()
+  },
+})
 export default class DefaultLayout extends Vue {
   role: string | null = null
-  $i18n: any
 
   created() {
     this.$store.dispatch('session/init')
@@ -164,7 +170,7 @@ export default class DefaultLayout extends Vue {
 
     this.$store.dispatch('session/logout')
 
-    this.$router.replace('/' + this.$i18n.locale + '/')
+    this.$router.replace(this.localePath('/'))
   }
 }
 </script>

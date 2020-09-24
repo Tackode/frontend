@@ -9,7 +9,7 @@
       :title="$t('register')"
       :subtitle="$t('scan')"
       image="qr-code"
-      :url="'/' + $i18n.locale + '/check-in'"
+      :url="localePath('/check-in')"
     />
 
     <div v-if="checkins.length > 0" class="checkins-list">

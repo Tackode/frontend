@@ -41,11 +41,7 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-1-title') }}</h3>
           <p>{{ $t('step-1') }}</p>
-          <b-button
-            variant="default"
-            block
-            :href="'/' + $i18n.locale + '/signup'"
-          >
+          <b-button variant="default" block :href="localePath('/signup')">
             {{ $t('create-qr-code') }}
           </b-button>
         </b-col>
@@ -79,11 +75,7 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-2-title') }}</h3>
           <p>{{ $t('step-2') }}</p>
-          <b-button
-            variant="default"
-            block
-            :href="'/' + $i18n.locale + '/check-in'"
-          >
+          <b-button variant="default" block :href="localePath('/check-in')">
             {{ $t('scan-qr-code') }}
           </b-button>
         </b-col>

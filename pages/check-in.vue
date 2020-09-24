@@ -20,7 +20,7 @@
       class="wrapped-container c-small c-center my-3"
     >
       <p>{{ $t('notExists') }}</p>
-      <nuxt-link class="no-print" :to="'/' + $i18n.locale">
+      <nuxt-link class="no-print" :to="localePath('/')">
         {{ $t('back') }}
       </nuxt-link>
     </div>
@@ -92,7 +92,7 @@
       </p>
       <p>{{ $t(retry) }}</p>
 
-      <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
+      <nuxt-link class="no-print" :to="localePath('/')">
         {{ $t('back') }}
       </nuxt-link>
     </div>

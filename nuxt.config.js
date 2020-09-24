@@ -16,6 +16,10 @@ export default {
     host: process.env.HOST,
     port: 4000,
   },
+  publicRuntimeConfig: {
+    frontUrl: process.env.FRONT_URL,
+    apiUrl: process.env.API_URL,
+  },
   head: {
     titleTemplate: '%s - Covid-Journal',
     meta: [
@@ -102,8 +106,9 @@ export default {
             file: 'fr-FR.js',
           },
         ],
-        strategy: 'prefix_and_default',
         defaultLocale: 'fr',
+        strategy: 'prefix',
+        baseUrl: process.env.FRONT_URL,
         vueI18nLoader: true,
         detectBrowserLanguage: {
           useCookie: true,
@@ -112,17 +117,11 @@ export default {
         },
       },
     ],
-    [
-      'nuxt-env',
-      {
-        keys: ['FRONT_URL', 'API_URL'],
-      },
-    ],
   ],
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
-    icons: false,
+    icons: true,
   },
   /*
    ** Build configuration

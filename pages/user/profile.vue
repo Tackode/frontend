@@ -284,7 +284,7 @@ export default class ProfilePage extends Vue {
     )
 
     this.$store.dispatch('session/logout')
-    this.$router.replace('/' + this.$i18n.locale)
+    this.$router.replace(this.localePath('/'))
   }
 }
 </script>

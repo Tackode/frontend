@@ -1,3 +1,3 @@
-export default function ({ $axios, $env }: any) {
-  $axios.defaults.baseURL = $env.API_URL
+export default function ({ $axios, $config }: any) {
+  $axios.defaults.baseURL = $config.apiUrl
 }

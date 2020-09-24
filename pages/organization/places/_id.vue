@@ -17,7 +17,7 @@
 
       <nuxt-link
         class="no-print mt-3"
-        :to="'/' + $i18n.locale + '/organization/places/'"
+        :to="localePath('/organization/places/')"
       >
         {{ $t('back') }}
       </nuxt-link>
@@ -29,7 +29,7 @@
     >
       <div class="row no-print">
         <div class="col-6 text-left link-back">
-          <nuxt-link :to="'/' + $i18n.locale + '/organization/places/'">
+          <nuxt-link :to="localePath('/organization/places/')">
             <img
               src="~/assets/images/back.png"
               srcset="
@@ -158,9 +158,10 @@ export default class PlaceDetail extends Vue {
     } catch (error) {
       this.state = PlaceState.NOTFOUND
     }
-    this.organization = `${this.place?.organization?.name}`
-    this.name = `${this.place?.name}`
-    this.description = `${this.place?.description}`
+
+    this.organization = this.place?.organization?.name ?? ''
+    this.name = this.place?.name ?? ''
+    this.description = this.place?.description ?? ''
   }
 
   printPage() {
@@ -168,7 +169,7 @@ export default class PlaceDetail extends Vue {
   }
 
   get qrCodeUrl() {
-    return (this as any).$env.FRONT_URL + '/check-in?placeId=' + this.placeId
+    return `${this.$config.frontUrl}/check-in?placeId=${this.placeId}`
   }
 }
 </script>
