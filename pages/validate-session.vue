@@ -37,6 +37,7 @@ enum ValidateState {
 }
 
 @Component({
+  middleware: ['auth-guest'],
   components: {
     Loader: () => import('~/components/Loader.vue'),
   },
@@ -83,7 +84,11 @@ export default class ValidateDevice extends Vue {
 
     this.$store.dispatch('session/setSession', result)
 
-    this.$router.replace(this.localePath('/user/check-ins'))
+    if (result.role === 'Professional') {
+      this.$router.replace(this.localePath('/organization/places'))
+    } else {
+      this.$router.replace(this.localePath('/user/check-ins'))
+    }
   }
 }
 </script>

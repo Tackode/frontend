@@ -120,6 +120,7 @@ enum PlaceState {
 }
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
     PlaceView: () => import('~/components/PlaceView.vue'),
     Loader: () => import('~/components/Loader.vue'),

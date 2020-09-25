@@ -155,6 +155,7 @@ enum ProfileState {
 }
 
 @Component({
+  middleware: ['auth-user'],
   components: {
     DecoratedCard: () => import('~/components/DecoratedCard.vue'),
     Loader: () => import('~/components/Loader.vue'),

@@ -64,6 +64,7 @@ import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
 
 @Component({
+  middleware: ['auth-user'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardCheckin: () => import('~/components/CardCheckin.vue'),

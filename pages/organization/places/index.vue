@@ -191,6 +191,7 @@ interface PlaceFormValues {
 }
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardPlace: () => import('~/components/CardPlace.vue'),

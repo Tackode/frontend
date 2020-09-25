@@ -18,6 +18,7 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
 @Component({
+  middleware: ['auth-guest'],
   components: {
     LoginFrame: () => import('../components/LoginFrame.vue'),
   },

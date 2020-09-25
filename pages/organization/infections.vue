@@ -199,6 +199,7 @@ import { Place } from '../../types/Place'
 import { Infection, InfectionCreation } from '../../types/Infection'
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     DatePicker: () => import('~/components/DatePicker.vue'),
