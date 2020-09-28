@@ -49,11 +49,12 @@ enum ValidateState {
 })
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
+  sessionDelay: number | null = null
 
   // Bind enum for Vue
   ValidateState = ValidateState
 
-  async mounted() {
+  mounted() {
     // Retrieve device & session
     const sessionId = this.$route.query.sessionId
     const token = this.$route.query.token
@@ -67,27 +68,38 @@ export default class ValidateDevice extends Vue {
       return
     }
 
-    let result: any
-    try {
-      result = await this.$axios.$post(`/session/${sessionId}/validate`, {
-        confirmationToken: token,
-      })
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Connexion',
-        new Error(this.$i18n.t('networkError') as string)
-      )
-      this.state = ValidateState.FAILURE
-      return
+    if (process.client) {
+      this.sessionDelay = window.setTimeout(async () => {
+        let result: any
+        try {
+          result = await this.$axios.$post(`/session/${sessionId}/validate`, {
+            confirmationToken: token,
+          })
+        } catch (error) {
+          showError(
+            this.$bvToast,
+            'Connexion',
+            new Error(this.$i18n.t('networkError') as string)
+          )
+          this.state = ValidateState.FAILURE
+          return
+        }
+
+        this.$store.dispatch('session/setSession', result)
+
+        if (result.user.role === 'Professional') {
+          this.$router.replace(this.localePath('/organization/places/'))
+        } else {
+          this.$router.replace(this.localePath('/user/check-ins/'))
+        }
+      }, 200)
     }
+  }
 
-    this.$store.dispatch('session/setSession', result)
-
-    if (result.user.role === 'Professional') {
-      this.$router.replace(this.localePath('/organization/places/'))
-    } else {
-      this.$router.replace(this.localePath('/user/check-ins/'))
+  beforeDestroy() {
+    if (this.sessionDelay != null) {
+      clearTimeout(this.sessionDelay)
+      this.sessionDelay = null
     }
   }
 }
