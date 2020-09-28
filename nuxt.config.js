@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 console.log('API_URL:', process.env.API_URL)
-console.log('CSP:', process.env.CSP)
 
 export default {
   target: 'server',
@@ -141,30 +140,5 @@ export default {
     extractCSS: process.env.NODE_ENV === 'production',
     cache: process.env.NODE_ENV === 'production',
     hardSource: process.env.NODE_ENV === 'production',
-  },
-  render: {
-    csp:
-      process.env.NODE_ENV !== 'production'
-        ? false
-        : {
-            reportOnly: true,
-            hashAlgorithm: 'sha256',
-            addMeta: true,
-            policies: {
-              'default-src': ["'self'"],
-              'img-src': ['https:', 'data:'],
-              'worker-src': ["'self'", `blob:`],
-              'style-src': ["'self'", "'unsafe-inline'"],
-              'script-src': [
-                "'self'",
-                'https://webrtc.github.io/adapter/adapter-7.6.3.js',
-                'https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js',
-              ],
-              'form-action': ["'self'"],
-              'frame-ancestors': ["'none'"],
-              'object-src': ["'none'"],
-              'connect-src': [`api.covid-journal.org`, `covid-journal.org`],
-            },
-          },
   },
 }
