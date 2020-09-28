@@ -139,6 +139,5 @@ export default {
   build: {
     extractCSS: process.env.NODE_ENV === 'production',
     cache: process.env.NODE_ENV === 'production',
-    hardSource: process.env.NODE_ENV === 'production',
   },
 }
