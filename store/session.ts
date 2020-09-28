@@ -6,25 +6,27 @@ interface State {
   localEmail: string | null
 }
 
-const state = (): State => ({
-  login: null,
-  token: null,
-  email: null,
-  role: null,
-  localEmail: null,
-})
+const state = (): State => {
+  if (process.browser && window && window.localStorage) {
+    return {
+      login: localStorage.getItem('login'),
+      token: localStorage.getItem('token'),
+      email: localStorage.getItem('email'),
+      role: localStorage.getItem('role'),
+      localEmail: localStorage.getItem('localEmail'),
+    }
+  } else {
+    return {
+      login: null,
+      token: null,
+      email: null,
+      role: null,
+      localEmail: null,
+    }
+  }
+}
 
 const actions = {
-  init({ commit }: any) {
-    if (process.browser && window && window.localStorage) {
-      commit('SET_LOGIN', localStorage.getItem('login'))
-      commit('SET_TOKEN', localStorage.getItem('token'))
-      commit('SET_EMAIL', localStorage.getItem('email'))
-      commit('SET_ROLE', localStorage.getItem('role'))
-      commit('SET_LOCAL_EMAIL', localStorage.getItem('localEmail'))
-    }
-  },
-
   sendLocalEmail({ commit }: any, email: string) {
     commit('SET_LOCAL_EMAIL', email)
   },
