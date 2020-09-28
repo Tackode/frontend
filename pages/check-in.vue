@@ -5,7 +5,7 @@
       class="wrapped-container c-large c-center my-3"
     >
       <h2>{{ $t('scan') }}</h2>
-      <qrcode-stream @decode="onDecode" @init="onInit" />
+      <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
     </div>
 
     <div
@@ -157,6 +157,7 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
+import QRWorker from '../helpers/jsqr'
 
 enum CheckinState {
   SCANNING,
@@ -193,10 +194,9 @@ export default class CheckIn extends Vue {
 
   // Bind enum for Vue
   CheckinState = CheckinState
+  QRWorker = QRWorker
 
   async mounted() {
-    const placeId = this.$route.query.placeId
-
     if (
       !this.$store.getters['session/localEmail'] &&
       this.$store.getters['session/email']
@@ -204,9 +204,13 @@ export default class CheckIn extends Vue {
       this.email = this.$store.getters['session/email']
       this.$store.dispatch('session/sendLocalEmail', this.email)
     }
+
+    await this.setPlaceId(this.$route.query.placeId as string | null)
+  }
+
+  async setPlaceId(placeId: string | null) {
     if (!placeId) {
       this.state = CheckinState.SCANNING
-
       return
     }
 
@@ -274,8 +278,21 @@ export default class CheckIn extends Vue {
     }
   }
 
-  onDecode(result: string) {
-    document.location.href = result
+  async onDecode(url: string) {
+    const queryIndex = url.indexOf('?')
+    if (queryIndex === -1) {
+      return
+    }
+
+    const query = url.substring(queryIndex)
+    const params = new URLSearchParams(query)
+    const placeId = params.get('placeId')
+
+    if (placeId == null || placeId.length !== 36) {
+      return
+    }
+
+    await this.setPlaceId(placeId)
   }
 
   async onInit(promise: any) {
