@@ -1,12 +1,12 @@
 import { Middleware } from '@nuxt/types'
 
-const AuthGuest: Middleware = ({ store, redirect }) => {
+const AuthGuest: Middleware = ({ store, redirect, app }) => {
   const role = store.getters['session/role']
 
   if (role === 'Public') {
-    redirect('/user/check-ins')
+    redirect(app.localePath('/user/check-ins'))
   } else if (role === 'Professional') {
-    redirect('/organization/places')
+    redirect(app.localePath('/organization/places'))
   }
 }
 
