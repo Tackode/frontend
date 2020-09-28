@@ -143,7 +143,14 @@ export default class PlaceDetail extends Vue {
   PlaceState = PlaceState
 
   mounted() {
-    this.placeId = this.$route.params.id
+    const { placeId } = this.$route.query
+
+    if (typeof placeId !== 'string' || placeId.length === 0) {
+      this.state = PlaceState.NOTFOUND
+      return
+    }
+
+    this.placeId = placeId
     this.loadData()
   }
 

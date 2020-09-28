@@ -66,10 +66,7 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
-        run: npm run build
-
-      - name: Prune dev dependencies
-        run: npm prune --production
+        run: npm run generate
 
       - name: Cache Docker layers
         if: github.event_name != 'pull_request'

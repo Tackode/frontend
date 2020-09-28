@@ -107,7 +107,6 @@ export default {
           },
         ],
         defaultLocale: 'fr',
-        strategy: 'prefix',
         baseUrl: process.env.FRONT_URL,
         vueI18nLoader: true,
         detectBrowserLanguage: {
@@ -150,6 +149,7 @@ export default {
         : {
             reportOnly: true,
             hashAlgorithm: 'sha256',
+            addMeta: true,
             policies: {
               'default-src': ["'self'"],
               'img-src': ['https:', 'data:'],

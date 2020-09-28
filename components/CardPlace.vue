@@ -22,7 +22,11 @@
 
         <div class="row card-bottom">
           <div class="col-md-6">
-            <nuxt-link :to="localePath(`/organization/places/${place.id}`)">
+            <nuxt-link
+              :to="
+                localePath(`/organization/places/qrcode?placeId=${place.id}`)
+              "
+            >
               {{ $t('showQR') }}
             </nuxt-link>
           </div>
