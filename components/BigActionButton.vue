@@ -10,7 +10,7 @@
         />
       </template>
       <h5 class="mt-0">
-        <a :href="url" class="stretched-link">{{ title }}</a>
+        <a :to="url" class="stretched-link">{{ title }}</a>
       </h5>
       <p class="mb-0">{{ subtitle }}</p>
     </b-media>

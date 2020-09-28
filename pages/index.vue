@@ -41,7 +41,7 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-1-title') }}</h3>
           <p>{{ $t('step-1') }}</p>
-          <b-button variant="default" block :href="localePath('/signup')">
+          <b-button variant="default" block :to="createQrCodeUrl">
             {{ $t('create-qr-code') }}
           </b-button>
         </b-col>
@@ -75,7 +75,7 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-2-title') }}</h3>
           <p>{{ $t('step-2') }}</p>
-          <b-button variant="default" block :href="localePath('/check-in')">
+          <b-button variant="default" block :to="localePath('/check-in')">
             {{ $t('scan-qr-code') }}
           </b-button>
         </b-col>
@@ -183,6 +183,17 @@ import { Component } from 'nuxt-property-decorator'
 })
 export default class Home extends Vue {
   role: string | null = null
+
+  get createQrCodeUrl() {
+    if (this.role == null) {
+      return this.localePath('/signup')
+    } else if (this.role !== 'Professional') {
+      this.$store.dispatch('session/logout')
+      return this.localePath('/signup')
+    } else {
+      return this.localePath('/organization/places')
+    }
+  }
 
   mounted() {
     this.role = this.$store.getters['session/role']
