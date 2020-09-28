@@ -19,4 +19,5 @@ module.exports = {
     'vue/attributes-order': 'off',
     'vue/require-default-prop': 'off',
   },
+  ignorePatterns: ['static/vendors/*'],
 }
