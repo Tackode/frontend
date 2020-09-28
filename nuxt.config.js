@@ -129,11 +129,25 @@ export default {
   sitemap: {
     hostname: process.env.FRONT_URL,
     i18n: true,
-    exclude: ['/validate-session', '/user/**', '/organization/**'],
+    exclude: [
+      '/validate-session',
+      '/user/**',
+      '/organization/**',
+      '/en/validate-session',
+      '/en/user/**',
+      '/en/organization/**',
+    ],
   },
   robots: {
     UserAgent: '*',
-    Disallow: ['/validate-session', '/user', '/organization'],
+    Disallow: [
+      '/validate-session',
+      '/user',
+      '/organization',
+      '/en/validate-session',
+      '/en/user',
+      '/en/organization',
+    ],
     Sitemap: '/sitemap.xml',
   },
   /*
