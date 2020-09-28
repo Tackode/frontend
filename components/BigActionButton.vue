@@ -10,7 +10,10 @@
         />
       </template>
       <h5 class="mt-0">
-        <a :to="url" class="stretched-link">{{ title }}</a>
+        <nuxt-link v-if="url" :to="url" class="stretched-link">{{
+          title
+        }}</nuxt-link>
+        <p v-else>{{ title }}</p>
       </h5>
       <p class="mb-0">{{ subtitle }}</p>
     </b-media>
@@ -46,5 +49,9 @@ export default class BigActionButton extends BigButtonProps {}
 
 .hoverable-card a {
   color: rgb(33, 37, 41);
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 </style>
