@@ -53,7 +53,7 @@
             class="mb-0"
           >
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('dateStartLabel')"
               label-align-sm="right"
               label-for="start-date"
@@ -65,7 +65,7 @@
             </b-form-group>
 
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('timeStartLabel')"
               label-align-sm="right"
               label-for="start-time"
@@ -87,7 +87,7 @@
             class="mb-0"
           >
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('dateEndLabel')"
               label-align-sm="right"
               label-for="end-date"
@@ -96,7 +96,7 @@
             </b-form-group>
 
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('timeEndLabel')"
               label-align-sm="right"
               label-for="end-time"
