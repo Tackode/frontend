@@ -150,10 +150,6 @@ import { Component } from 'nuxt-property-decorator'
 export default class DefaultLayout extends Vue {
   role: string | null = null
 
-  created() {
-    this.$store.dispatch('session/init')
-  }
-
   mounted() {
     this.role = this.$store.getters['session/role']
 
