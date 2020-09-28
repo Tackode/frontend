@@ -63,9 +63,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuxt-
 
-      - name: Build
+      - name: Generate
         env:
           NODE_ENV: production
+          FRONT_URL: ${{ secrets.FRONT_URL }}
+          API_URL: ${{ secrets.API_URL }}
         run: npm run generate
 
       - name: Cache Docker layers
