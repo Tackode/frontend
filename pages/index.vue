@@ -172,9 +172,6 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
 @Component({
-  components: {
-    BigActionButton: () => import('~/components/BigActionButton.vue'),
-  },
   head(this: Home) {
     return {
       title: this.$i18n.t('titlePage') as string,
