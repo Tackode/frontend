@@ -177,7 +177,7 @@ export default class PlaceDetail extends Vue {
   }
 
   get qrCodeUrl() {
-    return `${this.$config.frontUrl}/check-in?placeId=${this.placeId}`
+    return `${this.$config.frontUrl}/check-in/?placeId=${this.placeId}`
   }
 }
 </script>

@@ -20,18 +20,18 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <template v-if="role != null">
-              <b-nav-item :to="localePath('/user/check-ins')">
+              <b-nav-item :to="localePath('/user/check-ins/')">
                 {{ $t('my-check-ins') }}
               </b-nav-item>
-              <b-nav-item :to="localePath('/user/profile')">
+              <b-nav-item :to="localePath('/user/profile/')">
                 {{ $t('my-profile') }}
               </b-nav-item>
             </template>
             <template v-if="role === 'Professional'">
-              <b-nav-item :to="localePath('/organization/places')">
+              <b-nav-item :to="localePath('/organization/places/')">
                 {{ $t('places') }}
               </b-nav-item>
-              <b-nav-item :to="localePath('/organization/infections')">
+              <b-nav-item :to="localePath('/organization/infections/')">
                 {{ $t('infections') }}
               </b-nav-item>
             </template>
@@ -43,10 +43,10 @@
             </template>
 
             <template v-else>
-              <b-nav-item :to="localePath('/login')">
+              <b-nav-item :to="localePath('/login/')">
                 {{ $t('log-in') }}
               </b-nav-item>
-              <b-nav-item :to="localePath('/signup')">
+              <b-nav-item :to="localePath('/signup/')">
                 {{ $t('sign-in') }}
               </b-nav-item>
             </template>
@@ -71,7 +71,7 @@
 
     <b-navbar tag="footer" type="dark" variant="dark">
       <b-navbar-nav>
-        <b-nav-item :to="localePath('/legal')">
+        <b-nav-item :to="localePath('/legal/')">
           {{ $t('legal-notices') }}
         </b-nav-item>
         <b-nav-item

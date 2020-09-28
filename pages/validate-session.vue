@@ -85,9 +85,9 @@ export default class ValidateDevice extends Vue {
     this.$store.dispatch('session/setSession', result)
 
     if (result.user.role === 'Professional') {
-      this.$router.replace(this.localePath('/organization/places'))
+      this.$router.replace(this.localePath('/organization/places/'))
     } else {
-      this.$router.replace(this.localePath('/user/check-ins'))
+      this.$router.replace(this.localePath('/user/check-ins/'))
     }
   }
 }

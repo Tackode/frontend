@@ -75,7 +75,7 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-2-title') }}</h3>
           <p>{{ $t('step-2') }}</p>
-          <b-button variant="default" block :to="localePath('/check-in')">
+          <b-button variant="default" block :to="localePath('/check-in/')">
             {{ $t('scan-qr-code') }}
           </b-button>
         </b-col>
@@ -183,12 +183,12 @@ export default class Home extends Vue {
 
   get createQrCodeUrl() {
     if (this.role == null) {
-      return this.localePath('/signup')
+      return this.localePath('/signup/')
     } else if (this.role !== 'Professional') {
       this.$store.dispatch('session/logout')
-      return this.localePath('/signup')
+      return this.localePath('/signup/')
     } else {
-      return this.localePath('/organization/places')
+      return this.localePath('/organization/places/')
     }
   }
 

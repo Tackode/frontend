@@ -15,6 +15,9 @@ export default {
     host: process.env.HOST,
     port: 4000,
   },
+  router: {
+    trailingSlash: true,
+  },
   publicRuntimeConfig: {
     frontUrl: process.env.FRONT_URL,
     apiUrl: process.env.API_URL,

@@ -24,7 +24,7 @@
           <div class="col-md-6">
             <nuxt-link
               :to="
-                localePath(`/organization/places/qrcode?placeId=${place.id}`)
+                localePath(`/organization/places/qrcode/?placeId=${place.id}`)
               "
             >
               {{ $t('showQR') }}
