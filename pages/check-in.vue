@@ -41,8 +41,7 @@
               id="login-email"
               v-model="email"
               type="email"
-              :readonly="!needEmailInput"
-              :required="needEmailInput"
+              required
               :placeholder="$t('enterEmail')"
             ></b-form-input>
           </b-form-group>
@@ -239,10 +238,10 @@ export default class CheckIn extends Vue {
       duration: parseInt(this.duration),
     }
 
-    if (
-      this.$store.getters['session/login'] !== null &&
-      this.$store.getters['session/localEmail'] === this.email
-    ) {
+    // Will logout if this.email !== localEmail
+    this.$store.dispatch('session/setLocalEmail', this.email)
+
+    if (this.$store.getters['session/login'] !== null) {
       try {
         await this.$axios.$post('/checkin', data, {
           auth: {
@@ -258,8 +257,6 @@ export default class CheckIn extends Vue {
         )
         return
       }
-
-      this.$store.dispatch('session/setLocalEmail', this.email)
 
       this.state = CheckinState.FINISH
     } else {
