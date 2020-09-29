@@ -28,7 +28,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#5299d3' },
+  loading: { color: '#ff5a5f' },
   /*
    ** Global CSS
    */
@@ -106,7 +106,7 @@ export default {
       name: 'Covid-Journal',
       description:
         "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-      theme_color: '#5299d3',
+      theme_color: '#ff5a5f',
       lang: 'fr',
       ogHost: process.env.FRONT_URL,
     },
