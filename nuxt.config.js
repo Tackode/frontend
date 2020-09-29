@@ -148,7 +148,7 @@ export default {
       '/en/user',
       '/en/organization',
     ],
-    Sitemap: '/sitemap.xml',
+    Sitemap: `${process.env.FRONT_URL}/sitemap.xml`,
   },
   /*
    ** Build configuration
