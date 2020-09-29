@@ -36,7 +36,6 @@ const actions = {
     commit('SET_TOKEN', null)
     commit('SET_EMAIL', null)
     commit('SET_ROLE', null)
-    commit('SET_LOCAL_EMAIL', null)
   },
 }
 
