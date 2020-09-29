@@ -24,36 +24,11 @@ export default {
   },
   head: {
     titleTemplate: '%s - Covid-Journal',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-      },
-      { hid: 'og:type', name: 'og:type', content: 'website' },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Bienvenue sur Covid-Journal !',
-      },
-      { hid: 'og:site_name', name: 'og:site_name', content: 'Covid-Journal' },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content:
-          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-      },
-      { name: 'msapplication-TileColor', content: '#5299d3' },
-    ],
-    link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#5299d3' },
   /*
    ** Global CSS
    */
@@ -125,6 +100,24 @@ export default {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
     icons: true,
+  },
+  pwa: {
+    meta: {
+      name: 'Covid-Journal',
+      description:
+        "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+      theme_color: '#5299d3',
+      lang: 'fr',
+      ogHost: process.env.FRONT_URL,
+    },
+    manifest: {
+      name: 'Covid-Journal',
+      short_name: 'CovidJournal',
+      description:
+        "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+      background_color: '#f4f4f4',
+      lang: 'fr',
+    },
   },
   sitemap: {
     hostname: process.env.FRONT_URL,

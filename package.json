@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "CovidJournal frontend",
-  "author": "Julien Blatecky",
+  "author": "Julien Blatecky - Creatiwity",
   "private": true,
   "scripts": {
     "dev": "nuxt",
