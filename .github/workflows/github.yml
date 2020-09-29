@@ -59,9 +59,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./node_modules/.cache
-          key: ${{ runner.os }}-nuxt-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-nuxt-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/nuxt.config.json') }}
           restore-keys: |
-            ${{ runner.os }}-nuxt-
+            ${{ runner.os }}-nuxt-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/nuxt.config.json') }}
 
       - name: Generate
         env:
