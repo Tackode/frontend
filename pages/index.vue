@@ -145,7 +145,7 @@
     "step-1": "Le propriétaire de l'établissement crée un QR Code, qu'il met ensuite à la disposition de ses clients",
     "create-qr-code": "Créer un QR Code",
     "step-2-title": "Étape 2",
-    "step-2": "Vous scannez le QR Code depuis la caméra de votre téléphone ou depuis la page dédié sur notre site",
+    "step-2": "Vous scannez le QR Code depuis la caméra de votre téléphone ou depuis la page dédiée sur notre site",
     "scan-qr-code": "Scanner un QR Code",
     "step-3-title": "Étape 3",
     "step-3": "Vous êtes notifié par mail si vous avez croisé une personne infectée par le Covid-19 dans cet établissement",
