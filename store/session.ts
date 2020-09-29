@@ -6,7 +6,7 @@ interface State {
 }
 
 const state = (): State => {
-  if (process.browser && window && window.localStorage) {
+  if (process.client && window && window.localStorage) {
     return {
       login: localStorage.getItem('login'),
       token: localStorage.getItem('token'),
