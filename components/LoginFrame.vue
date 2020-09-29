@@ -161,8 +161,6 @@ export default class LoginFrame extends Vue {
     }
 
     this.state = LoginState.CHECK_EMAIL
-
-    this.$store.dispatch('session/setLocalEmail', this.email)
   }
 }
 </script>

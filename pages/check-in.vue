@@ -195,7 +195,7 @@ export default class CheckIn extends Vue {
   QRWorker = QRWorker
 
   async mounted() {
-    this.email = this.$store.getters['session/localEmail']
+    this.email = this.$store.getters['session/email']
 
     await this.setPlaceId(this.$route.query.placeId as string | null)
   }
@@ -230,9 +230,6 @@ export default class CheckIn extends Vue {
       storeEmail: true,
       duration: parseInt(this.duration),
     }
-
-    // Will logout if this.email !== localEmail
-    this.$store.dispatch('session/setLocalEmail', this.email)
 
     try {
       await this.$axios.$post('/checkin', data)

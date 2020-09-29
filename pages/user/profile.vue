@@ -14,7 +14,7 @@
       <DecoratedCard image="profile-drawing" title="">
         <h1>{{ $t('myProfile') }}</h1>
 
-        <b-form @submit="handleAddEmail" class="text-left">
+        <b-form @submit="handleSubmit" class="text-left">
           <b-form-group
             id="form-email"
             :label="$t('email')"
@@ -24,7 +24,7 @@
               id="form-email"
               v-model="email"
               type="email"
-              readonly="$store.getters['session/localEmail'] !== null"
+              readonly
               :placeholder="$t('emailPlaceholder')"
             ></b-form-input>
           </b-form-group>
@@ -54,7 +54,12 @@
             </b-form-checkbox>
           </b-form-group>
 
-          <b-button block type="submit" variant="primary">
+          <b-button
+            v-if="role === 'Professional'"
+            block
+            type="submit"
+            variant="primary"
+          >
             {{ $t('submit') }}
           </b-button>
         </b-form>
@@ -162,7 +167,7 @@ export default class ProfilePage extends Vue {
   ProfileState = ProfileState
 
   async mounted() {
-    this.email = this.$store.getters['session/localEmail']
+    this.email = this.$store.getters['session/email']
     this.role = this.$store.getters['session/role']
 
     try {
@@ -179,7 +184,7 @@ export default class ProfilePage extends Vue {
     this.state = ProfileState.LOADED
   }
 
-  async handleAddEmail(e: Event) {
+  async handleSubmit(e: Event) {
     e.preventDefault()
 
     if (this.role === 'Professional') {
@@ -193,23 +198,13 @@ export default class ProfilePage extends Vue {
           this.$i18n.t('profile') as string,
           new Error(this.$i18n.t('networkError') as string)
         )
+        return
       }
-    }
 
-    try {
-      await this.$axios.$put('/profile', {
-        email: this.saveEmail ? this.email : null,
-      })
       showSuccess(
         this.$bvToast,
         this.$i18n.t('profile') as string,
         this.$i18n.t('successfullyUpdated') as string
-      )
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Profile',
-        new Error(this.$i18n.t('networkError') as string)
       )
     }
   }
