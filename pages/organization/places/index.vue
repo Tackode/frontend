@@ -225,12 +225,7 @@ export default class ProfessionalPlaces extends Vue {
 
   async loadData() {
     try {
-      this.places = await this.$axios.$get('/places', {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.places = await this.$axios.$get('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -255,13 +250,6 @@ export default class ProfessionalPlaces extends Vue {
   }
 
   async handlePlaceSubmit() {
-    const options = {
-      auth: {
-        username: this.$store.getters['session/login'],
-        password: this.$store.getters['session/token'],
-      },
-    }
-
     if (
       this.placeFormValues.name === '' ||
       this.placeFormValues.averageDuration <= 0
@@ -276,13 +264,9 @@ export default class ProfessionalPlaces extends Vue {
 
     try {
       if (this.isPlaceFormEditionMode) {
-        await this.$axios.$put(
-          '/place/' + this.placeId,
-          this.placeFormValues,
-          options
-        )
+        await this.$axios.$put(`/place/${this.placeId}`, this.placeFormValues)
       } else {
-        await this.$axios.$post('/place', this.placeFormValues, options)
+        await this.$axios.$post('/place', this.placeFormValues)
       }
     } catch (error) {
       showError(
@@ -303,12 +287,7 @@ export default class ProfessionalPlaces extends Vue {
   async deletePlace(e: Event) {
     e.preventDefault()
     try {
-      await this.$axios.$delete('/place/' + this.placeId, {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      await this.$axios.$delete('/place/' + this.placeId)
     } catch (error) {
       showError(
         this.$bvToast,

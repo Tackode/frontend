@@ -16,7 +16,6 @@
 
         <b-form @submit="handleAddEmail" class="text-left">
           <b-form-group
-            v-if="$store.getters['session/localEmail'] !== null"
             id="form-email"
             :label="$t('email')"
             label-for="form-email"
@@ -25,21 +24,7 @@
               id="form-email"
               v-model="email"
               type="email"
-              readonly
-              :placeholder="$t('emailPlaceholder')"
-            ></b-form-input>
-          </b-form-group>
-
-          <b-form-group
-            v-else
-            id="form-email"
-            :label="$t('email')"
-            label-for="form-email"
-          >
-            <b-form-input
-              id="form-email"
-              v-model="email"
-              type="email"
+              readonly="$store.getters['session/localEmail'] !== null"
               :placeholder="$t('emailPlaceholder')"
             ></b-form-input>
           </b-form-group>
@@ -171,29 +156,17 @@ export default class ProfilePage extends Vue {
   role: string | null = null
   profile: Profile | null = null
   saveEmail = false
-  email: string = this.$store.getters['session/localEmail']
+  email: string | null = null
 
   // Bind enum for Vue
   ProfileState = ProfileState
 
   async mounted() {
-    if (
-      !this.$store.getters['session/localEmail'] &&
-      this.$store.getters['session/email']
-    ) {
-      this.email = this.$store.getters['session/email']
-      this.$store.dispatch('session/sendLocalEmail', this.email)
-    }
-
+    this.email = this.$store.getters['session/localEmail']
     this.role = this.$store.getters['session/role']
 
     try {
-      this.profile = await this.$axios.$get('/profile', {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.profile = await this.$axios.$get('/profile')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -211,18 +184,9 @@ export default class ProfilePage extends Vue {
 
     if (this.role === 'Professional') {
       try {
-        await this.$axios.$put(
-          '/organization',
-          {
-            name: this.profile?.organization?.name,
-          },
-          {
-            auth: {
-              username: this.$store.getters['session/login'],
-              password: this.$store.getters['session/token'],
-            },
-          }
-        )
+        await this.$axios.$put('/organization', {
+          name: this.profile?.organization?.name,
+        })
       } catch (error) {
         showError(
           this.$bvToast,
@@ -233,18 +197,9 @@ export default class ProfilePage extends Vue {
     }
 
     try {
-      await this.$axios.$put(
-        '/profile',
-        {
-          email: this.saveEmail ? this.email : null,
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        }
-      )
+      await this.$axios.$put('/profile', {
+        email: this.saveEmail ? this.email : null,
+      })
       showSuccess(
         this.$bvToast,
         this.$i18n.t('profile') as string,
@@ -263,12 +218,7 @@ export default class ProfilePage extends Vue {
     this.$bvModal.hide('place-delete-modal')
 
     try {
-      await this.$axios.$delete('/profile', {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      await this.$axios.$delete('/profile')
     } catch (error) {
       showError(
         this.$bvToast,

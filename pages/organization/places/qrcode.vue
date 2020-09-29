@@ -156,12 +156,7 @@ export default class PlaceDetail extends Vue {
 
   async loadData() {
     try {
-      this.place = await this.$axios.$get('/place/' + this.placeId, {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.place = await this.$axios.$get(`/place/${this.placeId}`)
       this.state = PlaceState.LOADED
     } catch (error) {
       this.state = PlaceState.NOTFOUND

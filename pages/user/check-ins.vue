@@ -81,12 +81,7 @@ export default class CheckIns extends Vue {
   async mounted() {
     // Load checkins
     try {
-      this.checkins = await this.$axios.$get('/checkins', {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.checkins = await this.$axios.$get('/checkins')
     } catch (error) {
       showError(
         this.$bvToast,

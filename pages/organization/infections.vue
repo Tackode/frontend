@@ -230,15 +230,8 @@ export default class ProfessionalInfections extends Vue {
   }
 
   async loadData() {
-    const axiosConfig = {
-      auth: {
-        username: this.$store.getters['session/login'],
-        password: this.$store.getters['session/token'],
-      },
-    }
-
     try {
-      this.places = await this.$axios.$get('/places', axiosConfig)
+      this.places = await this.$axios.$get('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -249,7 +242,7 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      this.infections = await this.$axios.$get('/infections', axiosConfig)
+      this.infections = await this.$axios.$get('/infections')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -354,20 +347,11 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      await this.$axios.$post(
-        '/infection',
-        {
-          placesIds: this.infectionCreation.placesIds,
-          startTimestamp: `${startDate.toISOString()}`,
-          endTimestamp: `${endDate.toISOString()}`,
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        }
-      )
+      await this.$axios.$post('/infection', {
+        placesIds: this.infectionCreation.placesIds,
+        startTimestamp: `${startDate.toISOString()}`,
+        endTimestamp: `${endDate.toISOString()}`,
+      })
     } catch (error) {
       showError(
         this.$bvToast,

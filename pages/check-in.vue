@@ -185,8 +185,7 @@ export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   duration: string = ''
-  needEmailInput = this.$store.getters['session/localEmail'] == null
-  email: string | null = this.$store.getters['session/localEmail']
+  email: string | null = null
   error: string = ''
   storeEmail = true
   retry: string = ''
@@ -196,13 +195,7 @@ export default class CheckIn extends Vue {
   QRWorker = QRWorker
 
   async mounted() {
-    if (
-      !this.$store.getters['session/localEmail'] &&
-      this.$store.getters['session/email']
-    ) {
-      this.email = this.$store.getters['session/email']
-      this.$store.dispatch('session/sendLocalEmail', this.email)
-    }
+    this.email = this.$store.getters['session/localEmail']
 
     await this.setPlaceId(this.$route.query.placeId as string | null)
   }
@@ -241,36 +234,20 @@ export default class CheckIn extends Vue {
     // Will logout if this.email !== localEmail
     this.$store.dispatch('session/setLocalEmail', this.email)
 
-    if (this.$store.getters['session/login'] !== null) {
-      try {
-        await this.$axios.$post('/checkin', data, {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        })
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Checkin',
-          new Error(this.$i18n.t('networkError') as string)
-        )
-        return
-      }
+    try {
+      await this.$axios.$post('/checkin', data)
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Checkin',
+        new Error(this.$i18n.t('networkError') as string)
+      )
+      return
+    }
 
+    if (this.$store.getters['session/login'] !== null) {
       this.state = CheckinState.FINISH
     } else {
-      try {
-        await this.$axios.$post('/checkin', data)
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Checkin',
-          new Error(this.$i18n.t('networkError') as string)
-        )
-        return
-      }
-
       this.state = CheckinState.CHECKMAIL
     }
   }
