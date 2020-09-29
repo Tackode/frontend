@@ -19,7 +19,11 @@
       </div>
       <div class="col-md-6">
         <h2 class="place-name">{{ checkin.place.name }}</h2>
-        <p class="place-description">{{ checkin.place.description }}</p>
+        <NlToBr
+          tag="p"
+          :text="checkin.place.description"
+          class-name="place-description"
+        />
         <hr />
         <p>
           <strong>Date :</strong>
@@ -45,7 +49,11 @@ import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import { Checkin } from '~/types/Checkin'
 
-@Component
+@Component({
+  components: {
+    NlToBr: () => import('~/components/NlToBr.vue'),
+  },
+})
 export default class CardCheckin extends Vue {
   @Prop({ type: Object, required: true }) readonly checkin!: Checkin
 }

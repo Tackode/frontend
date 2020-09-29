@@ -16,7 +16,11 @@
       </div>
       <div class="col-md-6">
         <h2 class="place-name">{{ place.name }}</h2>
-        <p class="place-description">{{ place.description }}</p>
+        <NlToBr
+          tag="p"
+          :text="place.description"
+          class-name="place-description"
+        />
         <hr />
         <p><strong>Durée :</strong> {{ place.averageDuration }} min</p>
 
@@ -73,7 +77,11 @@ import Vue from 'vue'
 import { Component, Prop, Emit } from 'nuxt-property-decorator'
 import { Place } from '~/types/Place'
 
-@Component
+@Component({
+  components: {
+    NlToBr: () => import('~/components/NlToBr.vue'),
+  },
+})
 export default class CardPlace extends Vue {
   @Prop({ type: Object, required: true }) readonly place!: Place
 
