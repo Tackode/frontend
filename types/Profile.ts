@@ -1,7 +1,9 @@
 import { Organization } from './Organization'
+import { UserRole } from './User'
 
-export interface Profile {
+export type Profile = {
   id: string
-  email: string | null
+  role: UserRole
+  email: string
   organization: Organization | null
 }

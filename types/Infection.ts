@@ -1,6 +1,6 @@
 import { Organization } from './Organization'
 
-export interface InfectionCreation {
+export type InfectionCreation = {
   placesIds: String[]
   startDate: Date | null
   startTime: string
@@ -10,7 +10,7 @@ export interface InfectionCreation {
   endTimestamp: string
 }
 
-export interface Infection {
+export type Infection = {
   id: string
   organization: Organization
   placesIds: String[]

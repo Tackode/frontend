@@ -156,7 +156,7 @@ export default class PlaceDetail extends Vue {
 
   async loadData() {
     try {
-      this.place = await this.$axios.$get(`/place/${this.placeId}`)
+      this.place = await this.$axios.$get<Place>(`/place/${this.placeId}`)
       this.state = PlaceState.LOADED
     } catch (error) {
       this.state = PlaceState.NOTFOUND

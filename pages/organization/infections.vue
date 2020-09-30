@@ -231,7 +231,7 @@ export default class ProfessionalInfections extends Vue {
 
   async loadData() {
     try {
-      this.places = await this.$axios.$get('/places')
+      this.places = await this.$axios.$get<Place[]>('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -242,7 +242,7 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      this.infections = await this.$axios.$get('/infections')
+      this.infections = await this.$axios.$get<Infection[]>('/infections')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -347,7 +347,7 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      await this.$axios.$post('/infection', {
+      await this.$axios.$post<Infection>('/infection', {
         placesIds: this.infectionCreation.placesIds,
         startTimestamp: `${startDate.toISOString()}`,
         endTimestamp: `${endDate.toISOString()}`,

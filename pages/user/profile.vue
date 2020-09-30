@@ -44,16 +44,6 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group>
-            <b-form-checkbox
-              v-model="saveEmail"
-              :value="true"
-              :unchecked-value="false"
-            >
-              {{ $t('storeEmailCheckbox') }}
-            </b-form-checkbox>
-          </b-form-group>
-
           <b-button
             v-if="role === 'Professional'"
             block
@@ -96,7 +86,6 @@
     "deleteProfile": "Delete profile",
     "delete": "Delete",
     "cancel": "Cancel",
-    "storeEmailCheckbox": "Store my email address to be warned whenever a contact was infected by the Covid-19.",
     "submit": "Submit",
     "myOrganization": "My organization",
     "email": "Email address*",
@@ -116,7 +105,6 @@
     "deleteProfile": "Supprimer le profil",
     "delete": "Supprimer",
     "cancel": "Annuler",
-    "storeEmailCheckbox": "Je souhaite être notifié par mail si j’ai croisé une personne infectée.",
     "submit": "Valider",
     "myOrganization": "Mon organisation",
     "email": "Adresse mail*",
@@ -160,7 +148,6 @@ export default class ProfilePage extends Vue {
   state: ProfileState = ProfileState.LOADING
   role: string | null = null
   profile: Profile | null = null
-  saveEmail = false
   email: string | null = null
 
   // Bind enum for Vue
@@ -171,7 +158,7 @@ export default class ProfilePage extends Vue {
     this.role = this.$store.getters['session/role']
 
     try {
-      this.profile = await this.$axios.$get('/profile')
+      this.profile = await this.$axios.$get<Profile>('/profile')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -180,7 +167,6 @@ export default class ProfilePage extends Vue {
       )
     }
 
-    this.saveEmail = this.profile?.email !== null
     this.state = ProfileState.LOADED
   }
 
@@ -189,7 +175,7 @@ export default class ProfilePage extends Vue {
 
     if (this.role === 'Professional') {
       try {
-        await this.$axios.$put('/organization', {
+        await this.$axios.$put<void>('/organization', {
           name: this.profile?.organization?.name,
         })
       } catch (error) {
@@ -213,7 +199,7 @@ export default class ProfilePage extends Vue {
     this.$bvModal.hide('place-delete-modal')
 
     try {
-      await this.$axios.$delete('/profile')
+      await this.$axios.$delete<void>('/profile')
     } catch (error) {
       showError(
         this.$bvToast,

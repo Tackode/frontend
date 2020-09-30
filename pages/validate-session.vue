@@ -38,6 +38,7 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../helpers/alerts'
+import { Credentials } from '~/types/Session'
 
 enum ValidateState {
   LOADING,
@@ -65,8 +66,8 @@ export default class ValidateDevice extends Vue {
 
   mounted() {
     // Retrieve device & session
-    const sessionId = this.$route.query.sessionId
-    const token = this.$route.query.token
+    const sessionId = this.$route.query.sessionId as string | null
+    const token = this.$route.query.token as string | null
     const redirect = (this.$route.query.redirect ?? 'checkins') as string
     const placeId = this.$route.query.placeId as string | null
 
@@ -87,21 +88,23 @@ export default class ValidateDevice extends Vue {
 
     if (process.client) {
       this.sessionDelay = window.setTimeout(async () => {
-        let result: any
+        let credentials: Credentials
+
         try {
-          result = await this.$axios.$post(`/session/${sessionId}/validate`, {
-            confirmationToken: token,
-          })
+          credentials = await this.$axios.$post<Credentials>(
+            `/session/${sessionId}/validate`,
+            { confirmationToken: token }
+          )
         } catch (error) {
           this.state = ValidateState.FAILURE
           return
         }
 
         this.$store.commit('session/setSession', {
-          login: result.login,
-          token: result.token,
-          email: result.user.email,
-          role: result.user.role,
+          login: credentials.login,
+          token: credentials.token,
+          email: credentials.user.email,
+          role: credentials.user.role,
         })
 
         this.finish(redirect, placeId)

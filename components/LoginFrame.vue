@@ -112,6 +112,7 @@
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
 import { showError } from '../helpers/alerts'
+import type { Session } from '../types/Session'
 
 enum LoginState {
   IDLE,
@@ -143,7 +144,7 @@ export default class LoginFrame extends Vue {
     this.state = LoginState.LOADING
 
     try {
-      await this.$axios.$post('/login', {
+      await this.$axios.$post<Session>('/login', {
         email: this.email,
         role: this.professional ? 'Professional' : 'Public',
         organizationName: this.professional ? this.organizationName : null,

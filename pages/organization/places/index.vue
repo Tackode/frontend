@@ -225,7 +225,7 @@ export default class ProfessionalPlaces extends Vue {
 
   async loadData() {
     try {
-      this.places = await this.$axios.$get('/places')
+      this.places = await this.$axios.$get<Place[]>('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -264,9 +264,12 @@ export default class ProfessionalPlaces extends Vue {
 
     try {
       if (this.isPlaceFormEditionMode) {
-        await this.$axios.$put(`/place/${this.placeId}`, this.placeFormValues)
+        await this.$axios.$put<Place>(
+          `/place/${this.placeId}`,
+          this.placeFormValues
+        )
       } else {
-        await this.$axios.$post('/place', this.placeFormValues)
+        await this.$axios.$post<Place>('/place', this.placeFormValues)
       }
     } catch (error) {
       showError(
@@ -287,7 +290,7 @@ export default class ProfessionalPlaces extends Vue {
   async deletePlace(e: Event) {
     e.preventDefault()
     try {
-      await this.$axios.$delete('/place/' + this.placeId)
+      await this.$axios.$delete<void>('/place/' + this.placeId)
     } catch (error) {
       showError(
         this.$bvToast,

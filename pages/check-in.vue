@@ -157,6 +157,7 @@ import { Component } from 'nuxt-property-decorator'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
 import QRWorker from '../helpers/jsqr'
+import { Session } from '~/types/Session'
 
 enum CheckinState {
   SCANNING,
@@ -187,7 +188,6 @@ export default class CheckIn extends Vue {
   duration: string = ''
   email: string | null = null
   error: string = ''
-  storeEmail = true
   retry: string = ''
 
   // Bind enum for Vue
@@ -210,7 +210,7 @@ export default class CheckIn extends Vue {
     }
 
     try {
-      this.place = await this.$axios.$get(`/place/${placeId}`)
+      this.place = await this.$axios.$get<Place>(`/place/${placeId}`)
     } catch (error) {
       this.state = CheckinState.NOTFOUND
       return
@@ -230,12 +230,13 @@ export default class CheckIn extends Vue {
     const data = {
       placeId: this.place.id,
       email: this.email,
-      storeEmail: true,
       duration: parseInt(this.duration),
     }
 
+    let session: Session
+
     try {
-      await this.$axios.$post('/checkin', data)
+      session = await this.$axios.$post<Session>('/checkin', data)
     } catch (error) {
       showError(
         this.$bvToast,
@@ -245,7 +246,7 @@ export default class CheckIn extends Vue {
       return
     }
 
-    if (this.$store.getters['session/login'] !== null) {
+    if (session.confirmed) {
       this.state = CheckinState.FINISH
     } else {
       this.state = CheckinState.CHECKMAIL
