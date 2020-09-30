@@ -67,6 +67,8 @@ export default class ValidateDevice extends Vue {
     // Retrieve device & session
     const sessionId = this.$route.query.sessionId
     const token = this.$route.query.token
+    const redirect = (this.$route.query.redirect ?? 'checkins') as string
+    const placeId = this.$route.query.placeId as string | null
 
     if (!sessionId || !token) {
       showError(
@@ -79,7 +81,7 @@ export default class ValidateDevice extends Vue {
 
     if (sessionId === this.$store.getters['session/login']) {
       // Already connected
-      this.finish()
+      this.finish(redirect, placeId)
       return
     }
 
@@ -97,7 +99,7 @@ export default class ValidateDevice extends Vue {
 
         this.$store.commit('session/setSession', result)
 
-        this.finish()
+        this.finish(redirect, placeId)
       }, 200)
     }
   }
@@ -109,11 +111,23 @@ export default class ValidateDevice extends Vue {
     }
   }
 
-  finish() {
-    if (this.$store.getters['session/role'] === 'Professional') {
-      this.$router.replace(this.localePath('/organization/places/'))
-    } else {
-      this.$router.replace(this.localePath('/user/check-ins/'))
+  finish(redirect: string, placeId: string | null) {
+    switch (redirect) {
+      case 'checkinConfirmation':
+        this.$router.replace({
+          path: this.localePath('/check-in/'),
+          query: {
+            placeId,
+            confirm: 'true',
+          },
+        })
+        break
+      case 'places':
+        this.$router.replace(this.localePath('/organization/places/'))
+        break
+      case 'checkins':
+        this.$router.replace(this.localePath('/user/check-ins/'))
+        break
     }
   }
 }

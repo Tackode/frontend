@@ -197,10 +197,13 @@ export default class CheckIn extends Vue {
   async mounted() {
     this.email = this.$store.getters['session/email']
 
-    await this.setPlaceId(this.$route.query.placeId as string | null)
+    await this.setPlaceId(
+      this.$route.query.placeId as string | null,
+      this.$route.query.confirm as string | null
+    )
   }
 
-  async setPlaceId(placeId: string | null) {
+  async setPlaceId(placeId: string | null, confirm?: string | null) {
     if (!placeId) {
       this.state = CheckinState.SCANNING
       return
@@ -214,7 +217,7 @@ export default class CheckIn extends Vue {
     }
 
     this.duration = `${this.place?.averageDuration}`
-    this.state = CheckinState.LOADED
+    this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
   }
 
   async handleSubmit(e: Event) {
