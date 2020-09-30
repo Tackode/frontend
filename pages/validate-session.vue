@@ -3,24 +3,32 @@
     <div v-if="state === ValidateState.LOADING">
       <Loader />
     </div>
-    <p v-else-if="state === ValidateState.FAILURE">
-      {{ $t('validationFailed') }}
-    </p>
+    <Card v-else-if="state === ValidateState.FAILURE">
+      <p class="title-2">{{ $t('alreadyValidated') }}</p>
+      <p>
+        {{ $t('alreadyValidatedRecovery') }}
+      </p>
+      <b-button type="submit" variant="primary" block>
+        {{ $t('goToLogin') }}
+      </b-button>
+    </Card>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
-    "validationFailed": "Fail to connect you. Please, retry to connect. ",
-    "networkError": "A network error has occurred. Please, try again.",
     "parametersMissing": "Parameters are missing to connect. Please, click on the link that was received in the login email.",
+    "alreadyValidated": "One time link already used",
+    "alreadyValidatedRecovery": "It seems that you have already used this link, it is not valid anymore. Please request a new one.",
+    "goToLogin": "Go to the login page",
     "titlePage": "Session validation"
   },
   "fr": {
-    "validationFailed": "Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
-    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
     "parametersMissing": "Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
+    "alreadyValidated": "Lien unique déjà utilisé",
+    "alreadyValidatedRecovery": "Il semblerait que vous ayez déjà utilisé ce lien pour vous connecter, il n'est donc plus valide. Veuillez en demander un nouveau.",
+    "goToLogin": "Aller à la page de connexion",
     "titlePage": "Validation de la session"
   }
 }
@@ -40,6 +48,7 @@ enum ValidateState {
   middleware: ['auth-guest'],
   components: {
     Loader: () => import('~/components/Loader.vue'),
+    Card: () => import('~/components/Card.vue'),
   },
   head(this: ValidateDevice) {
     return {
@@ -68,6 +77,12 @@ export default class ValidateDevice extends Vue {
       return
     }
 
+    if (sessionId === this.$store.getters['session/login']) {
+      // Already connected
+      this.finish()
+      return
+    }
+
     if (process.client) {
       this.sessionDelay = window.setTimeout(async () => {
         let result: any
@@ -76,22 +91,13 @@ export default class ValidateDevice extends Vue {
             confirmationToken: token,
           })
         } catch (error) {
-          showError(
-            this.$bvToast,
-            'Connexion',
-            new Error(this.$i18n.t('networkError') as string)
-          )
           this.state = ValidateState.FAILURE
           return
         }
 
         this.$store.dispatch('session/setSession', result)
 
-        if (result.user.role === 'Professional') {
-          this.$router.replace(this.localePath('/organization/places/'))
-        } else {
-          this.$router.replace(this.localePath('/user/check-ins/'))
-        }
+        this.finish()
       }, 200)
     }
   }
@@ -100,6 +106,14 @@ export default class ValidateDevice extends Vue {
     if (this.sessionDelay != null) {
       clearTimeout(this.sessionDelay)
       this.sessionDelay = null
+    }
+  }
+
+  finish() {
+    if (this.$store.getters['session/role'] === 'Professional') {
+      this.$router.replace(this.localePath('/organization/places/'))
+    } else {
+      this.$router.replace(this.localePath('/user/check-ins/'))
     }
   }
 }
