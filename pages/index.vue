@@ -185,7 +185,7 @@ export default class Home extends Vue {
     if (this.role == null) {
       return this.localePath('/signup/')
     } else if (this.role !== 'Professional') {
-      this.$store.dispatch('session/logout')
+      this.$store.commit('session/logout')
       return this.localePath('/signup/')
     } else {
       return this.localePath('/organization/places/')

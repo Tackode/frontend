@@ -47,6 +47,7 @@ export default {
     '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
     { src: '~/plugins/axios', mode: 'client' },
+    { src: '~plugins/vuex-init', mode: 'client' },
   ],
   /*
    ** Nuxt.js dev-modules

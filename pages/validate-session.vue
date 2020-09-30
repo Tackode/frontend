@@ -95,7 +95,7 @@ export default class ValidateDevice extends Vue {
           return
         }
 
-        this.$store.dispatch('session/setSession', result)
+        this.$store.commit('session/setSession', result)
 
         this.finish()
       }, 200)

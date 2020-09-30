@@ -164,7 +164,7 @@ export default class DefaultLayout extends Vue {
   logout(e: Event) {
     e.preventDefault()
 
-    this.$store.dispatch('session/logout')
+    this.$store.commit('session/logout')
 
     this.$router.replace(this.localePath('/'))
   }

@@ -229,7 +229,7 @@ export default class ProfilePage extends Vue {
       this.$i18n.t('profileDeleted') as string
     )
 
-    this.$store.dispatch('session/logout')
+    this.$store.commit('session/logout')
     this.$router.replace(this.localePath('/'))
   }
 }
