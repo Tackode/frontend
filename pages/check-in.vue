@@ -193,7 +193,7 @@ async function getPlaceId(
       title: this.$i18n.t('titlePage') as string,
     }
   },
-  async asyncData({ $axios, route, error, app }) {
+  async asyncData({ $axios, route, error, app, store }) {
     const { state, place } = await getPlaceId(
       $axios,
       route.query.placeId as string | null,
@@ -208,7 +208,7 @@ async function getPlaceId(
     }
 
     return {
-      email: this.$store.getters['session/email'],
+      email: store.getters['session/email'],
       state,
       place,
     }
