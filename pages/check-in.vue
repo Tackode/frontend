@@ -193,7 +193,7 @@ async function getPlaceId(
       title: this.$i18n.t('titlePage') as string,
     }
   },
-  async asyncData({ $axios, route, error, app, store }) {
+  async asyncData({ $axios, route, error, store }) {
     const { state, place } = await getPlaceId(
       $axios,
       route.query.placeId as string | null,
@@ -203,7 +203,6 @@ async function getPlaceId(
     if (state === CheckinState.NOTFOUND) {
       throw error({
         statusCode: 404,
-        message: app.i18n.t('notExists') as string,
       })
     }
 

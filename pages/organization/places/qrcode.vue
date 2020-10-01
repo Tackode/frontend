@@ -97,13 +97,12 @@ import { Place } from '../../../types/Place'
       title: this.$i18n.t('titlePage') as string,
     }
   },
-  async asyncData({ route, $axios, error, app }) {
+  async asyncData({ route, $axios, error }) {
     const { placeId } = route.query
 
     if (typeof placeId !== 'string' || placeId.length === 0) {
       throw error({
         statusCode: 404,
-        message: app.i18n.t('placeNotFound') as string,
       })
     }
 
@@ -114,7 +113,6 @@ import { Place } from '../../../types/Place'
     } catch (error) {
       throw error({
         statusCode: 404,
-        message: app.i18n.t('placeNotFound') as string,
       })
     }
   },
