@@ -1,6 +1,13 @@
 <template>
   <div>
     <div
+      v-if="state === CheckinState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
+
+    <div
       v-if="state === CheckinState.SCANNING"
       class="wrapped-container c-large c-center my-3"
     >
@@ -142,44 +149,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
-import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
 import QRWorker from '../helpers/jsqr'
 import { Session } from '~/types/Session'
 
 enum CheckinState {
+  LOADING,
   SCANNING,
   LOADED,
   ERROR,
-  NOTFOUND,
   CHECKMAIL,
   FINISH,
-}
-
-async function getPlaceId(
-  $axios: NuxtAxiosInstance,
-  placeId: string | null,
-  confirm?: string | null
-) {
-  if (!placeId) {
-    return {
-      state: CheckinState.SCANNING,
-      place: null,
-    }
-  }
-
-  try {
-    return {
-      state: confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED,
-      place: await $axios.$get<Place>(`/place/${placeId}`),
-    }
-  } catch (error) {
-    return {
-      state: CheckinState.NOTFOUND,
-      place: null,
-    }
-  }
 }
 
 @Component({
@@ -187,34 +168,16 @@ async function getPlaceId(
     PlaceView: () => import('~/components/PlaceView.vue'),
     Card: () => import('~/components/Card.vue'),
     EmailSent: () => import('~/components/EmailSent.vue'),
+    Loader: () => import('~/components/Loader.vue'),
   },
   head(this: CheckIn) {
     return {
       title: this.$i18n.t('titlePage') as string,
     }
   },
-  async asyncData({ $axios, route, error, store }) {
-    const { state, place } = await getPlaceId(
-      $axios,
-      route.query.placeId as string | null,
-      route.query.confirm as string | null
-    )
-
-    if (state === CheckinState.NOTFOUND) {
-      throw error({
-        statusCode: 404,
-      })
-    }
-
-    return {
-      email: store.getters['session/email'],
-      state,
-      place,
-    }
-  },
 })
 export default class CheckIn extends Vue {
-  state: CheckinState = CheckinState.SCANNING
+  state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   email: string | null = null
   error: string = ''
@@ -223,6 +186,35 @@ export default class CheckIn extends Vue {
   // Bind enum for Vue
   CheckinState = CheckinState
   QRWorker = QRWorker
+
+  async mounted() {
+    this.email = this.$store.getters['session/email']
+
+    await this.setPlaceId(
+      this.$route.query.placeId as string | null,
+      this.$route.query.confirm as string | null
+    )
+  }
+
+  async setPlaceId(placeId: string | null, confirm?: string | null) {
+    if (!placeId) {
+      this.state = CheckinState.SCANNING
+    }
+
+    try {
+      this.place = await this.$axios.$get<Place>(`/place/${placeId}`)
+    } catch (error) {
+      this.state = CheckinState.SCANNING
+
+      showError(
+        this.$bvToast,
+        'Scan',
+        new Error(this.$i18n.t('notExists') as string)
+      )
+    }
+
+    this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
+  }
 
   async handleSubmit(e: Event) {
     e.preventDefault()
@@ -271,19 +263,7 @@ export default class CheckIn extends Vue {
       return
     }
 
-    const { state, place } = await getPlaceId(this.$axios, placeId)
-
-    if (state === CheckinState.NOTFOUND) {
-      showError(
-        this.$bvToast,
-        'Scan',
-        new Error(this.$i18n.t('notExists') as string)
-      )
-      return
-    }
-
-    this.state = state
-    this.place = place
+    await this.setPlaceId(placeId)
   }
 
   async onInit(promise: any) {
