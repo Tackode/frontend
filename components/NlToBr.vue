@@ -6,7 +6,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 export default class NlToBr extends Vue {
   @Prop({ type: String, required: false, default: 'p' }) tag!: string
   @Prop({ type: String, required: false, default: '' }) className!: string
-  @Prop({ type: String, required: true }) text!: string | null
+  @Prop({ type: String, required: false, default: null }) text!: string | null
 
   render(
     createElement: (
