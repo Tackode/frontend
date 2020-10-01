@@ -4,9 +4,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 console.log('API_URL:', process.env.API_URL)
-console.log('CSP:', process.env.CSP)
 
 export default {
+  target: 'server',
   dev: process.env.NODE_ENV !== 'production',
   /*
    ** Headers of the page
@@ -15,44 +15,20 @@ export default {
     host: process.env.HOST,
     port: 4000,
   },
-  telemetry: false,
+  router: {
+    trailingSlash: true,
+  },
+  publicRuntimeConfig: {
+    frontUrl: process.env.FRONT_URL,
+    apiUrl: process.env.API_URL,
+  },
   head: {
-    title: 'Covid Journal',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-      },
-      { hid: 'og:type', name: 'og:type', content: 'website' },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Bienvenue sur Covid-Journal !',
-      },
-      { hid: 'og:site_name', name: 'og:site_name', content: 'Covid-Journal' },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content:
-          "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
-      },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        content: `https://covid-journal.org/_nuxt/img/logo-covid-journal-print.3d963fb.png`,
-      },
-      { name: 'msapplication-TileColor', content: '#5299d3' },
-    ],
-    link: [{ rel: 'icon', type: 'image/png', href: '/icon.png' }],
+    titleTemplate: '%s - Covid-Journal',
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#ff5a5f' },
   /*
    ** Global CSS
    */
@@ -71,6 +47,7 @@ export default {
     '~plugins/i18n',
     { src: '~plugins/qrcodereader', mode: 'client' },
     { src: '~/plugins/axios', mode: 'client' },
+    { src: '~plugins/vuex-init', mode: 'client' },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -107,8 +84,8 @@ export default {
             file: 'fr-FR.js',
           },
         ],
-        strategy: 'prefix_and_default',
         defaultLocale: 'fr',
+        baseUrl: process.env.FRONT_URL,
         vueI18nLoader: true,
         detectBrowserLanguage: {
           useCookie: true,
@@ -117,49 +94,61 @@ export default {
         },
       },
     ],
-    [
-      'nuxt-env',
-      {
-        keys: ['FRONT_URL', 'API_URL'],
-      },
-    ],
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
   ],
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
     icons: true,
   },
+  pwa: {
+    meta: {
+      name: 'Covid-Journal',
+      description:
+        "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+      theme_color: '#ff5a5f',
+      lang: 'fr',
+      ogHost: process.env.FRONT_URL,
+    },
+    manifest: {
+      name: 'Covid-Journal',
+      short_name: 'CovidJournal',
+      description:
+        "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
+      background_color: '#f4f4f4',
+      lang: 'fr',
+    },
+  },
+  sitemap: {
+    hostname: process.env.FRONT_URL,
+    i18n: true,
+    exclude: [
+      '/validate-session',
+      '/user/**',
+      '/organization/**',
+      '/en/validate-session',
+      '/en/user/**',
+      '/en/organization/**',
+    ],
+  },
+  robots: {
+    UserAgent: '*',
+    Disallow: [
+      '/validate-session',
+      '/user',
+      '/organization',
+      '/en/validate-session',
+      '/en/user',
+      '/en/organization',
+    ],
+    Sitemap: `${process.env.FRONT_URL}/sitemap.xml`,
+  },
   /*
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(_config, _ctx) {},
-  },
-  render: {
-    csp:
-      process.env.NODE_ENV !== 'production'
-        ? false
-        : {
-            reportOnly: true,
-            hashAlgorithm: 'sha256',
-            policies: {
-              'default-src': ["'self'"],
-              'img-src': ['https:', 'data:'],
-              'worker-src': ["'self'", `blob:`],
-              'style-src': ["'self'", "'unsafe-inline'"],
-              'script-src': [
-                "'self'",
-                'https://webrtc.github.io/adapter/adapter-7.6.3.js',
-                'https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js',
-              ],
-              'form-action': ["'self'"],
-              'frame-ancestors': ["'none'"],
-              'object-src': ["'none'"],
-              'connect-src': [`api.covid-journal.org`, `covid-journal.org`],
-            },
-          },
+    extractCSS: process.env.NODE_ENV === 'production',
+    cache: process.env.NODE_ENV === 'production',
   },
 }

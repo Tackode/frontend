@@ -5,19 +5,22 @@
       class="wrapped-container c-large c-center my-3"
     >
       <h2>{{ $t('scan') }}</h2>
-      <qrcode-stream @decode="onDecode" @init="onInit" />
+      <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
     </div>
 
-    <p v-else-if="state === CheckinState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
+    <div
+      v-if="state === CheckinState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
 
     <div
       v-if="state === CheckinState.NOTFOUND"
       class="wrapped-container c-small c-center my-3"
     >
       <p>{{ $t('notExists') }}</p>
-      <nuxt-link class="no-print" :to="'/' + $i18n.locale">
+      <nuxt-link class="no-print" :to="localePath('/')">
         {{ $t('back') }}
       </nuxt-link>
     </div>
@@ -38,8 +41,7 @@
               id="login-email"
               v-model="email"
               type="email"
-              :readonly="!needEmailInput"
-              :required="needEmailInput"
+              required
               :placeholder="$t('enterEmail')"
             ></b-form-input>
           </b-form-group>
@@ -89,7 +91,7 @@
       </p>
       <p>{{ $t(retry) }}</p>
 
-      <nuxt-link class="no-print" :to="'/' + $i18n.locale + '/'">
+      <nuxt-link class="no-print" :to="localePath('/')">
         {{ $t('back') }}
       </nuxt-link>
     </div>
@@ -99,58 +101,50 @@
 <i18n>
 {
     "en": {
-    "back":"Back to home page",
-    "notExists":"This place does not exist.",
-    "pleaseWait":"Loading. Please wait...",
-    "submit":"Do a Checkin-In",
-    "email":"Email address*",
-    "enterEmail":"Enter your email",
-    "neverShare":"We'll never share your email with anyone else.",
-    "scan":"Scan a QR Code",
-    "scanImpossible":"Scan Impossible",
-    "retryDevice":"Retry with a compatible device",
-    "retryOperation":"Please allow the use of the camera and retry",
-    "noCamera":"You have no camera on this device",
-    "notAllowed":"You need to grant camera access permisson",
-    "secureContext":"Secure context required (HTTPS, localhost)",
-    "retry":"Please, fix the error and retry",
-    "inUse":"Is the camera already in use?",
-    "notSuitable":"Installed cameras are not suitable",
-    "streamAPINotSupported":"Stream API is not supported in this browser",
-    "networkError":"A network error has occurred. Please, try again.",
-    "errorUnknown":"Unknown error",
-    "titlePage":"Covid Journal - Checkin",
-    "notFound":"Covid Journal - Unknown place",
-    "errorTitle":"Covid Journal - Error",
-    "scanTitle":"Covid Journal - Scanning",
+    "back": "Back to home page",
+    "notExists": "This place does not exist.",
+    "submit": "Do a Checkin-In",
+    "email": "Email address*",
+    "enterEmail": "Enter your email",
+    "neverShare": "We'll never share your email with anyone else.",
+    "scan": "Scan a QR Code",
+    "scanImpossible": "Scan Impossible",
+    "retryDevice": "Retry with a compatible device",
+    "retryOperation": "Please allow the use of the camera and retry",
+    "noCamera": "You have no camera on this device",
+    "notAllowed": "You need to grant camera access permisson",
+    "secureContext": "Secure context required (HTTPS, localhost)",
+    "retry": "Please, fix the error and retry",
+    "inUse": "Is the camera already in use?",
+    "notSuitable": "Installed cameras are not suitable",
+    "streamAPINotSupported": "Stream API is not supported in this browser",
+    "networkError": "A network error has occurred. Please, try again.",
+    "errorUnknown": "Unknown error",
+    "titlePage": "Checkin",
     "thankYou": "Thank you!",
     "saferWorld": "You have contributed to make this world a better place for everyone"
   },
   "fr": {
-    "back":"Retour à la page d'accueil",
-    "notExists":"Ce lieu n'existe plus.",
-    "pleaseWait":"Chargement en cours...",
-    "submit":"Valider le Check-In",
-    "email":"Adresse mail*",
-    "enterEmail":"Entrer votre mail",
-    "neverShare":"Nous ne partagerons jamais votre mail avec autrui.",
-    "scan":"Scanner un QR Code",
-    "scanImpossible":"Scan Impossible",
-    "retryDevice":"Reéssayer avec un appareil compatible",
-    "retryOperation":"Veuillez autoriser l'accès à la caméra puis réessayer",
-    "noCamera":"Vous n'avez pas de caméra sur cet appareil",
-    "notAllowed":"Vous devez permettre l'accès à la caméra pour scanner",
-    "secureContext":"Contexte sécurisé requis (HTTPS, localhost)",
-    "retry":"Corrigez l'erreur et réessayez",
-    "inUse":"Votre caméra est déjà utilisée ?",
-    "notSuitable":"La caméra installée n'est pas compatible",
-    "streamAPINotSupported":"La vidéo n'est pas supportée sur votre appareil",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "errorUnknown":"Erreur inconnue",
-    "titlePage":"Covid Journal - Checkin",
-    "notFound":"Covid Journal - Lieu inconnu",
-    "errorTitle":"Covid Journal - Erreur",
-    "scanTitle":"Covid Journal - Scan en cours",
+    "back": "Retour à la page d'accueil",
+    "notExists": "Ce lieu n'existe plus.",
+    "submit": "Valider le Check-In",
+    "email": "Adresse mail*",
+    "enterEmail": "Entrer votre mail",
+    "neverShare": "Nous ne partagerons jamais votre mail avec autrui.",
+    "scan": "Scanner un QR Code",
+    "scanImpossible": "Scan Impossible",
+    "retryDevice": "Reéssayer avec un appareil compatible",
+    "retryOperation": "Veuillez autoriser l'accès à la caméra puis réessayer",
+    "noCamera": "Vous n'avez pas de caméra sur cet appareil",
+    "notAllowed": "Vous devez permettre l'accès à la caméra pour scanner",
+    "secureContext": "Contexte sécurisé requis (HTTPS, localhost)",
+    "retry": "Corrigez l'erreur et réessayez",
+    "inUse": "Votre caméra est déjà utilisée ?",
+    "notSuitable": "La caméra installée n'est pas compatible",
+    "streamAPINotSupported": "La vidéo n'est pas supportée sur votre appareil",
+    "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
+    "errorUnknown": "Erreur inconnue",
+    "titlePage": "Checkin",
     "thankYou": "Merci !",
     "saferWorld": "Vous avez contribué à faire de cet endroit un lieu plus sûr pour tout le monde"
   }
@@ -162,6 +156,8 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
+import QRWorker from '../helpers/jsqr'
+import { Session } from '~/types/Session'
 
 enum CheckinState {
   SCANNING,
@@ -178,48 +174,50 @@ enum CheckinState {
     PlaceView: () => import('~/components/PlaceView.vue'),
     Card: () => import('~/components/Card.vue'),
     EmailSent: () => import('~/components/EmailSent.vue'),
+    Loader: () => import('~/components/Loader.vue'),
+  },
+  head(this: CheckIn) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
   },
 })
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
   duration: string = ''
-  needEmailInput = this.$store.getters['session/localEmail'] == null
-  email: string | null = this.$store.getters['session/localEmail']
+  email: string | null = null
   error: string = ''
-  storeEmail = true
   retry: string = ''
 
   // Bind enum for Vue
   CheckinState = CheckinState
+  QRWorker = QRWorker
 
   async mounted() {
-    document.title = this.$i18n.t('titlePage') as string
-    const placeId = this.$route.query.placeId
+    this.email = this.$store.getters['session/email']
 
-    if (
-      !this.$store.getters['session/localEmail'] &&
-      this.$store.getters['session/email']
-    ) {
-      this.email = this.$store.getters['session/email']
-      this.$store.dispatch('session/sendLocalEmail', this.email)
-    }
+    await this.setPlaceId(
+      this.$route.query.placeId as string | null,
+      this.$route.query.confirm as string | null
+    )
+  }
+
+  async setPlaceId(placeId: string | null, confirm?: string | null) {
     if (!placeId) {
       this.state = CheckinState.SCANNING
-
       return
     }
 
     try {
-      this.place = await this.$axios.$get(`/place/${placeId}`)
+      this.place = await this.$axios.$get<Place>(`/place/${placeId}`)
     } catch (error) {
       this.state = CheckinState.NOTFOUND
-      document.title = this.$i18n.t('notFound') as string
       return
     }
+
     this.duration = `${this.place?.averageDuration}`
-    this.state = CheckinState.LOADED
-    document.title = `${this.place?.name} - Covid Journal`
+    this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
   }
 
   async handleSubmit(e: Event) {
@@ -232,63 +230,56 @@ export default class CheckIn extends Vue {
     const data = {
       placeId: this.place.id,
       email: this.email,
-      storeEmail: true,
       duration: parseInt(this.duration),
     }
 
-    if (
-      this.$store.getters['session/login'] !== null &&
-      this.$store.getters['session/localEmail'] === this.email
-    ) {
-      try {
-        await this.$axios.$post('/checkin', data, {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        })
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Checkin',
-          new Error(this.$i18n.t('networkError') as string)
-        )
-        return
-      }
+    let session: Session
 
-      this.$store.dispatch('session/setLocalEmail', this.email)
+    try {
+      session = await this.$axios.$post<Session>('/checkin', data)
+    } catch (error) {
+      showError(
+        this.$bvToast,
+        'Checkin',
+        new Error(this.$i18n.t('networkError') as string)
+      )
+      return
+    }
 
+    if (session.confirmed) {
       this.state = CheckinState.FINISH
     } else {
-      try {
-        await this.$axios.$post('/checkin', data)
-      } catch (error) {
-        showError(
-          this.$bvToast,
-          'Checkin',
-          new Error(this.$i18n.t('networkError') as string)
-        )
-        return
-      }
-
       this.state = CheckinState.CHECKMAIL
     }
   }
 
-  onDecode(result: string) {
-    document.location.href = result
+  async onDecode(url: string) {
+    const queryIndex = url.indexOf('?')
+    if (queryIndex === -1) {
+      return
+    }
+
+    const query = url.substring(queryIndex)
+    const params = new URLSearchParams(query)
+    const placeId = params.get('placeId')
+
+    if (placeId == null || placeId.length !== 36) {
+      return
+    }
+
+    await this.setPlaceId(placeId)
   }
 
   async onInit(promise: any) {
     try {
-      document.title = this.$i18n.t('scanTitle') as string
       await promise
     } catch (error) {
       if (error === 'TypeError: r.getCapabilities is not a function') {
         return
       }
+
       this.state = CheckinState.ERROR
-      document.title = this.$i18n.t('errorTitle') as string
+
       if (error.name === 'NotAllowedError') {
         this.error = 'notAllowed'
         this.retry = 'retryOperation'

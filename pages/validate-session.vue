@@ -1,59 +1,75 @@
 <template>
   <div class="wrapped-container c-small c-center my-3">
     <div v-if="state === ValidateState.LOADING">
-      {{ $t('validateDevice') }}
+      <Loader />
     </div>
-    <p v-else-if="state === ValidateState.FAILURE">
-      {{ $t('validationFailed') }}
-    </p>
+    <Card v-else-if="state === ValidateState.FAILURE">
+      <p class="title-2">{{ $t('alreadyValidated') }}</p>
+      <p>
+        {{ $t('alreadyValidatedRecovery') }}
+      </p>
+      <b-button type="submit" variant="primary" block>
+        {{ $t('goToLogin') }}
+      </b-button>
+    </Card>
   </div>
 </template>
 
 <i18n>
 {
   "en": {
-    "validateDevice":"Validate Device",
-    "validationFailed":"Fail to connect you. Please, retry to connect. ",
-    "networkError":"A network error has occurred. Please, try again.",
-    "parametersMissing":"Parameters are missing to connect. Please, click on the link that was received in the login email.",
-    "titlePage":"Covid Journal - Validation in progress"
+    "parametersMissing": "Parameters are missing to connect. Please, click on the link that was received in the login email.",
+    "alreadyValidated": "One time link already used",
+    "alreadyValidatedRecovery": "It seems that you have already used this link, it is not valid anymore. Please request a new one.",
+    "goToLogin": "Go to the login page",
+    "titlePage": "Session validation"
   },
   "fr": {
-    "validateDevice":"Appareil Validé",
-    "validationFailed":"Echec à la connexion. S'il vous plaît, veuillez vous reconnecter.",
-    "networkError":"Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
-    "parametersMissing":"Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
-    "titlePage":"Covid Journal - Validation en cours"
+    "parametersMissing": "Des paramètres sont manquants pour vous connecter. Veuillez cliquer sur le lien reçu dans l'email de connexion.",
+    "alreadyValidated": "Lien unique déjà utilisé",
+    "alreadyValidatedRecovery": "Il semblerait que vous ayez déjà utilisé ce lien pour vous connecter, il n'est donc plus valide. Veuillez en demander un nouveau.",
+    "goToLogin": "Aller à la page de connexion",
+    "titlePage": "Validation de la session"
   }
 }
 </i18n>
 
 <script lang="ts">
 import Vue from 'vue'
-import VueI18n from 'vue-i18n'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../helpers/alerts'
-
-Vue.use(VueI18n)
+import { Credentials } from '~/types/Session'
 
 enum ValidateState {
   LOADING,
   FAILURE,
 }
 
-@Component({})
+@Component({
+  middleware: ['auth-guest'],
+  components: {
+    Loader: () => import('~/components/Loader.vue'),
+    Card: () => import('~/components/Card.vue'),
+  },
+  head(this: ValidateDevice) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
+  },
+})
 export default class ValidateDevice extends Vue {
   state: ValidateState = ValidateState.LOADING
-  i18n = new VueI18n({})
+  sessionDelay: number | null = null
 
   // Bind enum for Vue
   ValidateState = ValidateState
 
-  async mounted() {
+  mounted() {
     // Retrieve device & session
-    document.title = this.$i18n.t('titlePage') as string
-    const sessionId = this.$route.query.sessionId
-    const token = this.$route.query.token
+    const sessionId = this.$route.query.sessionId as string | null
+    const token = this.$route.query.token as string | null
+    const redirect = (this.$route.query.redirect ?? 'checkins') as string
+    const placeId = this.$route.query.placeId as string | null
 
     if (!sessionId || !token) {
       showError(
@@ -64,26 +80,63 @@ export default class ValidateDevice extends Vue {
       return
     }
 
-    let result: any
-    try {
-      result = await this.$axios.$post(`/session/${sessionId}/validate`, {
-        confirmationToken: token,
-      })
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Connexion',
-        new Error(this.$i18n.t('networkError') as string)
-      )
-      this.state = ValidateState.FAILURE
+    if (sessionId === this.$store.getters['session/login']) {
+      // Already connected
+      this.finish(redirect, placeId)
       return
     }
 
-    this.$store.dispatch('session/setSession', result)
+    if (process.client) {
+      this.sessionDelay = window.setTimeout(async () => {
+        let credentials: Credentials
 
-    this.$router.replace('/' + this.$i18n.locale + '/user/check-ins')
+        try {
+          credentials = await this.$axios.$post<Credentials>(
+            `/session/${sessionId}/validate`,
+            { confirmationToken: token }
+          )
+        } catch (error) {
+          this.state = ValidateState.FAILURE
+          return
+        }
+
+        this.$store.commit('session/setSession', {
+          login: credentials.login,
+          token: credentials.token,
+          email: credentials.user.email,
+          role: credentials.user.role,
+        })
+
+        this.finish(redirect, placeId)
+      }, 200)
+    }
+  }
+
+  beforeDestroy() {
+    if (this.sessionDelay != null) {
+      clearTimeout(this.sessionDelay)
+      this.sessionDelay = null
+    }
+  }
+
+  finish(redirect: string, placeId: string | null) {
+    switch (redirect) {
+      case 'checkinConfirmation':
+        this.$router.replace({
+          path: this.localePath('/check-in/'),
+          query: {
+            placeId,
+            confirm: 'true',
+          },
+        })
+        break
+      case 'places':
+        this.$router.replace(this.localePath('/organization/places/'))
+        break
+      case 'checkins':
+        this.$router.replace(this.localePath('/user/check-ins/'))
+        break
+    }
   }
 }
 </script>
-
-<style></style>

@@ -1,4 +1,4 @@
-name: Yarn
+name: CI
 
 on: [push]
 
@@ -11,48 +11,84 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=ghcr.io/covidjournal/covid-journal-frontend
+          VERSION=noop
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            VERSION=nightly
+          elif [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          elif [[ $GITHUB_REF == refs/heads/* ]]; then
+            VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+            if [ "${{ github.event.repository.default_branch }}" = "$VERSION" ]; then
+              VERSION=edge
+            fi
+          elif [[ $GITHUB_REF == refs/pull/* ]]; then
+            VERSION=pr-${{ github.event.number }}
+          fi
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          if [[ $VERSION =~ ^v[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            MINOR=${VERSION%.*}
+            MAJOR=${MINOR%.*}
+            TAGS="$TAGS,${DOCKER_IMAGE}:${MINOR},${DOCKER_IMAGE}:${MAJOR},${DOCKER_IMAGE}:latest"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            TAGS="$TAGS,${DOCKER_IMAGE}:sha-${GITHUB_SHA::8}"
+          fi
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
       - uses: actions/setup-node@v2-beta
         with:
           node-version: 14
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Caching
+      - name: Caching NPM
         uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ secrets.CACHE_VERSION }}-
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
-      - name: Build
+      - name: Caching Nuxt Build
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules/.cache
+          key: ${{ runner.os }}-nuxt-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/nuxt.config.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuxt-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/nuxt.config.json') }}
+
+      - name: Generate
         env:
           NODE_ENV: production
-        run: yarn run build
+          FRONT_URL: ${{ secrets.FRONT_URL }}
+          API_URL: ${{ secrets.API_URL }}
+        run: npm run generate
 
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
+      - name: Set up Docker Buildx
+        if: github.event_name != 'pull_request'
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: image=moby/buildkit:master
 
-      - name: Docker build
-        env:
-          IMAGE_NAME: covid-journal-frontend
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-        run: |
-          docker build --tag $IMAGE_NAME:$VERSION .
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
 
-      - name: Docker publish
-        env:
-          IMAGE_NAME: covid-journal-frontend
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "$GITHUB_TOKEN" | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
-          docker tag $IMAGE_NAME:$VERSION docker.pkg.github.com/covidjournal/frontend/$IMAGE_NAME:$VERSION
-          docker push docker.pkg.github.com/covidjournal/frontend/$IMAGE_NAME:$VERSION
+      - name: Docker build and push
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}

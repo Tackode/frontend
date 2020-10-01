@@ -2,7 +2,7 @@
   <Card class="place">
     <p class="organization">{{ data.organization.name }}</p>
     <p class="name">{{ data.name }}</p>
-    <p class="description">{{ data.description }}</p>
+    <NlToBr tag="p" :text="data.description" class-name="description" />
   </Card>
 </template>
 
@@ -20,6 +20,7 @@ const PlaceViewProps = Vue.extend({
 @Component({
   components: {
     Card: () => import('~/components/Card.vue'),
+    NlToBr: () => import('~/components/NlToBr.vue'),
   },
 })
 export default class PlaceView extends PlaceViewProps {}

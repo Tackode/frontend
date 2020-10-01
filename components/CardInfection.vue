@@ -38,12 +38,14 @@
 <i18n>
 {
   "en": {
-    "startDay":"Start Date",
-    "endDate":"End Date"
+    "startDay": "Start Date",
+    "endDate": "End Date",
+    "deletedPlace": "Deleted place"
   },
   "fr": {
-    "startDay":"Date de début",
-    "endDate":"Date de fin"
+    "startDay": "Date de début",
+    "endDate": "Date de fin",
+    "deletedPlace": "Lieu supprimé"
   }
 }
 </i18n>
@@ -51,7 +53,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
-import { Infection } from '../../types/Infection'
+import { Infection } from '~/types/Infection'
 import { Place } from '~/types/Place'
 
 @Component
@@ -60,26 +62,13 @@ export default class CardInfection extends Vue {
   @Prop({ type: Array, required: true }) readonly places!: Place[]
 
   getPlacesNameWithIds(ids: string[]): string {
-    let result = ''
-
-    const placesWithIds: any = {}
-    this.places.forEach((place) => {
-      placesWithIds[place.id] = place
-    })
-
-    ids.forEach((id) => {
-      if (id in placesWithIds) {
-        result += placesWithIds[id].name + ', '
-      } else {
-        result += this.$i18n.t('delplace') + ', '
-      }
-    })
-
-    if (result.length > 0) {
-      result = result.substring(0, result.length - 2)
-    }
-
-    return result
+    return ids
+      .map(
+        (selectedId) =>
+          this.places.find(({ id }) => selectedId === id)?.name ??
+          this.$i18n.t('deletedPlace')
+      )
+      .join(', ')
   }
 }
 </script>

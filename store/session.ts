@@ -3,7 +3,21 @@ interface State {
   token: string | null
   email: string | null
   role: string | null
-  localEmail: string | null
+}
+
+type SessionData = {
+  login: string
+  token: string
+  email: string
+  role: string
+}
+
+function setInLocalStorage(key: string, value?: string) {
+  if (value != null) {
+    localStorage.setItem(key, value)
+  } else {
+    localStorage.removeItem(key)
+  }
 }
 
 const state = (): State => ({
@@ -11,95 +25,40 @@ const state = (): State => ({
   token: null,
   email: null,
   role: null,
-  localEmail: null,
 })
 
-const actions = {
-  init({ commit }: any) {
-    if (process.browser && window && window.localStorage) {
-      commit('SET_LOGIN', localStorage.getItem('login'))
-      commit('SET_TOKEN', localStorage.getItem('token'))
-      commit('SET_EMAIL', localStorage.getItem('email'))
-      commit('SET_ROLE', localStorage.getItem('role'))
-      commit('SET_LOCAL_EMAIL', localStorage.getItem('localEmail'))
-    }
-  },
-
-  sendLocalEmail({ commit }: any, email: string) {
-    commit('SET_LOCAL_EMAIL', email)
-  },
-
-  setLocalEmail({ commit, state }: any, email: string) {
-    if (state.localEmail !== email) {
-      commit('SET_LOGIN', null)
-      commit('SET_TOKEN', null)
-      commit('SET_EMAIL', null)
-      commit('SET_ROLE', null)
-      commit('SET_LOCAL_EMAIL', email)
-    }
-  },
-
-  setSession({ commit }: any, session: any) {
-    commit('SET_LOGIN', session.login)
-    commit('SET_TOKEN', session.token)
-    commit('SET_EMAIL', session.user.email)
-    commit('SET_ROLE', session.user.role)
-  },
-
-  logout({ commit }: any) {
-    commit('SET_LOGIN', null)
-    commit('SET_TOKEN', null)
-    commit('SET_EMAIL', null)
-    commit('SET_ROLE', null)
-    commit('SET_LOCAL_EMAIL', null)
-  },
-}
-
 const mutations = {
-  SET_LOGIN(state: State, login: string | null) {
-    if (login) {
-      localStorage.setItem('login', login)
-    } else {
-      localStorage.removeItem('login')
-    }
-
-    state.login = login
+  loadFromStorage(state: State) {
+    state.login = localStorage.getItem('login')
+    state.token = localStorage.getItem('token')
+    state.email = localStorage.getItem('email')
+    state.role = localStorage.getItem('role')
   },
-  SET_TOKEN(state: State, token: string | null) {
-    if (token) {
-      localStorage.setItem('token', token)
-    } else {
-      localStorage.removeItem('token')
-    }
+  setSession(state: State, session: SessionData) {
+    state.login = session.login
+    setInLocalStorage('login', session.login)
 
-    state.token = token
+    state.token = session.token
+    setInLocalStorage('token', session.token)
+
+    state.email = session.email
+    setInLocalStorage('email', session.email)
+
+    state.role = session.role
+    setInLocalStorage('role', session.role)
   },
-  SET_EMAIL(state: State, email: string | null) {
-    if (email) {
-      localStorage.setItem('email', email)
-    } else {
-      localStorage.removeItem('email')
-    }
+  logout(state: State) {
+    state.login = null
+    setInLocalStorage('login')
 
-    state.email = email
-  },
-  SET_ROLE(state: State, role: string | null) {
-    if (role) {
-      localStorage.setItem('role', role)
-    } else {
-      localStorage.removeItem('role')
-    }
+    state.token = null
+    setInLocalStorage('token')
 
-    state.role = role
-  },
-  SET_LOCAL_EMAIL(state: State, email: string | null) {
-    if (email) {
-      localStorage.setItem('localEmail', email)
-    } else {
-      localStorage.removeItem('localEmail')
-    }
+    state.email = null
+    setInLocalStorage('email')
 
-    state.localEmail = email
+    state.role = null
+    setInLocalStorage('role')
   },
 }
 
@@ -109,9 +68,6 @@ const getters = {
   },
   token(state: State): string | null {
     return state.token
-  },
-  localEmail(state: State): string | null {
-    return state.localEmail
   },
   email(state: State): string | null {
     return state.email
@@ -125,6 +81,6 @@ export default {
   namespaced: true,
   state,
   getters,
-  actions,
+  actions: {},
   mutations,
 }

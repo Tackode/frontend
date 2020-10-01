@@ -1,26 +1,35 @@
 <template>
-  <div class="place-detail wrapped-container c-medium c-center my-3">
-    <p v-if="state === PlaceState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
+  <div>
+    <div
+      v-if="state === PlaceState.LOADING"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Loader />
+    </div>
 
-    <div v-else-if="state === PlaceState.NOTFOUND">
+    <div
+      v-else-if="state === PlaceState.NOTFOUND"
+      class="wrapped-container c-small c-center my-3"
+    >
       <p>
         {{ $t('placeNotFound') }}
       </p>
 
       <nuxt-link
         class="no-print mt-3"
-        :to="'/' + $i18n.locale + '/organization/places/'"
+        :to="localePath('/organization/places/')"
       >
         {{ $t('back') }}
       </nuxt-link>
     </div>
 
-    <div v-else-if="state === PlaceState.LOADED">
+    <div
+      v-else-if="state === PlaceState.LOADED"
+      class="place-detail wrapped-container c-medium c-center my-3"
+    >
       <div class="row no-print">
         <div class="col-6 text-left link-back">
-          <nuxt-link :to="'/' + $i18n.locale + '/organization/places/'">
+          <nuxt-link :to="localePath('/organization/places/')">
             <img
               src="~/assets/images/back.png"
               srcset="
@@ -83,18 +92,18 @@
 <i18n>
 {
   "en": {
-    "back":"Back",
-    "print":"Print the page",
-    "flash":"Flash this QR Code to be informed of an infection",
-    "placeNotFound":"This place does not exist.",
-    "pleaseWait":"Loading. Please wait..."
+    "back": "Back",
+    "print": "Print the page",
+    "flash": "Flash this QR Code to be informed of an infection",
+    "placeNotFound": "This place does not exist.",
+    "titlePage": "Place"
   },
   "fr": {
-    "back":"Retour",
-    "print":"Imprimer",
-    "flash":"Flashez le QR Code pour être informé d'une infection",
-    "placeNotFound":"Ce lieu n'existe plus.",
-    "pleaseWait":"Chargement en cours..."
+    "back": "Retour",
+    "print": "Imprimer",
+    "flash": "Flashez le QR Code pour être informé d'une infection",
+    "placeNotFound": "Ce lieu n'existe plus.",
+    "titlePage": "Lieu"
   }
 }
 </i18n>
@@ -103,7 +112,6 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../../../types/Place'
-import PlaceView from '../../../components/PlaceView.vue'
 
 enum PlaceState {
   LOADING,
@@ -112,8 +120,15 @@ enum PlaceState {
 }
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
-    PlaceView,
+    PlaceView: () => import('~/components/PlaceView.vue'),
+    Loader: () => import('~/components/Loader.vue'),
+  },
+  head(this: PlaceDetail) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
   },
 })
 export default class PlaceDetail extends Vue {
@@ -128,26 +143,28 @@ export default class PlaceDetail extends Vue {
   PlaceState = PlaceState
 
   mounted() {
-    this.placeId = this.$route.params.id
+    const { placeId } = this.$route.query
+
+    if (typeof placeId !== 'string' || placeId.length === 0) {
+      this.state = PlaceState.NOTFOUND
+      return
+    }
+
+    this.placeId = placeId
     this.loadData()
   }
 
   async loadData() {
     try {
-      this.place = await this.$axios.$get('/place/' + this.placeId, {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.place = await this.$axios.$get<Place>(`/place/${this.placeId}`)
       this.state = PlaceState.LOADED
     } catch (error) {
       this.state = PlaceState.NOTFOUND
     }
-    this.organization = `${this.place?.organization?.name}`
-    this.name = `${this.place?.name}`
-    this.description = `${this.place?.description}`
-    document.title = 'Covid Journal - ' + this.name
+
+    this.organization = this.place?.organization?.name ?? ''
+    this.name = this.place?.name ?? ''
+    this.description = this.place?.description ?? ''
   }
 
   printPage() {
@@ -155,7 +172,7 @@ export default class PlaceDetail extends Vue {
   }
 
   get qrCodeUrl() {
-    return (this as any).$env.FRONT_URL + '/check-in?placeId=' + this.placeId
+    return `${this.$config.frontUrl}/check-in/?placeId=${this.placeId}`
   }
 }
 </script>

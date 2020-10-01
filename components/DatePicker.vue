@@ -52,5 +52,3 @@ export default class DatePicker extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>

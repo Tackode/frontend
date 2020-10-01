@@ -1,9 +1,10 @@
 import { Place } from './Place'
 
-export interface Checkin {
+export type Checkin = {
   id: string
-  startTimestamp: Date
+  startTimestamp: string
+  endTimestamp: string
   duration: number
-  place: Place
   potentialInfection: boolean
+  place: Place
 }

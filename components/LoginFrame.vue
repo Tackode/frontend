@@ -71,9 +71,7 @@
     v-else-if="state === LoginState.LOADING"
     class="wrapped-container c-small c-center my-3"
   >
-    <p>
-      {{ $t('loading') }}
-    </p>
+    <Loader />
   </div>
 </template>
 
@@ -82,7 +80,6 @@
   "en": {
     "login": "Login",
     "signup": "Signup",
-    "loading": "Loading. Please wait...",
     "login-action": "Login",
     "neverShare": "We'll never share your email with anyone else.",
     "enterEmail": "Enter your email",
@@ -97,7 +94,6 @@
   "fr": {
     "login": "Connexion",
     "signup": "Inscription",
-    "loading": "Chargement en cours...",
     "login-action": "Se connecter",
     "neverShare": "Nous ne partagerons pas votre email.",
     "enterEmail": "Entrez votre adresse",
@@ -115,7 +111,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'nuxt-property-decorator'
-import { showError } from '../../helpers/alerts'
+import { showError } from '../helpers/alerts'
+import type { Session } from '../types/Session'
 
 enum LoginState {
   IDLE,
@@ -125,8 +122,9 @@ enum LoginState {
 
 @Component({
   components: {
-    DecoratedCard: () => import('../DecoratedCard.vue'),
-    EmailSent: () => import('../EmailSent.vue'),
+    DecoratedCard: () => import('./DecoratedCard.vue'),
+    EmailSent: () => import('./EmailSent.vue'),
+    Loader: () => import('./Loader.vue'),
   },
 })
 export default class LoginFrame extends Vue {
@@ -146,7 +144,7 @@ export default class LoginFrame extends Vue {
     this.state = LoginState.LOADING
 
     try {
-      await this.$axios.$post('/login', {
+      await this.$axios.$post<Session>('/login', {
         email: this.email,
         role: this.professional ? 'Professional' : 'Public',
         organizationName: this.professional ? this.organizationName : null,
@@ -164,8 +162,6 @@ export default class LoginFrame extends Vue {
     }
 
     this.state = LoginState.CHECK_EMAIL
-
-    this.$store.dispatch('session/setLocalEmail', this.email)
   }
 }
 </script>

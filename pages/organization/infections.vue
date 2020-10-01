@@ -53,7 +53,7 @@
             class="mb-0"
           >
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('dateStartLabel')"
               label-align-sm="right"
               label-for="start-date"
@@ -65,7 +65,7 @@
             </b-form-group>
 
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('timeStartLabel')"
               label-align-sm="right"
               label-for="start-time"
@@ -87,7 +87,7 @@
             class="mb-0"
           >
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('dateEndLabel')"
               label-align-sm="right"
               label-for="end-date"
@@ -96,7 +96,7 @@
             </b-form-group>
 
             <b-form-group
-              label-cols-sm="3"
+              label-cols-sm="4"
               :label="$t('timeEndLabel')"
               label-align-sm="right"
               label-for="end-time"
@@ -130,13 +130,13 @@
 <i18n>
 {
   "en": {
-    "infection":"Declaration of Infections",
-    "potentialInfection":"Report a new infection in one or more of your places",
-    "noPlaceInfection":"No place to declare an infection",
-    "validate":"Validate",
-    "infectedPlace":"Infected Place",
-    "delplace":"Deleted Place",
-    "subtitle":"Record an infection to automatically notify your visitors",
+    "infection": "Declaration of Infections",
+    "potentialInfection": "Report a new infection in one or more of your places",
+    "noPlaceInfection": "No place to declare an infection",
+    "validate": "Validate",
+    "infectedPlace": "Infected Place",
+    "delplace": "Deleted Place",
+    "subtitle": "Record an infection to automatically notify your visitors",
     "infectionDeclarationTitle": "New infection declaration",
     "concernedPlaces": "Concerned places",
     "infectionMaxPeriodInfo": "Maximum duration on site: 12 hours.",
@@ -148,25 +148,25 @@
     "timeEndLabel": "End time:",
     "cancel": "Cancel",
     "declare": "Declare",
-    "noAffectedPlace":"noAffectedPlace",
-    "startDateNotDefined":"The date of arrival is not defined.",
-    "endDateNotDefined":"The date of departure is not defined.",
-    "endDateBeforeStartDate":"The date of departure is before the date of arrival.",
-    "noInfectionInTheFuture":"You cannot declare in the future",
-    "maximumTime":"maximumTime",
-    "networkError":"networkError",
-    "Error":"Error",
-    "titlePage":"Covid Journal - Infections"
+    "noAffectedPlace": "noAffectedPlace",
+    "startDateNotDefined": "The date of arrival is not defined.",
+    "endDateNotDefined": "The date of departure is not defined.",
+    "endDateBeforeStartDate": "The date of departure is before the date of arrival.",
+    "noInfectionInTheFuture": "You cannot declare in the future",
+    "maximumTime": "maximumTime",
+    "networkError": "networkError",
+    "Error": "Error",
+    "titlePage": "Infections"
   },
   "fr": {
-    "infection":"Déclarer une infection",
-    "potentialInfection":"Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
+    "infection": "Déclarer une infection",
+    "potentialInfection": "Signalez une nouvelle infection dans un ou plusieurs de vos lieux.",
     "noPlaceInfection": "Vous n'avez pas de lieu sur lequel déclarer une infection.",
-    "validate":"Valider",
-    "modify":"Modifier",
-    "infectedPlace":"Lieux Infectés",
-    "delplace":"Lieu supprimé",
-    "subtitle":"Enregistrez une infection pour prévenir automatiquement vos visiteurs.",
+    "validate": "Valider",
+    "modify": "Modifier",
+    "infectedPlace": "Lieux Infectés",
+    "delplace": "Lieu supprimé",
+    "subtitle": "Enregistrez une infection pour prévenir automatiquement vos visiteurs.",
     "infectionDeclarationTitle": "Déclarer une nouvelle infection",
     "concernedPlaces": "Lieux concernés",
     "infectionMaxPeriodInfo": "Durée maximale sur place : 12 heures.",
@@ -178,15 +178,15 @@
     "timeEndLabel": "Heure de départ :",
     "cancel": "Annuler",
     "declare": "Déclarer",
-    "noAffectedPlace":"Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
-    "startDateNotDefined":"La date d'arrivée n'a pas été définie.",
-    "endDateNotDefined":"La date de départ n'a pas été définie.",
-    "endDateBeforeStartDate":"La date de fin est avant ou égale à la date de début.",
-    "noInfectionInTheFuture":"Vous ne pouvez pas déclarer dans le futur.",
-    "maximumTime":"Durée maximale sur place : 12 heures",
-    "networkError":"Une erreur réseau est survenue. S'il vous plaît, réessayer.",
-    "Error":"Erreur",
-    "titlePage":"Covid Journal - Infections"
+    "noAffectedPlace": "Veuillez choisir un ou plusieurs lieu(x) concerné(s).",
+    "startDateNotDefined": "La date d'arrivée n'a pas été définie.",
+    "endDateNotDefined": "La date de départ n'a pas été définie.",
+    "endDateBeforeStartDate": "La date de fin est avant ou égale à la date de début.",
+    "noInfectionInTheFuture": "Vous ne pouvez pas déclarer dans le futur.",
+    "maximumTime": "Durée maximale sur place : 12 heures",
+    "networkError": "Une erreur réseau est survenue. S'il vous plaît, réessayer.",
+    "Error": "Erreur",
+    "titlePage": "Infections"
   }
 }
 </i18n>
@@ -197,17 +197,19 @@ import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import { Infection, InfectionCreation } from '../../types/Infection'
-import BigActionButton from '~/components/BigActionButton.vue'
-import TimePicker from '~/components/TimePicker.vue'
-import DatePicker from '~/components/DatePicker.vue'
-import CardInfection from '~/components/card-infection/CardInfection.vue'
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
-    BigActionButton,
-    DatePicker,
-    TimePicker,
-    CardInfection,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
+    DatePicker: () => import('~/components/DatePicker.vue'),
+    TimePicker: () => import('~/components/TimePicker.vue'),
+    CardInfection: () => import('~/components/CardInfection.vue'),
+  },
+  head(this: ProfessionalInfections) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
   },
 })
 export default class ProfessionalInfections extends Vue {
@@ -224,20 +226,12 @@ export default class ProfessionalInfections extends Vue {
   }
 
   mounted() {
-    document.title = this.$i18n.t('titlePage') as string
     this.loadData()
   }
 
   async loadData() {
-    const axiosConfig = {
-      auth: {
-        username: this.$store.getters['session/login'],
-        password: this.$store.getters['session/token'],
-      },
-    }
-
     try {
-      this.places = await this.$axios.$get('/places', axiosConfig)
+      this.places = await this.$axios.$get<Place[]>('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -248,7 +242,7 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      this.infections = await this.$axios.$get('/infections', axiosConfig)
+      this.infections = await this.$axios.$get<Infection[]>('/infections')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -353,20 +347,11 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      await this.$axios.$post(
-        '/infection',
-        {
-          placesIds: this.infectionCreation.placesIds,
-          startTimestamp: `${startDate.toISOString()}`,
-          endTimestamp: `${endDate.toISOString()}`,
-        },
-        {
-          auth: {
-            username: this.$store.getters['session/login'],
-            password: this.$store.getters['session/token'],
-          },
-        }
-      )
+      await this.$axios.$post<Infection>('/infection', {
+        placesIds: this.infectionCreation.placesIds,
+        startTimestamp: `${startDate.toISOString()}`,
+        endTimestamp: `${endDate.toISOString()}`,
+      })
     } catch (error) {
       showError(
         this.$bvToast,
@@ -384,11 +369,5 @@ export default class ProfessionalInfections extends Vue {
 
     this.loadData()
   }
-
-  tr(ind: string) {
-    return this.$i18n.t(ind)
-  }
 }
 </script>
-
-<style></style>

@@ -1,9 +1,16 @@
 <template>
-  <div class="wrapped-container c-medium my-3">
-    <p v-if="state === PlaceState.LOADING">
-      {{ $t('pleaseWait') }}
-    </p>
-    <div v-else-if="state === PlaceState.LOADED">
+  <div>
+    <div
+      v-if="state === PlaceState.LOADING"
+      class="wrapped-container c-small my-3"
+    >
+      <Loader />
+    </div>
+
+    <div
+      v-else-if="state === PlaceState.LOADED"
+      class="wrapped-container c-medium my-3"
+    >
       <h2>{{ $t('place') }}</h2>
 
       <BigActionButton
@@ -114,56 +121,54 @@
 <i18n>
 {
   "en": {
-    "place":"Your Places",
-    "pleaseWait": "Loading. Please wait...",
-    "addPlace":"Add a new place open to the public",
-    "noPlace":"You don't have any places for now. You can start by creating one!",
-    "nameMandatory":"Name*",
-    "duration":"Average duration of the stay in minutes*",
-    "name":"Nom",
-    "modify":"Modify",
-    "cancel":"Cancel",
-    "create":"Create place",
-    "deletePlace":"Delete Place",
-    "modifyPlace":"Place Modification",
-    "deletePlaceAsk":"Do you really want to delete this place ?",
-    "createPlace":"Place Creation",
-    "placeName":"Place Name",
-    "durationOnSite":"Average Duration",
-    "delete":"Delete",
-    "qrCode":"QR Code",
+    "place": "Your Places",
+    "addPlace": "Add a new place open to the public",
+    "noPlace": "You don't have any places for now. You can start by creating one!",
+    "nameMandatory": "Name*",
+    "duration": "Average duration of the stay in minutes*",
+    "name": "Nom",
+    "modify": "Modify",
+    "cancel": "Cancel",
+    "create": "Create place",
+    "deletePlace": "Delete Place",
+    "modifyPlace": "Place Modification",
+    "deletePlaceAsk": "Do you really want to delete this place ?",
+    "createPlace": "Place Creation",
+    "placeName": "Place Name",
+    "durationOnSite": "Average Duration",
+    "delete": "Delete",
+    "qrCode": "QR Code",
     "actions": "Actions",
-    "subtitle":"Generate a QR Code for this new place",
-    "networkError":"A network error has occurred. Please, try again.",
-    "fillInRequiredFields":"Please fill in the required fields.",
-    "placeError":"Place",
-    "titlePage":"Covid Journal - My Places"
+    "subtitle": "Generate a QR Code for this new place",
+    "networkError": "A network error has occurred. Please, try again.",
+    "fillInRequiredFields": "Please fill in the required fields.",
+    "placeError": "Place",
+    "titlePage": "My Places"
   },
   "fr": {
-    "place":"Vos lieux",
-    "pleaseWait": "Chargement en cours...",
-    "addPlace":"Ajoutez un nouveau lieu ouvert au public",
-    "noPlace":"Vous n’avez pas de lieu pour l’instant. Vous pouvez en ajouter un dès maintenant !",
-    "nameMandatory":"Nom*",
-    "duration":"Durée moyenne de visite en minutes*",
-    "name":"Nom",
-    "modify":"Modifier",
-    "cancel":"Annuler",
-    "create":"Créer le lieu",
-    "deletePlace":"Supprimer le lieu",
-    "modifyPlace":"Modification du lieu",
-    "deletePlaceAsk":"Voulez-vous vraiment supprimer ce lieu ?",
-    "createPlace":"Création du lieu",
-    "placeName":"Nom du lieu",
-    "durationOnSite":"Durée moyenne sur place",
-    "delete":"Supprimer",
-    "qrCode":"QR Code",
+    "place": "Vos lieux",
+    "addPlace": "Ajoutez un nouveau lieu ouvert au public",
+    "noPlace": "Vous n’avez pas de lieu pour l’instant. Vous pouvez en ajouter un dès maintenant !",
+    "nameMandatory": "Nom*",
+    "duration": "Durée moyenne de visite en minutes*",
+    "name": "Nom",
+    "modify": "Modifier",
+    "cancel": "Annuler",
+    "create": "Créer le lieu",
+    "deletePlace": "Supprimer le lieu",
+    "modifyPlace": "Modification du lieu",
+    "deletePlaceAsk": "Voulez-vous vraiment supprimer ce lieu ?",
+    "createPlace": "Création du lieu",
+    "placeName": "Nom du lieu",
+    "durationOnSite": "Durée moyenne sur place",
+    "delete": "Supprimer",
+    "qrCode": "QR Code",
     "actions": "Actions",
-    "subtitle":"Générez un QR Code pour ce nouveau lieu",
-    "networkError":"Une erreur réseau s'est produite. Veuillez réessayer.",
-    "fillInRequiredFields":"Veuillez remplir tous les champs requis",
-    "placeError":"Lieu",
-    "titlePage":"Covid Journal - Mes Lieux"
+    "subtitle": "Générez un QR Code pour ce nouveau lieu",
+    "networkError": "Une erreur réseau s'est produite. Veuillez réessayer.",
+    "fillInRequiredFields": "Veuillez remplir tous les champs requis",
+    "placeError": "Lieu",
+    "titlePage": "Mes lieux"
   }
 }
 </i18n>
@@ -173,8 +178,6 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
-import BigActionButton from '~/components/BigActionButton.vue'
-import CardPlace from '~/components/card-place/CardPlace.vue'
 
 enum PlaceState {
   LOADING,
@@ -188,9 +191,16 @@ interface PlaceFormValues {
 }
 
 @Component({
+  middleware: ['auth-professional'],
   components: {
-    BigActionButton,
-    CardPlace,
+    BigActionButton: () => import('~/components/BigActionButton.vue'),
+    CardPlace: () => import('~/components/CardPlace.vue'),
+    Loader: () => import('~/components/Loader.vue'),
+  },
+  head(this: ProfessionalPlaces) {
+    return {
+      title: this.$i18n.t('titlePage') as string,
+    }
   },
 })
 export default class ProfessionalPlaces extends Vue {
@@ -209,19 +219,13 @@ export default class ProfessionalPlaces extends Vue {
   PlaceState = PlaceState
 
   mounted() {
-    document.title = this.$i18n.t('titlePage') as string
     this.loadData()
     this.state = PlaceState.LOADED
   }
 
   async loadData() {
     try {
-      this.places = await this.$axios.$get('/places', {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      this.places = await this.$axios.$get<Place[]>('/places')
     } catch (error) {
       showError(
         this.$bvToast,
@@ -246,13 +250,6 @@ export default class ProfessionalPlaces extends Vue {
   }
 
   async handlePlaceSubmit() {
-    const options = {
-      auth: {
-        username: this.$store.getters['session/login'],
-        password: this.$store.getters['session/token'],
-      },
-    }
-
     if (
       this.placeFormValues.name === '' ||
       this.placeFormValues.averageDuration <= 0
@@ -267,13 +264,12 @@ export default class ProfessionalPlaces extends Vue {
 
     try {
       if (this.isPlaceFormEditionMode) {
-        await this.$axios.$put(
-          '/place/' + this.placeId,
-          this.placeFormValues,
-          options
+        await this.$axios.$put<Place>(
+          `/place/${this.placeId}`,
+          this.placeFormValues
         )
       } else {
-        await this.$axios.$post('/place', this.placeFormValues, options)
+        await this.$axios.$post<Place>('/place', this.placeFormValues)
       }
     } catch (error) {
       showError(
@@ -294,12 +290,7 @@ export default class ProfessionalPlaces extends Vue {
   async deletePlace(e: Event) {
     e.preventDefault()
     try {
-      await this.$axios.$delete('/place/' + this.placeId, {
-        auth: {
-          username: this.$store.getters['session/login'],
-          password: this.$store.getters['session/token'],
-        },
-      })
+      await this.$axios.$delete<void>('/place/' + this.placeId)
     } catch (error) {
       showError(
         this.$bvToast,
@@ -343,5 +334,3 @@ export default class ProfessionalPlaces extends Vue {
   }
 }
 </script>
-
-<style></style>

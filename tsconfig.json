@@ -18,6 +18,7 @@
     "types": [
       "@types/node",
       "@nuxt/types",
+      "nuxt-i18n",
       "@nuxtjs/axios",
       "./node_modules/bootstrap-vue/src"
     ]

@@ -1,6 +1,6 @@
 import { Organization } from './Organization'
 
-export interface Place {
+export type Place = {
   id: string
   organization: Organization
   name: string
