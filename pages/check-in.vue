@@ -199,6 +199,7 @@ export default class CheckIn extends Vue {
   async setPlaceId(placeId: string | null, confirm?: string | null) {
     if (!placeId) {
       this.state = CheckinState.SCANNING
+      return
     }
 
     try {
@@ -211,6 +212,7 @@ export default class CheckIn extends Vue {
         'Scan',
         new Error(this.$i18n.t('notExists') as string)
       )
+      return
     }
 
     this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
