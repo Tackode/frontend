@@ -9,16 +9,6 @@
     </div>
 
     <div
-      v-if="state === CheckinState.NOTFOUND"
-      class="wrapped-container c-small c-center my-3"
-    >
-      <p>{{ $t('notExists') }}</p>
-      <nuxt-link class="no-print" :to="localePath('/')">
-        {{ $t('back') }}
-      </nuxt-link>
-    </div>
-
-    <div
       v-if="state === CheckinState.LOADED"
       class="wrapped-container c-small c-center my-3"
     >
@@ -76,17 +66,22 @@
       </Card>
     </div>
 
-    <div v-else-if="state === CheckinState.ERROR">
-      <h2>{{ $t('scanImpossible') }}</h2>
+    <div
+      v-else-if="state === CheckinState.ERROR"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Card>
+        <p class="title-1">{{ $t('scanImpossible') }}</p>
 
-      <p>
-        <b>{{ $t(error) }}</b>
-      </p>
-      <p>{{ $t(retry) }}</p>
+        <p>
+          <b>{{ $t(error) }}</b>
+        </p>
+        <p>{{ $t(retry) }}</p>
 
-      <nuxt-link class="no-print" :to="localePath('/')">
-        {{ $t('back') }}
-      </nuxt-link>
+        <b-button :to="localePath('/')" variant="primary" block>
+          {{ $t('back') }}
+        </b-button>
+      </Card>
     </div>
   </div>
 </template>
@@ -278,6 +273,16 @@ export default class CheckIn extends Vue {
     }
 
     const { state, place } = await getPlaceId(this.$axios, placeId)
+
+    if (state === CheckinState.NOTFOUND) {
+      showError(
+        this.$bvToast,
+        'Scan',
+        new Error(this.$i18n.t('notExists') as string)
+      )
+      return
+    }
+
     this.state = state
     this.place = place
   }
