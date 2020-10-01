@@ -9,13 +9,6 @@
     </div>
 
     <div
-      v-if="state === CheckinState.LOADING"
-      class="wrapped-container c-small c-center my-3"
-    >
-      <Loader />
-    </div>
-
-    <div
       v-if="state === CheckinState.NOTFOUND"
       class="wrapped-container c-small c-center my-3"
     >
@@ -126,7 +119,7 @@
   },
   "fr": {
     "back": "Retour à la page d'accueil",
-    "notExists": "Ce lieu n'existe plus.",
+    "notExists": "Ce lieu n'existe pas.",
     "submit": "Valider le Check-In",
     "email": "Adresse mail*",
     "enterEmail": "Entrer votre mail",
@@ -154,6 +147,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
+import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
 import QRWorker from '../helpers/jsqr'
@@ -161,7 +155,6 @@ import { Session } from '~/types/Session'
 
 enum CheckinState {
   SCANNING,
-  LOADING,
   LOADED,
   ERROR,
   NOTFOUND,
@@ -169,23 +162,66 @@ enum CheckinState {
   FINISH,
 }
 
+async function getPlaceId(
+  $axios: NuxtAxiosInstance,
+  placeId: string | null,
+  confirm?: string | null
+) {
+  if (!placeId) {
+    return {
+      state: CheckinState.SCANNING,
+      place: null,
+    }
+  }
+
+  try {
+    return {
+      state: confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED,
+      place: await $axios.$get<Place>(`/place/${placeId}`),
+    }
+  } catch (error) {
+    return {
+      state: CheckinState.NOTFOUND,
+      place: null,
+    }
+  }
+}
+
 @Component({
   components: {
     PlaceView: () => import('~/components/PlaceView.vue'),
     Card: () => import('~/components/Card.vue'),
     EmailSent: () => import('~/components/EmailSent.vue'),
-    Loader: () => import('~/components/Loader.vue'),
   },
   head(this: CheckIn) {
     return {
       title: this.$i18n.t('titlePage') as string,
     }
   },
+  async asyncData({ $axios, route, error, app }) {
+    const { state, place } = await getPlaceId(
+      $axios,
+      route.query.placeId as string | null,
+      route.query.confirm as string | null
+    )
+
+    if (state === CheckinState.NOTFOUND) {
+      throw error({
+        statusCode: 404,
+        message: app.i18n.t('notExists') as string,
+      })
+    }
+
+    return {
+      email: this.$store.getters['session/email'],
+      state,
+      place,
+    }
+  },
 })
 export default class CheckIn extends Vue {
-  state: CheckinState = CheckinState.LOADING
+  state: CheckinState = CheckinState.SCANNING
   place: Place | null = null
-  duration: string = ''
   email: string | null = null
   error: string = ''
   retry: string = ''
@@ -193,32 +229,6 @@ export default class CheckIn extends Vue {
   // Bind enum for Vue
   CheckinState = CheckinState
   QRWorker = QRWorker
-
-  async mounted() {
-    this.email = this.$store.getters['session/email']
-
-    await this.setPlaceId(
-      this.$route.query.placeId as string | null,
-      this.$route.query.confirm as string | null
-    )
-  }
-
-  async setPlaceId(placeId: string | null, confirm?: string | null) {
-    if (!placeId) {
-      this.state = CheckinState.SCANNING
-      return
-    }
-
-    try {
-      this.place = await this.$axios.$get<Place>(`/place/${placeId}`)
-    } catch (error) {
-      this.state = CheckinState.NOTFOUND
-      return
-    }
-
-    this.duration = `${this.place?.averageDuration}`
-    this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
-  }
 
   async handleSubmit(e: Event) {
     e.preventDefault()
@@ -230,7 +240,7 @@ export default class CheckIn extends Vue {
     const data = {
       placeId: this.place.id,
       email: this.email,
-      duration: parseInt(this.duration),
+      duration: this.place?.averageDuration,
     }
 
     let session: Session
@@ -267,7 +277,9 @@ export default class CheckIn extends Vue {
       return
     }
 
-    await this.setPlaceId(placeId)
+    const { state, place } = await getPlaceId(this.$axios, placeId)
+    this.state = state
+    this.place = place
   }
 
   async onInit(promise: any) {
