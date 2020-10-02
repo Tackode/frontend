@@ -1,14 +1,6 @@
 <template>
   <div>
     <div
-      v-if="state === CheckinState.SCANNING"
-      class="wrapped-container c-large c-center my-3"
-    >
-      <h2>{{ $t('scan') }}</h2>
-      <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
-    </div>
-
-    <div
       v-if="state === CheckinState.LOADING"
       class="wrapped-container c-small c-center my-3"
     >
@@ -16,13 +8,11 @@
     </div>
 
     <div
-      v-if="state === CheckinState.NOTFOUND"
-      class="wrapped-container c-small c-center my-3"
+      v-if="state === CheckinState.SCANNING"
+      class="wrapped-container c-large c-center my-3"
     >
-      <p>{{ $t('notExists') }}</p>
-      <nuxt-link class="no-print" :to="localePath('/')">
-        {{ $t('back') }}
-      </nuxt-link>
+      <h2>{{ $t('scan') }}</h2>
+      <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
     </div>
 
     <div
@@ -83,17 +73,22 @@
       </Card>
     </div>
 
-    <div v-else-if="state === CheckinState.ERROR">
-      <h2>{{ $t('scanImpossible') }}</h2>
+    <div
+      v-else-if="state === CheckinState.ERROR"
+      class="wrapped-container c-small c-center my-3"
+    >
+      <Card>
+        <p class="title-1">{{ $t('scanImpossible') }}</p>
 
-      <p>
-        <b>{{ $t(error) }}</b>
-      </p>
-      <p>{{ $t(retry) }}</p>
+        <p>
+          <b>{{ $t(error) }}</b>
+        </p>
+        <p>{{ $t(retry) }}</p>
 
-      <nuxt-link class="no-print" :to="localePath('/')">
-        {{ $t('back') }}
-      </nuxt-link>
+        <b-button :to="localePath('/')" variant="primary" block>
+          {{ $t('back') }}
+        </b-button>
+      </Card>
     </div>
   </div>
 </template>
@@ -126,7 +121,7 @@
   },
   "fr": {
     "back": "Retour à la page d'accueil",
-    "notExists": "Ce lieu n'existe plus.",
+    "notExists": "Ce lieu n'existe pas.",
     "submit": "Valider le Check-In",
     "email": "Adresse mail*",
     "enterEmail": "Entrer votre mail",
@@ -160,11 +155,10 @@ import QRWorker from '../helpers/jsqr'
 import { Session } from '~/types/Session'
 
 enum CheckinState {
-  SCANNING,
   LOADING,
+  SCANNING,
   LOADED,
   ERROR,
-  NOTFOUND,
   CHECKMAIL,
   FINISH,
 }
@@ -185,7 +179,6 @@ enum CheckinState {
 export default class CheckIn extends Vue {
   state: CheckinState = CheckinState.LOADING
   place: Place | null = null
-  duration: string = ''
   email: string | null = null
   error: string = ''
   retry: string = ''
@@ -212,11 +205,16 @@ export default class CheckIn extends Vue {
     try {
       this.place = await this.$axios.$get<Place>(`/place/${placeId}`)
     } catch (error) {
-      this.state = CheckinState.NOTFOUND
+      this.state = CheckinState.SCANNING
+
+      showError(
+        this.$bvToast,
+        'Scan',
+        new Error(this.$i18n.t('notExists') as string)
+      )
       return
     }
 
-    this.duration = `${this.place?.averageDuration}`
     this.state = confirm === 'true' ? CheckinState.FINISH : CheckinState.LOADED
   }
 
@@ -230,7 +228,7 @@ export default class CheckIn extends Vue {
     const data = {
       placeId: this.place.id,
       email: this.email,
-      duration: parseInt(this.duration),
+      duration: this.place?.averageDuration,
     }
 
     let session: Session

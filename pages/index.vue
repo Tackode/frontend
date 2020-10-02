@@ -41,7 +41,12 @@
         <b-col align-self="end" class="text-left">
           <h3>{{ $t('step-1-title') }}</h3>
           <p>{{ $t('step-1') }}</p>
-          <b-button variant="default" block :to="createQrCodeUrl">
+          <b-button
+            @click.prevent="onClickOnCreateQrCode"
+            variant="default"
+            block
+            :to="createQrCodeUrl"
+          >
             {{ $t('create-qr-code') }}
           </b-button>
         </b-col>
@@ -179,28 +184,24 @@ import { Component } from 'nuxt-property-decorator'
   },
 })
 export default class Home extends Vue {
-  role: string | null = null
-
   get createQrCodeUrl() {
-    if (this.role == null) {
+    const role = this.$store.getters['session/role']
+
+    if (role == null) {
       return this.localePath('/signup/')
-    } else if (this.role !== 'Professional') {
-      this.$store.commit('session/logout')
+    } else if (role !== 'Professional') {
       return this.localePath('/signup/')
     } else {
       return this.localePath('/organization/places/')
     }
   }
 
-  mounted() {
-    this.role = this.$store.getters['session/role']
+  onClickOnCreateQrCode() {
+    if (this.$store.getters['session/role'] === 'Public') {
+      this.$store.commit('session/logout')
+    }
 
-    this.$store.watch(
-      (store) => store.session.role,
-      (role) => {
-        this.role = role
-      }
-    )
+    this.$router.push(this.createQrCodeUrl)
   }
 }
 </script>

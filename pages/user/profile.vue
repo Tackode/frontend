@@ -1,16 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="state === ProfileState.LOADING"
-      class="wrapped-container c-small c-center my-3"
-    >
-      <Loader />
-    </div>
-
-    <div
-      v-else-if="state === ProfileState.LOADED"
-      class="wrapped-container c-large c-center my-3"
-    >
+    <div class="wrapped-container c-large c-center my-3">
       <DecoratedCard image="profile-drawing" title="">
         <h1>{{ $t('myProfile') }}</h1>
 
@@ -22,7 +12,7 @@
           >
             <b-form-input
               id="form-email"
-              v-model="email"
+              v-model="profile.email"
               type="email"
               readonly
               :placeholder="$t('emailPlaceholder')"
@@ -30,7 +20,7 @@
           </b-form-group>
 
           <b-form-group
-            v-if="role === 'Professional'"
+            v-if="profile.role === 'Professional'"
             id="form-organization"
             :label="$t('organization')"
             label-for="form-organization"
@@ -45,7 +35,7 @@
           </b-form-group>
 
           <b-button
-            v-if="role === 'Professional'"
+            v-if="profile.role === 'Professional'"
             block
             type="submit"
             variant="primary"
@@ -127,53 +117,29 @@ import { Component } from 'nuxt-property-decorator'
 import { showError, showSuccess } from '../../helpers/alerts'
 import { Profile } from '../../types/Profile'
 
-enum ProfileState {
-  LOADING,
-  LOADED,
-}
-
 @Component({
   middleware: ['auth-user'],
   components: {
     DecoratedCard: () => import('~/components/DecoratedCard.vue'),
-    Loader: () => import('~/components/Loader.vue'),
   },
   head(this: ProfilePage) {
     return {
       title: this.$i18n.t('titlePage') as string,
     }
   },
+  async asyncData({ $axios }) {
+    return {
+      profile: await $axios.$get<Profile>('/profile'),
+    }
+  },
 })
 export default class ProfilePage extends Vue {
-  state: ProfileState = ProfileState.LOADING
-  role: string | null = null
   profile: Profile | null = null
-  email: string | null = null
-
-  // Bind enum for Vue
-  ProfileState = ProfileState
-
-  async mounted() {
-    this.email = this.$store.getters['session/email']
-    this.role = this.$store.getters['session/role']
-
-    try {
-      this.profile = await this.$axios.$get<Profile>('/profile')
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        this.$i18n.t('profile') as string,
-        new Error(this.$i18n.t('networkErrorLoading') as string)
-      )
-    }
-
-    this.state = ProfileState.LOADED
-  }
 
   async handleSubmit(e: Event) {
     e.preventDefault()
 
-    if (this.role === 'Professional') {
+    if (this.profile?.role === 'Professional') {
       try {
         await this.$axios.$put<void>('/organization', {
           name: this.profile?.organization?.name,

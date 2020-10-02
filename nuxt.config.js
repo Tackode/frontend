@@ -100,7 +100,23 @@ export default {
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
-    icons: true,
+    componentPlugins: [
+      'ModalPlugin',
+      'ToastPlugin',
+      'FormPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormTextareaPlugin',
+      'FormGroupPlugin',
+      'ButtonPlugin',
+      'CardPlugin',
+      'DropdownPlugin',
+      'ImagePlugin',
+      'LayoutPlugin',
+      'MediaPlugin',
+      'NavbarPlugin',
+    ],
+    components: ['BIcon', 'BIconPencil', 'BIconTrash'],
   },
   pwa: {
     meta: {

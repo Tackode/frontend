@@ -1,12 +1,13 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "CovidJournal frontend",
   "author": "Julien Blatecky - Creatiwity",
   "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "analyze": "nuxt build --analyze",
     "start": "nuxt-start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore .",

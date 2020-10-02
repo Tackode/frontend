@@ -211,6 +211,12 @@ import { Infection, InfectionCreation } from '../../types/Infection'
       title: this.$i18n.t('titlePage') as string,
     }
   },
+  async asyncData({ $axios }) {
+    return {
+      places: await $axios.$get<Place[]>('/places'),
+      infections: await $axios.$get<Infection[]>('/infections'),
+    }
+  },
 })
 export default class ProfessionalInfections extends Vue {
   places: Place[] = []
@@ -223,33 +229,6 @@ export default class ProfessionalInfections extends Vue {
     endDate: null,
     endTime: '',
     endTimestamp: '',
-  }
-
-  mounted() {
-    this.loadData()
-  }
-
-  async loadData() {
-    try {
-      this.places = await this.$axios.$get<Place[]>('/places')
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        this.$i18n.t('Error') as string,
-        new Error(this.$i18n.t('networkError') as string)
-      )
-      return
-    }
-
-    try {
-      this.infections = await this.$axios.$get<Infection[]>('/infections')
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        this.$i18n.t('Error') as string,
-        new Error(this.$i18n.t('networkError') as string)
-      )
-    }
   }
 
   resetModal() {
@@ -347,11 +326,13 @@ export default class ProfessionalInfections extends Vue {
     }
 
     try {
-      await this.$axios.$post<Infection>('/infection', {
+      const infection = await this.$axios.$post<Infection>('/infection', {
         placesIds: this.infectionCreation.placesIds,
         startTimestamp: `${startDate.toISOString()}`,
         endTimestamp: `${endDate.toISOString()}`,
       })
+
+      this.infections.unshift(infection)
     } catch (error) {
       showError(
         this.$bvToast,
@@ -366,8 +347,6 @@ export default class ProfessionalInfections extends Vue {
     this.$nextTick(() => {
       this.$bvModal.hide('infection-creation-modal')
     })
-
-    this.loadData()
   }
 }
 </script>

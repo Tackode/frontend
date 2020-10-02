@@ -60,7 +60,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
-import { showError } from '../../helpers/alerts'
 import { Checkin } from '../../types/Checkin'
 
 @Component({
@@ -74,21 +73,13 @@ import { Checkin } from '../../types/Checkin'
       title: this.$i18n.t('titlePage') as string,
     }
   },
+  async asyncData({ $axios }) {
+    return {
+      checkins: await $axios.$get<Checkin[]>('/checkins'),
+    }
+  },
 })
 export default class CheckIns extends Vue {
   checkins: Checkin[] = []
-
-  async mounted() {
-    // Load checkins
-    try {
-      this.checkins = await this.$axios.$get<Checkin[]>('/checkins')
-    } catch (error) {
-      showError(
-        this.$bvToast,
-        'Check-In',
-        new Error(this.$i18n.t('networkError') as string)
-      )
-    }
-  }
 }
 </script>

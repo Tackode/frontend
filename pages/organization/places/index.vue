@@ -1,16 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="state === PlaceState.LOADING"
-      class="wrapped-container c-small my-3"
-    >
-      <Loader />
-    </div>
-
-    <div
-      v-else-if="state === PlaceState.LOADED"
-      class="wrapped-container c-medium my-3"
-    >
+    <div class="wrapped-container c-medium my-3">
       <h2>{{ $t('place') }}</h2>
 
       <BigActionButton
@@ -179,11 +169,6 @@ import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
 
-enum PlaceState {
-  LOADING,
-  LOADED,
-}
-
 interface PlaceFormValues {
   name: string
   description: string | null
@@ -195,11 +180,15 @@ interface PlaceFormValues {
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardPlace: () => import('~/components/CardPlace.vue'),
-    Loader: () => import('~/components/Loader.vue'),
   },
   head(this: ProfessionalPlaces) {
     return {
       title: this.$i18n.t('titlePage') as string,
+    }
+  },
+  async asyncData({ $axios }) {
+    return {
+      places: await $axios.$get<Place[]>('/places'),
     }
   },
 })
@@ -207,20 +196,10 @@ export default class ProfessionalPlaces extends Vue {
   places: Place[] = []
   placeId: string = ''
   isPlaceFormEditionMode: Boolean = false
-  selectedUser: Place | null = null
-  state: PlaceState = PlaceState.LOADING
   placeFormValues: PlaceFormValues = {
     name: '',
     description: null,
     averageDuration: 30,
-  }
-
-  // Bind enum for Vue
-  PlaceState = PlaceState
-
-  mounted() {
-    this.loadData()
-    this.state = PlaceState.LOADED
   }
 
   async loadData() {
