@@ -29,7 +29,7 @@
             <nuxt-link
               :to="{
                 path: localePath('/organization/places/qrcode/'),
-                params: { placeId: place.id },
+                query: { placeId: place.id },
               }"
             >
               {{ $t('showQR') }}
