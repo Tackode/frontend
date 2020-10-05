@@ -201,6 +201,10 @@ export default class DefaultLayout extends Vue {
   font-weight: bold;
 }
 
+.nuxt-link-active {
+  font-weight: bold;
+}
+
 footer.navbar {
   bottom: 0;
 }
