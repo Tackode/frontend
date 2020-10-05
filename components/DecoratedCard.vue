@@ -1,11 +1,11 @@
 <template>
-  <div class="card">
-    <div
-      class="main-col"
-      :style="{
-        backgroundImage: `url(${require(`~/assets/images/${image}.png`)})`,
-      }"
-    >
+  <div
+    class="card"
+    :style="{
+      backgroundImage: `url(${require(`~/assets/images/${image}.png`)})`,
+    }"
+  >
+    <div class="main-col">
       <div class="main-content">
         <div class="main-slot">
           <slot />
@@ -43,16 +43,20 @@ export default class Card extends Vue {
 <style lang="scss" scoped>
 .card {
   height: 75vh;
-  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba($color: #000000, $alpha: 0.25);
   display: flex;
   flex-direction: row;
   color: $secondary;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   @media (min-width: 768px) {
     height: 567px;
     background: $light;
+    background-image: none !important;
   }
 
   .card-row {
@@ -62,13 +66,11 @@ export default class Card extends Vue {
   .main-col {
     position: relative;
     flex: 1;
-    background-size: 100% auto;
-    background-position: bottom;
-    background-repeat: no-repeat;
+    backdrop-filter: blur(4px);
 
     @media (min-width: 768px) {
-      background-image: none !important;
       padding: 24px;
+      backdrop-filter: none;
     }
 
     .main-content {
@@ -76,13 +78,11 @@ export default class Card extends Vue {
       border-radius: 8px;
       padding: 48px 24px;
       display: flex;
-      backdrop-filter: blur(4px);
 
       @media (min-width: 768px) {
         height: 100%;
-        padding: 24px 68px;
+        padding: 24px 50px;
         background-color: #ffffff;
-        backdrop-filter: none;
       }
 
       .main-slot {
