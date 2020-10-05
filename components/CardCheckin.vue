@@ -5,12 +5,12 @@
         <div class="place-image-container">
           <img
             class="place-image"
-            src="~/assets/images/place-photo-2.png"
-            srcset="
-              ~/assets/images/place-photo-2.png    1x,
-              ~/assets/images/place-photo-2@2x.png 2x
-              ~/assets/images/place-photo-2@3x.png 3x
-            "
+            :src="require(`@/assets/images/${assetName}.png`)"
+            :srcset="`
+              ${require(`@/assets/images/${assetName}.png`)}    1x,
+              ${require(`@/assets/images/${assetName}@2x.png`)} 2x,
+              ${require(`@/assets/images/${assetName}@3x.png`)} 3x
+            `"
           />
           <div class="overlay" v-if="checkin.potentialInfection">
             <span class="disclaimer">Infection détectée</span>
@@ -55,6 +55,10 @@ import { Checkin } from '~/types/Checkin'
   },
 })
 export default class CardCheckin extends Vue {
+  assetName: string = `place-photo-${
+    Math.floor(Math.random() * Math.floor(5)) + 1
+  }`
+
   @Prop({ type: Object, required: true }) readonly checkin!: Checkin
 }
 </script>
