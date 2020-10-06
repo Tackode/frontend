@@ -55,9 +55,7 @@ import { Checkin } from '~/types/Checkin'
   },
 })
 export default class CardCheckin extends Vue {
-  assetName: string = `place-photo-${
-    Math.floor(Math.random() * Math.floor(5)) + 1
-  }`
+  assetName: string = `place-photo-${Math.floor(Math.random() * 5) + 1}`
 
   @Prop({ type: Object, required: true }) readonly checkin!: Checkin
 }
