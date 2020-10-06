@@ -2,7 +2,11 @@
   <div
     class="card"
     :style="{
-      backgroundImage: `url(${require(`~/assets/images/${image}.png`)})`,
+      backgroundImage: `-webkit-image-set(
+      url(${require(`~/assets/images/${image}.png`)}) 1x,
+      url(${require(`~/assets/images/${image}@2x.png`)}) 2x,
+      url(${require(`~/assets/images/${image}@3x.png`)}) 3x
+    )`,
     }"
   >
     <div class="main-col">
@@ -50,8 +54,8 @@ export default class Card extends Vue {
   color: $secondary;
   background-color: #ffffff;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: bottom;
 
   @media (min-width: 768px) {
     height: 567px;
@@ -66,7 +70,7 @@ export default class Card extends Vue {
   .main-col {
     position: relative;
     flex: 1;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
 
     @media (min-width: 768px) {
       padding: 24px;
