@@ -2,7 +2,7 @@
   <div class="wrapped-container c-center c-medium my-3">
     <h1 class="sr-only">{{ $t('myCheckIns') }}</h1>
 
-    <h2>{{ $t('myCheckIns') }}</h2>
+    <h2 class="text-center">{{ $t('myCheckIns') }}</h2>
 
     <BigActionButton
       class="mb-3"

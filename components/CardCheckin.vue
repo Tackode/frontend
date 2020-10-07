@@ -63,7 +63,6 @@ export default class CardCheckin extends Vue {
 
 <style lang="scss">
 .card-checkin {
-  text-align: left;
   padding: 24px;
 
   .place-image-container {
@@ -108,14 +107,6 @@ export default class CardCheckin extends Vue {
   @media (min-width: 768px) {
     .place-name {
       margin-top: 0;
-    }
-
-    .card-bottom {
-      margin-top: 60px;
-
-      .place-edition-buttons {
-        text-align: right;
-      }
     }
   }
 }

@@ -100,7 +100,6 @@ export default class CardPlace extends Vue {
 
 <style lang="scss">
 .card-place {
-  text-align: left;
   padding: 24px;
 
   .place-image-container {

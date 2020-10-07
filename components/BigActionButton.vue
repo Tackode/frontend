@@ -1,6 +1,6 @@
 <template>
   <b-card class="hoverable-card">
-    <ul class="no-padding">
+    <ul class="no-padding text-center">
       <b-media tag="li" vertical-align="center">
         <template v-if="image" v-slot:aside>
           <b-img

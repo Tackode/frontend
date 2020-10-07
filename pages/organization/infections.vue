@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
-    <h2>{{ $t('infection') }}</h2>
+    <h2 class="text-center">{{ $t('infection') }}</h2>
 
     <BigActionButton
       v-if="places.length > 0"

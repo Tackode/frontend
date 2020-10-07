@@ -123,6 +123,7 @@ export default class Card extends Vue {
       background-color: #ffffff;
       border-radius: 0 8px 8px 0;
       padding: 32px 16px;
+      text-align: center;
 
       .description {
         font-size: 1.5rem;

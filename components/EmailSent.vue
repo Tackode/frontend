@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card class="text-center">
     <img
       class="img-fluid"
       src="~/assets/images/email-sent.png"

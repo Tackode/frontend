@@ -38,13 +38,13 @@
 <i18n>
 {
   "en": {
-    "startDay": "Start Date",
-    "endDate": "End Date",
+    "startDay": "Start Date :",
+    "endDate": "End Date :",
     "deletedPlace": "Deleted place"
   },
   "fr": {
-    "startDay": "Date de début",
-    "endDate": "Date de fin",
+    "startDay": "Date de début :",
+    "endDate": "Date de fin :",
     "deletedPlace": "Lieu supprimé"
   }
 }
@@ -75,7 +75,6 @@ export default class CardInfection extends Vue {
 
 <style lang="scss">
 .card-infection {
-  text-align: left;
   padding: 24px;
 
   .infection-image-container {
