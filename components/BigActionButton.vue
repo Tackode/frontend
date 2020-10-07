@@ -1,7 +1,7 @@
 <template>
   <b-card class="hoverable-card">
-    <ul class="no-dot">
-      <b-media tag="li" class="align-items-center">
+    <ul class="no-padding">
+      <b-media tag="li" vertical-align="center">
         <template v-if="image" v-slot:aside>
           <b-img
             :src="require(`@/assets/images/${image}.png`)"
@@ -11,10 +11,13 @@
           />
         </template>
         <h5 class="mt-0">
-          <nuxt-link v-if="url" :to="url" class="stretched-link">{{
-            title
-          }}</nuxt-link>
-          <p v-else>{{ title }}</p>
+          <nuxt-link
+            v-if="url"
+            :to="url"
+            class="stretched-link title-responsive"
+            >{{ title }}</nuxt-link
+          >
+          <p v-else class="title-responsive">{{ title }}</p>
         </h5>
         <p class="mb-0 subtitle">{{ subtitle }}</p>
       </b-media>
@@ -47,16 +50,6 @@ export default class BigActionButton extends BigButtonProps {}
 </script>
 
 <style lang="scss">
-.btn-icon {
-  max-width: 80px;
-  max-height: 80px;
-}
-
-.no-dot {
-  padding: 0;
-  list-style-type: none;
-}
-
 .hoverable-card {
   a {
     color: rgb(33, 37, 41);
@@ -64,6 +57,19 @@ export default class BigActionButton extends BigButtonProps {}
     &:hover {
       text-decoration: none;
     }
+  }
+
+  .title-responsive {
+    font-size: 1.5rem;
+  }
+
+  .btn-icon {
+    max-width: 80px;
+    max-height: 80px;
+  }
+
+  .no-padding {
+    padding: 0;
   }
 
   @media (min-width: 576px) {
@@ -76,6 +82,10 @@ export default class BigActionButton extends BigButtonProps {}
     .btn-icon {
       max-width: 60px;
       max-height: 60px;
+    }
+
+    .title-responsive {
+      font-size: 1.375rem;
     }
 
     .subtitle {
