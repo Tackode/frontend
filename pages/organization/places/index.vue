@@ -12,8 +12,9 @@
       />
 
       <div v-if="places.length > 0" class="places-list">
-        <CardPlace
+        <CardMode
           v-for="place in places"
+          :mode="Mode.PLACE"
           :key="place.id"
           :place="place"
           @onEdit="onEditPlace"
@@ -168,6 +169,7 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
+import { Mode } from '~/types/CardMode'
 
 interface PlaceFormValues {
   name: string
@@ -179,7 +181,7 @@ interface PlaceFormValues {
   middleware: ['auth-professional'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
-    CardPlace: () => import('~/components/CardPlace.vue'),
+    CardMode: () => import('~/components/CardMode.vue'),
   },
   head(this: ProfessionalPlaces) {
     return {
@@ -201,6 +203,8 @@ export default class ProfessionalPlaces extends Vue {
     description: null,
     averageDuration: 30,
   }
+
+  Mode = Mode
 
   async loadData() {
     try {

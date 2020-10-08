@@ -13,8 +13,9 @@
     />
 
     <div v-if="checkins.length > 0" class="checkins-list">
-      <CardCheckin
+      <CardMode
         v-for="checkin in checkins"
+        :mode="Mode.CHECKIN"
         :key="checkin.id"
         :checkin="checkin"
       />
@@ -61,12 +62,13 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Checkin } from '../../types/Checkin'
+import { Mode } from '~/types/CardMode'
 
 @Component({
   middleware: ['auth-user'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
-    CardCheckin: () => import('~/components/CardCheckin.vue'),
+    CardMode: () => import('~/components/CardMode.vue'),
   },
   head(this: CheckIns) {
     return {
@@ -81,5 +83,6 @@ import { Checkin } from '../../types/Checkin'
 })
 export default class CheckIns extends Vue {
   checkins: Checkin[] = []
+  Mode = Mode
 }
 </script>
