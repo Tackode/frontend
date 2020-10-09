@@ -115,6 +115,7 @@ export default {
       'LayoutPlugin',
       'MediaPlugin',
       'NavbarPlugin',
+      'TooltipPlugin',
     ],
     components: ['BIcon', 'BIconPencil', 'BIconTrash'],
   },
