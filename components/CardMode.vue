@@ -19,40 +19,55 @@
       </div>
 
       <div v-if="mode === Mode.CHECKIN" class="col-md-6">
-        <h2 class="place-name">{{ checkin.place.name }}</h2>
-        <NlToBr
-          tag="p"
-          :text="checkin.place.description"
-          class-name="place-description"
-        />
-        <hr />
-        <p>
-          <strong>{{ $t('date') }}</strong>
-          {{ checkin.startTimestamp | formatDateTime }}
+        <h2 class="organization-name">{{ checkin.place.organization.name }}</h2>
+        <p class="place-name secondary">
+          {{ checkin.place.name }}
+          <b-icon
+            v-b-tooltip.hover
+            :title="checkin.place.description"
+            icon="info-circle"
+          ></b-icon>
         </p>
-        <p>
+        <hr />
+        <p class="mb-0">
+          <strong>{{ $t('date') }}</strong>
+          <span class="secondary">{{
+            checkin.startTimestamp | formatDateTime
+          }}</span>
+        </p>
+        <p class="mb-0">
           <strong>{{ $t('duration') }}</strong>
-          {{ checkin.place.averageDuration }} min
+          <span class="secondary">{{ checkin.place.averageDuration }} min</span>
         </p>
       </div>
 
       <div v-else-if="mode === Mode.INFECTION" class="col-md-6">
-        <h2 class="place-name">
+        <h2 class="organization-name">{{ infection.organization.name }}</h2>
+        <p class="place-name secondary">
           {{ getPlacesNameWithIds(infection.placesIds) }}
-        </h2>
-        <hr />
-        <p>
-          <strong>{{ $t('startDate') }}</strong>
-          {{ infection.startTimestamp | formatDateTime }}
+          <b-icon
+            v-b-tooltip.hover
+            :title="getPlacesDescriptionWithIds(infection.placesIds)"
+            icon="info-circle"
+          ></b-icon>
         </p>
-        <p>
+        <hr />
+        <p class="mb-0">
+          <strong>{{ $t('startDate') }}</strong>
+          <span class="secondary">{{
+            infection.startTimestamp | formatDateTime
+          }}</span>
+        </p>
+        <p class="mb-0">
           <strong>{{ $t('endDate') }}</strong>
-          {{ infection.endTimestamp | formatDateTime }}
+          <span class="secondary">{{
+            infection.endTimestamp | formatDateTime
+          }}</span>
         </p>
       </div>
 
       <div v-else class="col-md-6">
-        <h2 class="place-name">{{ place.name }}</h2>
+        <h2 class="organization-name">{{ place.name }}</h2>
         <NlToBr
           tag="p"
           :text="place.description"
@@ -114,7 +129,7 @@
     },
     "fr": {
         "infectionDetected": "Infection détectée",
-        "date": "Date: ",
+        "date": "Date :",
         "startDate": "Date de début :",
         "endDate": "Date de fin :",
         "duration": "Durée :",
@@ -179,6 +194,16 @@ export default class CardMode extends Vue {
       .join(', ')
   }
 
+  getPlacesDescriptionWithIds(ids: string[]): string {
+    return ids
+      .map(
+        (selectedId) =>
+          this.places.find(({ id }) => selectedId === id)?.description ??
+          this.$i18n.t('deletedPlace')
+      )
+      .join('\n')
+  }
+
   get displayOverlay(): boolean {
     return (
       this.mode === Mode.INFECTION ||
@@ -191,6 +216,15 @@ export default class CardMode extends Vue {
 <style lang="scss">
 .card-padding {
   padding: 24px;
+
+  .secondary {
+    color: $secondary;
+  }
+
+  .row {
+    align-items: center;
+    font-size: 1.25rem;
+  }
 
   .place-image-container {
     border-radius: 5px;
@@ -216,24 +250,34 @@ export default class CardMode extends Vue {
         width: 100%;
         color: white;
         font-weight: bold;
-        font-size: 2.2em;
+        font-size: 2rem;
         font-family: $headings-font-family;
       }
     }
   }
 
-  .place-name {
-    margin-top: 20px;
+  .organization-name {
+    font-size: 2rem;
+    margin-top: 16px;
     margin-bottom: 0;
   }
 
-  .place-description {
-    color: $secondary;
-  }
-
   @media (min-width: 768px) {
-    .place-name {
+    .organization-name {
+      font-size: 2.25rem;
       margin-top: 0;
+    }
+
+    .row {
+      font-size: 1.5rem;
+    }
+
+    .place-image-container {
+      .overlay {
+        .disclaimer {
+          font-size: 2.25rem;
+        }
+      }
     }
 
     .card-bottom {
