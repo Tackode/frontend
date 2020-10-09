@@ -3,12 +3,12 @@
     <div v-if="state === ValidateState.LOADING">
       <Loader />
     </div>
-    <Card v-else-if="state === ValidateState.FAILURE">
+    <Card v-else-if="state === ValidateState.FAILURE" class="text-center">
       <p class="title-2">{{ $t('alreadyValidated') }}</p>
       <p>
         {{ $t('alreadyValidatedRecovery') }}
       </p>
-      <b-button type="submit" variant="primary" block>
+      <b-button :to="localePath('/login')" variant="primary" block>
         {{ $t('goToLogin') }}
       </b-button>
     </Card>
