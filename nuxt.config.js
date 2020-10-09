@@ -117,7 +117,7 @@ export default {
       'NavbarPlugin',
       'TooltipPlugin',
     ],
-    components: ['BIcon', 'BIconPencil', 'BIconTrash'],
+    components: ['BIcon', 'BIconPencil', 'BIconTrash', 'BIconInfoCircle'],
   },
   pwa: {
     meta: {
