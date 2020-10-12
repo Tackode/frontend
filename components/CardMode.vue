@@ -206,7 +206,7 @@ export default class CardMode extends Vue {
     return ids
       .map(
         (selectedId) =>
-          this.places.find(({ id }) => selectedId === id)?.description ??
+          this.places?.find(({ id }) => selectedId === id)?.description ??
           this.$i18n.t('deletedPlace')
       )
       .join('\n')
