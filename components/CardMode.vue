@@ -99,9 +99,9 @@
                 <img
                   :src="require('@/assets/images/edit.png')"
                   :srcset="`
-                    ${require('@/assets/images/edit.png')}    x1,
-                    ${require('@/assets/images/edit@2x.png')} x2,
-                    ${require('@/assets/images/edit@3x.png')} x3
+                    ${require('@/assets/images/edit.png')}    1x,
+                    ${require('@/assets/images/edit@2x.png')} 2x,
+                    ${require('@/assets/images/edit@3x.png')} 3x
                   `"
                 />
               </b-button>
@@ -110,9 +110,9 @@
                 <img
                   :src="require('@/assets/images/trash.png')"
                   :srcset="`
-                    ${require('@/assets/images/trash.png')}    x1,
-                    ${require('@/assets/images/trash@2x.png')} x2,
-                    ${require('@/assets/images/trash@3x.png')} x3
+                    ${require('@/assets/images/trash.png')}    1x,
+                    ${require('@/assets/images/trash@2x.png')} 2x,
+                    ${require('@/assets/images/trash@3x.png')} 3x
                   `"
                 />
               </b-button>
@@ -242,12 +242,13 @@ export default class CardMode extends Vue {
     .place-edition-buttons {
       button {
         &:first-child {
-          margin-right: 15px;
+          margin-right: 10px;
         }
 
+        margin: 0;
         padding: 0;
-        background-color: unset;
-        border-color: unset;
+        border: none;
+        background-color: transparent;
       }
     }
   }
