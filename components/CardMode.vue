@@ -148,31 +148,32 @@ export default class CardMode extends Vue {
   readonly mode!: Mode
 
   @Prop({ type: Object, required: false, default: null })
-  readonly checkin!: Checkin
+  readonly checkin!: Checkin | null
 
   @Prop({ type: Object, required: false, default: null })
-  readonly infection!: Infection
+  readonly infection!: Infection | null
 
   @Prop({ type: Array, required: false, default: null })
-  readonly places!: Place[]
+  readonly places!: Place[] | null
 
-  @Prop({ type: Object, required: false, default: null }) readonly place!: Place
+  @Prop({ type: Object, required: false, default: null })
+  readonly place!: Place | null
 
   @Emit('onEdit')
   editPlace(): Place {
-    return this.place
+    return this.place!
   }
 
   @Emit('onDelete')
   deletePlace(): Place {
-    return this.place
+    return this.place!
   }
 
   getPlacesNameWithIds(ids: string[]): string {
     return ids
       .map(
         (selectedId) =>
-          this.places.find(({ id }) => selectedId === id)?.name ??
+          this.places?.find(({ id }) => selectedId === id)?.name ??
           this.$i18n.t('deletedPlace')
       )
       .join(', ')
@@ -181,7 +182,7 @@ export default class CardMode extends Vue {
   get displayOverlay(): boolean {
     return (
       this.mode === Mode.INFECTION ||
-      (this.mode === Mode.CHECKIN && this.checkin.potentialInfection)
+      (this.mode === Mode.CHECKIN && this.checkin!.potentialInfection)
     )
   }
 }
