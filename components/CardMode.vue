@@ -67,15 +67,19 @@
       </div>
 
       <div v-else class="col-md-6">
-        <h2 class="organization-name">{{ place.name }}</h2>
-        <NlToBr
-          tag="p"
-          :text="place.description"
-          class-name="place-description"
-        />
+        <h2 class="organization-name">{{ place.organization.name }}</h2>
+        <p class="place-name secondary">
+          {{ place.name }}
+          <b-icon
+            v-b-tooltip.hover
+            :title="place.description"
+            icon="info-circle"
+          ></b-icon>
+        </p>
         <hr />
         <p>
-          <strong>{{ $t('duration') }}</strong> {{ place.averageDuration }} min
+          <strong>{{ $t('duration') }}</strong>
+          <span class="secondary">{{ place.averageDuration }} min</span>
         </p>
 
         <div class="row card-bottom">
@@ -91,22 +95,26 @@
           </div>
           <div class="col-md-6">
             <div class="place-edition-buttons">
-              <b-button
-                v-b-modal.place-creation-modal
-                variant="outline-secondary"
-                class="mb-2"
-                @click="editPlace"
-              >
-                <b-icon icon="pencil"></b-icon>
+              <b-button v-b-modal.place-creation-modal @click="editPlace">
+                <img
+                  :src="require('@/assets/images/edit.png')"
+                  :srcset="`
+                    ${require('@/assets/images/edit.png')}    x1,
+                    ${require('@/assets/images/edit@2x.png')} x2,
+                    ${require('@/assets/images/edit@3x.png')} x3
+                  `"
+                />
               </b-button>
 
-              <b-button
-                v-b-modal.place-delete-modal
-                variant="outline-secondary"
-                class="mb-2"
-                @click="deletePlace"
-              >
-                <b-icon icon="trash"></b-icon>
+              <b-button v-b-modal.place-delete-modal @click="deletePlace">
+                <img
+                  :src="require('@/assets/images/trash.png')"
+                  :srcset="`
+                    ${require('@/assets/images/trash.png')}    x1,
+                    ${require('@/assets/images/trash@2x.png')} x2,
+                    ${require('@/assets/images/trash@3x.png')} x3
+                  `"
+                />
               </b-button>
             </div>
           </div>
@@ -226,6 +234,24 @@ export default class CardMode extends Vue {
     font-size: 1.25rem;
   }
 
+  .card-bottom {
+    a {
+      font-size: 1rem;
+    }
+
+    .place-edition-buttons {
+      button {
+        &:first-child {
+          margin-right: 15px;
+        }
+
+        padding: 0;
+        background-color: unset;
+        border-color: unset;
+      }
+    }
+  }
+
   .place-image-container {
     border-radius: 5px;
     overflow: hidden;
@@ -281,7 +307,7 @@ export default class CardMode extends Vue {
     }
 
     .card-bottom {
-      margin-top: 60px;
+      margin-top: 20px;
 
       .place-edition-buttons {
         text-align: right;
