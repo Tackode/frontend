@@ -32,7 +32,7 @@
       </a>
     </p>
 
-    <div class="wrapped-container c-medium mb-3">
+    <div class="wrapped-container text-center c-medium mb-3">
       <p class="d-md-none">{{ $t('summary') }}</p>
 
       <h2 class="title-1">{{ $t('how-does-it-work') }}</h2>
