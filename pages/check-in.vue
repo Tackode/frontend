@@ -45,7 +45,7 @@
 
     <div
       v-if="state === CheckinState.CHECKMAIL"
-      class="wrapped-container c-small c-center my-3 text-center"
+      class="wrapped-container c-small c-center my-3"
     >
       <PlaceView :data="place" />
       <EmailSent :email="email" />
