@@ -70,42 +70,62 @@
     </div>
 
     <b-navbar tag="footer" type="dark" variant="dark">
-      <b-navbar-nav>
-        <b-nav-item :to="localePath('/legal/')">
-          {{ $t('legal-notices') }}
-        </b-nav-item>
-        <b-nav-item
-          href="https://www.facebook.com/Creatiwity"
-          target="_blank"
-          class="footer-icon"
-        >
-          <img
-            src="~/assets/images/facebook.png"
-            srcset="
+      <b-navbar-nav class="navbar">
+        <b-navbar-nav class="legal-social-container">
+          <b-nav-item :to="localePath('/legal/')" class="legal">
+            {{ $t('legal-notices') }}
+          </b-nav-item>
+          <b-navbar-nav class="social">
+            <b-nav-item
+              href="https://www.facebook.com/Creatiwity"
+              target="_blank"
+              class="footer-icon"
+            >
+              <img
+                src="~/assets/images/facebook.png"
+                srcset="
               ~/assets/images/facebook.png    1x,
               ~/assets/images/facebook@2x.png 2x
               ~/assets/images/facebook@3x.png 3x
             "
-          />
-        </b-nav-item>
-        <b-nav-item
-          href="https://twitter.com/CreatiwitySAS"
-          target="_blank"
-          class="footer-icon"
-        >
-          <img
-            src="~/assets/images/twitter.png"
-            srcset="
+              />
+            </b-nav-item>
+            <b-nav-item
+              href="https://www.instagram.com"
+              target="_blank"
+              class="footer-icon"
+            >
+              <img
+                src="~/assets/images/instagram.png"
+                srcset="
+              ~/assets/images/instagram.png    1x,
+              ~/assets/images/instagram@2x.png 2x
+              ~/assets/images/instagram@3x.png 3x
+            "
+              />
+            </b-nav-item>
+            <b-nav-item
+              href="https://twitter.com/CreatiwitySAS"
+              target="_blank"
+              class="footer-icon"
+            >
+              <img
+                src="~/assets/images/twitter.png"
+                srcset="
               ~/assets/images/twitter.png    1x,
               ~/assets/images/twitter@2x.png 2x
               ~/assets/images/twitter@3x.png 3x
             "
-          />
-        </b-nav-item>
-      </b-navbar-nav>
-
-      <b-navbar-nav class="ml-auto">
-        <b-nav-text>&copy; 2020 Covid-Journal</b-nav-text>
+              />
+            </b-nav-item>
+          </b-navbar-nav>
+        </b-navbar-nav>
+        <b-navbar-nav class="legal-copyright-container">
+          <b-nav-item :to="localePath('/legal/')" class="legal-responsive">
+            {{ $t('legal-notices') }}
+          </b-nav-item>
+          <b-nav-text class="copyright">&copy; 2020 Covid-Journal</b-nav-text>
+        </b-navbar-nav>
       </b-navbar-nav>
     </b-navbar>
   </div>
@@ -171,12 +191,79 @@ export default class DefaultLayout extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
 .navbar {
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.25);
+  padding: 0.5rem;
+}
+
+.nuxt-link-active {
+  font-weight: bold;
+}
+
+.nuxt-link-active {
+  font-weight: bold;
 }
 
 footer.navbar {
   bottom: 0;
+}
+
+footer {
+  font-size: 0.875em;
+
+  .navbar {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .legal-social-container {
+    order: 1;
+  }
+
+  .legal-responsive .nav-link,
+  .copyright {
+    padding: 0 !important;
+  }
+
+  .social {
+    display: flex;
+    flex-direction: row;
+
+    .footer-icon {
+      padding-left: 3px;
+      padding-right: 3px;
+
+      .nav-link {
+        padding: 0;
+      }
+    }
+  }
+
+  .legal-copyright-container {
+    display: flex;
+    flex-direction: column !important;
+    order: 2;
+  }
+
+  @media (min-width: 576px) {
+    .legal-responsive {
+      display: none;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .legal {
+      display: none;
+    }
+
+    .legal-social-container {
+      order: 2;
+    }
+
+    .legal-copyright-container {
+      order: 1;
+    }
+  }
 }
 </style>

@@ -20,7 +20,7 @@ h1,
 
 h2,
 .title-2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
@@ -44,7 +44,6 @@ h3,
       margin: 0 auto;
       padding-right: 15px;
       padding-left: 15px;
-      text-align: center;
 
       &.c-large {
         max-width: 960px;
@@ -74,15 +73,21 @@ h3,
 // Footer positioning logic
 .main-container {
   min-height: 100%;
-  margin-bottom: -52px;
+  margin-bottom: -72px;
 
   .footer-push {
-    height: 52px;
+    height: 72px;
   }
 }
 
 footer {
-  min-height: 52px;
+  min-height: 72px;
+
+  .navbar {
+    @media (max-width: 576px) {
+      padding: 0 0.5rem !important;
+    }
+  }
 
   .footer-icon {
     a {
@@ -108,6 +113,10 @@ footer {
 
 .bg-dark {
   background-color: #3c3c3c !important;
+}
+
+ul {
+  list-style-type: none;
 }
 
 @media only screen and (max-width: 768px) {

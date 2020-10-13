@@ -3,9 +3,9 @@
     <div class="wrapped-container c-large c-center my-3">
       <DecoratedCard image="login-drawing" :title="$t(mode)">
         <b-form @submit="handleSubmit" class="form-container">
-          <h1>{{ $t(mode) }}</h1>
+          <h1 class="text-center">{{ $t(mode) }}</h1>
 
-          <div class="text-left">
+          <div>
             <b-form-group
               :label="$t('email')"
               label-for="login-email"
@@ -69,7 +69,7 @@
 
   <div
     v-else-if="state === LoginState.LOADING"
-    class="wrapped-container c-small c-center my-3"
+    class="wrapped-container c-small c-center my-3 text-center"
   >
     <Loader />
   </div>
@@ -182,16 +182,6 @@ export default class LoginFrame extends Vue {
 
   h1 {
     margin-bottom: 30px;
-  }
-
-  .form-group {
-    label {
-      text-align: left;
-    }
-
-    .text-muted {
-      text-align: left;
-    }
   }
 
   .professional-switch label {

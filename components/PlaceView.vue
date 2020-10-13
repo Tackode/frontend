@@ -1,5 +1,5 @@
 <template>
-  <Card class="place">
+  <Card class="place text-center">
     <p class="organization">{{ data.organization.name }}</p>
     <p class="name">{{ data.name }}</p>
     <NlToBr tag="p" :text="data.description" class-name="description" />

@@ -115,8 +115,10 @@ export default {
       'LayoutPlugin',
       'MediaPlugin',
       'NavbarPlugin',
+      'TooltipPlugin',
+      'AlertPlugin',
     ],
-    components: ['BIcon', 'BIconPencil', 'BIconTrash'],
+    components: ['BIcon', 'BIconPencilFill', 'BIconTrash', 'BIconInfoCircle'],
   },
   pwa: {
     meta: {

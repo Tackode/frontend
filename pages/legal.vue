@@ -45,15 +45,18 @@
       <a href="mailto:contact@creatiwity.net">contact@creatiwity.net</a>
     </p>
     <h5>ARTICLE 5 : DONNÉES PERSONNELLES</h5>
-    <P>
+
+    <p class="mb-0">
       En disposant d'un compte, l'Utilisateur permet le stockage de :
-      <ul class="text-left">
-        <li>Son email, si coché dans le profil</li>
-        <li>La liste de ses check-ins des 30 derniers jours</li>
-      </ul>
+    </p>
+    <ul>
+      <li>Son email, si coché dans le profil</li>
+      <li>La liste de ses check-ins des 30 derniers jours</li>
+    </ul>
+    <p>
       Les comptes Professionels permettent de plus le stockage de la liste de
       leurs lieux et des évènements qu'ils y ont déclaré.
-    </P>
+    </p>
 
     <h5>ARTICLE 6 : COOKIES</h5>
     <p>
@@ -97,9 +100,23 @@ export default class Legal extends Vue {}
 </script>
 
 <style lang="scss">
-.legal-notice p {
-  text-align: justify;
+.legal-notice {
+  h2,
+  h5 {
+    text-align: center;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  ul {
+    li {
+      list-style-type: disc;
+    }
+  }
 }
+
 ul {
   margin: 0;
 }

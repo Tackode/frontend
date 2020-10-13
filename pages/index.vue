@@ -32,13 +32,13 @@
       </a>
     </p>
 
-    <div class="wrapped-container c-medium mb-3">
+    <div class="wrapped-container text-center c-medium mb-3">
       <p class="d-md-none">{{ $t('summary') }}</p>
 
       <h2 class="title-1">{{ $t('how-does-it-work') }}</h2>
 
       <b-row cols="2" class="presentation-block">
-        <b-col align-self="end" class="text-left">
+        <b-col align-self="end">
           <h3>{{ $t('step-1-title') }}</h3>
           <p>{{ $t('step-1') }}</p>
           <b-button
@@ -77,7 +77,7 @@
             "
           />
         </b-col>
-        <b-col align-self="end" class="text-left">
+        <b-col align-self="end">
           <h3>{{ $t('step-2-title') }}</h3>
           <p>{{ $t('step-2') }}</p>
           <b-button variant="default" block :to="localePath('/check-in/')">
@@ -87,7 +87,7 @@
       </b-row>
 
       <b-row cols="2" class="presentation-block">
-        <b-col align-self="end" class="text-left">
+        <b-col align-self="end">
           <h3>{{ $t('step-3-title') }}</h3>
           <p>{{ $t('step-3') }}</p>
         </b-col>
