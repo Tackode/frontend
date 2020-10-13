@@ -22,11 +22,13 @@
         <h2 class="organization-name">{{ checkin.place.organization.name }}</h2>
         <p class="place-name secondary">
           {{ checkin.place.name }}
-          <b-icon
+          <span
+            v-if="!isEmpty(checkin.place.description)"
             v-b-tooltip.hover
             :title="checkin.place.description"
-            icon="info-circle"
-          ></b-icon>
+          >
+            <b-icon icon="info-circle"></b-icon>
+          </span>
         </p>
         <hr />
         <p class="mb-0">
@@ -44,12 +46,14 @@
       <div v-else-if="mode === Mode.INFECTION" class="col-md-6">
         <h2 class="organization-name">{{ infection.organization.name }}</h2>
         <p class="place-name secondary">
-          {{ getPlacesNameWithIds(infection.placesIds) }}
-          <b-icon
-            v-b-tooltip.hover
-            :title="getPlacesDescriptionWithIds(infection.placesIds)"
-            icon="info-circle"
-          ></b-icon>
+          {{ placesName }}
+          <span
+            v-if="!isEmpty(placesDescription)"
+            v-b-tooltip.hover.html
+            :title="placesDescription"
+          >
+            <b-icon icon="info-circle"></b-icon>
+          </span>
         </p>
         <hr />
         <p class="mb-0">
@@ -70,11 +74,13 @@
         <h2 class="organization-name">{{ place.organization.name }}</h2>
         <p class="place-name secondary">
           {{ place.name }}
-          <b-icon
+          <span
+            v-if="!isEmpty(place.description)"
             v-b-tooltip.hover
             :title="place.description"
-            icon="info-circle"
-          ></b-icon>
+          >
+            <b-icon icon="info-circle"></b-icon>
+          </span>
         </p>
         <hr />
         <p>
@@ -83,8 +89,9 @@
         </p>
 
         <div class="row card-bottom">
-          <div class="col-md-6">
+          <div class="col-md-6 qr-link-container">
             <nuxt-link
+              class="qr-link"
               :to="{
                 path: localePath('/organization/places/qrcode/'),
                 query: { placeId: place.id },
@@ -142,7 +149,7 @@
         "endDate": "Date de fin :",
         "duration": "Durée :",
         "deletedPlace": "Lieu supprimé",
-        "showQR": "Afficher QRCode"
+        "showQR": "Afficher le QRCode"
     }
 }
 </i18n>
@@ -192,24 +199,41 @@ export default class CardMode extends Vue {
     return this.place!
   }
 
-  getPlacesNameWithIds(ids: string[]): string {
-    return ids
+  get placesName(): string | null {
+    if (this.infection == null) {
+      return null
+    }
+
+    return this.infection.placesIds
       .map(
-        (selectedId) =>
-          this.places?.find(({ id }) => selectedId === id)?.name ??
+        (placeId) =>
+          this.places?.find(({ id }) => placeId === id)?.name ??
           this.$i18n.t('deletedPlace')
       )
       .join(', ')
   }
 
-  getPlacesDescriptionWithIds(ids: string[]): string {
-    return ids
-      .map(
-        (selectedId) =>
-          this.places?.find(({ id }) => selectedId === id)?.description ??
-          this.$i18n.t('deletedPlace')
-      )
-      .join('\n')
+  get placesDescription(): string | null {
+    if (this.infection == null) {
+      return null
+    }
+
+    const description = this.infection.placesIds.flatMap((placeId) => {
+      const place = this.places?.find(({ id }) => placeId === id)
+      if (place == null) {
+        return []
+      }
+
+      return [place.name, place.description, '']
+    })
+
+    if (description.length === 0) {
+      return null
+    }
+
+    description.pop()
+
+    return description.join('<br/>')
   }
 
   get displayOverlay(): boolean {
@@ -217,6 +241,10 @@ export default class CardMode extends Vue {
       this.mode === Mode.INFECTION ||
       (this.mode === Mode.CHECKIN && this.checkin!.potentialInfection)
     )
+  }
+
+  isEmpty(str: string | null): boolean {
+    return !str || str.length === 0
   }
 }
 </script>
@@ -235,6 +263,10 @@ export default class CardMode extends Vue {
   }
 
   .card-bottom {
+    .qr-link-container {
+      margin-bottom: 20px;
+    }
+
     a {
       font-size: 1rem;
     }
@@ -309,6 +341,10 @@ export default class CardMode extends Vue {
 
     .card-bottom {
       margin-top: 20px;
+
+      .qr-link-container {
+        margin-bottom: 0px;
+      }
 
       .place-edition-buttons {
         text-align: right;
