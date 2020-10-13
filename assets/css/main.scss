@@ -73,15 +73,21 @@ h3,
 // Footer positioning logic
 .main-container {
   min-height: 100%;
-  margin-bottom: -52px;
+  margin-bottom: -72px;
 
   .footer-push {
-    height: 52px;
+    height: 72px;
   }
 }
 
 footer {
-  min-height: 52px;
+  min-height: 72px;
+
+  .navbar {
+    @media (max-width: 576px) {
+      padding: 0 0.5rem !important;
+    }
+  }
 
   .footer-icon {
     a {
