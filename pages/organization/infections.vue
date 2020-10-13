@@ -11,7 +11,7 @@
       image="infection"
     />
 
-    <p v-else>{{ $t('noPlaceInfection') }}</p>
+    <EmptyCard v-else :empty-text="$t('noPlaceInfection')"></EmptyCard>
 
     <div class="infections-list">
       <CardMode
@@ -207,6 +207,7 @@ import { Mode } from '~/types/CardMode'
     DatePicker: () => import('~/components/DatePicker.vue'),
     TimePicker: () => import('~/components/TimePicker.vue'),
     CardMode: () => import('~/components/CardMode.vue'),
+    EmptyCard: () => import('~/components/EmptyCard.vue'),
   },
   head(this: ProfessionalInfections) {
     return {

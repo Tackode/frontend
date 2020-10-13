@@ -21,9 +21,7 @@
       />
     </div>
 
-    <p v-else>
-      {{ $t('noCheckIn') }}
-    </p>
+    <EmptyCard v-else :empty-text="$t('noCheckIn')"></EmptyCard>
   </div>
 </template>
 
@@ -69,6 +67,7 @@ import { Mode } from '~/types/CardMode'
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardMode: () => import('~/components/CardMode.vue'),
+    EmptyCard: () => import('~/components/EmptyCard.vue'),
   },
   head(this: CheckIns) {
     return {

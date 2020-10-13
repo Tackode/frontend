@@ -22,21 +22,7 @@
         />
       </div>
       <div v-else>
-        <div class="card card-content">
-          <p>{{ $t('noPlace') }}</p>
-
-          <div class="text-center">
-            <img
-              class="img-fluid"
-              src="~/assets/images/places-empty.png"
-              srcset="
-              ~/assets/images/places-empty.png    1x,
-              ~/assets/images/places-empty@2x.png 2x
-              ~/assets/images/places-empty@3x.png 3x
-            "
-            />
-          </div>
-        </div>
+        <EmptyCard :empty-text="$t('noPlace')"></EmptyCard>
       </div>
 
       <b-modal
@@ -182,6 +168,7 @@ interface PlaceFormValues {
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     CardMode: () => import('~/components/CardMode.vue'),
+    EmptyCard: () => import('~/components/EmptyCard.vue'),
   },
   head(this: ProfessionalPlaces) {
     return {
