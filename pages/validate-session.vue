@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped-container c-small c-center my-3">
-    <div v-if="state === ValidateState.LOADING">
+    <div v-if="state === ValidateState.LOADING" class="text-center">
       <Loader />
     </div>
     <Card v-else-if="state === ValidateState.FAILURE" class="text-center">

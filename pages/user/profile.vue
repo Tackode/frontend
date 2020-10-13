@@ -2,9 +2,9 @@
   <div>
     <div class="wrapped-container c-large c-center my-3">
       <DecoratedCard image="profile-drawing" title="">
-        <h1>{{ $t('myProfile') }}</h1>
+        <h1 class="text-center">{{ $t('myProfile') }}</h1>
 
-        <b-form @submit="handleSubmit" class="text-left">
+        <b-form @submit="handleSubmit">
           <b-form-group
             id="form-email"
             :label="$t('email')"

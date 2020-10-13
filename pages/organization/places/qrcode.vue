@@ -2,7 +2,7 @@
   <div>
     <div class="place-detail wrapped-container c-medium c-center my-3">
       <div class="row no-print">
-        <div class="col-6 text-left link-back">
+        <div class="col-6 link-back">
           <nuxt-link :to="localePath('/organization/places/')">
             <img
               src="~/assets/images/back.png"

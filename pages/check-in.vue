@@ -2,14 +2,14 @@
   <div>
     <div
       v-if="state === CheckinState.LOADING"
-      class="wrapped-container c-small c-center my-3"
+      class="wrapped-container c-small c-center my-3 text-center"
     >
       <Loader />
     </div>
 
     <div
       v-if="state === CheckinState.SCANNING"
-      class="wrapped-container c-large c-center my-3"
+      class="wrapped-container c-large c-center my-3 text-center"
     >
       <h2>{{ $t('scan') }}</h2>
       <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
@@ -17,10 +17,10 @@
 
     <div
       v-if="state === CheckinState.LOADED"
-      class="wrapped-container c-small c-center my-3"
+      class="wrapped-container c-small c-center my-3 text-center"
     >
       <PlaceView :data="place" />
-      <Card class="my-3 text-left">
+      <Card class="my-3">
         <b-form @submit="handleSubmit">
           <b-form-group
             :label="$t('email')"
@@ -45,7 +45,7 @@
 
     <div
       v-if="state === CheckinState.CHECKMAIL"
-      class="wrapped-container c-small c-center my-3"
+      class="wrapped-container c-small c-center my-3 text-center"
     >
       <PlaceView :data="place" />
       <EmailSent :email="email" />
@@ -53,7 +53,7 @@
 
     <div
       v-if="state === CheckinState.FINISH"
-      class="wrapped-container c-small c-center my-3"
+      class="wrapped-container c-small c-center my-3 text-center"
     >
       <PlaceView :data="place" />
       <Card>
@@ -75,9 +75,9 @@
 
     <div
       v-else-if="state === CheckinState.ERROR"
-      class="wrapped-container c-small c-center my-3"
+      class="wrapped-container c-small c-center my-3 text-center"
     >
-      <Card>
+      <Card class="text-center">
         <p class="title-1">{{ $t('scanImpossible') }}</p>
 
         <p>

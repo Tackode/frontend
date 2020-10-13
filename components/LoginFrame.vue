@@ -69,7 +69,7 @@
 
   <div
     v-else-if="state === LoginState.LOADING"
-    class="wrapped-container c-small c-center my-3"
+    class="wrapped-container c-small c-center my-3 text-center"
   >
     <Loader />
   </div>
