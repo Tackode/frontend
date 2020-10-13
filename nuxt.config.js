@@ -116,6 +116,7 @@ export default {
       'MediaPlugin',
       'NavbarPlugin',
       'TooltipPlugin',
+      'AlertPlugin',
     ],
     components: ['BIcon', 'BIconPencilFill', 'BIconTrash', 'BIconInfoCircle'],
   },
