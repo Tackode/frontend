@@ -46,7 +46,7 @@ export default class Card extends Vue {
 
 <style lang="scss" scoped>
 .card {
-  height: 75vh;
+  min-height: 75vh;
   border-radius: 8px;
   box-shadow: 0 2px 15px 0 rgba($color: #000000, $alpha: 0.25);
   display: flex;
@@ -58,6 +58,7 @@ export default class Card extends Vue {
   background-position: bottom;
 
   @media (min-width: 768px) {
+    min-height: 0;
     height: 567px;
     background: $light;
     background-image: none !important;
