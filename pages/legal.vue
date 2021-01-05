@@ -6,22 +6,22 @@
       Conformément aux dispositions des Articles 6-III et 19 de la Loi
       n°2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique,
       dite L.C.E.N., il est porté à la connaissance des Utilisateurs du site
-      covid-journal.org les présentes mentions légales. La connexion et la
-      navigation sur le site covid-journal.org par l’Utilisateur implique
-      acceptation intégrale et sans réserve des présentes mentions légales. Ces
-      dernières sont accessibles sur le site à la rubrique « Mentions légales ».
+      tackode.com les présentes mentions légales. La connexion et la navigation
+      sur le site tackode.com par l’Utilisateur implique acceptation intégrale
+      et sans réserve des présentes mentions légales. Ces dernières sont
+      accessibles sur le site à la rubrique « Mentions légales ».
     </p>
 
     <h5>ARTICLE 1 : L’ÉDITEUR</h5>
     <p>
-      L'édition du site Covid-Journal est assurée par la Société Creatiwity dont
-      le siège social est situé au 1 rue de Savoie, Paris 75006.
+      L'édition du site Tackode est assurée par la Société Creatiwity dont le
+      siège social est situé au 1 rue de Savoie, Paris 75006.
     </p>
 
     <h5>ARTICLE 2 : L’HÉBERGEUR</h5>
     <p>
-      L'hébergeur du site Covid-Journal est la Société OVH, dont le siège social
-      est situé au 2 rue Kellermann - 59100 Roubaix - France.
+      L'hébergeur du site Tackode est la Société OVH, dont le siège social est
+      situé au 2 rue Kellermann - 59100 Roubaix - France.
     </p>
 
     <h5>ARTICLE 3 : ACCÈS AU SITE</h5>
@@ -29,8 +29,7 @@
       Le site est accessible par tout endroit, 7j/7, 24h/24 sauf cas de force
       majeure, interruption programmée ou non et pouvant découlant d’une
       nécessité de maintenance. En cas de modification, interruption ou
-      suspension des services le site Covid-Journal ne saurait être tenu
-      responsable.
+      suspension des services le site Tackode ne saurait être tenu responsable.
     </p>
 
     <h5>ARTICLE 4 : COLLECTE DES DONNÉES</h5>

@@ -52,7 +52,7 @@
             <img
               alt="Covid Journal"
               class="img-fluid logo"
-              src="~/assets/images/logo-covid-journal-print.png"
+              src="~/assets/images/logo-tackode-print.png"
               width="400"
               height="68"
             />

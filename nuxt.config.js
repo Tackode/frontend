@@ -23,7 +23,7 @@ export default {
     apiUrl: process.env.API_URL,
   },
   head: {
-    titleTemplate: '%s - Covid-Journal',
+    titleTemplate: '%s - Tackode',
   },
   /*
    ** Customize the progress-bar color
@@ -122,7 +122,7 @@ export default {
   },
   pwa: {
     meta: {
-      name: 'Covid-Journal',
+      name: 'Tackode',
       description:
         "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
       theme_color: '#ff5a5f',
@@ -130,8 +130,8 @@ export default {
       ogHost: process.env.FRONT_URL,
     },
     manifest: {
-      name: 'Covid-Journal',
-      short_name: 'CovidJournal',
+      name: 'Tackode',
+      short_name: 'Tackode',
       description:
         "Enregistrez votre passage et soyez notifié d'un contact potentiel avec une personne infectée.",
       background_color: '#f4f4f4',

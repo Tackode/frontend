@@ -1,15 +1,15 @@
 <template>
   <div class="content">
     <div class="title">
-      <h1 class="sr-only">Covid-Journal</h1>
+      <h1 class="sr-only">Tackode</h1>
       <img
-        alt="Covid-Journal"
+        alt="Tackode"
         class="img-fluid logo"
-        src="~/assets/images/logo-covid-journal-big.png"
+        src="~/assets/images/logo-tackode-big.png"
         srcset="
-          ~/assets/images/logo-covid-journal-big.png    1x,
-          ~/assets/images/logo-covid-journal-big@2x.png 2x,
-          ~/assets/images/logo-covid-journal-big@3x.png 3x
+          ~/assets/images/logo-tackode-big.png    1x,
+          ~/assets/images/logo-tackode-big@2x.png 2x,
+          ~/assets/images/logo-tackode-big@3x.png 3x
         "
       />
       <p class="d-none d-md-block">{{ $t('summary') }}</p>
@@ -137,7 +137,7 @@
     "logout": "Log Out",
     "checkin" : "Check in a place",
     "scan": "Scan the QR Code of the place where you are",
-    "proLogin": "You welcome the public and you want to offer Covid-Journal to your visitors",
+    "proLogin": "You welcome the public and you want to offer Tackode to your visitors",
     "userLogin": "You want to know if you have crossed an infected person",
     "places": "Manage your places and your profile",
     "titlePage": "Be notified when an infection is reported"
@@ -164,7 +164,7 @@
     "logout": "Se déconnecter",
     "checkin" : "Enregistrer son passage",
     "scan": "Scannez le QR Code du lieu dans lequel vous vous trouvez.",
-    "proLogin": "Vous accueillez du public et vous souhaitez proposer Covid-Journal à vos visiteurs.",
+    "proLogin": "Vous accueillez du public et vous souhaitez proposer Tackode à vos visiteurs.",
     "userLogin": "Vous souhaitez savoir si vous avez croisé une personne infectée.",
     "places": "Gérez vos lieux de passages et votre profil.",
     "titlePage": "Soyez informé d'un contact avec une personne contaminée"
