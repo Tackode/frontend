@@ -10,7 +10,7 @@
             ~/assets/images/logo-tackode@2x.png 2x
             ~/assets/images/logo-tackode@3x.png 3x
           "
-            width="230"
+            width="120"
             class="d-inline-block align-top"
           />
         </b-navbar-brand>

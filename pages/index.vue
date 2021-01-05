@@ -227,7 +227,7 @@ export default class Home extends Vue {
   }
 
   .logo {
-    max-width: 500px;
+    max-width: 350px;
     width: 80vw;
     margin-bottom: 0.5rem;
   }
