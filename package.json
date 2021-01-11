@@ -35,7 +35,7 @@
     "nuxt-i18n": "^6.16.0",
     "nuxt-property-decorator": "^2.8.8",
     "nuxt-start": "^2.14.12",
-    "v-calendar": "^2.1.6",
+    "v-calendar": "^2.2.0",
     "vue-qrcode-reader": "^2.3.16",
     "vue2-timepicker": "^1.1.5"
   },
