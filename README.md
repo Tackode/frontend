@@ -1,6 +1,6 @@
-# CovidJournal ![CI](https://github.com/CovidJournal/frontend/workflows/Yarn/badge.svg)
+# Tackode ![CI](https://github.com/Tackode/frontend/workflows/Yarn/badge.svg)
 
-> CovidJournal frontend
+> Tackode frontend
 
 ## Build Setup
 

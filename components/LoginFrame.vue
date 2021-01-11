@@ -88,7 +88,7 @@
     "enterOrganizationName": "Enter your organization name",
     "networkError": "A network error has occurred. Please, try again.",
     "welcome": "Welcome !",
-    "appDescription": "Covid-Journal allows you to be kept informed whether you met someone infected",
+    "appDescription": "Tackode allows you to be kept informed whether you met someone infected",
     "representOrganization": "You represent a company"
   },
   "fr": {
@@ -102,7 +102,7 @@
     "enterOrganizationName": "Nom de votre entreprise",
     "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
     "welcome": "Bienvenue !",
-    "appDescription": "L’application Covid-Journal vous permet d’être tenu informé si vous avez croisé une personne infectée",
+    "appDescription": "L’application Tackode vous permet d’être tenu informé si vous avez croisé une personne infectée",
     "representOrganization": "Vous représentez une société"
   }
 }

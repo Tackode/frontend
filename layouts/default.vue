@@ -4,13 +4,13 @@
       <b-navbar :sticky="true" toggleable="lg" type="light" variant="light">
         <b-navbar-brand :to="localePath('/')">
           <img
-            src="~/assets/images/logo-covid-journal.png"
+            src="~/assets/images/logo-tackode.png"
             srcset="
-            ~/assets/images/logo-covid-journal.png    1x,
-            ~/assets/images/logo-covid-journal@2x.png 2x
-            ~/assets/images/logo-covid-journal@3x.png 3x
+            ~/assets/images/logo-tackode.png    1x,
+            ~/assets/images/logo-tackode@2x.png 2x
+            ~/assets/images/logo-tackode@3x.png 3x
           "
-            width="230"
+            width="120"
             class="d-inline-block align-top"
           />
         </b-navbar-brand>
@@ -124,7 +124,7 @@
           <b-nav-item :to="localePath('/legal/')" class="legal-responsive">
             {{ $t('legal-notices') }}
           </b-nav-item>
-          <b-nav-text class="copyright">&copy; 2020 Covid-Journal</b-nav-text>
+          <b-nav-text class="copyright">&copy; 2021 Tackode</b-nav-text>
         </b-navbar-nav>
       </b-navbar-nav>
     </b-navbar>
