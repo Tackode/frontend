@@ -63,7 +63,7 @@
           </b-form-group>
         </b-form>
 
-        <template v-slot:modal-footer="{ cancel }">
+        <template #modal-footer="{ cancel }">
           <div class="w-100">
             <div class="float-left">
               <b-button variant="secondary" @click="cancel()">

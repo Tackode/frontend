@@ -8,6 +8,7 @@ console.log('API_URL:', process.env.API_URL)
 export default {
   target: 'server',
   dev: process.env.NODE_ENV !== 'production',
+  modern: true,
   /*
    ** Headers of the page
    */
