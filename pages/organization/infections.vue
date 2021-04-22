@@ -108,7 +108,7 @@
         </b-card>
       </b-form>
 
-      <template v-slot:modal-footer>
+      <template #modal-footer>
         <div class="w-100">
           <div class="float-left">
             <b-button variant="secondary" @click="resetModal">

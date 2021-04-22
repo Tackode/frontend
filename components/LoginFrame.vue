@@ -50,7 +50,7 @@
           </b-button>
         </b-form>
 
-        <template v-slot:decoration>
+        <template #decoration>
           <p class="title-1">{{ $t('welcome') }}</p>
           <p class="description">
             {{ $t('appDescription') }}

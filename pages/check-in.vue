@@ -12,7 +12,7 @@
       class="wrapped-container c-large c-center my-3 text-center"
     >
       <h2>{{ $t('scan') }}</h2>
-      <qrcode-stream @decode="onDecode" @init="onInit" :worker="QRWorker" />
+      <qrcode-stream @decode="onDecode" @init="onInit" />
     </div>
 
     <div
@@ -151,7 +151,6 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { Place } from '../types/Place'
 import { showError } from '../helpers/alerts'
-import QRWorker from '../helpers/jsqr'
 import { Session } from '~/types/Session'
 
 enum CheckinState {
@@ -185,7 +184,6 @@ export default class CheckIn extends Vue {
 
   // Bind enum for Vue
   CheckinState = CheckinState
-  QRWorker = QRWorker
 
   async mounted() {
     this.email = this.$store.getters['session/email']

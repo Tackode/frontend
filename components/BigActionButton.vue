@@ -2,7 +2,7 @@
   <b-card class="hoverable-card">
     <ul class="no-padding text-center">
       <b-media tag="li" vertical-align="center">
-        <template v-if="image" v-slot:aside>
+        <template v-if="image" #aside>
           <b-img
             :src="require(`@/assets/images/${image}.png`)"
             :srcset="`${require(`@/assets/images/${image}.png`)}    1x,
