@@ -3,9 +3,9 @@
     <div class="wrapped-container c-large c-center my-3">
       <DecoratedCard image="login-drawing" :title="$t(mode)">
         <b-form @submit="handleSubmit" class="form-container">
-          <h1>{{ $t(mode) }}</h1>
+          <h1 class="text-center">{{ $t(mode) }}</h1>
 
-          <div class="text-left">
+          <div>
             <b-form-group
               :label="$t('email')"
               label-for="login-email"
@@ -50,7 +50,7 @@
           </b-button>
         </b-form>
 
-        <template v-slot:decoration>
+        <template #decoration>
           <p class="title-1">{{ $t('welcome') }}</p>
           <p class="description">
             {{ $t('appDescription') }}
@@ -69,7 +69,7 @@
 
   <div
     v-else-if="state === LoginState.LOADING"
-    class="wrapped-container c-small c-center my-3"
+    class="wrapped-container c-small c-center my-3 text-center"
   >
     <Loader />
   </div>
@@ -88,7 +88,7 @@
     "enterOrganizationName": "Enter your organization name",
     "networkError": "A network error has occurred. Please, try again.",
     "welcome": "Welcome !",
-    "appDescription": "Covid-Journal allows you to be kept informed whether you met someone infected",
+    "appDescription": "Tackode allows you to be kept informed whether you met someone infected",
     "representOrganization": "You represent a company"
   },
   "fr": {
@@ -102,7 +102,7 @@
     "enterOrganizationName": "Nom de votre entreprise",
     "networkError": "Une erreur réseau est survenue. S'il vous plait, veuillez réessayer.",
     "welcome": "Bienvenue !",
-    "appDescription": "L’application Covid-Journal vous permet d’être tenu informé si vous avez croisé une personne infectée",
+    "appDescription": "L’application Tackode vous permet d’être tenu informé si vous avez croisé une personne infectée",
     "representOrganization": "Vous représentez une société"
   }
 }
@@ -182,16 +182,6 @@ export default class LoginFrame extends Vue {
 
   h1 {
     margin-bottom: 30px;
-  }
-
-  .form-group {
-    label {
-      text-align: left;
-    }
-
-    .text-muted {
-      text-align: left;
-    }
   }
 
   .professional-switch label {

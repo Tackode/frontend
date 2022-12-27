@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrapped-container c-medium my-3">
-      <h2>{{ $t('place') }}</h2>
+      <h2 class="text-center">{{ $t('place') }}</h2>
 
       <BigActionButton
         v-b-modal.place-creation-modal
@@ -12,8 +12,9 @@
       />
 
       <div v-if="places.length > 0" class="places-list">
-        <CardPlace
+        <CardMode
           v-for="place in places"
+          :mode="Mode.PLACE"
           :key="place.id"
           :place="place"
           @onEdit="onEditPlace"
@@ -21,21 +22,7 @@
         />
       </div>
       <div v-else>
-        <div class="card card-content">
-          <p>{{ $t('noPlace') }}</p>
-
-          <div class="text-center">
-            <img
-              class="img-fluid"
-              src="~/assets/images/places-empty.png"
-              srcset="
-              ~/assets/images/places-empty.png    1x,
-              ~/assets/images/places-empty@2x.png 2x
-              ~/assets/images/places-empty@3x.png 3x
-            "
-            />
-          </div>
-        </div>
+        <EmptyCard :empty-text="$t('noPlace')"></EmptyCard>
       </div>
 
       <b-modal
@@ -76,7 +63,7 @@
           </b-form-group>
         </b-form>
 
-        <template v-slot:modal-footer="{ cancel }">
+        <template #modal-footer="{ cancel }">
           <div class="w-100">
             <div class="float-left">
               <b-button variant="secondary" @click="cancel()">
@@ -168,6 +155,7 @@ import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../../helpers/alerts'
 import { Place } from '../../../types/Place'
+import { Mode } from '~/types/CardMode'
 
 interface PlaceFormValues {
   name: string
@@ -179,7 +167,8 @@ interface PlaceFormValues {
   middleware: ['auth-professional'],
   components: {
     BigActionButton: () => import('~/components/BigActionButton.vue'),
-    CardPlace: () => import('~/components/CardPlace.vue'),
+    CardMode: () => import('~/components/CardMode.vue'),
+    EmptyCard: () => import('~/components/EmptyCard.vue'),
   },
   head(this: ProfessionalPlaces) {
     return {
@@ -201,6 +190,8 @@ export default class ProfessionalPlaces extends Vue {
     description: null,
     averageDuration: 30,
   }
+
+  Mode = Mode
 
   async loadData() {
     try {

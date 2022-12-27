@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped-container c-center c-medium my-3">
-    <h2>{{ $t('infection') }}</h2>
+    <h2 class="text-center">{{ $t('infection') }}</h2>
 
     <BigActionButton
       v-if="places.length > 0"
@@ -11,11 +11,12 @@
       image="infection"
     />
 
-    <p v-else>{{ $t('noPlaceInfection') }}</p>
+    <EmptyCard v-else :empty-text="$t('noPlaceInfection')"></EmptyCard>
 
     <div class="infections-list">
-      <CardInfection
+      <CardMode
         v-for="infection in infections"
+        :mode="Mode.INFECTION"
         :key="infection.id"
         :infection="infection"
         :places="places"
@@ -107,7 +108,7 @@
         </b-card>
       </b-form>
 
-      <template v-slot:modal-footer>
+      <template #modal-footer>
         <div class="w-100">
           <div class="float-left">
             <b-button variant="secondary" @click="resetModal">
@@ -197,6 +198,7 @@ import { Component } from 'nuxt-property-decorator'
 import { showError } from '../../helpers/alerts'
 import { Place } from '../../types/Place'
 import { Infection, InfectionCreation } from '../../types/Infection'
+import { Mode } from '~/types/CardMode'
 
 @Component({
   middleware: ['auth-professional'],
@@ -204,7 +206,8 @@ import { Infection, InfectionCreation } from '../../types/Infection'
     BigActionButton: () => import('~/components/BigActionButton.vue'),
     DatePicker: () => import('~/components/DatePicker.vue'),
     TimePicker: () => import('~/components/TimePicker.vue'),
-    CardInfection: () => import('~/components/CardInfection.vue'),
+    CardMode: () => import('~/components/CardMode.vue'),
+    EmptyCard: () => import('~/components/EmptyCard.vue'),
   },
   head(this: ProfessionalInfections) {
     return {
@@ -230,6 +233,8 @@ export default class ProfessionalInfections extends Vue {
     endTime: '',
     endTimestamp: '',
   }
+
+  Mode = Mode
 
   resetModal() {
     this.$bvModal.hide('infection-creation-modal')

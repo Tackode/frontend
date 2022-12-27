@@ -1,8 +1,8 @@
+@use './fonts';
+
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';
 @import 'vue2-timepicker/dist/VueTimepicker.css';
-
-@use './fonts';
 
 html,
 body,
@@ -20,7 +20,7 @@ h1,
 
 h2,
 .title-2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
@@ -37,6 +37,21 @@ h3,
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
+.page-enter-active,
+.page-leave-active {
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.page-leave-active {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+.page-enter {
+  transform: translateX(80px);
+  opacity: 0;
+}
+
 .wrapper {
   .main-container {
     .wrapped-container {
@@ -44,7 +59,6 @@ h3,
       margin: 0 auto;
       padding-right: 15px;
       padding-left: 15px;
-      text-align: center;
 
       &.c-large {
         max-width: 960px;
@@ -74,15 +88,21 @@ h3,
 // Footer positioning logic
 .main-container {
   min-height: 100%;
-  margin-bottom: -52px;
+  margin-bottom: -72px;
 
   .footer-push {
-    height: 52px;
+    height: 72px;
   }
 }
 
 footer {
-  min-height: 52px;
+  min-height: 72px;
+
+  .navbar {
+    @media (max-width: 576px) {
+      padding: 0 0.5rem !important;
+    }
+  }
 
   .footer-icon {
     a {
@@ -108,6 +128,10 @@ footer {
 
 .bg-dark {
   background-color: #3c3c3c !important;
+}
+
+ul {
+  list-style-type: none;
 }
 
 @media only screen and (max-width: 768px) {
